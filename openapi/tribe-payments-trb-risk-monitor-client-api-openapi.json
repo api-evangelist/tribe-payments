@@ -1,0 +1,929 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "0.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/v1/events/{eventId}/data": {
+      "post": {
+        "operationId": "subresource_postEventDataCollection",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponseDto"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported media type",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnsupportedMediaTypeErrorResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntityErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Creates event data",
+        "description": "Creates data records for the chosen events. For this, the unique identifier of the specific event must be passed as a path parameter with the POST request. Newly created entries can be reviewed in the admin portal. ",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "ID assigned to the specific event, as indicated in the admin portal.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "integer"
+            },
+            "style": "simple",
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identifier": {
+                    "type": "string",
+                    "description": "Unique event data identifier.",
+                    "maxLength": 100
+                  },
+                  "actionGroupCode": {
+                    "type": "string",
+                    "description": "Code of the action group that should be triggered by the event data. If the action group code is not provided, all actions configured for the specific event are triggered. ",
+                    "nullable": true,
+                    "maxLength": 100
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Object containing data parameters available for the specific event. The exact names (as configured in the admin portal) of data fields must be passed as keys. "
+                  },
+                  "parentIdentifier": {
+                    "type": "string",
+                    "description": "Parent event data identifier.",
+                    "nullable": true,
+                    "maxLength": 100
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "description": "Date when the event data was created. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`",
+                    "format": "date-time",
+                    "nullable": true
+                  },
+                  "skipProcessing": {
+                    "type": "boolean",
+                    "description": "If set to true, action or integration processing is skipped, and only data is saved to the database with the status COMPLETED.",
+                    "default": false,
+                    "nullable": false,
+                    "required": false
+                  }
+                }
+              },
+              "example": {
+                "identifier": "1as5d4as5das51",
+                "data": {
+                  "username": "test",
+                  "amount": 50
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/v1/events/{eventId}/data/{identifier}": {
+      "get": {
+        "operationId": "data_get_for_clientEventItem",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event data resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event.EventDataResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retrieves event data",
+        "description": "Retrieves the chosen event data records for checking if the processor received the request and processed it successfully. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the GET request. The existing data entries recorded for the specific event are returned as a response. ",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "ID assigned to the specific event, as indicated in the admin portal.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "integer"
+            },
+            "style": "simple",
+            "example": 1
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "description": "Identifier assigned to the event data during the initial event data creation.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "example": "15s4dsc3s"
+          }
+        ],
+        "deprecated": false
+      },
+      "patch": {
+        "operationId": "subresource_patchEventDataItem",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponseDto"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported media type",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnsupportedMediaTypeErrorResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntityErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Updates event data",
+        "description": "Updates existing data records for the chosen events. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the PATCH request. Updated entries can be reviewed in the admin portal under History. ",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "ID assigned to the specific event, as indicated in the admin portal.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "integer"
+            },
+            "style": "simple",
+            "example": 1
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "description": "Identifier assigned to the event data during the initial event data creation.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "example": "12asd1asd451"
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "description": "Object containing specific event data parameters whose values need to be updated. The exact names (as configured in the admin portal) of available data fields must be passed as keys."
+                  }
+                }
+              },
+              "example": {
+                "data": {
+                  "username": "test",
+                  "amount": 50
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/v1/events/{eventId}/data/{identifier}/trigger-user-actions/{actionId}": {
+      "post": {
+        "operationId": "subresource_postTrigerUserActionsForEventDataItem",
+        "tags": [
+          "User Actions Trigger"
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundErrorResponseDto"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictErrorResponseDto"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported media type",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnsupportedMediaTypeErrorResponseDto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnprocessableEntityErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Triggers action for the event data",
+        "description": "Triggers action for the event data",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "ID assigned to the specific event, as indicated in the admin portal.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "integer"
+            },
+            "style": "simple",
+            "example": 1
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "description": "Identifier assigned to the event data during the initial event data creation.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "example": "15s4dsc3s"
+          },
+          {
+            "name": "actionId",
+            "in": "path",
+            "description": "ID assigned to the specific action, as indicated in the admin portal.",
+            "required": true,
+            "deprecated": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "example": "10"
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "object",
+                    "description": "Object containing data parameters available for the specific event. The exact names (as configured in the admin portal) of data fields must be passed as keys. "
+                  }
+                }
+              },
+              "example": {
+                "data": {
+                  "username": "test",
+                  "amount": 50
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/v1/health-check": {
+      "post": {
+        "operationId": "postHealthCheckCollection",
+        "tags": [
+          "Health Check"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "text/plain": {
+                "example": "ok"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestErrorResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorResponseDto"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported media type",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnsupportedMediaTypeErrorResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Performs system health check",
+        "description": "Checks the status of the system and network connection as well as validates the received credentials.",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "anyKey": "anyValue"
+              }
+            }
+          },
+          "required": false
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "Event.EventDataResponseDto": {
+        "type": "object",
+        "description": "",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Event data record ID.",
+            "nullable": false
+          },
+          "eventId": {
+            "type": "integer",
+            "description": "ID assigned to the specific event, as indicated in the admin portal.",
+            "nullable": false
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Identifier assigned to the event data during the initial event data creation.",
+            "nullable": false
+          },
+          "state": {
+            "type": "string",
+            "description": "Event data state.",
+            "enum": ["PROCESSING", "MANUAL_PROCESSING", "MANUAL_REPROCESSING", "RETRIGGER", "INTEGRATION_RETRIGGER", "COMPLETED"],
+            "nullable": false
+          },
+          "data": {
+            "type": "object",
+            "description": "Object containing data parameters available for the specific event.",
+            "nullable": false,
+            "items": {
+              "type": "string"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Date when the event data was created. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`",
+            "format": "date-time",
+            "nullable": false
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Date when the event data was last updated. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eventTags": {
+            "type": "array",
+            "description": "Array of tags assigned to the event data after the action was hit.",
+            "nullable": false,
+            "items": {
+              "$ref": "#/components/schemas/EventDataTagDto"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "description": "Array of actions that were hit.",
+            "nullable": false,
+            "items": {
+              "$ref": "#/components/schemas/EventDataActionDto"
+            }
+          },
+          "actionGroupCode": {
+            "type": "string",
+            "description": "Code of the action group that was triggered by the event data.",
+            "nullable": true
+          },
+          "parentIdentifier": {
+            "type": "string",
+            "description": "Parent event data identifier.",
+            "nullable": true
+          }
+        }
+      },
+      "EventDataTagDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Event data tag ID.",
+            "nullable": false
+          },
+          "name": {
+            "type": "string",
+            "description": "Event data tag name.",
+            "nullable": false
+          }
+        }
+      },
+      "EventDataActionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Action ID.",
+            "nullable": false
+          },
+          "code": {
+            "type": "string",
+            "description": "Action code.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Action name.",
+            "nullable": false
+          }
+        }
+      },
+      "BadRequestErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "Syntax error"
+          }
+        },
+        "required": ["type", "title", "detail"]
+      },
+      "UnauthorizedErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "Full authentication is required to access this resource."
+          }
+        },
+        "required": ["type", "title", "detail"]
+      },
+      "NotFoundErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "event"
+          }
+        },
+        "required": ["type", "title", "detail"]
+      },
+      "ConflictErrorResponseDto": {
+        "type": "object",
+        "properties": {
+           "type": {
+             "type": "string",
+                    "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+                    "nullable": false,
+                    "example": "https://tools.ietf.org/html/rfc2616#section-10"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Short human-readable summary of the problem type.",
+                    "nullable": false,
+                    "example": "An error occurred"
+                },
+                "detail": {
+                    "type": "string",
+                    "description": "Human-readable explanation of the specific problem that occurred.",
+                    "nullable": false,
+                    "example": "event"
+                }
+            },
+            "required": ["type", "title", "detail"]
+        },
+        "UnsupportedMediaTypeErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "The content-type \"text/plain\" is not supported. Supported MIME types are \"application/json\"."
+          }
+        },
+        "required": ["type", "title", "detail"]
+      },
+      "InternalServerErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "Internal Server Error"
+          }
+        },
+        "required": ["type", "title", "detail"]
+      },
+      "UnprocessableEntityErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.",
+            "nullable": false,
+            "example": "https://tools.ietf.org/html/rfc2616#section-10"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short human-readable summary of the problem type.",
+            "nullable": false,
+            "example": "An error occurred"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Human-readable explanation of the specific problem that occurred.",
+            "nullable": false,
+            "example": "[id]: This value should be of type int."
+          },
+          "violations": {
+            "type": "array",
+            "description": "Array of violation objects.",
+            "nullable": false,
+            "items": {
+              "$ref": "#/components/schemas/ViolationDto"
+            }
+          }
+        },
+        "required": ["type", "title", "detail", "violations"]
+      },
+      "ViolationDto": {
+        "type": "object",
+        "properties": {
+          "propertyPath": {
+            "type": "string",
+            "description": "Invalid identifier.",
+            "nullable": true,
+            "example": "[id]"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message.",
+            "nullable": false,
+            "example": "This value should be of type int."
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code.",
+            "nullable": true,
+            "example": "ba785a8c-82cb-4283-967c-3cf342181b40"
+          }
+        },
+        "required": ["propertyPath", "message", "code"]
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {},
+    "requestBodies": {},
+    "headers": {},
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Value for the bearer header parameter.",
+        "name": "bearer",
+        "in": "header"
+      },
+      "Token": {
+        "type": "apiKey",
+        "description": "Value for the X-AUTH-TOKEN header parameter.",
+        "name": "X-AUTH-TOKEN",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    },
+    {
+      "Token": []
+    }
+  ],
+  "tags": []
+}

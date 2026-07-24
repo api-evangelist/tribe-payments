@@ -1,0 +1,346 @@
+aid: tribe-payments
+name: Tribe Payments
+url: https://raw.githubusercontent.com/api-evangelist/tribe-payments/refs/heads/main/apis.yml
+description: Tribe Payments is a London, United Kingdom-based payments technology company and issuer/acquirer
+  processor that gives banks, acquirers, and fintechs a modular, API-driven platform to launch card and
+  payment products without building core processing in-house. Built around its ISAAC processing engine,
+  Tribe spans card issuing (issuer processing), merchant acquiring and a payment gateway, POS/SoftPOS
+  terminal management, tokenization, fraud and risk monitoring, 3D Secure, digital wallets, Open Banking
+  (PSD2 account-to-account payment initiation and account information), and Bank Connect / Banking-as-a-Service.
+  Tribe positions itself as developer-led, publishing an extensive public API reference at doc.tribepayments.com;
+  sandbox access is granted on request rather than through fully open self-service signup. Its home market
+  is the United Kingdom, where PSD2/Open Banking and the Faster Payments and Bacs rails operated by Pay.UK
+  anchor a dense cluster of API-native payment providers.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- United Kingdom
+- Issuer Processor
+- Card Issuing
+- Acquiring
+- Payment Gateway
+- Payment Processing
+- Open Banking
+- Account-to-Account
+- Banking-as-a-Service
+- Fraud
+- Point of Sale
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+kind: company
+apis:
+- aid: tribe-payments:gateway-credit-card-api
+  name: Payment Gateway - Credit Card API
+  description: Tribe Payments Gateway Credit Card API (v3) for merchants processing credit and debit card
+    e-commerce (ECOM) transactions - sale, authorization, capture, refund, and void - organized around
+    REST with JSON. Card-transaction and callback specifications harvested verbatim from the Tribe developer
+    portal.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Payments
+  - Payment Gateway
+  - Card Payments
+  - E-commerce
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+- aid: tribe-payments:gateway-hosted-payments-api
+  name: Payment Gateway - Hosted Payments API (HPP)
+  description: Tribe Payments Gateway Hosted Payments Page API (v3) that lets merchants collect card payments
+    through a Tribe-hosted checkout, offloading PCI scope, plus a webhook interface for asynchronous transaction
+    status notifications. Specification harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  tags:
+  - Payments
+  - Payment Gateway
+  - Hosted Payment Page
+  - E-commerce
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
+- aid: tribe-payments:gateway-credit-card-token-api
+  name: Payment Gateway - Credit Card Token API
+  description: Tribe Payments Gateway Credit Card Token API (v3) for tokenizing card credentials so merchants
+    can store and reuse cards for recurring and card-on-file payments without holding raw PAN data, with
+    an accompanying token webhook interface. Harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  tags:
+  - Payments
+  - Payment Gateway
+  - Tokenization
+  - Card on File
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
+- aid: tribe-payments:gateway-reports-api
+  name: Payment Gateway - Reports API
+  description: Tribe Payments Gateway Reports API (v3) providing merchants programmatic access to transaction
+    reporting and reconciliation data over REST, with a report callback interface for delivering generated
+    reports asynchronously. Harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  tags:
+  - Payments
+  - Payment Gateway
+  - Reporting
+  - Reconciliation
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+- aid: tribe-payments:pos-device-directory-api
+  name: Point of Sale - Device Directory API
+  description: Tribe Payments Point of Sale Device Directory API (v3) for registering, managing, and querying
+    the estate of physical and SoftPOS payment terminals (devices) connected to Tribe's acquiring platform.
+    Harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  tags:
+  - Payments
+  - Point of Sale
+  - Terminals
+  - Device Management
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json
+- aid: tribe-payments:risk-monitor-client-api
+  name: Risk Monitor - Client API
+  description: Tribe Payments Risk Monitor Client API (v1.1) for real-time fraud and transaction-risk
+    monitoring, letting clients submit and query risk decisions, with a webhooks interface for risk event
+    notifications. Harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/
+  tags:
+  - Payments
+  - Fraud
+  - Risk Management
+  - Transaction Monitoring
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json
+- aid: tribe-payments:open-banking-bank-api
+  name: Open Banking - Bank API
+  description: Tribe Payments Open Banking Bank API (v2) - the bank/ASPSP-facing side of Tribe's Open
+    Banking product, exposing account information and payment-initiation capabilities to permissioned
+    third-party providers under PSD2, with a Bank Webhooks API for event notifications. Harvested verbatim
+    from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/
+  tags:
+  - Payments
+  - Open Banking
+  - Account-to-Account
+  - PSD2
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+  - type: OpenAPI
+    url: openapi/tribe-payments-obb-bank-api-openapi.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-obb-bank-api-webhooks-openapi.json
+- aid: tribe-payments:open-banking-tpp-api
+  name: Open Banking - Third-Party Providers API (TPP)
+  description: Tribe Payments Open Banking Third-Party Providers (TPP) API (v2) - the TPP-facing side
+    of Tribe's Open Banking product for initiating account-to-account payments (PIS) and retrieving account
+    information (AIS) from connected banks, authenticated with a bearer token plus X-Client-ID, with a
+    Payment Webhooks interface. Harvested verbatim from the Tribe developer portal.
+  humanURL: https://doc.tribepayments.com/
+  tags:
+  - Payments
+  - Open Banking
+  - Account-to-Account
+  - Payment Initiation
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+  - type: OpenAPI
+    url: openapi/tribe-payments-obb-tpp-api-openapi.json
+  - type: OpenAPI
+    url: openapi/tribe-payments-obb-tpp-api-webhooks-openapi.json
+- aid: tribe-payments:issuer-program-manager-api
+  name: Issuer Processor - Program Manager API (PM API)
+  description: Program Manager API (v1.2) for card issuers to interact with Tribe's ISAAC issuer-processing
+    platform - issuing cards, managing programs and cardholders, and processing card transactions. Documented
+    in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
+  humanURL: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
+  tags:
+  - Payments
+  - Card Issuing
+  - Issuer Processor
+  - Program Management
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
+- aid: tribe-payments:issuer-transaction-authorization-api
+  name: Issuer Processor - Transaction Authorization Interface (TAI API)
+  description: Transaction Authorization Interface (v1.2) that sends webhook messages to issuers with
+    the latest information about card-transaction status changes and system events on Tribe's ISAAC platform.
+    Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
+  humanURL: https://doc.tribepayments.com/docs/issuing--transaction-authorization-interface--v1.2
+  tags:
+  - Payments
+  - Card Issuing
+  - Issuer Processor
+  - Authorization
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/issuing--transaction-authorization-interface--v1.2
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/issuing--transaction-authorization-interface--v1.2
+- aid: tribe-payments:acquirer-api
+  name: Acquiring Processor - Acquirer API (ACAPI)
+  description: Acquirer API (ACAPI, v1) for Tribe's acquiring-processor platform, covering acquirer-side
+    transaction processing and settlement. Documented in the Tribe developer portal; no downloadable OpenAPI
+    is published for the current version.
+  humanURL: https://doc.tribepayments.com/docs/acquiring--acquirer-api--v1
+  tags:
+  - Payments
+  - Acquiring
+  - Payment Processing
+  - Merchant Services
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/acquiring--acquirer-api--v1
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/acquiring--acquirer-api--v1
+- aid: tribe-payments:acquirer-merchant-api
+  name: Acquiring Processor - Merchant API (MAPI)
+  description: Merchant API (MAPI, v1) for onboarding and managing merchants on Tribe's acquiring-processor
+    platform. Documented in the Tribe developer portal as Markdown; no downloadable OpenAPI is published
+    for the current version.
+  humanURL: https://doc.tribepayments.com/docs/acquiring--merchant-api--v1
+  tags:
+  - Payments
+  - Acquiring
+  - Merchant Management
+  - Payment Processing
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/acquiring--merchant-api--v1
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/acquiring--merchant-api--v1
+- aid: tribe-payments:acquirer-terminal-api
+  name: Acquiring Processor - Terminal API (TAPI)
+  description: Terminal API (TAPI, v2) for integrating physical payment terminals with Tribe's acquiring-processor
+    platform. Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current
+    version.
+  humanURL: https://doc.tribepayments.com/docs/acquiring--terminal-api--v2
+  tags:
+  - Payments
+  - Acquiring
+  - Point of Sale
+  - Terminals
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/acquiring--terminal-api--v2
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/acquiring--terminal-api--v2
+- aid: tribe-payments:acquirer-tokenization-api
+  name: Acquiring Processor - Tokenization API (TOKAPI)
+  description: Tokenization API (TOKAPI, v1) for tokenizing card data within Tribe's acquiring-processor
+    platform. Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current
+    version.
+  humanURL: https://doc.tribepayments.com/docs/acquiring--tokenization-api--v1
+  tags:
+  - Payments
+  - Acquiring
+  - Tokenization
+  - Card Security
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/acquiring--tokenization-api--v1
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/acquiring--tokenization-api--v1
+- aid: tribe-payments:bank-connect-payment-services-api
+  name: Bank Connect - Payment Services API
+  description: Payment Services API (v1) for Tribe's Bank Connect / Banking-as-a-Service product, enabling
+    fintechs to embed banking and payment services. Documented in the Tribe developer portal; no downloadable
+    OpenAPI is published for the current version.
+  humanURL: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
+  tags:
+  - Payments
+  - Banking-as-a-Service
+  - Digital Banking
+  - Fintech
+  - United Kingdom
+  properties:
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
+common:
+- type: Website
+  url: https://www.tribepayments.com/
+- type: DeveloperPortal
+  url: https://doc.tribepayments.com/
+- type: Documentation
+  url: https://doc.tribepayments.com/
+- type: APIReference
+  url: https://doc.tribepayments.com/
+- type: ChangeLog
+  url: https://www.tribepayments.com/product-updates
+- type: Blog
+  url: https://www.tribepayments.com/news
+- type: StatusPage
+  url: https://status.tribepayments.com/
+- type: Support
+  url: https://www.tribepayments.com/contact-us
+- type: HelpCenter
+  url: https://www.tribepayments.com/knowledge-hub
+- type: PrivacyPolicy
+  url: https://www.tribepayments.com/privacy-policy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/tribepayments/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

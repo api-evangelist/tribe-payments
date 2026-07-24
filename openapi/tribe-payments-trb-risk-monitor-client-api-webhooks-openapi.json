@@ -1,0 +1,588 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "0.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/registered-summary-web-hook-address": {
+      "post": {
+        "operationId": "webhook_send_summary",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "summary": "Summary",
+        "description": "The Event Data Summary webhook is sent to the client after all system actions are processed.",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webhook.EventDataSummaryPayloadDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": [
+        {
+          "in": "header",
+          "name": "x-hook-signature",
+          "description": "See Webhook signature generating in Appendix",
+          "schema": {
+            "type": "string",
+            "maxLength": 88,
+            "minLength": 88,
+            "nullable": false,
+            "example": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+          },
+          "required": true
+        }
+      ]
+    },
+    "/registered-system-action-web-hook-address": {
+      "post": {
+        "operationId": "webhook_send_system_action",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "summary": "System action",
+        "description": "The System Action Webhook is sent to the client when the event action conditions group is hit.",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webhook.SystemActionPayloadDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": [
+        {
+          "in": "header",
+          "name": "x-hook-signature",
+          "description": "See Webhook signature generating in Appendix",
+          "schema": {
+            "type": "string",
+            "maxLength": 88,
+            "minLength": 88,
+            "nullable": false,
+            "example": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+          },
+          "required": true
+        }
+      ]
+    },
+    "/registered-user-action-web-hook-address": {
+      "post": {
+        "operationId": "webhook_send_operator_action",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "summary": "Operator action",
+        "description": "The Operator Action Webhook is sent to the client when the event action conditions group is hit.",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webhook.UserActionPayloadDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": [
+        {
+          "in": "header",
+          "name": "x-hook-signature",
+          "description": "See Webhook signature generating in Appendix",
+          "schema": {
+            "type": "string",
+            "maxLength": 88,
+            "minLength": 88,
+            "nullable": false,
+            "example": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+          },
+          "required": true
+        }
+      ]
+    },
+    "/registered-recurring-action-web-hook-address": {
+      "post": {
+        "operationId": "webhook_send_recurring_action",
+        "tags": [
+          "Event Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "summary": "Recurring action",
+        "description": "The Recurring Action Webhook is sent to the client when the event action conditions group is hit, and the action type is set to Recurring action.",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Webhook.RecurringActionPayloadDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": [
+        {
+          "in": "header",
+          "name": "x-hook-signature",
+          "description": "See Webhook signature generating in Appendix.",
+          "schema": {
+            "type": "string",
+            "maxLength": 88,
+            "minLength": 88,
+            "nullable": false,
+            "example": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+          },
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Webhook.EventDataSummaryPayloadDto": {
+        "type": "object",
+        "description": "",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "4a384750-d27a-11ec-9d64-0242ac120002",
+            "description": "Unique identifier assigned to the event data during the initial event data creation."
+          },
+          "state": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "enum": ["PROCESSING", "COMPLETED"],
+            "description": "Event data state."
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventDto"
+          },
+          "actions": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "$ref": "#/components/schemas/ActionHitDto"
+            },
+            "description": "Array of actions that were hit. If no actions were hit, an empty value is returned."
+          },
+          "type": {
+            "type": "string",
+            "description": "Webhook type.",
+            "nullable": false,
+            "enum": ["SUMMARY", "RETRIGGER-SUMMARY"]
+          },
+          "date": {
+            "type": "string",
+            "nullable": false,
+            "format": "date-time",
+            "description": "Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`"
+          }
+        },
+        "required": ["identifier", "state", "event", "actions"]
+      },
+      "Webhook.SystemActionPayloadDto": {
+        "type": "object",
+        "description": "",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "4a384750-d27a-11ec-9d64-0242ac120002",
+            "description": "Unique identifier assigned to the event data during the initial event data creation."
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventDto"
+          },
+          "action": {
+            "$ref": "#/components/schemas/ActionHitActionDto"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ActionHitDataDto"
+          },
+          "eventTags": {
+            "type": "array",
+            "nullable": false,
+            "description": "Array of event tags that were assigned after the action was hit.",
+            "items": {
+              "$ref": "#/components/schemas/EventTagDto"
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Webhook type.",
+            "nullable": false,
+            "enum": ["SYSTEM"]
+          },
+          "date": {
+            "type": "string",
+            "nullable": false,
+            "format": "date-time",
+            "description": "Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`"
+          }
+        },
+        "required": ["identifier", "event", "action", "data", "eventTags"]
+      },
+      "Webhook.RecurringActionPayloadDto": {
+        "type": "object",
+        "description": "",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "4a384750-d27a-11ec-9d64-0242ac120002",
+            "description": "Unique identifier assigned to the event data during the initial event data creation."
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventDto"
+          },
+          "action": {
+            "$ref": "#/components/schemas/ActionHitActionDto"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ActionHitDataDto"
+          },
+          "eventTags": {
+            "type": "array",
+            "nullable": false,
+            "description": "Array of event tags that were assigned after the action was hit.",
+            "items": {
+              "$ref": "#/components/schemas/EventTagDto"
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Webhook type.",
+            "nullable": false,
+            "enum": ["RECURRING"]
+          },
+          "date": {
+            "type": "string",
+            "nullable": false,
+            "format": "date-time",
+            "description": "Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`"
+          }
+        },
+        "required": ["identifier", "event", "action", "data", "eventTags"]
+      },
+      "Webhook.UserActionPayloadDto": {
+        "type": "object",
+        "description": "",
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "4a384750-d27a-11ec-9d64-0242ac120002",
+            "description": "Unique identifier assigned to the event data during the initial event data creation."
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventDto"
+          },
+          "action": {
+            "$ref": "#/components/schemas/ActionHitActionDto"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ActionHitDataDto"
+          },
+          "eventTags": {
+            "type": "array",
+            "nullable": false,
+            "description": "Array of event tags that were assigned after the action was hit.",
+            "items": {
+              "$ref": "#/components/schemas/EventTagDto"
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "Webhook type.",
+            "nullable": false,
+            "enum": ["USER"]
+          },
+          "date": {
+            "type": "string",
+            "nullable": false,
+            "format": "date-time",
+            "description": "Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`"
+          },
+          "triggeredBy": {
+            "$ref": "#/components/schemas/TriggeredByDto"
+          }
+        },
+        "required": ["identifier", "event", "action", "data", "eventTags"]
+      },
+      "TriggeredByDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "nullable": false,
+            "example": 14,
+            "description": "User ID."
+          },
+          "username": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "James",
+            "description": "User name."
+          }
+        },
+        "required": ["id", "username"]
+      },
+      "EventDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "nullable": false,
+            "example": 12,
+            "description": "Event ID."
+          },
+          "type": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "BANK_TRANSFER",
+            "description": "Event type."
+          }
+        },
+        "required": ["id", "type"]
+      },
+      "ActionHitDto": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/ActionHitActionDto"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ActionHitDataDto"
+          },
+          "eventTags": {
+            "type": "array",
+            "nullable": false,
+            "description": "Array of event tags that were assigned after the action was hit.",
+            "items": {
+              "$ref": "#/components/schemas/EventTagDto"
+            }
+          }
+        },
+        "required": ["action", "data", "eventTags"]
+      },
+      "ActionHitActionDto": {
+        "type": "object",
+        "description": "Object of the action that was hit.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "nullable": false,
+            "example": 12,
+            "description": "Action ID."
+          },
+          "code": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 100,
+            "example": "R5-P1",
+            "description": "Action ID (code)."
+          },
+          "name": {
+            "type": "string",
+            "nullable": false,
+            "maxLength": 100,
+            "example": "Decline payment",
+            "description": "Action name."
+          },
+          "type": {
+            "type": "string",
+            "nullable": false,
+            "enum": ["SYSTEM-ACTION", "OPERATOR-ACTION"],
+            "description": "Action type."
+          },
+          "groupCode": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 100,
+            "example": "G1",
+            "description": "Action group."
+          }
+        },
+        "required": ["id", "code", "name", "type", "groupCode"]
+      },
+      "ActionHitDataDto": {
+        "type": "object",
+        "description": "Data object that contains changeset.",
+        "properties": {
+          "changeSet": {
+            "$ref": "#/components/schemas/ActionHitDataChangeSetDto"
+          },
+          "custom": {
+            "$ref": "#/components/schemas/ActionHitDataCustomDto"
+          }
+        },
+        "required": ["changeSet", "custom"]
+      },
+      "EventTagDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "nullable": false,
+            "example": 12,
+            "description": "Event tag identifier."
+          },
+          "name": {
+            "type": "string",
+            "nullable": false,
+            "example": "SUSPICIOUS-TRANSACTION",
+            "description": "Event tag name."
+          }
+        },
+        "required": ["id", "name"]
+      },
+      "ActionHitDataChangeSetDto": {
+        "type": "object",
+        "description": "Changes made after the action hit. The result depends on the action setup.",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "example": {
+          "status": 1,
+          "riskStatus": "Suspicious"
+        }
+      },
+      "ActionHitDataCustomDto": {
+        "type": "object",
+        "description": "Additional parameters that should be sent with a webhook. The result depends on the action setup.",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "example": {
+          "status": 1,
+          "riskStatus": "Suspicious"
+        }
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {},
+    "requestBodies": {},
+    "headers": {},
+    "securitySchemes": {}
+  },
+  "security": [
+    {
+      "Bearer": []
+    },
+    {
+      "Token": []
+    }
+  ],
+  "tags": []
+}

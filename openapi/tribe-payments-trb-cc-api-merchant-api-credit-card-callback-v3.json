@@ -1,0 +1,2440 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API Credit Card Callback",
+        "version": "3.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:10010/v3"
+        }
+    ],
+    "paths": {
+        "/registered-sale-address": {
+            "post": {
+                "tags": [
+                    "Sale"
+                ],
+                "summary": "",
+                "operationId": "postsale",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sale"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-authorize-address": {
+            "post": {
+                "tags": [
+                    "Authorize"
+                ],
+                "summary": "",
+                "operationId": "postauthorize",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Authorize"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-pre-authorize-address": {
+            "post": {
+                "tags": [
+                    "Pre authorize"
+                ],
+                "summary": "",
+                "operationId": "postpre-authorize",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PreAuthorize"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-credit-address": {
+            "post": {
+                "tags": [
+                    "Credit"
+                ],
+                "summary": "",
+                "operationId": "postcredit",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Credit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-process-address": {
+            "post": {
+                "tags": [
+                    "Process"
+                ],
+                "summary": "",
+                "operationId": "postprocess",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Process"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-p2p-address": {
+            "post": {
+                "tags": [
+                    "P2P"
+                ],
+                "summary": "",
+                "operationId": "postp2p",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/P2p"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-cancel-address": {
+            "post": {
+                "tags": [
+                    "Cancel"
+                ],
+                "summary": "",
+                "operationId": "postcancel",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Cancel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-cancel-recurring-address": {
+            "post": {
+                "tags": [
+                    "Cancel recurring"
+                ],
+                "summary": "",
+                "operationId": "postcancel-recurring",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CancelRecurring"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-capture-address": {
+            "post": {
+                "tags": [
+                    "Capture"
+                ],
+                "summary": "",
+                "operationId": "postcapture",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Capture"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-incremental-authorize-address": {
+            "post": {
+                "tags": [
+                    "Incremental authorize"
+                ],
+                "summary": "",
+                "operationId": "postincremental-authorize",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/IncrementalAuthorize"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-refund-address": {
+            "post": {
+                "tags": [
+                    "Refund"
+                ],
+                "summary": "",
+                "operationId": "postrefund",
+                "requestBody": {
+                    "description": "Object containing the Refund webhook data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Refund"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-3DS-submit-address": {
+            "post": {
+                "tags": [
+                    "3DS authentication required"
+                ],
+                "summary": "",
+                "operationId": "post3DS-submit",
+                "requestBody": {
+                    "description": "Object containing the 3DS authentication webhook data",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/3DSSubmit"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Sale": {
+                "title": "sale",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/SaleWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/SaleTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/SaleCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "SaleWebhook": {
+                "type": "object",
+                "description": "Object containing the Sale webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "SaleTransaction": {
+                "type": "object",
+                "description": "Object containing data of the Sale transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "avsCheckResponse": {
+                        "description": "[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request",
+                        "type": "string",
+                        "example": "G",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "Currency ISO 4217 code",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "SaleCard": {
+                "type": "object",
+                "description": "Object containing the Sale transaction card details",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorReport": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectReport"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorDisputes": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectDisputes"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorProcessing": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectProcessing"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorTransactions": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseUnauthorized": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Unauthorized request"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseUnauthorizedReport": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Unauthorized request"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": [],
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseForbidden": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectForbidden"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "responseTooManyRequests": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Too many requests"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTooManyRequests"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectProcessing": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \\\"parameterName\\\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTransactions": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1005"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body must not be empty"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectDisputes": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "3007"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Invalid date format"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectReport": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \"randomName\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectForbidden": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4001"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Company is disabled"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTooManyRequests": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Retry after 30 seconds"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2000"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            },
+            "Authorize": {
+                "title": "authorize",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/AuthorizeWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/AuthorizeTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/AuthorizeCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "AuthorizeWebhook": {
+                "type": "object",
+                "description": "Object containing the Authorize webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "AuthorizeTransaction": {
+                "type": "object",
+                "description": "Object containing data of the Authorize transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "expirationDate": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2023-06-01 08:01:01",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "avsCheckResponse": {
+                        "description": "[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request",
+                        "type": "string",
+                        "example": "G",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 4
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "AuthorizeCard": {
+                "type": "object",
+                "description": "Object containing the Authorize transaction card details",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "PreAuthorize": {
+                "title": "pre-authorize",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/PreAuthorizeWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/PreAuthorizeTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/PreAuthorizeCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "PreAuthorizeWebhook": {
+                "type": "object",
+                "description": "Object containing the Pre Authorize webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "PreAuthorizeTransaction": {
+                "type": "object",
+                "description": "Object containing data of the Pre Authorize transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "expirationDate": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2023-06-01 08:01:01",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "avsCheckResponse": {
+                        "description": "[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request",
+                        "type": "string",
+                        "example": "G",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 101
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "PreAuthorizeCard": {
+                "type": "object",
+                "description": "Object containing the Pre Authorize transaction card details",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "Credit": {
+                "title": "credit",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/CreditWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/CreditTransaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "CreditWebhook": {
+                "type": "object",
+                "description": "Object containing the Credit webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "CreditTransaction": {
+                "type": "object",
+                "description": "Object containing data of the Credit transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 40
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "Process": {
+                "title": "process",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/ProcessWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/ProcessTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/ProcessCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "ProcessWebhook": {
+                "type": "object",
+                "description": "Object containing the webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "ProcessTransaction": {
+                "type": "object",
+                "description": "Object containing data for the transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "expirationDate": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2023-06-01 08:01:01",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 4
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "ProcessCard": {
+                "type": "object",
+                "description": "Object containing the transaction card details",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "P2p": {
+                "title": "p2p",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/P2pWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/P2pTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/P2pCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "P2pWebhook": {
+                "type": "object",
+                "description": "Object containing the P2P webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "P2pTransaction": {
+                "type": "object",
+                "description": "Object containing data of the P2P transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 190
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "P2pCard": {
+                "type": "object",
+                "description": "Object containing the P2P transaction card details",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "Cancel": {
+                "title": "cancel",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/CancelWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/CancelTransaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "CancelWebhook": {
+                "type": "object",
+                "description": "Object containing the Cancel webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "CancelTransaction": {
+                "type": "object",
+                "description": "Object containing data of the transaction to be canceled",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "amountRemaining": {
+                        "description": "Remaining amount",
+                        "type": "string",
+                        "example": "77",
+                        "maxLength": 40,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "amountRemaining",
+                    "type"
+                ]
+            },
+            "CancelRecurring": {
+                "title": "cancel-recurring",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/CancelRecurringWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/CancelRecurringTransaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "CancelRecurringWebhook": {
+                "type": "object",
+                "description": "Object containing the Cancel Recurring webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "CancelRecurringTransaction": {
+                "type": "object",
+                "description": "Object containing data of the recurring transaction to be canceled",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 180
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "Capture": {
+                "title": "capture",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/CaptureWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/CaptureTransaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "CaptureWebhook": {
+                "type": "object",
+                "description": "Object containing the Capture webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "CaptureTransaction": {
+                "type": "object",
+                "description": "Object containing data of the transaction to be captured",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "type"
+                ]
+            },
+            "IncrementalAuthorize": {
+                "title": "incremental-authorize",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/IncrementalAuthorizeWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/IncrementalAuthorizeTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/IncrementalAuthorizeCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "IncrementalAuthorizeWebhook": {
+                "type": "object",
+                "description": "Object containing the Incremental Authorize webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "IncrementalAuthorizeTransaction": {
+                "type": "object",
+                "description": "Object containing data of the Incremental authorize transaction",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "expirationDate": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2023-06-01 08:01:01",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "amount": {
+                        "description": "Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents). For customer’s card verification use `0`",
+                        "type": "string",
+                        "example": "10",
+                        "maxLength": 40,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "Currency ISO 4217 code",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "totalAmount": {
+                        "description": "Total authorized amount. Number in minor units, e.g. cents; 100 cents equal 1 dollar",
+                        "type": "string",
+                        "example": "522",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 102
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "amount",
+                    "currencyCode",
+                    "totalAmount",
+                    "type"
+                ]
+            },
+            "IncrementalAuthorizeCard": {
+                "type": "object",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "Refund": {
+                "title": "refund",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/RefundWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/RefundTransaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "RefundWebhook": {
+                "type": "object",
+                "description": "Object containing the Refund webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "RefundTransaction": {
+                "type": "object",
+                "description": "Object containing data of the transaction to be refunded",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.",
+                        "type": "string",
+                        "example": "675689811821989225",
+                        "maxLength": 19,
+                        "minLength": 16
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "amountRemaining": {
+                        "description": "Remaining amount",
+                        "type": "string",
+                        "example": "77",
+                        "maxLength": 40,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 2,
+                        "maxLength": 3,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "amountRemaining",
+                    "type"
+                ]
+            },
+            "3DSSubmit": {
+                "title": "3DS-submit",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/3DSSubmitWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/3DSSubmitTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/3DSSubmitCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "3DSSubmitWebhook": {
+                "type": "object",
+                "description": "Object containing the 3DS authentication webhook data",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc_3ds",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "3DSSubmitTransaction": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`",
+                        "type": "string",
+                        "example": "2023-06-01 11:21:15",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "code": {
+                        "description": "[`Transaction error code`](#appendix--enum--transaction-error-code)",
+                        "type": "string",
+                        "example": "655",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Transaction error message`](#appendix--transaction-error-code)",
+                        "type": "string",
+                        "example": "3DS authentication required",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "errorDescription": {
+                        "description": "Error description",
+                        "type": "string",
+                        "example": null,
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "Text representation of transaction status. `3DS authentication required`",
+                        "type": "string",
+                        "example": "false",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "Transaction descriptor text that appears on a customer's credit card statement",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "redirectUrl": {
+                        "description": "Redirect URL",
+                        "type": "string",
+                        "example": "https://risk.payment.domain.com/sapi/3ds/544191344642360565",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "[`Transaction type`](#appendix--enum--transaction-type)",
+                        "type": "integer",
+                        "example": 6
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "errorDescription",
+                    "status",
+                    "statementDescriptor",
+                    "redirectUrl",
+                    "type"
+                ]
+            },
+            "3DSSubmitCard": {
+                "type": "object",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            }
+        },
+        "securitySchemes": {
+            "accountId": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-id"
+            },
+            "accountPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "accountId": [],
+            "accountPassword": []
+        }
+    ]
+}

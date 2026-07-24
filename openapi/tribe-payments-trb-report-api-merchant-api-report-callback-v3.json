@@ -1,0 +1,1534 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API",
+        "version": "3.0.0",
+        "description": "Merchant API documentation"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:10010/v3"
+        }
+    ],
+    "paths": {
+        "/registered-order-status-address": {
+            "post": {
+                "tags": [
+                    "Order status"
+                ],
+                "summary": "",
+                "operationId": "postorder-status",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderStatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-disputes-address": {
+            "post": {
+                "tags": [
+                    "Disputes"
+                ],
+                "summary": "",
+                "operationId": "postdisputes",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Disputes"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-transactions-address": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "",
+                "operationId": "posttransactions",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Transactions"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-processing-accounts-address": {
+            "post": {
+                "tags": [
+                    "Processing accounts"
+                ],
+                "summary": "",
+                "operationId": "postprocessing-accounts",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProcessingAccounts"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "OrderStatus": {
+                "title": "order-status",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/OrderStatusWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action.",
+                        "type": "string",
+                        "example": "1e68b6f0-da16-4e0a-b68a-5286ad4e787",
+                        "maxLength": 200,
+                        "minLength": 1
+                    },
+                    "orderStatus": {
+                        "description": "[`Order status`]<table><thead><tr><th>Order Status</th><th>Tx status</th></tr></thead><tbody><tr><td>Transaction successfully captured</td><td>Success</td></tr><tr><td>Transaction is refunded</td><td>Success</td></tr><tr><td>Transaction is chargebacked</td><td>Success</td></tr><tr><td>Transaction is disputed</td><td>Success</td></tr><tr><td>Transaction is cancelled</td><td>Success</td></tr><tr><td>Authorize transaction successfully completed</td><td>Success</td></tr><tr><td>Credit transaction successfully captured</td><td>Success</td></tr><tr><td>Credit transaction is cancelled</td><td>Success</td></tr><tr><td>Authorize Credit transaction successfully completed</td><td>Success</td></tr><tr><td>Any error message from [`Response`](#appendix--enum--transaction-error-code)</td><td>Fail</td></tr><tr><td>N/A</td><td>Unknown</td></tr><tr><td>Exist-processing</td><td>Unknown</td></tr><tr><td>No transactions found for orderId: xxx</td><td>Unknown</td></tr></tbody></table>\n",
+                        "type": "string",
+                        "example": "Transaction successfully captured",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderStatusTransaction"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId",
+                    "orderStatus"
+                ]
+            },
+            "OrderStatusWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_order_status</td><td>Report webhook for order status request</td></tr></table>",
+                        "type": "string",
+                        "example": "report_order_status",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "OrderStatusTransaction": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "502811178725015553",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "date": {
+                        "description": "",
+                        "type": "string",
+                        "example": "2021-03-02 07:03:02",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "status": {
+                        "description": "",
+                        "type": "string",
+                        "example": "success",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1.11",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "code": {
+                        "description": "",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "historyId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "512811178725015557",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "integer",
+                        "example": 4
+                    }
+                }
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorDisputes": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectDisputes"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorProcessing": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectProcessing"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorTransactions": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseUnauthorized": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Unauthorized request"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseForbidden": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectForbidden"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectProcessing": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \\\"parameterName\\\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTransactions": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1005"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body must not be empty"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectDisputes": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "3007"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Invalid date format"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectForbidden": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Processing account is disabled"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2000"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            },
+            "Disputes": {
+                "title": "disputes",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/DisputesWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action.",
+                        "type": "string",
+                        "example": "1e68b6f0-da16-4e0a-b68a-5286ad4e787",
+                        "maxLength": 200,
+                        "minLength": 1
+                    },
+                    "records": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DisputesRecords"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "DisputesWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_disputes</td><td>Report webhook for dispute request</td></tr></table>",
+                        "type": "string",
+                        "example": "report_disputes",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "DisputesRecords": {
+                "type": "object",
+                "properties": {
+                    "dispute": {
+                        "$ref": "#/components/schemas/DisputesRecordsDispute"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/DisputesRecordsCard"
+                    }
+                }
+            },
+            "DisputesRecordsDispute": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "15689614966399",
+                        "maxLength": 16,
+                        "minLength": 1
+                    },
+                    "date": {
+                        "description": "",
+                        "type": "string",
+                        "example": "2023-12-11 08:45:27",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "parentId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "12345678",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "typeName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "First Chargeback",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "",
+                        "type": "string",
+                        "example": "In progress",
+                        "maxLength": 1,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "amount",
+                    "currencyCode",
+                    "parentId",
+                    "typeName",
+                    "status"
+                ]
+            },
+            "DisputesRecordsCard": {
+                "type": "object",
+                "properties": {
+                    "hash": {
+                        "description": "",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 200,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "Transactions": {
+                "title": "transactions",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/TransactionsWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action.",
+                        "type": "string",
+                        "example": "1e68b6f0-da16-4e0a-b68a-5286ad4e787",
+                        "maxLength": 200,
+                        "minLength": 1
+                    },
+                    "records": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TransactionsRecords"
+                        }
+                    },
+                    "recordsTotal": {
+                        "description": "",
+                        "type": "string",
+                        "example": "17",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "recordsPerPage": {
+                        "description": "",
+                        "type": "string",
+                        "example": "200",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "currentPage": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1",
+                        "maxLength": 20,
+                        "minLength": 1
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId",
+                    "recordsTotal",
+                    "recordsPerPage",
+                    "currentPage"
+                ]
+            },
+            "TransactionsWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_transaction_list</td><td>Report webhook for transaction list request</td></tr></table>",
+                        "type": "string",
+                        "example": "report_transactions",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "TransactionsRecords": {
+                "properties": {
+                    "transaction": {
+                        "$ref": "#/components/schemas/TransactionsRecordsTransaction"
+                    },
+                    "company": {
+                        "$ref": "#/components/schemas/TransactionsRecordsCompany"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/TransactionsRecordsCard"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/TransactionsRecordsCustomer"
+                    },
+                    "settlement": {
+                        "$ref": "#/components/schemas/TransactionsRecordsSettlement"
+                    },
+                    "p2p": {
+                        "$ref": "#/components/schemas/TransactionsRecordsP2p"
+                    }
+                }
+            },
+            "TransactionsRecordsTransaction": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "502811178725015553",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1.11",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "status": {
+                        "description": "",
+                        "type": "string",
+                        "example": "success",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "createdAt": {
+                        "description": "",
+                        "type": "string",
+                        "example": "2023-08-01 07:38:16",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "integrationTransactionId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "0000000123456789213456798",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "integrationAccountId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "102223",
+                        "maxLength": 11,
+                        "minLength": 1
+                    },
+                    "authorizationNo": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "expirationDate": {
+                        "description": "",
+                        "type": "string",
+                        "example": "2023-12-11 08:45:27",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "calculatedFee": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1,11",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "integrationId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "87",
+                        "maxLength": 11,
+                        "minLength": 1
+                    },
+                    "terminalId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "26543",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "parentId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "0",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "orderId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "2568896541",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "typeName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "sale",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "errorCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 10,
+                        "minLength": 1
+                    },
+                    "descriptor": {
+                        "description": "",
+                        "type": "string",
+                        "example": "",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "processingAccountId": {
+                        "description": "",
+                        "type": "string",
+                        "example": "102223",
+                        "maxLength": 20,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "amount",
+                    "currencyCode",
+                    "status",
+                    "createdAt",
+                    "integrationTransactionId",
+                    "integrationAccountId",
+                    "authorizationNo",
+                    "expirationDate",
+                    "calculatedFee",
+                    "integrationId",
+                    "terminalId",
+                    "parentId",
+                    "orderId",
+                    "typeName",
+                    "errorCode",
+                    "descriptor",
+                    "processingAccountId"
+                ]
+            },
+            "TransactionsRecordsCompany": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "6666615",
+                        "maxLength": 11,
+                        "minLength": 1
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "example": "My Company Name",
+                        "maxLength": 100,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "name"
+                ]
+            },
+            "TransactionsRecordsCard": {
+                "type": "object",
+                "properties": {
+                    "holderName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "John Doe von Soap",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "maskedNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "599999XXXXXX0125",
+                        "maxLength": 22,
+                        "minLength": 13
+                    },
+                    "brandName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "Mastercard",
+                        "maxLength": 150,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "holderName",
+                    "maskedNumber",
+                    "brandName"
+                ]
+            },
+            "TransactionsRecordsCustomer": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "user123",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "phone": {
+                        "description": "",
+                        "type": "string",
+                        "example": "0123456789",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "email": {
+                        "description": "",
+                        "type": "string",
+                        "example": "email@email.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "countryCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "GB",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "state": {
+                        "description": "",
+                        "type": "string",
+                        "example": "AL",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "city": {
+                        "description": "",
+                        "type": "string",
+                        "example": "City",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "address": {
+                        "description": "",
+                        "type": "string",
+                        "example": "Address",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "zipCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "GU16 7HF",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "ip": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1.1.1.1",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "phone",
+                    "email",
+                    "countryCode",
+                    "city",
+                    "address",
+                    "zipCode",
+                    "ip"
+                ]
+            },
+            "TransactionsRecordsSettlement": {
+                "type": "object",
+                "properties": {
+                    "exist": {
+                        "description": "",
+                        "type": "string",
+                        "example": "1",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "cardCountry": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "cardType": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 1
+                    },
+                    "bin": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "region": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "txArn": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "3dsResult": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 200,
+                        "minLength": 1
+                    },
+                    "recurring": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "date": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "amountGross": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "amountNet": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "schemaFee": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "interchangeFee": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "chargeSum": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "currency": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "fraudDate": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 19,
+                        "minLength": 19
+                    }
+                },
+                "required": [
+                    "exist",
+                    "cardCountry",
+                    "cardType",
+                    "bin",
+                    "region",
+                    "txArn",
+                    "3dsResult",
+                    "recurring",
+                    "date",
+                    "amountGross",
+                    "amountNet",
+                    "schemaFee",
+                    "interchangeFee",
+                    "chargeSum",
+                    "currency",
+                    "fraudDate"
+                ]
+            },
+            "TransactionsRecordsP2p": {
+                "type": "object",
+                "properties": {
+                    "senderFirstName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 35,
+                        "minLength": 1
+                    },
+                    "senderMiddleName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "senderLastName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 35,
+                        "minLength": 1
+                    },
+                    "senderStreetAddress": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "senderCity": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 85,
+                        "minLength": 1
+                    },
+                    "senderStateCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 3,
+                        "minLength": 1
+                    },
+                    "senderCountry": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "senderPostalCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 4
+                    },
+                    "senderPhoneNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 3
+                    },
+                    "senderDateOfBirth": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "senderIdentification_type": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "senderIdentificationNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 25,
+                        "minLength": 1
+                    },
+                    "senderIdentificationCountryCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "senderIdentification_expirationDate": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "senderNationality": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "senderCountryOfBirth": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "receiverFirstName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 35,
+                        "minLength": 1
+                    },
+                    "receiverMiddleName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "receiverLastName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 35,
+                        "minLength": 1
+                    },
+                    "receiverStreetAddress": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "receiverCity": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 85,
+                        "minLength": 1
+                    },
+                    "receiverStateCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 3,
+                        "minLength": 1
+                    },
+                    "receiverCountry": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "receiverPostalCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 4
+                    },
+                    "receiverPhoneNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 20,
+                        "minLength": 3
+                    },
+                    "receiverDateOfBirth": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "receiverCardNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 22,
+                        "minLength": 13
+                    },
+                    "receiverIdentification_type": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "receiverIdentificationNumber": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 25,
+                        "minLength": 1
+                    },
+                    "receiverIdentificationCountryCode": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "receiverIdentification_expirationDate": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "receiverNationality": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "receiverCountryOfBirth": {
+                        "description": "",
+                        "type": "string",
+                        "example": "N/A",
+                        "maxLength": 2,
+                        "minLength": 2
+                    }
+                },
+                "required": [
+                    "senderFirstName",
+                    "senderLastName",
+                    "senderStreetAddress",
+                    "senderCity",
+                    "senderStateCode",
+                    "senderCountry",
+                    "senderPostalCode",
+                    "senderPhoneNumber",
+                    "senderDateOfBirth",
+                    "senderIdentification_type",
+                    "senderIdentificationNumber",
+                    "senderIdentificationCountryCode",
+                    "senderIdentification_expirationDate",
+                    "senderNationality",
+                    "senderCountryOfBirth",
+                    "receiverFirstName",
+                    "receiverMiddleName",
+                    "receiverLastName",
+                    "receiverStreetAddress",
+                    "receiverCity",
+                    "receiverStateCode",
+                    "receiverCountry",
+                    "receiverPostalCode",
+                    "receiverPhoneNumber",
+                    "receiverDateOfBirth",
+                    "receiverCardNumber",
+                    "receiverIdentification_type",
+                    "receiverIdentificationNumber",
+                    "receiverIdentificationCountryCode",
+                    "receiverIdentification_expirationDate",
+                    "receiverNationality",
+                    "receiverCountryOfBirth"
+                ]
+            },
+            "ProcessingAccounts": {
+                "title": "processing-accounts",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/ProcessingAccountsWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action.",
+                        "type": "string",
+                        "example": "1e68b6f0-da16-4e0a-b68a-5286ad4e787",
+                        "maxLength": 200,
+                        "minLength": 1
+                    },
+                    "processingAccounts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProcessingAccountsProcessingAccount"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "ProcessingAccountsWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>",
+                        "type": "string",
+                        "example": "report_processing_accounts",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "ProcessingAccountsProcessingAccount": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string",
+                        "example": "200085",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "string",
+                        "example": "Procssing account name",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "companyName": {
+                        "description": "",
+                        "type": "string",
+                        "example": "Company name",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "enabled": {
+                        "description": "",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "testAccount": {
+                        "description": "",
+                        "type": "boolean",
+                        "example": true
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-report-api-key"
+            },
+            "apiPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-report-api-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKey": [],
+            "apiPassword": []
+        }
+    ]
+}

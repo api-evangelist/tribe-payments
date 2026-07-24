@@ -1,0 +1,257 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API Credit Card Token Webhook",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/registered-sale-address": {
+            "post": {
+                "tags": [
+                    "Sale"
+                ],
+                "summary": "",
+                "operationId": "postsale",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sale"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Sale": {
+                "title": "Sale",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/SaleWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "a06a73c9-d1d7-11ec-8b58-2e8a68cda573",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/SaleTransaction"
+                    },
+                    "card": {
+                        "$ref": "#/components/schemas/SaleCard"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "SaleWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "545522349919700221",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for 3DS confirmation needed event</td></tr></table>",
+                        "type": "string",
+                        "example": "transaction_cc",
+                        "maxLength": 255,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "SaleTransaction": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Transaction ID",
+                        "type": "string",
+                        "example": "397209271826453991",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "date": {
+                        "description": "Transaction date. ISO 8601 format: YYYY-MM-DD",
+                        "type": "string",
+                        "example": "2023-06-01",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "example": "000",
+                        "maxLength": 5,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "example": "Transaction successfully completed",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "status": {
+                        "description": "Text representation of transaction status. Authorized or Not authorized",
+                        "type": "string",
+                        "example": "true",
+                        "maxLength": 20,
+                        "minLength": 1
+                    },
+                    "avsCheckResponse": {
+                        "description": "[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request",
+                        "type": "string",
+                        "example": "G",
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "statementDescriptor": {
+                        "description": "e.g. onlinemerchant.com",
+                        "type": "string",
+                        "example": "onlinemerchant.com",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "Currency ISO 4217 code",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    }
+                },
+                "required": [
+                    "id",
+                    "date",
+                    "orderId",
+                    "code",
+                    "message",
+                    "status"
+                ]
+            },
+            "SaleCard": {
+                "type": "object",
+                "properties": {
+                    "hash": {
+                        "description": "Card Number and Customer ID tokenized card identifier",
+                        "type": "string",
+                        "example": "6899a2bb31fe4fcb619f8cac7f8d300e",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "hash"
+                ]
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b"
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b"
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2001"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "accountId": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-id"
+            },
+            "accountPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "accountId": [],
+            "accountPassword": []
+        }
+    ]
+}
+

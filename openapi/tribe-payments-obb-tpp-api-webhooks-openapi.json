@@ -1,0 +1,222 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Payment Webhooks",
+    "version": "2.0.0",
+    "description": "API documentation for payment-related webhooks."
+  },
+  "components": {
+    "schemas": {
+      "RemittanceInformationStructured": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "The actual reference.",
+            "maxLength": 35
+          },
+          "referenceType": {
+            "type": "string",
+            "description": "The remittance information type.",
+            "maxLength": 35
+          }
+        }
+      },
+      "TransactionAmount": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string",
+            "description": "The transaction amount in the transaction currency. The decimal separator is dot."
+          },
+          "currency": {
+            "type": "string",
+            "description": "The transaction currency in the ISO 4217 alpha-3 currency code.",
+            "maxLength": 3
+          },
+          "valueDate": {
+            "type": "string",
+            "description": "The date in `YYYY-MM-DD` format, indicating when assets become available.",
+            "maxLength": 10
+          },
+          "bookingDate": {
+            "type": "string",
+            "description": "The date in `YYYY-MM-DD` format, indicating when the entry is posted.",
+            "maxLength": 10
+          }
+        }
+      },
+      "CreditorAccount": {
+          "type": "object",
+          "properties": {
+            "iban": {
+              "type": "string",
+              "description": "The IBAN of the account.",
+              "maxLength": 34
+            },
+            "bban": {
+              "type": "string",
+              "description": "The local ASPSP identifier of the account.",
+              "maxLength": 30
+            },
+            "accountNumber": {
+              "type": "string",
+              "description": "The account number for the United Kingdom.",
+              "maxLength": 8
+            },
+            "sortCode": {
+              "type": "string",
+              "description": "The sort code for the United Kingdom.",
+              "maxLength": 6
+            }
+          }
+      },
+      "DebtorAccount": {
+        "type": "object",
+        "properties": {
+          "iban": {
+            "type": "string",
+            "description": "The IBAN of the account.",
+            "maxLength": 34
+          },
+          "bban": {
+            "type": "string",
+            "description": "The local ASPSP identifier of the account.",
+            "maxLength": 30
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "The account number for the United Kingdom.",
+            "maxLength": 8
+          },
+          "sortCode": {
+            "type": "string",
+            "description": "The sort code for the United Kingdom.",
+            "maxLength": 6
+          }
+        }
+      },
+      "AccountTransaction": {
+        "type": "object",
+        "description": "Includes the transaction information if available.",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "description": "The ID of the transaction."
+          },
+          "creditorName": {
+            "type": "string",
+            "description": "The name of creditor/receiver.",
+            "maxLength": 70
+          },
+          "creditorAccount": {
+            "$ref": "#/components/schemas/CreditorAccount"
+          },
+          "debtorName": {
+            "type": "string",
+            "description": "The name of the transaction debtor/sender."
+          },
+          "debtorAccount": {
+            "$ref": "#/components/schemas/DebtorAccount"
+          },
+          "remittanceInformationUnstructured": {
+            "type": "string",
+            "description": "An unstructured reference of the transaction.",
+            "maxLength": 140
+          },
+          "remittanceInformationStructured": {
+            "$ref": "#/components/schemas/RemittanceInformationStructured"
+          },
+          "transactionAmount": {
+            "$ref": "#/components/schemas/TransactionAmount"
+          }
+        }
+      },
+      "PaymentStatusRequest": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "description": "The unique payment identifier."
+          },
+          "paymentStatus": {
+            "type": "string",
+            "description": "The transaction status as per ISO 20022 codes.",
+            "maxLength": 4
+          },
+          "accountTransaction": {
+            "$ref": "#/components/schemas/AccountTransaction"
+          }
+        },
+        "required": [
+          "paymentId",
+          "paymentStatus"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Payments"
+    }
+  ],
+  "paths": {
+    "/v2_payment_status": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Payment Status Update",
+        "description": "Informs the TPP that the payment status has changed.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentStatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response with the HTTP 200 status code."
+          }
+        }
+      }
+    },
+    "/v2_payment_confirmation_link_expire": {
+      "post": {
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Payment Confirmation Link Expiration",
+        "description": "Informs the TPP about the expiration of a payment confirmation link.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "paymentId": {
+                    "type": "string",
+                    "description": "The unique payment identifier."
+                  }
+                },
+                "required": [
+                  "paymentId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response with the HTTP 200 status code."
+          }
+        }
+      }
+    }
+  }
+}

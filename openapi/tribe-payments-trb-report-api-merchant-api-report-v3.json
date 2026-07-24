@@ -1,0 +1,852 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API Report",
+        "version": "3.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:10010/v3"
+        }
+    ],
+    "paths": {
+        "/order-status": {
+            "post": {
+                "tags": [
+                    "Order status"
+                ],
+                "summary": "",
+                "operationId": "postorder-status",
+                "requestBody": {
+                    "description": "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Order status`](#webhooks--order-status--registeredorderstatusaddress) webhook.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderStatus"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseErrorReport"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUnauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseForbidden"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/unprocessableContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseTooManyRequests"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/disputes": {
+            "post": {
+                "tags": [
+                    "Disputes"
+                ],
+                "summary": "",
+                "operationId": "postdisputes",
+                "requestBody": {
+                    "description": "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Disputes`](#webhooks--disputes--registereddisputesaddress) webhook.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Disputes"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseErrorDisputes"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUnauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseForbidden"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/unprocessableContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseTooManyRequests"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/transactions": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "",
+                "operationId": "posttransactions",
+                "requestBody": {
+                    "description": "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Transactions`](#webhooks--transactions--registeredtransactionsaddress) webhook.\n                The configurations in Report Settings determine which columns are visible in the final output.\n                The transaction list shows only transactions with types specified in the Report Settings.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Transactions"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseErrorTransactions"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUnauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseForbidden"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/unprocessableContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseTooManyRequests"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/processing-accounts": {
+            "post": {
+                "tags": [
+                    "Processing accounts"
+                ],
+                "summary": "",
+                "operationId": "postprocessing-accounts",
+                "requestBody": {
+                    "description": "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Webhooks - Processing accounts`](#webhooks--processing-accounts--registeredprocessingaccountsaddress) webhook.\n                No request body should be included in this action. All required data must be provided in the headers.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProcessingAccounts"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Accepted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseErrorProcessing"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseUnauthorized"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseForbidden"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/unprocessableContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "Too Many Requests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseTooManyRequests"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "OrderStatus": {
+                "title": "order-status",
+                "properties": {
+                    "orderId": {
+                        "description": "Merchant’s order ID",
+                        "type": "string",
+                        "example": "order_id_1",
+                        "maxLength": 32,
+                        "minLength": 1
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "orderId"
+                ]
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorReport": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectReport"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorDisputes": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectDisputes"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorProcessing": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectProcessing"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorTransactions": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseUnauthorized": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Unauthorized request"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "example": [],
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseForbidden": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectForbidden"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "responseTooManyRequests": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Too many requests"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTooManyRequests"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectProcessing": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \\\"parameterName\\\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTransactions": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1005"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body must not be empty"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectDisputes": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "3007"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Invalid date format"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectReport": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \"randomName\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectForbidden": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4001"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Company is disabled"
+                    }
+                },
+                "type": "object"
+            },
+            "unprocessableContent": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4005"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Company webhook URL is not set"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTooManyRequests": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Retry after 30 seconds"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2000"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            },
+            "Disputes": {
+                "title": "disputes",
+                "properties": {
+                    "dateFrom": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD",
+                        "type": "string",
+                        "example": "2023-02-02",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "dateTo": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD",
+                        "type": "string",
+                        "example": "2023-03-03",
+                        "maxLength": 10,
+                        "minLength": 10
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "dateFrom",
+                    "dateTo"
+                ]
+            },
+            "Transactions": {
+                "title": "transactions",
+                "properties": {
+                    "page": {
+                        "description": "Page number",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "transaction": {
+                        "$ref": "#/components/schemas/TransactionsTransaction"
+                    },
+                    "settlement": {
+                        "$ref": "#/components/schemas/TransactionsSettlement"
+                    }
+                },
+                "type": "object"
+            },
+            "TransactionsTransaction": {
+                "type": "object",
+                "properties": {
+                    "processingAccountId": {
+                        "description": "Processing account ID",
+                        "type": "string",
+                        "example": "200085",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "dateTimeFrom": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday's date at 00:00:00 (today - 1 day)",
+                        "type": "string",
+                        "example": "2023-02-02 02:02:02",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "dateTimeTo": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday's date at 23:59:59 (today - 1 day)",
+                        "type": "string",
+                        "example": "2023-03-03 03:03:03",
+                        "maxLength": 19,
+                        "minLength": 19
+                    }
+                }
+            },
+            "TransactionsSettlement": {
+                "type": "object",
+                "properties": {
+                    "dateTimeFrom": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday's date at 00:00:00 (today - 1 day)",
+                        "type": "string",
+                        "example": "2023-02-02 02:02:02",
+                        "maxLength": 19,
+                        "minLength": 19
+                    },
+                    "dateTimeTo": {
+                        "description": "Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday's date at 23:59:59 (today - 1 day)",
+                        "type": "string",
+                        "example": "2023-03-03 03:03:03",
+                        "maxLength": 19,
+                        "minLength": 19
+                    }
+                }
+            },
+            "ProcessingAccounts": {
+                "title": "processing-accounts",
+                "properties": {},
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-report-api-key"
+            },
+            "apiPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-report-api-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "apiKey": [],
+            "apiPassword": []
+        }
+    ]
+}

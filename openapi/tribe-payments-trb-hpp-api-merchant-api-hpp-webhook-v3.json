@@ -1,0 +1,568 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API HPP Webhook",
+        "version": "3.0.0",
+        "description": "Merchant API HPP Webhook"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:10010/v3"
+        }
+    ],
+    "paths": {
+        "/registered-prepare-address": {
+            "post": {
+                "tags": [
+                    "Prepare success"
+                ],
+                "summary": "",
+                "operationId": "postprepare",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Prepare"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-prepare-error-address": {
+            "post": {
+                "tags": [
+                    "Prepare error"
+                ],
+                "summary": "",
+                "operationId": "postprepare-error",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PrepareError"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        },
+        "/registered-status-address": {
+            "post": {
+                "tags": [
+                    "Status"
+                ],
+                "summary": "",
+                "operationId": "poststatus",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Status"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Expected response: HTTP status code 200"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Prepare": {
+                "title": "prepare",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/PrepareWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "redirectUrl": {
+                        "description": "URL with redirect link",
+                        "type": "string",
+                        "example": "https://example-url.gateway.com/2a731e2ddfebc14ca4834e44851fda59",
+                        "maxLength": 255,
+                        "minLength": 1
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId",
+                    "redirectUrl"
+                ]
+            },
+            "PrepareWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "5455223499197002",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type] hosted_payment_prepare",
+                        "type": "string",
+                        "example": "hosted_payment_prepare",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorDisputes": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectDisputes"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorProcessing": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectProcessing"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseErrorTransactions": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseUnauthorized": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Unauthorized request"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectTransactions"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "responseForbidden": {
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObjectForbidden"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectProcessing": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body contains unknown field \\\"parameterName\\\""
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectTransactions": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "1005"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Request body must not be empty"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectDisputes": {
+                "title": "Validation object disputes",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "3007"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Invalid date format"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObjectForbidden": {
+                "title": "Validation object",
+                "properties": {
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "4004"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Processing account is disabled"
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2000"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            },
+            "PrepareError": {
+                "title": "prepare-error",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/PrepareErrorWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "message": {
+                        "description": "Error message",
+                        "type": "string",
+                        "example": "Error occurred",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PrepareErrorViolations"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId",
+                    "message"
+                ]
+            },
+            "PrepareErrorWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "5455223499197002",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type] hosted_payment_prepare",
+                        "type": "string",
+                        "example": "hosted_payment_prepare",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "PrepareErrorViolations": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "description": "[`Error code`](#appendix--enum--webhook-error-code)",
+                        "type": "string",
+                        "example": "403",
+                        "maxLength": 4,
+                        "minLength": 3
+                    },
+                    "message": {
+                        "description": "[`Error message `](#appendix--enum--webhook-error-code)",
+                        "type": "string",
+                        "example": "Company is disabled",
+                        "maxLength": 100,
+                        "minLength": 1
+                    }
+                }
+            },
+            "Status": {
+                "title": "status",
+                "properties": {
+                    "webhook": {
+                        "$ref": "#/components/schemas/StatusWebhook"
+                    },
+                    "requestId": {
+                        "description": "Unique request ID received after a successful initial request for the appropriate action",
+                        "type": "string",
+                        "example": "bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b",
+                        "maxLength": 36,
+                        "minLength": 36
+                    },
+                    "hostedPayment": {
+                        "$ref": "#/components/schemas/HostedPaymentStatus"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "requestId"
+                ]
+            },
+            "StatusWebhook": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique webhook ID",
+                        "type": "string",
+                        "example": "5455223499197002",
+                        "maxLength": 16,
+                        "minLength": 16
+                    },
+                    "type": {
+                        "description": "[Webhook Type] hosted_payment_status",
+                        "type": "string",
+                        "example": "hosted_payment_status",
+                        "maxLength": 50,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "id",
+                    "type"
+                ]
+            },
+            "HostedPaymentStatus": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "description": "The newly assigned status, which can be: 1 - Active; 2 - Expired",
+                        "type": "integer",
+                        "example": 2
+                    }
+                },
+                "required": [
+                    "status"
+                ]
+            }
+        },
+        "securitySchemes": {
+            "accountId": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-id"
+            },
+            "accountPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "accountId": [],
+            "accountPassword": []
+        }
+    ]
+}

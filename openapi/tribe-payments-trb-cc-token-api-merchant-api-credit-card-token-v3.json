@@ -1,0 +1,375 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Merchant API Credit Card Token",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/sale": {
+            "post": {
+                "tags": [
+                    "Sale"
+                ],
+                "summary": "",
+                "operationId": "postsale",
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Sale"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSuccess"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Sale": {
+                "title": "Sale",
+                "properties": {
+                    "transaction": {
+                        "$ref": "#/components/schemas/SaleTransaction"
+                    },
+                    "shippingLocation": {
+                        "$ref": "#/components/schemas/SaleShippingLocation"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/SaleCustomer"
+                    },
+                    "paymentMethod": {
+                        "$ref": "#/components/schemas/PaymentMethod"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "SaleTransaction": {
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "description": "Number in minor units, e.g. cents. For customer’s card verification, use 0",
+                        "type": "string",
+                        "example": "123",
+                        "maxLength": 13,
+                        "minLength": 1
+                    },
+                    "currencyCode": {
+                        "description": "Currency ISO 4217 code",
+                        "type": "string",
+                        "example": "EUR",
+                        "maxLength": 3,
+                        "minLength": 3
+                    },
+                    "orderId": {
+                        "description": "Custom merchant’s reference",
+                        "type": "string",
+                        "example": "32131231231241",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "descriptor": {
+                        "description": "Custom descriptor",
+                        "type": "string",
+                        "example": "descriptor",
+                        "maxLength": 32,
+                        "minLength": 1
+                    },
+                    "avsCheck": {
+                        "description": "Possible values: true or false. If the value is set to true, the Address Verification Service will be initiated",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "typeOf3ds": {
+                        "description": "[`3DS Type`]\\n<table>\\n<thead>\\n<tr>\\n<th>KEY<\/th>\\n<th>3DS Type<\/th>\\n<th>Description<\/th>\\n<\/tr>\\n<\/thead>\\n<tbody>\\n<tr>\\n<td>1<\/td>\\n<td>Attempt 3DS<\/td>\\n<td>Processing transactions regardless card enrollment in 3DS.<\/td>\\n<\/tr>\\n<tr>\\n<td>2<\/td>\\n<td>Soft 3DS<\/td>\\n<td>Processing transactions with cards enrolled with 3DS.<\/td>\\n<\/tr>\\n<tr>\\n<td>3<\/td>\\n<td>No 3DS<\/td>\\n<td>Processing transactions by skipping card 3DS verification at all.<\/td>\\n<\/tr>\\n<tr>\\n<td>4<\/td>\\n<td>Hard 3DS<\/td>\\n<td>Processing transactions only with full 3DS verification by the cardholder.<\/td>\\n<\/tr>\\n<\/tbody>\\n<\/table>",
+                        "type": "integer",
+                        "example": 2,
+                        "maxLength": 1,
+                        "minLength": 1
+                    },
+                    "deviceChannel": {
+                        "description": "Device channel value. The default value is 02",
+                        "type": "string",
+                        "example": "02",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "redirectUrlFor3ds": {
+                        "description": "Redirect URL for 3DS",
+                        "type": "string",
+                        "example": "https://urlfor3ds.com",
+                        "maxLength": 255,
+                        "minLength": 1
+                    },
+                    "paymentTypeIndicator": {
+                        "description": "The parameter handles the [`payment transaction type`](#appendix--enum--payment-transaction-type-indicator). Required for Mastercard and Visa money transfers as well as Account Funding transactions",
+                        "type": "string",
+                        "example": "C07",
+                        "maxLength": 3,
+                        "minLength": 2
+                    }
+                },
+                "required": [
+                    "amount",
+                    "currencyCode",
+                    "orderId",
+                    "redirectUrlFor3ds"
+                ]
+            },
+            "SaleShippingLocation": {
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "description": "Customer’s billing country. [`Country list`](#appendix--enum--country)",
+                        "type": "string",
+                        "example": "GB",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "state": {
+                        "description": "State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL",
+                        "type": "string",
+                        "example": "AL",
+                        "maxLength": 3,
+                        "minLength": 1
+                    },
+                    "city": {
+                        "description": "Customer’s billing city",
+                        "type": "string",
+                        "example": "City",
+                        "maxLength": 85,
+                        "minLength": 1
+                    },
+                    "address": {
+                        "description": "Customer’s billing address",
+                        "type": "string",
+                        "example": "Address 11",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "zipCode": {
+                        "description": "Customer’s billing ZIP code",
+                        "type": "string",
+                        "example": "GU16 7HF",
+                        "maxLength": 10,
+                        "minLength": 4
+                    }
+                }
+            },
+            "SaleCustomer": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer",
+                        "type": "string",
+                        "example": "user123",
+                        "maxLength": 50,
+                        "minLength": 1
+                    },
+                    "phone": {
+                        "description": "Customer’s phone number. Only numbers and, optionally, \"+\" symbol can be used",
+                        "type": "string",
+                        "example": "0123456789",
+                        "maxLength": 20,
+                        "minLength": 3
+                    },
+                    "email": {
+                        "description": "Customer’s email address",
+                        "type": "string",
+                        "example": "email@email.com",
+                        "maxLength": 50,
+                        "minLength": 6
+                    },
+                    "dateOfBirth": {
+                        "description": "Customer’s date of birth. ISO 8601 format: YYYY-MM-DD. Required by some providers or when MCC is 6012",
+                        "type": "string",
+                        "example": "2000-01-01",
+                        "maxLength": 10,
+                        "minLength": 10
+                    },
+                    "countryCode": {
+                        "description": "Customer’s billing country. [`Country list`](#appendix--enum--country)",
+                        "type": "string",
+                        "example": "GB",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "state": {
+                        "description": "State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL",
+                        "type": "string",
+                        "example": "AL",
+                        "maxLength": 3,
+                        "minLength": 1
+                    },
+                    "city": {
+                        "description": "Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is true",
+                        "type": "string",
+                        "example": "City",
+                        "maxLength": 85,
+                        "minLength": 1
+                    },
+                    "name": {
+                        "description": "Customer’s name",
+                        "type": "string",
+                        "example": "Name",
+                        "maxLength": 26,
+                        "minLength": 3
+                    },
+                    "address": {
+                        "description": "Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is true",
+                        "type": "string",
+                        "example": "Address",
+                        "maxLength": 100,
+                        "minLength": 1
+                    },
+                    "zipCode": {
+                        "description": "Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is true",
+                        "type": "string",
+                        "example": "GU16 7HF",
+                        "maxLength": 10,
+                        "minLength": 4
+                    },
+                    "ip": {
+                        "description": "IPv4 or IPv6 address",
+                        "type": "string",
+                        "example": "1.1.1.1",
+                        "maxLength": 40,
+                        "minLength": 7
+                    }
+                },
+                "required": [
+                    "email",
+                    "countryCode",
+                    "name",
+                    "ip"
+                ]
+            },
+            "PaymentMethod": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "description": "Payment method type.",
+                        "type": "string",
+                        "enum": ["googlePay", "applePay"],
+                        "example": "googlePay"
+                    },
+                    "token": {
+                        "description": "The base64-encoded Google Pay or Apple Pay token.",
+                        "type": "string",
+                        "example": "eyJzaWdUjnXFx1AzZFwifSJ9XFx1AzZFwifSJ9XFx1AzZFwXFx1AzZFwifSJ9XFx1AzZFwifSJ9XFx1AzZFwifSJ9ifSJ9XFx1AzZFwifSJ9XFx1AzZFwifSJ9...XFx1AzZFwifSJ9",
+                        "minLength": 200,
+                        "maxLength": 5000
+                    }
+                },
+                "required": [
+                    "type",
+                    "token"
+                ]
+            },
+            "responseSuccess": {
+                "title": "Success response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b"
+                    }
+                },
+                "type": "object"
+            },
+            "responseError": {
+                "title": "Error response",
+                "properties": {
+                    "requestId": {
+                        "description": "Request ID",
+                        "type": "string",
+                        "example": "b44724c9-3844-450d-b36a-986fc9c38d7b"
+                    },
+                    "message": {
+                        "description": "Error response",
+                        "type": "string",
+                        "example": "Error occurred"
+                    },
+                    "violations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/violationObject"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "violationObject": {
+                "title": "Validation object",
+                "properties": {
+                    "propertyPath": {
+                        "description": "Path of parameter causing an error. Null for general errors",
+                        "type": "string",
+                        "example": "parameterName",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "nullable": true
+                    },
+                    "code": {
+                        "description": "[`Response code`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 5,
+                        "minLength": 3,
+                        "example": "2001"
+                    },
+                    "message": {
+                        "description": "[`Response message`](#appendix--enum--response-code)",
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "example": "Value is not provided"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "accountId": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-id"
+            },
+            "accountPassword": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "x-auth-account-password"
+            }
+        }
+    },
+    "security": [
+        {
+            "accountId": [],
+            "accountPassword": []
+        }
+    ]
+}

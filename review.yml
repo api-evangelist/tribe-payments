@@ -1,0 +1,162 @@
+aid: tribe-payments
+name: Tribe Payments
+review:
+  question: Does Tribe Payments expose a public developer portal with downloadable OpenAPI specifications?
+  answer: true
+  date: '2026-07-24'
+  reviewer: API Evangelist
+findings:
+  summary: 'Tribe Payments runs a genuine, API-native developer portal at https://doc.tribepayments.com
+    (HTTP 200, a Nuxt SPA backed by a public JSON API at /api/public/document-groups and /api/public/domain-configuration).
+    The portal organizes nine product groups - Issuing Processor, Acquiring Processor, Gateway, Point
+    of Sale, Risk Monitor, 3D Secure, Wallet, Open Banking, and Bank Connect. Fifteen verbatim OpenAPI
+    3.0 documents were harvested from the portal''s public content endpoint (OPEN-API content tags) across
+    eight products: the Gateway Credit Card, Hosted Payments (HPP), Credit Card Token, and Reports APIs;
+    the POS Device Directory API; the Risk Monitor Client API; and the Open Banking Bank and TPP APIs,
+    each with companion callback/webhook specs. Several core issuer-processor and acquiring APIs (Program
+    Manager PM API, Transaction Authorization TAI API, Acquirer ACAPI, Merchant MAPI, Terminal TAPI, Tokenization
+    TOKAPI) are documented in the portal but publish no downloadable OpenAPI in their current version
+    (rendered as Markdown or changelog only). No public GitHub organization (github.com/tribepayments
+    returns 404) or Postman collection was found. Sandbox access is request-gated via the contact form,
+    not open self-service signup. Home market: United Kingdom (37 Lombard Street, London).'
+  developerPortal:
+    url: https://doc.tribepayments.com/
+    httpStatus: 200
+    confirmed: true
+    platform: Custom Nuxt SPA over a public REST backend (/api/public/*)
+  downloadableSpecs:
+    available: true
+    count: 15
+    format: OpenAPI 3.0 (JSON), served verbatim inside OPEN-API content tags
+    provenance: https://doc.tribepayments.com/api/public/documents/{documentId}/versions/{versionId}/content
+    fetchDate: '2026-07-24'
+    files:
+    - file: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
+      title: Merchant API Credit Card
+      version: 3.0.0
+      paths: 11
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/c749d5fe-1c1b-11f0-99ca-0707dc533d6a/versions/210ad3ce-611d-11ee-ba34-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+      title: Merchant API Credit Card Callback
+      version: 3.0.0
+      paths: 12
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/c749d5fe-1c1b-11f0-99ca-0707dc533d6a/versions/210ad3ce-611d-11ee-ba34-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
+      title: Merchant API HPP Webhook
+      version: 3.0.0
+      paths: 3
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b97e087e-d1fe-11ec-a884-625688a5976d/versions/54c0af22-bf69-11ee-9068-622fafbc19bd/content
+    - file: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
+      title: Merchant API HPP
+      version: 3.0.0
+      paths: 1
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b97e087e-d1fe-11ec-a884-625688a5976d/versions/54c0af22-bf69-11ee-9068-622fafbc19bd/content
+    - file: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
+      title: Merchant API Report
+      version: 3.0.0
+      paths: 4
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b9815dc6-d1fe-11ec-a558-de0474a3e416/versions/2178ad18-611d-11ee-ba34-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+      title: Merchant API
+      version: 3.0.0
+      paths: 4
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b9815dc6-d1fe-11ec-a558-de0474a3e416/versions/2178ad18-611d-11ee-ba34-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
+      title: Merchant API Credit Card Token
+      version: 3.0.0
+      paths: 1
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/f50e7416-d47f-11ee-93d0-beb6bcae26cf/versions/f524f1dc-d47f-11ee-93d0-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
+      title: Merchant API Credit Card Token Webhook
+      version: 3.0.0
+      paths: 1
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/f50e7416-d47f-11ee-93d0-beb6bcae26cf/versions/f524f1dc-d47f-11ee-93d0-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json
+      title: Device Directory API
+      version: 3.0.0
+      paths: 14
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/5f08688a-e1a3-11ec-a89b-625688a5976d/versions/c57c78a8-ad1c-11ef-853b-27964d48493c/content
+    - file: openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
+      title: ''
+      version: 3.0.3
+      paths: 4
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b9b1aa68-d1da-11ec-8b4f-625688a5976d/versions/4875d814-2f62-11ef-9537-beb6bcae26cf/content
+    - file: openapi/tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json
+      title: ''
+      version: 3.0.3
+      paths: 4
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/b9b1aa68-d1da-11ec-8b4f-625688a5976d/versions/4875d814-2f62-11ef-9537-beb6bcae26cf/content
+    - file: openapi/tribe-payments-obb-bank-api-openapi.json
+      title: 'Open Banking: Bank API'
+      version: 3.0.0
+      paths: 5
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/45637816-e1a8-11ec-a89b-625688a5976d/versions/3247d8b2-2f62-11ef-9537-beb6bcae26cf/content
+    - file: openapi/tribe-payments-obb-bank-api-webhooks-openapi.json
+      title: Bank Webhooks API
+      version: 3.0.0
+      paths: 10
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/45637816-e1a8-11ec-a89b-625688a5976d/versions/3247d8b2-2f62-11ef-9537-beb6bcae26cf/content
+    - file: openapi/tribe-payments-obb-tpp-api-openapi.json
+      title: 'Open Banking: TPP API v2'
+      version: 3.0.0
+      paths: 18
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/45a08efe-e1a8-11ec-84d5-de0474a3e416/versions/357b60e4-2f62-11ef-9537-beb6bcae26cf/content
+    - file: openapi/tribe-payments-obb-tpp-api-webhooks-openapi.json
+      title: Payment Webhooks
+      version: 3.0.0
+      paths: 2
+      sourceUrl: https://doc.tribepayments.com/api/public/documents/45a08efe-e1a8-11ec-84d5-de0474a3e416/versions/357b60e4-2f62-11ef-9537-beb6bcae26cf/content
+  authModel: 'API-key style header credentials, defined per product in the specs: the Gateway Credit Card,
+    HPP, and Token APIs use paired x-auth-account-id / x-auth-account-password headers; the Reports API
+    uses x-auth-report-api-key / x-auth-report-api-password; Open Banking TPP API uses an HTTP bearer
+    token plus an X-Client-ID apiKey header; Risk Monitor uses a bearer / X-AUTH-TOKEN header. No OAuth2
+    flow objects are declared in the harvested specs, and no anonymous /.well-known/openid-configuration
+    or oauth-authorization-server metadata is served (the portal''s /.well-known path returns the SPA
+    shell, not OIDC metadata).'
+  webhooks: Yes - webhooks/callbacks are pervasive. Harvested callback/webhook OpenAPI documents cover
+    Gateway Credit Card callbacks, HPP webhooks, Reports callbacks, Credit Card Token webhooks, Risk Monitor
+    webhooks, Open Banking Bank webhooks, and Open Banking Payment webhooks. The Issuer Transaction Authorization
+    Interface (TAI API) is also a webhook-based interface.
+  postman:
+    available: false
+    note: No public Postman collection or workspace was found.
+  graphql:
+    available: false
+    note: No GraphQL surface documented; all documented APIs are REST/JSON.
+  homeMarket: United Kingdom
+  railsPosture: Tribe is a processor/BaaS layer rather than a scheme or clearing operator, so it publishes
+    no ISO 20022 message catalog of its own. Its Open Banking APIs implement PSD2 account-information
+    (AIS) and payment-initiation (PIS) patterns and, per Tribe's press, were built with Open Banking Europe;
+    underlying UK rails are Faster Payments and Bacs operated by Pay.UK.
+  transports:
+  - protocol: REST
+    scheme: https
+    documented: true
+    note: All 15 harvested specs are OpenAPI 3.0 REST/JSON. Documented server URLs are placeholders (http://127.0.0.1:10010/v3)
+      or templated (%tpp_api_url%/tpp/v2); no real production base URL is published in the specs.
+  - protocol: Webhooks
+    scheme: https
+    documented: true
+    note: Callback/webhook interfaces documented as OpenAPI across most products.
+sources:
+- url: https://doc.tribepayments.com/
+  type: DeveloperPortal
+  httpStatus: 200
+- url: https://doc.tribepayments.com/api/public/document-groups
+  type: APIReference
+  httpStatus: 200
+  note: Public JSON catalog of 9 product groups and their document versions.
+- url: https://www.tribepayments.com/
+  type: Website
+  httpStatus: 200
+- url: https://status.tribepayments.com/
+  type: StatusPage
+  httpStatus: 200
+  note: Statuspage-hosted 'Tribe Status'.
+- url: https://github.com/tribepayments
+  type: GitHubOrganization
+  httpStatus: 404
+  note: No public GitHub org.
+- url: https://www.finextra.com/pressarticle/84945/tribe-payments-releases-suite-of-open-banking-apis
+  type: Reference
+  note: Tribe launch of Open Banking APIs with Open Banking Europe.
