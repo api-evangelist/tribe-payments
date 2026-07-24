@@ -1,0 +1,17 @@
+generated: '2026-07-24'
+method: searched
+source: https://www.tribepayments.com/product-updates
+scheme: dated-product-updates
+current_version:
+  gateway: v3
+  open_banking: v2
+note: >-
+  Tribe publishes a dated "Product Updates" page plus a company news feed rather
+  than a per-API machine-readable changelog. Individual API versions are carried in
+  the doc route (e.g. issuing v1.2, terminal v2). No structured recent-entries list
+  is exposed for programmatic capture on the public page; the product-updates URL is
+  the authoritative source.
+entries: []
+sources:
+  - https://www.tribepayments.com/product-updates
+  - https://www.tribepayments.com/news

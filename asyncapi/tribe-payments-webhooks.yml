@@ -1,0 +1,77 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/*-webhooks-openapi.json and openapi/*-callback-*.json (Tribe Payments developer portal)
+spec_type: Webhooks
+note: >-
+  Tribe Payments does not publish an AsyncAPI document, but it ships an extensive
+  documented webhook / asynchronous callback surface across every product family.
+  The Gateway/Merchant APIs are asynchronous (202 Accepted) and deliver outcomes
+  via registered callback addresses; Open Banking, Reports and Risk Monitor deliver
+  event notifications via webhooks. Delivery model: HTTP POST to a client-registered
+  URL. This catalog is derived verbatim from the callback/webhook OpenAPI files.
+delivery:
+  transport: http-post
+  pattern: client-registered callback/notification URLs ("registered-*-address")
+webhook_families:
+  - family: Open Banking - Bank Webhooks
+    source: openapi/tribe-payments-obb-bank-api-webhooks-openapi.json
+    events:
+      - v2_accounts
+      - v2_account
+      - v2_account_balances
+      - v2_account_transactions
+      - v2_payment_single
+      - v2_payment_single_status
+      - v2_payment_bulk
+      - v2_payment_bulk_status
+      - v2_payment_direct_single
+      - v2_funds_confirmations
+  - family: Open Banking - Payment Webhooks (TPP)
+    source: openapi/tribe-payments-obb-tpp-api-webhooks-openapi.json
+    events:
+      - v2_payment_status
+      - v2_payment_confirmation_link_expire
+  - family: Gateway - Credit Card transaction callbacks
+    source: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+    events:
+      - sale
+      - authorize
+      - pre-authorize
+      - credit
+      - process
+      - p2p
+      - cancel
+      - cancel-recurring
+      - capture
+      - incremental-authorize
+      - refund
+      - 3DS-submit
+  - family: Gateway - Credit Card Token callback
+    source: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
+    events:
+      - sale
+  - family: Gateway - Hosted Payments Page webhooks
+    source: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
+    events:
+      - prepare
+      - prepare-error
+      - status
+  - family: Gateway - Reports callbacks
+    source: openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+    events:
+      - order-status
+      - disputes
+      - transactions
+      - processing-accounts
+  - family: Risk Monitor webhooks
+    source: openapi/tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json
+    events:
+      - summary
+      - system-action
+      - user-action
+      - recurring-action
+  - family: Issuer - Transaction Authorization Interface (TAI)
+    source: doc.tribepayments.com (no downloadable spec)
+    events:
+      - card-transaction-status-change
+      - system-events

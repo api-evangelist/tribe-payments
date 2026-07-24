@@ -1,0 +1,27 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  Tribe Payments developer portal (Gateway Hosted Payments API) and
+  tribepayments.com product pages.
+note: >-
+  Client-side / hosted embeddable surfaces distinct from server-side SDKs. Tribe
+  offers merchant-facing hosted and prebuilt surfaces rather than a JS element
+  library.
+components:
+  - family: Hosted Payment Page (HPP)
+    kind: hosted-checkout
+    description: >-
+      Tribe-hosted checkout page that collects card payments on the merchant's
+      behalf, offloading PCI scope. Merchants call the HPP API /prepare operation
+      to create a session and redirect the shopper to the hosted page; outcomes
+      are delivered via webhook.
+    api: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
+    docs: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - family: SoftPOS
+    kind: mobile-acceptance
+    description: >-
+      Software point-of-sale acceptance turning a mobile device into a payment
+      terminal, managed through the Point of Sale Device Directory and terminal
+      activation flows.
+    api: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json
+    docs: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3

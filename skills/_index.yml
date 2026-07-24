@@ -1,0 +1,16 @@
+generated: '2026-07-24'
+method: generated
+source: openapi/* (operationIds grounded in Tribe Payments specs)
+skills:
+  - file: tribe-payments-card-authorize-and-capture.md
+    name: Authorize and capture a card payment
+    api: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
+    operations: [postauthorize, postcapture, postrefund, postcancel]
+  - file: tribe-payments-pull-transaction-report.md
+    name: Pull a transaction / order-status report
+    api: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
+    operations: [posttransactions, postorder-status, postdisputes, postprocessing-accounts]
+  - file: tribe-payments-submit-risk-event.md
+    name: Submit and act on a fraud-risk event
+    api: openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
+    operations: [subresource_postEventDataCollection, data_get_for_clientEventItem, subresource_postTrigerUserActionsForEventDataItem]

@@ -1,0 +1,90 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/* path hierarchies and $ref/id-reference fields
+note: >-
+  Entity-relationship graph derived from the resource path hierarchies and
+  id-reference fields in Tribe's OpenAPI definitions. The Point of Sale Device
+  Directory API exposes the clearest nested hierarchy (processor -> host ->
+  device/terminal); the Open Banking TPP API models account and payment entities.
+entities:
+  - name: processor
+    api: Point of Sale - Device Directory API
+    id_field: processorId
+  - name: host
+    api: Point of Sale - Device Directory API
+    id_field: hostId
+  - name: device
+    api: Point of Sale - Device Directory API
+    id_field: deviceId
+  - name: terminal
+    api: Point of Sale - Device Directory API
+    id_field: terminalId
+  - name: app
+    api: Point of Sale - Device Directory API
+    id_field: appId
+  - name: account
+    api: Open Banking - TPP API
+    id_field: accountId
+  - name: payment
+    api: Open Banking - TPP API
+    id_field: paymentId
+  - name: bank
+    api: Open Banking - TPP API
+    id_field: bankIdentifier
+  - name: transaction
+    api: Gateway - Credit Card / Reports API
+    id_field: transactionId
+  - name: token
+    api: Gateway - Credit Card Token API
+    id_field: token
+relationships:
+  - from: processor
+    to: host
+    type: has_many
+    via: processorId
+    evidence: /processors/{processorId}/hosts
+  - from: host
+    to: device
+    type: has_many
+    via: hostId
+    evidence: /hosts/{hostId}/devices
+  - from: host
+    to: terminal
+    type: has_many
+    via: hostId
+    evidence: /hosts/{hostId}/terminals
+  - from: processor
+    to: device
+    type: has_many
+    via: processorId
+    evidence: /processors/{processorId}/devices
+  - from: app
+    to: terminal
+    type: has_many
+    via: appId
+    evidence: /apps/{appId}/terminals/{terminalId}
+  - from: app
+    to: device
+    type: has_many
+    via: appId
+    evidence: /apps/{appId}/devices/{deviceId}
+  - from: account
+    to: transaction
+    type: has_many
+    via: accountId
+    evidence: /accounts/{accountId}/transactions
+  - from: account
+    to: balance
+    type: has_many
+    via: accountId
+    evidence: /accounts/{accountId}/balances
+  - from: bank
+    to: payment
+    type: has_many
+    via: bankIdentifier
+    evidence: /direct/payments/{bankIdentifier}/{paymentId}
+  - from: payment
+    to: payment_status
+    type: has_one
+    via: paymentId
+    evidence: /payments/{paymentId}/status

@@ -27,7 +27,7 @@ tags:
 - Point of Sale
 created: '2026-07-24'
 modified: '2026-07-24'
-specificationVersion: '0.19'
+specificationVersion: '0.20'
 kind: company
 apis:
 - aid: tribe-payments:gateway-credit-card-api
@@ -319,6 +319,12 @@ apis:
   - type: APIReference
     url: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
 common:
+- type: AgenticAccess
+  url: agentic-access/tribe-payments-agentic-access.yml
+- type: DomainSecurity
+  url: security/tribe-payments-domain-security.yml
+- type: Authentication
+  url: authentication/tribe-payments-authentication.yml
 - type: Website
   url: https://www.tribepayments.com/
 - type: DeveloperPortal
@@ -341,6 +347,38 @@ common:
   url: https://www.tribepayments.com/privacy-policy
 - type: LinkedIn
   url: https://www.linkedin.com/company/tribepayments/
+- type: GettingStarted
+  url: https://doc.tribepayments.com/docs/getting-started
+- type: SignUp
+  url: https://www.tribepayments.com/contact-us
+- type: Compliance
+  url: https://www.tribepayments.com/why-tribe
+- type: Conventions
+  url: conventions/tribe-payments-conventions.yml
+- type: Idempotency
+  url: conventions/tribe-payments-conventions.yml
+- type: ErrorCatalog
+  url: errors/tribe-payments-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/tribe-payments-lifecycle.yml
+- type: Conformance
+  url: conformance/tribe-payments-conformance.yml
+- type: Webhooks
+  url: asyncapi/tribe-payments-webhooks.yml
+- type: Sandbox
+  url: sandbox/tribe-payments-sandbox.yml
+- type: DataModel
+  url: data-model/tribe-payments-data-model.yml
+- type: Components
+  url: components/tribe-payments-components.yml
+- type: MCPServer
+  url: mcp/tribe-payments-mcp.yml
+- type: LLMsTxt
+  url: llms/tribe-payments-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/tribe-payments-obb-tpp-api-openapi-overlay.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

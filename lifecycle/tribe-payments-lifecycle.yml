@@ -1,0 +1,30 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  Tribe Payments developer portal (doc.tribepayments.com), product-updates and
+  status pages.
+versioning:
+  scheme: uri-path
+  detail: Major version in the base path and doc route (Gateway v3, Open Banking
+    v2, Issuer/Acquirer/Risk Monitor v1). Multiple product families version
+    independently.
+  observed_versions:
+    gateway: v3
+    open_banking: v2
+    issuer_program_manager: v1.2
+    transaction_authorization_interface: v1.2
+    acquirer: v1
+    terminal_api: v2
+    risk_monitor: v1.1
+status_page: https://status.tribepayments.com/
+change_log: https://www.tribepayments.com/product-updates
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: No public deprecation policy or RFC 8594 Sunset/Deprecation header support
+    was found on the developer portal.
+deprecated_operations: []
+sla:
+  url: null
+  note: No public SLA / uptime target document found; enterprise SLAs are handled
+    under commercial contract.

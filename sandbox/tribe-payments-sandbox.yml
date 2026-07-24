@@ -1,0 +1,32 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  Tribe Payments developer portal (doc.tribepayments.com), tribepayments.com/why-tribe,
+  and Finextra coverage of the Tribe sandbox launch.
+summary: >-
+  Tribe operates a free-to-use developer sandbox covering both issuing and
+  acquiring APIs, letting banks, challengers and fintechs explore, integrate and
+  experiment against the full API estate. A sandbox integration reflects how the
+  API behaves in production. Access is granted on request (via contact / developer
+  onboarding) rather than fully open self-service signup.
+availability:
+  free: true
+  self_service: false
+  access: on request (developer onboarding / contact-us)
+  scope: Issuing and acquiring APIs across the estate (Gateway, Open Banking,
+    Point of Sale, Issuer, Acquirer).
+test_vs_live:
+  separation: environment-based (sandbox vs production base URLs / credentials)
+  note: >-
+    Tribe assigns environment-specific base URLs and account credentials per
+    client; the published specs use templated/placeholder hosts
+    (e.g. %bank_api_url%, %tpp_api_url%) resolved at onboarding.
+published_test_values:
+  note: >-
+    No open, verbatim magic test card numbers or test identifiers are published on
+    the public developer portal; sandbox test data is provided during onboarding.
+    Not fabricated here.
+references:
+  - https://www.finextra.com/pressarticle/79934/tribe-payments-sandbox-goes-live
+  - https://doc.tribepayments.com/docs/getting-started
+  - https://www.tribepayments.com/why-tribe

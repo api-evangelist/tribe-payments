@@ -1,0 +1,70 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/* 4xx/5xx responses across Tribe Payments specifications
+format: json
+note: >-
+  Derived from the HTTP status codes and error schemas declared across Tribe's
+  published OpenAPI definitions. Tribe returns application/json error bodies
+  (typed Error / responseError / violationObject schemas), not RFC 9457
+  application/problem+json. Titles/remediation reflect the schema descriptions in
+  the specs.
+envelopes:
+  - family: Open Banking TPP
+    schema: Error (with typed variants + additionalErrors[])
+  - family: Gateway / Merchant
+    schema: responseError / responseError* + violationObject* (field-level violations)
+problems:
+  - status: 400
+    title: Bad Request
+    description: Malformed request or failed field-level validation.
+    schema: [Error, responseError, violationObject]
+    seen_in: TPP, Credit Card, HPP, Reports, Device Directory, Risk Monitor
+  - status: 401
+    title: Unauthorized
+    description: Missing or invalid authentication credentials / token.
+    schema: [UnauthorizedError, responseUnauthorized]
+    seen_in: TPP, Credit Card, HPP, Reports, Risk Monitor
+  - status: 403
+    title: Forbidden
+    description: Authenticated but not permitted to perform the operation.
+    schema: [ForbiddenError, responseForbidden, violationObjectForbidden]
+    seen_in: TPP, Credit Card, HPP, Reports
+  - status: 404
+    title: Not Found
+    description: The requested resource (account, payment, device, terminal, event) does not exist.
+    schema: [NotFoundError]
+    seen_in: TPP, Device Directory, Risk Monitor
+  - status: 405
+    title: Method Not Allowed
+    description: HTTP method not supported on this resource.
+    schema: [NotAllowedError]
+    seen_in: TPP
+  - status: 406
+    title: Not Acceptable
+    description: Requested representation/Accept header cannot be satisfied.
+    schema: [NotAcceptableError]
+    seen_in: TPP
+  - status: 409
+    title: Conflict
+    description: Request conflicts with current resource state (e.g. duplicate user-action trigger).
+    seen_in: Risk Monitor
+  - status: 415
+    title: Unsupported Media Type
+    description: Request Content-Type is not supported.
+    schema: [UnsupportedMediaTypeError]
+    seen_in: TPP, Risk Monitor
+  - status: 422
+    title: Unprocessable Content
+    description: Semantically invalid request (validation of a well-formed body failed).
+    schema: [unprocessableContent, violationObject]
+    seen_in: Reports, Device Directory, Risk Monitor
+  - status: 429
+    title: Too Many Requests
+    description: Rate limit / access threshold exceeded.
+    schema: [AccessExceededError, responseTooManyRequests, violationObjectTooManyRequests]
+    seen_in: TPP, Reports
+  - status: 500
+    title: Internal Server Error
+    description: Unexpected server-side error.
+    schema: [InternalServerError]
+    seen_in: TPP, Risk Monitor

@@ -1,0 +1,75 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/tribe-payments-obb-tpp-api-openapi.json, openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json,
+  openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json, openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json,
+  openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json, openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json,
+  openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json, openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json,
+  openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json, openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: tokenAuth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/tribe-payments-obb-tpp-api-openapi.json
+- name: clientId
+  type: apiKey
+  in: header
+  parameter: X-Client-ID
+  sources:
+  - openapi/tribe-payments-obb-tpp-api-openapi.json
+- name: accountId
+  type: apiKey
+  in: header
+  parameter: x-auth-account-id
+  sources:
+  - openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+  - openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
+  - openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
+  - openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
+  - openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
+  - openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
+- name: accountPassword
+  type: apiKey
+  in: header
+  parameter: x-auth-account-password
+  sources:
+  - openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+  - openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
+  - openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
+  - openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
+  - openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
+  - openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: x-auth-report-api-key
+  sources:
+  - openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+  - openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
+- name: apiPassword
+  type: apiKey
+  in: header
+  parameter: x-auth-report-api-password
+  sources:
+  - openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+  - openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
+- name: Bearer
+  type: apiKey
+  in: header
+  parameter: bearer
+  description: Value for the bearer header parameter.
+  sources:
+  - openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
+- name: Token
+  type: apiKey
+  in: header
+  parameter: X-AUTH-TOKEN
+  description: Value for the X-AUTH-TOKEN header parameter.
+  sources:
+  - openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json

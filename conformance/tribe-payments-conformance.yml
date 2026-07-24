@@ -1,0 +1,52 @@
+generated: '2026-07-24'
+method: searched
+source: >-
+  Derived from Tribe Payments OpenAPI definitions and confirmed against Tribe's
+  published compliance posture (tribepayments.com, ISO 27001 certification
+  announcement, financialit.net / thepaypers.com coverage).
+standards:
+  - id: psd2
+    conforms: true
+    evidence: >-
+      Open Banking TPP/Bank APIs implement PSD2 account information (AIS) and
+      payment initiation (PIS) with Strong Customer Authentication; Tribe states
+      full PSD2 compliance.
+  - id: berlin-group-nextgenpsd2
+    conforms: true
+    evidence: >-
+      TPP API uses NextGenPSD2-style HTTP message signing headers
+      (Digest, Signature, Tpp-Signature-Certificate, X-Request-Id, Date).
+  - id: pci-dss
+    conforms: true
+    level: "Level 1"
+    evidence: Tribe is certified PCI DSS Level 1 (card processing); HPP offloads
+      merchant PCI scope; tokenization APIs remove raw PAN handling.
+  - id: iso-27001
+    conforms: true
+    evidence: ISO 27001 certified (2024, audited by Bureau Veritas).
+  - id: gdpr
+    conforms: true
+    evidence: Tribe states GDPR compliance with regional data residency support.
+  - id: emv-3ds
+    conforms: true
+    evidence: 3D Secure (3DS submit) operations in the Credit Card API; SCA support.
+  - id: oauth2
+    conforms: false
+    evidence: No OAuth2 securitySchemes declared; auth is apiKey / bearer token /
+      HTTP message signing.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Error bodies are application/json typed Error schemas, not
+      application/problem+json.
+  - id: idempotency-key
+    conforms: true
+    evidence: Device Directory API write operations accept an idempotency-key header.
+  - id: rate-limit-429
+    conforms: true
+    evidence: TPP and Reports APIs return HTTP 429 on threshold breach.
+  - id: card-scheme-membership
+    conforms: true
+    evidence: Direct Principal Member of Visa, Mastercard and American Express.
+compliance_published:
+  certifications: [PCI DSS Level 1, ISO 27001, GDPR, PSD2]
+  url: https://www.tribepayments.com/why-tribe

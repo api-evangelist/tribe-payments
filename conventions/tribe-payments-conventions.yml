@@ -1,0 +1,81 @@
+generated: '2026-07-24'
+method: derived
+source: openapi/* (Tribe Payments developer portal specifications)
+summary: >-
+  Cross-cutting request/response conventions derived from Tribe Payments' published
+  OpenAPI definitions. Tribe runs distinct API families (Gateway/Merchant, Point of
+  Sale Device Directory, Open Banking TPP/Bank, Issuer, Acquirer) with meaningfully
+  different conventions per family, so this captures the union observed across specs.
+authentication:
+  styles:
+    - family: Gateway / Merchant (Credit Card, HPP, Token, Reports)
+      scheme: apiKey
+      detail: Account credential pair carried in headers (accountId/accountPassword,
+        or apiKey/apiPassword for the Reports API).
+    - family: Open Banking TPP
+      scheme: http bearer + apiKey
+      detail: Bearer token (tokenAuth) plus X-Client-ID header (clientId).
+    - family: Open Banking TPP (message-level)
+      scheme: HTTP message signing
+      detail: PSD2/Berlin Group NextGenPSD2 style request signing - Digest,
+        Signature, Tpp-Signature-Certificate, X-Request-Id and Date headers on
+        every account/payment operation.
+    - family: Risk Monitor
+      scheme: http bearer
+      detail: Bearer plus a Token scheme.
+  cross_link: authentication/tribe-payments-authentication.yml
+idempotency:
+  supported: true
+  mechanism: request header
+  header: idempotency-key
+  scope: Point of Sale Device Directory API write operations (POST/PUT/DELETE on
+    hosts, devices, terminals) accept an optional idempotency-key header.
+  format: UUID or unique string (example UUID published in spec)
+  note: >-
+    The Gateway/Merchant transaction APIs are asynchronous (202 Accepted +
+    callback) rather than idempotency-key based; idempotency-key is explicitly
+    documented on the Device Directory API operations.
+  source: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json
+pagination:
+  styles:
+    - style: page-number
+      params: [page, limit]
+      surfaces: Device Directory API, Open Banking TPP /banks.
+    - style: cursor
+      params: [pageSize, pageKey]
+      surfaces: Open Banking TPP account transactions.
+    - style: date-range filter
+      params: [dateFrom, dateTo, 'created[from]', 'created[to]']
+      surfaces: Transactions and device/host listings.
+request_tracing:
+  supported: true
+  header: X-Request-Id
+  scope: Open Banking TPP API requires a client-supplied X-Request-Id correlation
+    id on every operation (also echoed for troubleshooting).
+versioning:
+  scheme: uri-path
+  detail: Major version embedded in the base path (/v3 Gateway, /v2 Open Banking,
+    /v1 Issuer/Acquirer/Risk Monitor). Version also encoded in the doc route.
+error_envelope:
+  gateway_merchant:
+    shape: JSON body with responseSuccess / responseError / responseError* and
+      violationObject* schemas describing field-level validation violations.
+  open_banking_tpp:
+    shape: Generic Error schema (application/json) with typed variants
+      (UnauthorizedError, ForbiddenError, NotFoundError, AccessExceededError,
+      NotAllowedError, NotAcceptableError, UnsupportedMediaTypeError,
+      InternalServerError) and an additionalErrors array.
+  format: application/json (not RFC 9457 application/problem+json)
+  cross_link: errors/tribe-payments-problem-types.yml
+rate_limit_signaling:
+  supported: true
+  status: 429
+  detail: Open Banking TPP (AccessExceededError) and the Reports API return HTTP
+    429 Too Many Requests; TPP documents a 429 response on every operation.
+  cross_link: null
+webhooks:
+  supported: true
+  detail: Extensive asynchronous callback / webhook surface across families
+    (transaction callbacks, HPP status, token, report, risk-monitor, Open Banking
+    payment/bank event webhooks).
+  cross_link: asyncapi/tribe-payments-webhooks.yml
