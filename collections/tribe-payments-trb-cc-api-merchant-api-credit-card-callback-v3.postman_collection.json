@@ -1,0 +1,1226 @@
+{
+  "item": [
+    {
+      "id": "0a613a83-d80e-456b-80e7-1c62efcbf430",
+      "name": "Sale",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "57580ac8-ead8-48c6-9fb8-f96802645b64",
+          "name": "postsale",
+          "request": {
+            "name": "postsale",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-sale-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"avsCheckResponse\": \"<string>\",\n    \"statementDescriptor\": \"<string>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "90ddfb5b-dbc8-46d0-9382-664522513f01",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-sale-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 1,\n    \"avsCheckResponse\": \"G\",\n    \"statementDescriptor\": \"onlinemerchant.com\",\n    \"currencyCode\": \"EUR\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5078c0a8-668e-4884-a399-89fcd0d2c35f",
+      "name": "Authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e4deee9-0846-44ae-b282-542a85bb6f2b",
+          "name": "postauthorize",
+          "request": {
+            "name": "postauthorize",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-authorize-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"expirationDate\": \"<string>\",\n    \"avsCheckResponse\": \"<string>\",\n    \"statementDescriptor\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4bfae046-c788-4930-8651-98a2986f70fe",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-authorize-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 4,\n    \"expirationDate\": \"2023-06-01 08:01:01\",\n    \"avsCheckResponse\": \"G\",\n    \"statementDescriptor\": \"onlinemerchant.com\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "79f9963d-94df-4931-8bf1-478847f01657",
+      "name": "Pre authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7897107f-2aea-484b-b303-0fda4a22265a",
+          "name": "postpre-authorize",
+          "request": {
+            "name": "postpre-authorize",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-pre-authorize-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"expirationDate\": \"<string>\",\n    \"avsCheckResponse\": \"<string>\",\n    \"statementDescriptor\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ecacd033-168f-4dc1-a2f2-a5c676c7e352",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-pre-authorize-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 101,\n    \"expirationDate\": \"2023-06-01 08:01:01\",\n    \"avsCheckResponse\": \"G\",\n    \"statementDescriptor\": \"onlinemerchant.com\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "745de591-8107-4ff3-817f-04fe397caf2c",
+      "name": "Credit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "44ffa4d9-952b-4f49-9451-0e250de5b10c",
+          "name": "postcredit",
+          "request": {
+            "name": "postcredit",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-credit-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\",\n    \"statementDescriptor\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12cf9508-e0cb-4e28-9b15-027dda05e181",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-credit-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 40,\n    \"parentId\": \"675689811821989225\",\n    \"statementDescriptor\": \"onlinemerchant.com\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "daa9f381-e18a-4b4c-a1a3-a60bce6d7422",
+      "name": "Process",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "97c0581a-2833-422d-9145-b0c18cd568fa",
+          "name": "postprocess",
+          "request": {
+            "name": "postprocess",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-process-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\",\n    \"expirationDate\": \"<string>\",\n    \"statementDescriptor\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ff7c4ce-e73b-4f2d-9178-83ed74fd29c9",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-process-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 4,\n    \"parentId\": \"675689811821989225\",\n    \"expirationDate\": \"2023-06-01 08:01:01\",\n    \"statementDescriptor\": \"onlinemerchant.com\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "80aafbd9-fc60-4e75-8dac-553234570dd5",
+      "name": "P2P",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52c46e51-18d5-4605-84a5-1505f60ffeed",
+          "name": "postp2p",
+          "request": {
+            "name": "postp2p",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-p2p-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdbeea10-66d1-4939-94c4-90de8ac2e7bd",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-p2p-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 190,\n    \"parentId\": \"675689811821989225\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "381ec559-a3b2-44fc-a81e-5e39c8c6aca0",
+      "name": "Cancel",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0439b6a2-3e1e-438a-aeea-42d3f214719d",
+          "name": "postcancel",
+          "request": {
+            "name": "postcancel",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-cancel-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"amountRemaining\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1447ecba-fcf2-4745-8431-b96b72200d4e",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-cancel-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"amountRemaining\": \"77\",\n    \"type\": 5,\n    \"parentId\": \"675689811821989225\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b9fdd4f9-7e56-42a6-ae46-7d62f35c04c2",
+      "name": "Cancel recurring",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5f46708e-ec9c-4484-9da5-63b725ae33f0",
+          "name": "postcancel-recurring",
+          "request": {
+            "name": "postcancel-recurring",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-cancel-recurring-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "73f2880c-9a82-4216-ac37-81fe58421927",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-cancel-recurring-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 180,\n    \"parentId\": \"675689811821989225\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "916e198b-af96-4061-8c40-0ddf2a30e3c2",
+      "name": "Capture",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f5ce3ad-ac21-4183-b609-b177f721c9aa",
+          "name": "postcapture",
+          "request": {
+            "name": "postcapture",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-capture-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "353f9ea6-2803-481f-8ddd-0077e3f239f2",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-capture-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"type\": 3,\n    \"parentId\": \"675689811821989225\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4ae0a565-72ce-40ba-95c6-d1eb105bb01b",
+      "name": "Incremental authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b6e3fe8-0d7a-4034-af90-db6294f4beb9",
+          "name": "postincremental-authorize",
+          "request": {
+            "name": "postincremental-authorize",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-incremental-authorize-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"totalAmount\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\",\n    \"expirationDate\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1b9aee2e-0b4e-4ba8-8f95-da38f75b7044",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-incremental-authorize-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"amount\": \"10\",\n    \"currencyCode\": \"EUR\",\n    \"totalAmount\": \"522\",\n    \"type\": 102,\n    \"parentId\": \"675689811821989225\",\n    \"expirationDate\": \"2023-06-01 08:01:01\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "417d913a-2300-4b0c-93a0-9b9554a955a7",
+      "name": "Refund",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f6b60e6-b785-4f5b-b3cc-0835f7b552d0",
+          "name": "postrefund",
+          "request": {
+            "name": "postrefund",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-refund-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"amountRemaining\": \"<string>\",\n    \"type\": \"<integer>\",\n    \"parentId\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31e9718b-1209-4bb2-8c8f-d3d761608e59",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-refund-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"true\",\n    \"amountRemaining\": \"77\",\n    \"type\": 2,\n    \"parentId\": \"675689811821989225\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3bf00fb3-a5ea-48e3-a9c6-e067ddb31e00",
+      "name": "3DS authentication required",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5ff69fe-201b-4e50-af80-7ddcde79aebe",
+          "name": "post3DS-submit",
+          "request": {
+            "name": "post3DS-submit",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-3DS-submit-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"<string>\",\n    \"statementDescriptor\": \"<string>\",\n    \"redirectUrl\": \"<string>\",\n    \"type\": \"<integer>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28d82f51-32a7-4c8a-84d5-487af3dce1ca",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-3DS-submit-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"a06a73c9-d1d7-11ec-8b58-2e8a68cda573\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc_3ds\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01 11:21:15\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"655\",\n    \"message\": \"3DS authentication required\",\n    \"errorDescription\": \"<string>\",\n    \"status\": \"false\",\n    \"statementDescriptor\": \"onlinemerchant.com\",\n    \"redirectUrl\": \"https://risk.payment.domain.com/sapi/3ds/544191344642360565\",\n    \"type\": 6\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:10010/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3c2fc753-4c34-428b-91c0-f2ee0f82e740",
+    "name": "Merchant API Credit Card Callback",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

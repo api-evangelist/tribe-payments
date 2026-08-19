@@ -1,0 +1,2898 @@
+{
+  "item": [
+    {
+      "id": "eb22f92b-949b-4291-bb5b-58da9346ac24",
+      "name": "Sale",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "344b30c8-c066-41f2-a668-a1fa8164e602",
+          "name": "postsale",
+          "request": {
+            "name": "postsale",
+            "description": {},
+            "url": {
+              "path": [
+                "sale"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"avsCheck\": \"<boolean>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"mitParentTransactionId\": \"<string>\",\n    \"mitMessageReasonCode\": \"<string>\",\n    \"category\": \"<string>\",\n    \"paymentTypeIndicator\": \"<string>\",\n    \"cryptogram\": \"<string>\",\n    \"eciIndicator\": \"<string>\"\n  },\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expirationMonth\": \"<integer>\",\n    \"expirationYear\": \"<integer>\",\n    \"holderName\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"ip\": \"<string>\",\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"recurring\": {\n    \"paymentType\": \"<integer>\",\n    \"frequency\": \"<integer>\",\n    \"endDate\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b9abb60b-8647-4ceb-919a-34710f61ca7e",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aae30d91-5e83-4675-88ef-99f8bbe846e2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1b38f81-1e18-43a8-b018-99e25e277148",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4704b506-e445-4d1d-a9ae-e6758c224581",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "95048876-a7ea-456b-b5e0-85bb6ee546e3",
+      "name": "Authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dfec3a9b-ca0d-46af-b808-d52d9d5ba497",
+          "name": "postauthorize",
+          "request": {
+            "name": "postauthorize",
+            "description": {},
+            "url": {
+              "path": [
+                "authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"avsCheck\": \"<boolean>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"mitParentTransactionId\": \"<string>\",\n    \"mitMessageReasonCode\": \"<string>\",\n    \"category\": \"<string>\",\n    \"paymentTypeIndicator\": \"<string>\",\n    \"cryptogram\": \"<string>\",\n    \"eciIndicator\": \"<string>\"\n  },\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expirationMonth\": \"<integer>\",\n    \"expirationYear\": \"<integer>\",\n    \"holderName\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"ip\": \"<string>\",\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"recurring\": {\n    \"paymentType\": \"<integer>\",\n    \"frequency\": \"<integer>\",\n    \"endDate\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8375995a-43cb-4606-9344-06427d754cf5",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73d19c59-b2e2-4133-b5da-cbe6f648fbcd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "720b9ef4-a469-466a-a51f-68fa99dd8a47",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e89fd62-a6b8-48dd-8745-aef55d0c3290",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\",\n    \"paymentTypeIndicator\": \"C07\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "4fb46bd9-3bc6-4127-a969-c61a94a7c58d",
+      "name": "Pre authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4aba091c-37da-4565-96a3-8635a0715502",
+          "name": "postpre-authorize",
+          "request": {
+            "name": "postpre-authorize",
+            "description": {},
+            "url": {
+              "path": [
+                "pre-authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"avsCheck\": \"<boolean>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"cryptogram\": \"<string>\",\n    \"eciIndicator\": \"<string>\"\n  },\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expirationMonth\": \"<integer>\",\n    \"expirationYear\": \"<integer>\",\n    \"holderName\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"ip\": \"<string>\",\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"recurring\": {\n    \"paymentType\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ba3fba65-d236-4b62-8916-fd43a4354f1c",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ede6d59-6270-4bda-8858-e7ce1e23529d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc247513-9058-49fb-bb64-713b424afac1",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bd519ea-5c75-4315-a501-802dfbcd0889",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pre-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"cryptogram\": \"ALnt+yWSJdXBACMLLWMNGgADFA==\",\n    \"eciIndicator\": \"07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"recurring\": {\n    \"paymentType\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "49467915-8e7a-49ab-8d50-24542a1ebbe7",
+      "name": "Credit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7481dc76-b631-4a58-b2b5-8272b884789f",
+          "name": "postcredit",
+          "request": {
+            "name": "postcredit",
+            "description": {},
+            "url": {
+              "path": [
+                "credit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"paymentTypeIndicator\": \"<string>\"\n  },\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expirationMonth\": \"<integer>\",\n    \"expirationYear\": \"<integer>\",\n    \"holderName\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"ip\": \"<string>\"\n  },\n  \"receiver\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b6988222-71ee-4321-9657-0ebcefd388fb",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"descriptor\": \"descriptor\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a8cac46-f695-491a-9328-fb30cf315276",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"descriptor\": \"descriptor\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "768ea16f-ece2-4e14-a858-2dd7c457202e",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"descriptor\": \"descriptor\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fac54252-8d07-4f98-89ae-9ccea13cf45e",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"descriptor\": \"descriptor\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"number\": \"5099993000018223\",\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"securityCode\": \"000\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "668cd4b4-e46c-41e8-a0f2-e29eca50151b",
+      "name": "Process",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5330fba5-b81f-45fa-9d99-0cc9a7261ad2",
+          "name": "postprocess",
+          "request": {
+            "name": "postprocess",
+            "description": {},
+            "url": {
+              "path": [
+                "process"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operationType\": \"<string>\",\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"mitParentTransactionId\": \"<string>\",\n    \"mitMessageReasonCode\": \"<string>\",\n    \"category\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\",\n    \"securityCode\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"ip\": \"<string>\"\n  },\n  \"receiver\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "871adb07-36f5-4ac2-86cd-9498f099224d",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationType\": \"sale\",\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "911296ce-29fd-411d-b44b-5cb2eb7b7464",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationType\": \"sale\",\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c184e4ac-30f9-4779-ad3f-01de968add21",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationType\": \"sale\",\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06fde323-b50c-4ee3-9985-8a9031dbb483",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "process"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operationType\": \"sale\",\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"mitParentTransactionId\": \"497709221425450974\",\n    \"mitMessageReasonCode\": \"ps\",\n    \"category\": \"MO\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\",\n    \"securityCode\": \"000\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\"\n  },\n  \"receiver\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0b16a4f5-845c-4bb6-b5cd-df3fbf6d34d1",
+      "name": "P2P",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9245505f-306a-4eee-9b18-d3080995f0ec",
+          "name": "postp2p",
+          "request": {
+            "name": "postp2p",
+            "description": {},
+            "url": {
+              "path": [
+                "p2p"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"sendingAmount\": \"<string>\",\n    \"receivingAmount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"paymentTypeIndicator\": \"<string>\"\n  },\n  \"card\": {\n    \"expirationMonth\": \"<integer>\",\n    \"expirationYear\": \"<integer>\",\n    \"holderName\": \"<string>\",\n    \"number\": \"<string>\",\n    \"securityCode\": \"<string>\",\n    \"hash\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"ip\": \"<string>\",\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"receiver\": {\n    \"cardNumber\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"countryOfBirth\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"nationality\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"location\": {\n      \"countryCode\": \"<string>\",\n      \"state\": \"<string>\",\n      \"city\": \"<string>\",\n      \"address\": \"<string>\",\n      \"zipCode\": \"<string>\"\n    },\n    \"identification\": {\n      \"countryCode\": \"<string>\",\n      \"expirationDate\": \"<string>\",\n      \"number\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  },\n  \"sender\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"middleName\": \"<string>\",\n    \"countryOfBirth\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"nationality\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"location\": {\n      \"countryCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"address\": \"<string>\",\n      \"zipCode\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"identification\": {\n      \"countryCode\": \"<string>\",\n      \"expirationDate\": \"<string>\",\n      \"number\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80bb5945-099c-4642-afda-ebcc21f15c89",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "p2p"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"sendingAmount\": \"120\",\n    \"receivingAmount\": \"130\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"number\": \"5099993000018223\",\n    \"securityCode\": \"000\",\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\"\n  },\n  \"receiver\": {\n    \"cardNumber\": \"5099993000018223\",\n    \"firstName\": \"Firstname\",\n    \"middleName\": \"R\",\n    \"lastName\": \"Lastname\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"state\": \"AL\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  },\n  \"sender\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\",\n    \"middleName\": \"S\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\",\n      \"state\": \"AL\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5eb1fc76-c68e-4855-8b45-ff8480b6479f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "p2p"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"sendingAmount\": \"120\",\n    \"receivingAmount\": \"130\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"number\": \"5099993000018223\",\n    \"securityCode\": \"000\",\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\"\n  },\n  \"receiver\": {\n    \"cardNumber\": \"5099993000018223\",\n    \"firstName\": \"Firstname\",\n    \"middleName\": \"R\",\n    \"lastName\": \"Lastname\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"state\": \"AL\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  },\n  \"sender\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\",\n    \"middleName\": \"S\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\",\n      \"state\": \"AL\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "650dd366-ef69-4f21-bfef-eeab4f2ae912",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "p2p"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"sendingAmount\": \"120\",\n    \"receivingAmount\": \"130\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"number\": \"5099993000018223\",\n    \"securityCode\": \"000\",\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\"\n  },\n  \"receiver\": {\n    \"cardNumber\": \"5099993000018223\",\n    \"firstName\": \"Firstname\",\n    \"middleName\": \"R\",\n    \"lastName\": \"Lastname\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"state\": \"AL\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  },\n  \"sender\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\",\n    \"middleName\": \"S\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\",\n      \"state\": \"AL\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a6af02d-c6b9-458c-b470-0445f8f2d74d",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "p2p"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"sendingAmount\": \"120\",\n    \"receivingAmount\": \"130\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"card\": {\n    \"expirationMonth\": 12,\n    \"expirationYear\": 2028,\n    \"holderName\": \"John Doe von Soap\",\n    \"number\": \"5099993000018223\",\n    \"securityCode\": \"000\",\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\"\n  },\n  \"receiver\": {\n    \"cardNumber\": \"5099993000018223\",\n    \"firstName\": \"Firstname\",\n    \"middleName\": \"R\",\n    \"lastName\": \"Lastname\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"state\": \"AL\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  },\n  \"sender\": {\n    \"firstName\": \"Firstname\",\n    \"lastName\": \"Lastname\",\n    \"middleName\": \"S\",\n    \"countryOfBirth\": \"GB\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"nationality\": \"GB\",\n    \"phone\": \"0123456789\",\n    \"location\": {\n      \"countryCode\": \"GB\",\n      \"city\": \"City\",\n      \"address\": \"Address\",\n      \"zipCode\": \"GU16 7HF\",\n      \"state\": \"AL\"\n    },\n    \"identification\": {\n      \"countryCode\": \"GB\",\n      \"expirationDate\": \"2029-02-02\",\n      \"number\": \"Nr.123456789\",\n      \"type\": \"12\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7d875086-b56d-4b2c-8b3e-6c281142e313",
+      "name": "Cancel",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04e28e21-d700-48a8-9ec8-472c694605e7",
+          "name": "postcancel",
+          "request": {
+            "name": "postcancel",
+            "description": {},
+            "url": {
+              "path": [
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "785d84b5-1636-4fe3-88a5-a2306593e520",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faff033a-a6f2-4546-b43a-423b528fb205",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e53294a7-146e-4243-98e8-093466877fc8",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82498efc-5232-402c-9cd1-0b708ed3ddc1",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f46c171f-02a3-4e7b-bac6-b088f03d93bc",
+      "name": "Cancel recurring",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e98a6491-8a81-404e-a501-073e223a91bf",
+          "name": "postcancel-recurring",
+          "request": {
+            "name": "postcancel-recurring",
+            "description": {},
+            "url": {
+              "path": [
+                "cancel-recurring"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8dbbfd87-f8af-44bf-959b-50dd9bce1863",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel-recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a32bb59-ff99-47e4-ac92-af862dd9d3c7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel-recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b30f4c2-56df-4e72-8215-67631d9117e0",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel-recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55798a19-f026-4f5c-87bd-e5057d398199",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cancel-recurring"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "28cd7cd3-f2ae-417a-8850-7643f3be6fa6",
+      "name": "Capture",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "62433775-056c-4531-a58f-9b861795d1dd",
+          "name": "postcapture",
+          "request": {
+            "name": "postcapture",
+            "description": {},
+            "url": {
+              "path": [
+                "capture"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c40522ff-4652-4761-8e41-8fb3cad2f941",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e97b1b20-3b69-409c-93fc-71a875557c2e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fcccb10-a344-4e6b-aaa4-b67c5d61049d",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9404481a-7453-46e7-96a6-3d58e0ba9f23",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "16093004-7e1f-4c30-a350-5363737ae767",
+      "name": "Incremental authorize",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "48d13131-1bc9-4056-825b-c52111f008fa",
+          "name": "postincremental-authorize",
+          "request": {
+            "name": "postincremental-authorize",
+            "description": {},
+            "url": {
+              "path": [
+                "incremental-authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33c4604f-9048-460d-9071-9ada81901b52",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incremental-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4e8fb3f-df97-45b4-9c38-de10e8c18bcc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incremental-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91054991-cecb-493f-9617-2247a71f2f62",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incremental-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61827097-e6bf-469d-b0ea-cb1cc58ce440",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "incremental-authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "af716372-6192-4b53-9b9e-a15a12f30c9d",
+      "name": "Refund",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f0adc1d2-82f0-46f6-8913-9e81f14ee4d4",
+          "name": "postrefund",
+          "request": {
+            "name": "postrefund",
+            "description": {},
+            "url": {
+              "path": [
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8427ce6-d4a8-4c6a-bc80-59921be90f3b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46b2c75a-96e2-4b0e-bee5-f0b21df9d4a3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3693c3c-de9c-419b-8e80-361fde2e9198",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c4aa968-f6a6-4e3b-b54a-1fd74f2d6094",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"amount\": \"123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:10010/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3b2db8a8-2eb1-4eb7-b3b3-8bcec0be1ec4",
+    "name": "Merchant API Credit Card",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Payment Webhooks",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Payment Status Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Informs the TPP that the payment status has changed."
+        },
+        {
+          "info": {
+            "name": "Payment Confirmation Link Expiration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_confirmation_link_expire",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Informs the TPP about the expiration of a payment confirmation link."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

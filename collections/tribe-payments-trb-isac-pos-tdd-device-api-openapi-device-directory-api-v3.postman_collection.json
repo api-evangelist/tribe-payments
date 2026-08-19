@@ -1,0 +1,4874 @@
+{
+  "item": [
+    {
+      "id": "3d124d6f-11e8-4292-90d8-335132be020f",
+      "name": "Processor",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58c42bb3-61a7-4ba6-ad65-f33c803f2b2c",
+          "name": "Get a list of hosts assigned to processor",
+          "request": {
+            "name": "Get a list of hosts assigned to processor",
+            "description": {
+              "content": "Endpoint to fetch hosts list with page-based pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "hosts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "created[from]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created[to]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalReferenceId",
+                  "value": "<string>",
+                  "description": "Filter by the host external reference id."
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "Filter by the host url."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of hosts per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6dcf98ba-feb9-421d-aeb9-e6a4e9bc6bee",
+              "name": "Devices fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "externalReferenceId",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "url",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The total number of hosts available.",
+                  "key": "X-Total-Count",
+                  "value": "1000"
+                },
+                {
+                  "disabled": false,
+                  "description": "The total number of pages available.",
+                  "key": "X-Total-Pages",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "description": "The current page number.",
+                  "key": "X-Current-Page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The next page number, if available.",
+                  "key": "X-Next-Page",
+                  "value": "2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 844456,\n    \"url\": 1149,\n    \"externalReferenceId\": \"02\",\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  },\n  {\n    \"id\": 844456,\n    \"url\": 6413,\n    \"externalReferenceId\": \"02\",\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c72979c-64ef-49d6-bb81-7dd4c92464cf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "externalReferenceId",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "url",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54ba0b9f-c519-4f1e-8212-1222c51f636a",
+          "name": "Create a host.",
+          "request": {
+            "name": "Create a host.",
+            "description": {
+              "content": "Endpoint to create a host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "hosts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7153c926-9da6-4473-871b-16b137ebcb53",
+              "name": "Host created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"02\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"url\": 1054,\n  \"externalReferenceId\": \"02\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ad0fc61-a346-47c2-be99-604df4421d9a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"02\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00ffa02c-be94-4181-93f4-1989a068ffcb",
+          "name": "Get a host",
+          "request": {
+            "name": "Get a host",
+            "description": {
+              "content": "Endpoint to fetch a host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "hosts",
+                ":hostId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2e2786a-c85d-4b40-a3f3-89af29fecd49",
+              "name": "Device fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"url\": 1054,\n  \"externalReferenceId\": \"02\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38eaaa19-b9ab-4f6d-b5e3-381b9b451905",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e347897b-4ff5-4167-b8df-429fb54a2674",
+          "name": "Update a host.",
+          "request": {
+            "name": "Update a host.",
+            "description": {
+              "content": "Endpoint to update a host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "hosts",
+                ":hostId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0650a72-8ff5-4deb-9dcf-a722a7644af1",
+              "name": "Host updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"02\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"02\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49db44e3-3ec2-4a77-8c05-f48321bb4b9d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<integer>\",\n  \"externalReferenceId\": \"02\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a0a4c5a-c5f4-4f61-9519-73e899064309",
+          "name": "Delete a host",
+          "request": {
+            "name": "Delete a host",
+            "description": {
+              "content": "Endpoint to delete host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "hosts",
+                ":hostId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8bb3b7a-f437-46d9-b4b6-94ef0f0937b7",
+              "name": "Host deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91f4d88f-0bf9-42ab-aadf-5f828f01917e",
+              "name": "Host not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b4864bf-3180-4f79-b020-4e2da9959d26",
+          "name": "Get a list of devices assigned to processor",
+          "request": {
+            "name": "Get a list of devices assigned to processor",
+            "description": {
+              "content": "Endpoint to fetch device list with page-based pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "created[from]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created[to]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "serialNumber",
+                  "value": "<string>",
+                  "description": "Filter by the device serial number."
+                },
+                {
+                  "disabled": false,
+                  "key": "configurationTag",
+                  "value": "<string>",
+                  "description": "Filter by the device configuration tag."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of devices per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3bb3709d-e360-46cb-b797-a0e6e612f6cc",
+              "name": "Devices fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "serialNumber",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "configurationTag",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The total number of devices available.",
+                  "key": "X-Total-Count",
+                  "value": "1000"
+                },
+                {
+                  "disabled": false,
+                  "description": "The total number of pages available.",
+                  "key": "X-Total-Pages",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "description": "The current page number.",
+                  "key": "X-Current-Page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The next page number, if available.",
+                  "key": "X-Next-Page",
+                  "value": "2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"serialNumber\": \"SP000000004\",\n    \"configurationTag\": \"test-v1-all-all\",\n    \"hostId\": 1,\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  },\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"serialNumber\": \"SP000000004\",\n    \"configurationTag\": \"test-v1-all-all\",\n    \"hostId\": 1,\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31e56ebe-1f83-4371-8482-484121e0d217",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "serialNumber",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "configurationTag",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71ed8360-da17-490e-8573-7bb6308c5ff8",
+          "name": "Get a device",
+          "request": {
+            "name": "Get a device",
+            "description": {
+              "content": "Endpoint to fetch device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier for the device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e49582be-cd5c-442a-8ebc-bb097fc3fe06",
+              "name": "Device fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e760a5b7-d355-4215-b1c3-d840929bc3bf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bfb0f1a-6300-46b8-97bd-9c9d908f7902",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20bf33b0-f1d5-469b-8d43-7e124dca192c",
+          "name": "Get a device",
+          "request": {
+            "name": "Get a device",
+            "description": {
+              "content": "Endpoint to fetch device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "processors",
+                ":processorId",
+                "terminals",
+                ":terminalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processorId",
+                  "description": "(Required) Unique identifier for the processor."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2a3da0a-b836-4e49-a93d-853cc0c6a443",
+              "name": "Device fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bd615f4-35fc-4319-a349-ba8d6e863441",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3421a4f5-8cfc-4ba8-94e7-4d2eed8a0759",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "processors",
+                    ":processorId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processorId",
+                      "description": "(Required) Unique identifier for the processor."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9b47778a-5d55-4903-8b83-dffaa91a3e3a",
+      "name": "App",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e325b507-c54c-4eeb-9177-17934913505e",
+          "name": "Get a host",
+          "request": {
+            "name": "Get a host",
+            "description": {
+              "content": "Endpoint to fetch a host.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps",
+                ":appId",
+                "hosts",
+                ":hostId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) Unique identifier for the app."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d5b8e59-8146-4cc9-98f7-f14795377a13",
+              "name": "Device fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"url\": 1054,\n  \"externalReferenceId\": \"02\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12e54c57-20e2-4116-af60-90997876c5ae",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "hosts",
+                    ":hostId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "935263fb-2025-4e15-a87b-e8d6b3a625a1",
+          "name": "Get a terminal",
+          "request": {
+            "name": "Get a terminal",
+            "description": {
+              "content": "Endpoint to get a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps",
+                ":appId",
+                "terminals",
+                ":terminalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) Unique identifier for the app."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4e4fda2-23b5-4791-8bee-90f3042cb8b1",
+              "name": "Get a terminal.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c48084d1-cb54-4725-b74d-a4ab9330b60c",
+              "name": "Terminal not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca981b37-3ad8-4a8b-bf17-9729592f6b1f",
+          "name": "Get a device",
+          "request": {
+            "name": "Get a device",
+            "description": {
+              "content": "Endpoint to fetch device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps",
+                ":appId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) Unique identifier for the app."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier for the device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78664b1b-b68a-4ca8-8482-7b22fa4f82f3",
+              "name": "Devices fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1b52c1d-0d96-45ea-9fa1-1bf1bcfd6509",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bfc9b71f-3c0e-4b59-956a-57c041fccffa",
+          "name": "Activate a terminal.",
+          "request": {
+            "name": "Activate a terminal.",
+            "description": {
+              "content": "Endpoint to activate a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apps",
+                ":appId",
+                "terminals",
+                ":terminalId",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) Unique identifier for the app."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activationCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47ae4209-6b00-4222-bb5d-7fb7831e988d",
+              "name": "Terminal activated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "terminals",
+                    ":terminalId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activationCode\": \"0000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a8b3a7b-6b72-4468-9961-74ae3f5954c0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "terminals",
+                    ":terminalId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activationCode\": \"0000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cc85039-33c3-47e8-9950-86c172b44694",
+              "name": "Unprocessable Entity, validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apps",
+                    ":appId",
+                    "terminals",
+                    ":terminalId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) Unique identifier for the app."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activationCode\": \"0000000\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://example.com/probs/validation-error\",\n  \"detail\": \"The request body contains invalid fields.\",\n  \"violations\": [\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    },\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8ff30085-df4e-48cd-abbe-80303abb02f4",
+      "name": "Host",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96e9df65-aed6-4ea5-b8c2-3ece1c0167b6",
+          "name": "Get a list of devices assigned to host",
+          "request": {
+            "name": "Get a list of devices assigned to host",
+            "description": {
+              "content": "Endpoint to fetch device list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "created[from]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created[to]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "serialNumber",
+                  "value": "<string>",
+                  "description": "Filter by the device serial number."
+                },
+                {
+                  "disabled": false,
+                  "key": "configurationTag",
+                  "value": "<string>",
+                  "description": "Filter by the device configuration tag."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "The number of items per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ccf0256d-7a42-4dc5-915c-20c61144e655",
+              "name": "Devices fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "serialNumber",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "configurationTag",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The total number of devices available.",
+                  "key": "X-Total-Count",
+                  "value": "1000"
+                },
+                {
+                  "disabled": false,
+                  "description": "The total number of pages available.",
+                  "key": "X-Total-Pages",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "description": "The current page number.",
+                  "key": "X-Current-Page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The next page number, if available.",
+                  "key": "X-Next-Page",
+                  "value": "2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"serialNumber\": \"SP000000004\",\n    \"configurationTag\": \"test-v1-all-all\",\n    \"hostId\": 1,\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  },\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"serialNumber\": \"SP000000004\",\n    \"configurationTag\": \"test-v1-all-all\",\n    \"hostId\": 1,\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf78c286-03d7-42c9-933d-23f90930b769",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "serialNumber",
+                      "value": "SP000000004"
+                    },
+                    {
+                      "key": "configurationTag",
+                      "value": "test-v1-all-all"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65c23370-f72d-420e-8cb3-92776e79cd02",
+          "name": "Create a device",
+          "request": {
+            "name": "Create a device",
+            "description": {
+              "content": "Endpoint to create for a device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Application version.",
+                "key": "apk-version",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serialNumber\": \"<string>\",\n  \"externalReferenceId\": \"<string>\",\n  \"configurationTag\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ad178ad-9a98-47aa-a9b9-a316245de580",
+              "name": "Device created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Application version.",
+                    "key": "apk-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b8831f8-600d-424a-94f7-c3d48d8a0527",
+              "name": "Unprocessable Entity, validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Application version.",
+                    "key": "apk-version",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://example.com/probs/validation-error\",\n  \"detail\": \"The request body contains invalid fields.\",\n  \"violations\": [\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    },\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1ccd6a7-94a2-4995-be86-e33a1cabda18",
+          "name": "Get a device",
+          "request": {
+            "name": "Get a device",
+            "description": {
+              "content": "Endpoint to fetch device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier for the device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a9ab926-410c-43d5-b48a-d8cf925abafe",
+              "name": "Device fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b50a1a3-c103-4ed8-b2fa-152d90057ef8",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7fea113-f50e-4ef0-8466-c6eee1696bee",
+          "name": "Update a device",
+          "request": {
+            "name": "Update a device",
+            "description": {
+              "content": "Endpoint to update device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier for the device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serialNumber\": \"<string>\",\n  \"externalReferenceId\": \"<string>\",\n  \"configurationTag\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c81f4c6-02f5-429e-a14f-414b79d243cf",
+              "name": "Device updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"serialNumber\": \"SP000000004\",\n  \"configurationTag\": \"test-v1-all-all\",\n  \"hostId\": 1,\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8326893-02ec-44ac-8b05-7529022cbfe2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb115d56-c819-48f6-8d33-d08277257fd1",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8ee2c98-5599-4e5b-bd1a-1b7d659c61bf",
+              "name": "Unprocessable Entity, validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"SP000000004\",\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"configurationTag\": \"test-v1-all-all\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://example.com/probs/validation-error\",\n  \"detail\": \"The request body contains invalid fields.\",\n  \"violations\": [\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    },\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8f9ba6d-d27e-4a6a-ac9e-d11fb7e7990b",
+          "name": "Delete a device",
+          "request": {
+            "name": "Delete a device",
+            "description": {
+              "content": "Endpoint to delete device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier for the device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2495d5a1-ed35-42e8-8671-deebbb0302c3",
+              "name": "Device deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9f03128-1463-4d20-bf8b-cd20b05cd0a1",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier for the device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d78b969-9ba5-4434-8f7d-4dc975b08048",
+          "name": "Get terminals",
+          "request": {
+            "name": "Get terminals",
+            "description": {
+              "content": "Endpoint to get terminals with page-based pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "created[from]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created[to]",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of items per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f85a8c27-4e77-4b14-9a78-e3f0bd37525e",
+              "name": "Terminals fetched successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The total number of terminals available.",
+                  "key": "X-Total-Count",
+                  "value": "1000"
+                },
+                {
+                  "disabled": false,
+                  "description": "The total number of pages available.",
+                  "key": "X-Total-Pages",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "description": "The current page number.",
+                  "key": "X-Current-Page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "description": "The next page number, if available.",
+                  "key": "X-Next-Page",
+                  "value": "2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"deviceId\": 1,\n    \"activationCode\": \"000000\",\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  },\n  {\n    \"id\": 844456,\n    \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n    \"deviceId\": 1,\n    \"activationCode\": \"000000\",\n    \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n    \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4933038d-0abe-4fd5-a71a-5a93382aac7f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "created[from]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "created[to]",
+                      "value": "2024-09-26T14:45:30.123+02:00"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d98ea29c-764f-46e8-89a4-06f18863f116",
+          "name": "Create a terminal",
+          "request": {
+            "name": "Create a terminal",
+            "description": {
+              "content": "Endpoint to create a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalReferenceId\": \"<string>\",\n  \"deviceId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b107f53c-006d-4228-9adb-f72d6d555018",
+              "name": "Terminal created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"activationCode\": \"000000\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0090eb1-a498-491f-9407-f32c5c2412b3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b86b7ef9-57af-4069-ace4-26413d544906",
+              "name": "Unprocessable Entity, validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://example.com/probs/validation-error\",\n  \"detail\": \"The request body contains invalid fields.\",\n  \"violations\": [\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    },\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "630043b2-cd03-4f2d-875c-2f13381d2b93",
+          "name": "Get a terminal",
+          "request": {
+            "name": "Get a terminal",
+            "description": {
+              "content": "Endpoint to get a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals",
+                ":terminalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3355429f-9403-43ef-ba94-6c6a44bb1f9e",
+              "name": "Get a terminal.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"activationCode\": \"000000\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1703cba0-3bf9-43d4-bdcf-533839411448",
+              "name": "Terminal not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37f11d14-1613-45b6-9ecb-be52a7b23a9a",
+          "name": "Update a terminal",
+          "request": {
+            "name": "Update a terminal",
+            "description": {
+              "content": "Update to get a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals",
+                ":terminalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalReferenceId\": \"<string>\",\n  \"deviceId\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e855afa0-cb70-4270-9298-8d67be595b70",
+              "name": "Get a terminal.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"activationCode\": \"000000\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cc6f23a-3421-4214-a2fb-c1a8cb7a35f7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b50ebe1-2d96-4650-afcf-191ac42fe20c",
+              "name": "Terminal not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8d90bf9-3f0c-4292-907e-2229a7b0ad1d",
+              "name": "Unprocessable Entity, validation errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"externalReferenceId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"deviceId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"https://example.com/probs/validation-error\",\n  \"detail\": \"The request body contains invalid fields.\",\n  \"violations\": [\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    },\n    {\n      \"field\": \"field\",\n      \"message\": \"This value is too long. It should have {{ limit }} characters or less.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e0dcad0-9e04-42b8-9452-7cde639707bb",
+          "name": "Delete a terminal",
+          "request": {
+            "name": "Delete a terminal",
+            "description": {
+              "content": "Endpoint to delete a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals",
+                ":terminalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c328239-58c6-4065-bef8-cdd5bd7ceb83",
+              "name": "Terminal deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "953e274c-f732-4acc-b776-56460033bd73",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd310b88-ffd3-482f-a0da-aa9062043827",
+              "name": "Terminal not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80d27b31-c388-459f-bca2-5878d69f3790",
+          "name": "Regenarate activation code for a terminal",
+          "request": {
+            "name": "Regenarate activation code for a terminal",
+            "description": {
+              "content": "Endpoint to regenerate activation code for a terminal.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hosts",
+                ":hostId",
+                "terminals",
+                ":terminalId",
+                "regenerate-activation-code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "hostId",
+                  "description": "(Required) Unique identifier for the host."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "terminalId",
+                  "description": "(Required) Unique identifier for the terminal."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                "key": "idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cd243db-f983-4f4c-a619-8f549e9c8aee",
+              "name": "Terminal activation code regenerated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId",
+                    "regenerate-activation-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 844456,\n  \"externalReferenceId\": \"a4288161-c772-43d2-831d-ee4cdc09864d\",\n  \"deviceId\": 1,\n  \"activationCode\": \"000000\",\n  \"createdAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"updatedAt\": \"2024-09-26T14:45:30.123+02:00\",\n  \"activatedAt\": \"2024-09-26T14:45:30.123+02:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffb35de3-5403-42df-98ed-1f8bdd7a6da6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hosts",
+                    ":hostId",
+                    "terminals",
+                    ":terminalId",
+                    "regenerate-activation-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "hostId",
+                      "description": "(Required) Unique identifier for the host."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "terminalId",
+                      "description": "(Required) Unique identifier for the terminal."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.",
+                    "key": "idempotency-key",
+                    "value": "f5033990-1965-4bd6-86d5-cdc274164553"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Error occured.\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"propertyPath\": \"string\",\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6954a59a-96d4-4a10-ad8c-0160d0abc843",
+    "name": "Device Directory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

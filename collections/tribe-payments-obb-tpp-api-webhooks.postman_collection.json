@@ -1,0 +1,194 @@
+{
+  "item": [
+    {
+      "id": "4825355a-5783-4a41-a7b5-5412f1ac9c1c",
+      "name": "Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e54d4031-0bfd-4943-a3eb-4f6348a3f600",
+          "name": "Payment Status Update",
+          "request": {
+            "name": "Payment Status Update",
+            "description": {
+              "content": "Informs the TPP that the payment status has changed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<string>\",\n  \"paymentStatus\": \"<string>\",\n  \"accountTransaction\": {\n    \"transactionId\": \"<string>\",\n    \"creditorName\": \"<string>\",\n    \"creditorAccount\": {\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"sortCode\": \"<string>\"\n    },\n    \"debtorName\": \"<string>\",\n    \"debtorAccount\": {\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"sortCode\": \"<string>\"\n    },\n    \"remittanceInformationUnstructured\": \"<string>\",\n    \"remittanceInformationStructured\": {\n      \"reference\": \"<string>\",\n      \"referenceType\": \"<string>\"\n    },\n    \"transactionAmount\": {\n      \"amount\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"valueDate\": \"<string>\",\n      \"bookingDate\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d5bd9b3-1dfd-46c0-9f7b-5ccd69de3244",
+              "name": "A successful response with the HTTP 200 status code.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<string>\",\n  \"paymentStatus\": \"<string>\",\n  \"accountTransaction\": {\n    \"transactionId\": \"<string>\",\n    \"creditorName\": \"<string>\",\n    \"creditorAccount\": {\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"sortCode\": \"<string>\"\n    },\n    \"debtorName\": \"<string>\",\n    \"debtorAccount\": {\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"accountNumber\": \"<string>\",\n      \"sortCode\": \"<string>\"\n    },\n    \"remittanceInformationUnstructured\": \"<string>\",\n    \"remittanceInformationStructured\": {\n      \"reference\": \"<string>\",\n      \"referenceType\": \"<string>\"\n    },\n    \"transactionAmount\": {\n      \"amount\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"valueDate\": \"<string>\",\n      \"bookingDate\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "668a94d9-babf-4293-bdbb-14b099251227",
+          "name": "Payment Confirmation Link Expiration",
+          "request": {
+            "name": "Payment Confirmation Link Expiration",
+            "description": {
+              "content": "Informs the TPP about the expiration of a payment confirmation link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_confirmation_link_expire"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a9fc094-c0b9-4747-88a8-c9d195ba3ef4",
+              "name": "A successful response with the HTTP 200 status code.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_confirmation_link_expire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c2ff09b2-737c-465c-85a1-fd56ef7426c0",
+    "name": "Payment Webhooks",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API documentation for payment-related webhooks.",
+      "type": "text/plain"
+    }
+  }
+}

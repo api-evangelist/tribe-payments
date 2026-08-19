@@ -1,0 +1,298 @@
+{
+  "item": [
+    {
+      "id": "9def0e35-9fae-48ec-b402-af1af93aabad",
+      "name": "Prepare",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3eb25d5-670d-4050-9c76-641590b5b422",
+          "name": "postprepare",
+          "request": {
+            "name": "postprepare",
+            "description": {},
+            "url": {
+              "path": [
+                "prepare"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"returnUrl\": \"<string>\"\n  },\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"email\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"settings\": {\n    \"paymentMethod\": \"<string>\",\n    \"allowedNumberOfRetries\": \"<integer>\",\n    \"expiresInHours\": \"<integer>\",\n    \"hppSettingId\": \"<integer>\",\n    \"checkoutMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"paymentDescription\": \"<string>\",\n    \"termsAndReferencesUrl\": \"<string>\",\n    \"hideAmount\": \"<boolean>\",\n    \"hideOrderId\": \"<boolean>\",\n    \"slimMode\": \"<boolean>\",\n    \"customerEmailNotification\": {\n      \"send\": \"<boolean>\",\n      \"subjectTag\": \"<string>\",\n      \"messageTag\": \"<string>\"\n    }\n  },\n  \"recurring\": {\n    \"paymentType\": \"<integer>\",\n    \"frequency\": \"<integer>\",\n    \"endDate\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d4e25c9-f4f4-44ac-aebe-13f80a7560ae",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prepare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"returnUrl\": \"https://my-return-server/some-path\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n  },\n  \"settings\": {\n    \"paymentMethod\": \"cc\",\n    \"allowedNumberOfRetries\": 3,\n    \"expiresInHours\": 2,\n    \"hppSettingId\": 1,\n    \"checkoutMethods\": [\n      \"cc\",\n      \"cc\"\n    ],\n    \"paymentDescription\": \"Some text\",\n    \"termsAndReferencesUrl\": \"https://www.example.com/terms-and-references.html\",\n    \"hideAmount\": true,\n    \"hideOrderId\": true,\n    \"slimMode\": true,\n    \"customerEmailNotification\": {\n      \"send\": true,\n      \"subjectTag\": \"#Order XYZ-987\",\n      \"messageTag\": \"Dear John Doe, Your #Order XYZ-987 was completed with greatest success.\"\n    }\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b535b6e8-dca1-4f74-8fd4-ed056614da24",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prepare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"returnUrl\": \"https://my-return-server/some-path\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n  },\n  \"settings\": {\n    \"paymentMethod\": \"cc\",\n    \"allowedNumberOfRetries\": 3,\n    \"expiresInHours\": 2,\n    \"hppSettingId\": 1,\n    \"checkoutMethods\": [\n      \"cc\",\n      \"cc\"\n    ],\n    \"paymentDescription\": \"Some text\",\n    \"termsAndReferencesUrl\": \"https://www.example.com/terms-and-references.html\",\n    \"hideAmount\": true,\n    \"hideOrderId\": true,\n    \"slimMode\": true,\n    \"customerEmailNotification\": {\n      \"send\": true,\n      \"subjectTag\": \"#Order XYZ-987\",\n      \"messageTag\": \"Dear John Doe, Your #Order XYZ-987 was completed with greatest success.\"\n    }\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2000\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f68285eb-6bb2-4ef3-8ce2-38e8e0cdc10e",
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prepare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"returnUrl\": \"https://my-return-server/some-path\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n  },\n  \"settings\": {\n    \"paymentMethod\": \"cc\",\n    \"allowedNumberOfRetries\": 3,\n    \"expiresInHours\": 2,\n    \"hppSettingId\": 1,\n    \"checkoutMethods\": [\n      \"cc\",\n      \"cc\"\n    ],\n    \"paymentDescription\": \"Some text\",\n    \"termsAndReferencesUrl\": \"https://www.example.com/terms-and-references.html\",\n    \"hideAmount\": true,\n    \"hideOrderId\": true,\n    \"slimMode\": true,\n    \"customerEmailNotification\": {\n      \"send\": true,\n      \"subjectTag\": \"#Order XYZ-987\",\n      \"messageTag\": \"Dear John Doe, Your #Order XYZ-987 was completed with greatest success.\"\n    }\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Unauthorized request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca480b74-b852-444c-b18b-3e888a7b436d",
+              "name": "Forbidden Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prepare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"returnUrl\": \"https://my-return-server/some-path\"\n  },\n  \"customer\": {\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"email\": \"email@email.com\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\",\n    \"ip\": \"1.1.1.1\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n  },\n  \"settings\": {\n    \"paymentMethod\": \"cc\",\n    \"allowedNumberOfRetries\": 3,\n    \"expiresInHours\": 2,\n    \"hppSettingId\": 1,\n    \"checkoutMethods\": [\n      \"cc\",\n      \"cc\"\n    ],\n    \"paymentDescription\": \"Some text\",\n    \"termsAndReferencesUrl\": \"https://www.example.com/terms-and-references.html\",\n    \"hideAmount\": true,\n    \"hideOrderId\": true,\n    \"slimMode\": true,\n    \"customerEmailNotification\": {\n      \"send\": true,\n      \"subjectTag\": \"#Order XYZ-987\",\n      \"messageTag\": \"Dear John Doe, Your #Order XYZ-987 was completed with greatest success.\"\n    }\n  },\n  \"recurring\": {\n    \"paymentType\": 1,\n    \"frequency\": 1,\n    \"endDate\": \"20230901\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"4001\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:10010/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "49f720f3-2715-4b95-96c4-8821b27ee843",
+    "name": "Merchant API HPP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

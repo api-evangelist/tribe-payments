@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bank Webhooks API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get account list.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_accounts"
+          },
+          "docs": "Get the list of accounts for the authenticated user.\n\n \"Get accounts\" is initiated by the request from TPP and it is part of the [Get data flow](#appendix--workflow-get-data) between the BANK and TOB. TPP requests client’s accounts information from TOB which requests the information from the BANK. \n\n In the case of multicurrency accounts, the account for each of the currencies associated with the same account identifier (e.g. IBAN) will be returned in the response with a different `resource_id`."
+        },
+        {
+          "info": {
+            "name": "Get single account details.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_account",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get details for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get account balances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_account_balances",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get balances for a specific account."
+        },
+        {
+          "info": {
+            "name": "Get account transactions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_account_transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get transactions for a specific account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Single payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_single",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Single payment\" is initiated by the request from TPP, which requests TOB to initiate the [payment](#appendix--workflow--payment). \nTOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected to complete the SCA."
+        },
+        {
+          "info": {
+            "name": "Get single payment status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_single_status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Get single payment status\" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\nTPP requests the status of initiated payment from TOB, which then requests the information from the BANK."
+        },
+        {
+          "info": {
+            "name": "Bulk payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Bulk payment\" is initiated by the request from TPP to TOB to initiate the [payment](#appendix--workflow--payment).\nTOB requests BANK to initiate a bulk of payments and respond with a `confirmation_url` to which the user should be redirected."
+        },
+        {
+          "info": {
+            "name": "Get bulk payment status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_bulk_status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Get bulk payment status\" is initiated by the request from TPP. It is part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\nTPP requests the status of initiated payment from TOB, which then requests the information from the BANK."
+        },
+        {
+          "info": {
+            "name": "Direct payment initiation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_payment_direct_single",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Direct payment initiation\" is initiated by the request from TPP. TOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected.\nIt is a part of the flow where TPP requests TOB to initiate the [Direct payment](#appendix--workflow--direct-payment).\nThe endpoint is almost identical to the [payment](#webhooks--payment--initiate) one. The difference has to do with [Security](#security) where the `X-Auth-Token` header identifying the user is no"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Funds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Confirmation of funds.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v2_funds_confirmations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Confirmation of funds\" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\n\nIt can be used by CBPII to confirm the amount of funds available in the account. Funds can only be confirmed against the currency of the account. This action does not reserve an amount requested in the account but only indicates if the requested amount is present at the time of the API call.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

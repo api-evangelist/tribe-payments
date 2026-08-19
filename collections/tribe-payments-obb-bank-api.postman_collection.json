@@ -1,0 +1,513 @@
+{
+  "item": [
+    {
+      "id": "881bbb53-d971-4a04-b0f2-35f967ca4f8d",
+      "name": "Authorization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "def5edaa-cd50-43eb-9b5f-7d6591e5bf9c",
+          "name": "Initiate authorization",
+          "request": {
+            "name": "Initiate authorization",
+            "description": {
+              "content": "The \"Initial authorization\" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. The BANK sends `POST /init_authorization` request to TOB immediately after the user reaches the BANK. The TOB responds with the TPP and necessary consent information and adds the URL that needs to be used if the BANK does not want to provide access.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "init_authorization"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestUrl\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb534e35-f9ce-41db-a0a2-5e28db0f6ea1",
+              "name": "A successful response with the TPP and necessary consent information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "init_authorization"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestUrl\": \"https://bank.example.com/obb/authorize?client_id=gt34tg3tg34tg&redirect_uri=http%3A%2F%2Ftpp.example.com%2Ftoken&state=1111111&response_type=code&scope=account.list+account.details\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tppName\": \"string\",\n  \"tppRegistrationNumber\": \"UK-145441\",\n  \"scopes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"cancelUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60ef6bd0-5393-40ce-b3f6-85f250fd0bce",
+          "name": "Save consent",
+          "request": {
+            "name": "Save consent",
+            "description": {
+              "content": "\"Save consent\" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. BANK sends the request with the consents (scopes) and accounts for which the consents were approved. When TOB gets a request from the BANK, it responds with the callback URL and the token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "consent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestUrl\": \"<string>\",\n  \"ibans\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"accountNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ee65a08-2579-4a07-a9bf-3e0999403e07",
+              "name": "Successful response with the callback URL and generated token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"requestUrl\": \"https://bank.example.com/obb/authorize?client_id=gt34tg3tg34tg&redirect_uri=http%3A%2F%2Ftpp.example.com%2Ftoken&state=1111111&response_type=code&scope=account.list+account.details\",\n  \"ibans\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"accountIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"accountNumbers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"callbackUrl\": \"https://tpp.example.com/signed\",\n  \"accessToken\": \"$#@%#$%^$@#$56445641653!@#$%3\",\n  \"validUntil\": \"2020-10-13T12:54:58+00:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "029e2a2a-522e-4121-84af-35e0dc676f3e",
+          "name": "Revoke token",
+          "request": {
+            "name": "Revoke token",
+            "description": {
+              "content": "A request with a currently used access token is used to revoke the PSU token.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "token",
+                "revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ef7a770-def2-4be8-85ec-5930fb04454b",
+              "name": "Token revoked successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "token",
+                    "revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessToken\": \"defdb58e7a412c74ff9ee692ce9abe3f36d900676edf07ce90cdb30f1529a1e3c0209515a81d2a314f7e740415b1f0fa691e38fecdd380d7d1924f97300aa3232ce1a76e56c59b081e604003a2382b0b67f32500a70cb33af319e4668277a0ad7c72bf8b85708fd530591514d270dd8faa43349d251288ddb6a3a524d0aad6\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1f769607-4410-4f39-9574-239c7162196d",
+      "name": "Payment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9995c967-fb49-47bf-a260-62b9e48da554",
+          "name": "Payment Status",
+          "request": {
+            "name": "Payment Status",
+            "description": {
+              "content": "In case of payment status changes, the Bank should inform TPP of it by calling this endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<string>\",\n  \"paymentStatus\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f72245fb-c910-4c27-80d7-2f66d244fc8f",
+              "name": "Payment status updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<string>\",\n  \"paymentStatus\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "69ef85ca-800d-492d-b199-c60fcd7cbfd2",
+      "name": "Performance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f48af843-8841-4f21-999b-80071e8951a2",
+          "name": "Daily Performance",
+          "request": {
+            "name": "Daily Performance",
+            "description": {
+              "content": "The Bank should inform the TOB each day about the daily performance average on consent authorization and payment confirmation flows.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "daily_performance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"date\": \"<string>\",\n  \"consentDuration\": \"<integer>\",\n  \"paymentDuration\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "700920aa-c6c8-472d-9d33-eed7b862235b",
+              "name": "Daily performance metrics retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "daily_performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"date\": \"2023-11-27\",\n  \"consentDuration\": 51144,\n  \"paymentDuration\": 21215\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "%bank_api_url%/bank/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e92fdbf4-33db-4a13-95d6-728450c578c5",
+    "name": "Open Banking: Bank API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API documentation for OBB Bank services.",
+      "type": "text/plain"
+    }
+  }
+}

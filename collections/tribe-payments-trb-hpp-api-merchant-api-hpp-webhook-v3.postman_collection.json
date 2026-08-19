@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "e5c45aa2-961f-4e9a-9a5c-2f4690af18ef",
+      "name": "Prepare success",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8936b7ce-ea7e-43a8-9828-e48de5204e11",
+          "name": "postprepare",
+          "request": {
+            "name": "postprepare",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-prepare-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"redirectUrl\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6fbe4236-27ac-4929-8b3f-5fc517677405",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-prepare-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b\",\n  \"redirectUrl\": \"https://example-url.gateway.com/2a731e2ddfebc14ca4834e44851fda59\",\n  \"webhook\": {\n    \"id\": \"5455223499197002\",\n    \"type\": \"hosted_payment_prepare\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "33c53128-b69d-48bb-978a-18af4b842c21",
+      "name": "Prepare error",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "998f549e-31b4-4146-958e-bb7d7d4f001a",
+          "name": "postprepare-error",
+          "request": {
+            "name": "postprepare-error",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-prepare-error-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"message\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"violations\": [\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"message\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f6f4526f-692e-4cfa-8332-859b66f2a144",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-prepare-error-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b\",\n  \"message\": \"Error occurred\",\n  \"webhook\": {\n    \"id\": \"5455223499197002\",\n    \"type\": \"hosted_payment_prepare\"\n  },\n  \"violations\": [\n    {\n      \"code\": \"403\",\n      \"message\": \"Company is disabled\"\n    },\n    {\n      \"code\": \"403\",\n      \"message\": \"Company is disabled\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0f4c00f2-6e22-493d-bfa3-8c628c2d6830",
+      "name": "Status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "625b307a-34fa-48b2-811a-37e35b85c329",
+          "name": "poststatus",
+          "request": {
+            "name": "poststatus",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-status-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"hostedPayment\": {\n    \"status\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d482d32e-bfd5-4fcd-aef6-65ec90367e4f",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-status-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b\",\n  \"webhook\": {\n    \"id\": \"5455223499197002\",\n    \"type\": \"hosted_payment_status\"\n  },\n  \"hostedPayment\": {\n    \"status\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:10010/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d9c16bf8-e4fb-4227-bcf4-e3797db45ca7",
+    "name": "Merchant API HPP Webhook",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Merchant API HPP Webhook",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Banking: Bank API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%bank_api_url%/bank/v2/init_authorization",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The \"Initial authorization\" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. The BANK sends `POST /init_authorization` request to TOB immediately after the user reaches the BANK. The TOB responds with the TPP and necessary consent information and adds the URL that needs to be used if the BANK does not want to provide access.\n"
+        },
+        {
+          "info": {
+            "name": "Save consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%bank_api_url%/bank/v2/consent",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\"Save consent\" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. BANK sends the request with the consents (scopes) and accounts for which the consents were approved. When TOB gets a request from the BANK, it responds with the callback URL and the token."
+        },
+        {
+          "info": {
+            "name": "Revoke token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%bank_api_url%/bank/v2/token/revoke",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A request with a currently used access token is used to revoke the PSU token.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Performance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Daily Performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%bank_api_url%/bank/v2/daily_performance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Bank should inform the TOB each day about the daily performance average on consent authorization and payment confirmation flows.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Payment Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%bank_api_url%/bank/v2/payments/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "In case of payment status changes, the Bank should inform TPP of it by calling this endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

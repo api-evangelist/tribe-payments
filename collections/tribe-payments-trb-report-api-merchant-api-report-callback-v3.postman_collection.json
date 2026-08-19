@@ -1,0 +1,434 @@
+{
+  "item": [
+    {
+      "id": "55165a47-b914-45c6-951c-acf49c764128",
+      "name": "Order status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bebf71fc-26cc-44cf-b880-bbc0ebe96a8a",
+          "name": "postorder-status",
+          "request": {
+            "name": "postorder-status",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-order-status-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"orderStatus\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transactions\": [\n    {\n      \"id\": \"<string>\",\n      \"date\": \"<string>\",\n      \"status\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"historyId\": \"<string>\",\n      \"type\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"date\": \"<string>\",\n      \"status\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"code\": \"<string>\",\n      \"message\": \"<string>\",\n      \"historyId\": \"<string>\",\n      \"type\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7763ad5e-e512-4457-a0b8-31d79062f438",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-order-status-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-report-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"1e68b6f0-da16-4e0a-b68a-5286ad4e787\",\n  \"orderStatus\": \"Transaction successfully captured\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"report_order_status\"\n  },\n  \"transactions\": [\n    {\n      \"id\": \"502811178725015553\",\n      \"date\": \"2021-03-02 07:03:02\",\n      \"status\": \"success\",\n      \"amount\": \"1.11\",\n      \"currencyCode\": \"EUR\",\n      \"code\": \"000\",\n      \"message\": \"Transaction successfully completed\",\n      \"historyId\": \"512811178725015557\",\n      \"type\": 4\n    },\n    {\n      \"id\": \"502811178725015553\",\n      \"date\": \"2021-03-02 07:03:02\",\n      \"status\": \"success\",\n      \"amount\": \"1.11\",\n      \"currencyCode\": \"EUR\",\n      \"code\": \"000\",\n      \"message\": \"Transaction successfully completed\",\n      \"historyId\": \"512811178725015557\",\n      \"type\": 4\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6fb989b6-f958-4982-bb3c-a06f3210a9a1",
+      "name": "Disputes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e7fe2562-f2ee-4bcd-838f-25c3072b27a7",
+          "name": "postdisputes",
+          "request": {
+            "name": "postdisputes",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-disputes-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"records\": [\n    {\n      \"dispute\": {\n        \"id\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\",\n        \"parentId\": \"<string>\",\n        \"typeName\": \"<string>\",\n        \"status\": \"<string>\"\n      },\n      \"card\": {\n        \"hash\": \"<string>\"\n      }\n    },\n    {\n      \"dispute\": {\n        \"id\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\",\n        \"parentId\": \"<string>\",\n        \"typeName\": \"<string>\",\n        \"status\": \"<string>\"\n      },\n      \"card\": {\n        \"hash\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e152d47-48c8-4452-b285-23d2e947ed63",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-disputes-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-report-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"1e68b6f0-da16-4e0a-b68a-5286ad4e787\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"report_disputes\"\n  },\n  \"records\": [\n    {\n      \"dispute\": {\n        \"id\": \"15689614966399\",\n        \"date\": \"2023-12-11 08:45:27\",\n        \"amount\": \"1\",\n        \"currencyCode\": \"EUR\",\n        \"parentId\": \"12345678\",\n        \"typeName\": \"First Chargeback\",\n        \"status\": \"<string>\"\n      },\n      \"card\": {\n        \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n      }\n    },\n    {\n      \"dispute\": {\n        \"id\": \"15689614966399\",\n        \"date\": \"2023-12-11 08:45:27\",\n        \"amount\": \"1\",\n        \"currencyCode\": \"EUR\",\n        \"parentId\": \"12345678\",\n        \"typeName\": \"First Chargeback\",\n        \"status\": \"<string>\"\n      },\n      \"card\": {\n        \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "83e33cf3-3f55-48d6-8213-d53bc61ea724",
+      "name": "Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91a93503-fe53-4bbf-8415-15fa2bbea10e",
+          "name": "posttransactions",
+          "request": {
+            "name": "posttransactions",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-transactions-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"recordsTotal\": \"<string>\",\n  \"recordsPerPage\": \"<string>\",\n  \"currentPage\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"records\": [\n    {\n      \"transaction\": {\n        \"id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\",\n        \"status\": \"<string>\",\n        \"createdAt\": \"<string>\",\n        \"integrationTransactionId\": \"<string>\",\n        \"integrationAccountId\": \"<string>\",\n        \"authorizationNo\": \"<string>\",\n        \"expirationDate\": \"<string>\",\n        \"calculatedFee\": \"<string>\",\n        \"integrationId\": \"<string>\",\n        \"terminalId\": \"<string>\",\n        \"parentId\": \"<string>\",\n        \"orderId\": \"<string>\",\n        \"typeName\": \"<string>\",\n        \"errorCode\": \"<string>\",\n        \"descriptor\": \"<string>\",\n        \"processingAccountId\": \"<string>\"\n      },\n      \"company\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"card\": {\n        \"holderName\": \"<string>\",\n        \"maskedNumber\": \"<string>\",\n        \"brandName\": \"<string>\"\n      },\n      \"customer\": {\n        \"id\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"email\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"city\": \"<string>\",\n        \"address\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"ip\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"settlement\": {\n        \"exist\": \"<string>\",\n        \"cardCountry\": \"<string>\",\n        \"cardType\": \"<string>\",\n        \"bin\": \"<string>\",\n        \"region\": \"<string>\",\n        \"txArn\": \"<string>\",\n        \"3dsResult\": \"<string>\",\n        \"recurring\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amountGross\": \"<string>\",\n        \"amountNet\": \"<string>\",\n        \"schemaFee\": \"<string>\",\n        \"interchangeFee\": \"<string>\",\n        \"chargeSum\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"fraudDate\": \"<string>\"\n      },\n      \"p2p\": {\n        \"senderFirstName\": \"<string>\",\n        \"senderLastName\": \"<string>\",\n        \"senderStreetAddress\": \"<string>\",\n        \"senderCity\": \"<string>\",\n        \"senderStateCode\": \"<string>\",\n        \"senderCountry\": \"<string>\",\n        \"senderPostalCode\": \"<string>\",\n        \"senderPhoneNumber\": \"<string>\",\n        \"senderDateOfBirth\": \"<string>\",\n        \"senderIdentification_type\": \"<string>\",\n        \"senderIdentificationNumber\": \"<string>\",\n        \"senderIdentificationCountryCode\": \"<string>\",\n        \"senderIdentification_expirationDate\": \"<string>\",\n        \"senderNationality\": \"<string>\",\n        \"senderCountryOfBirth\": \"<string>\",\n        \"receiverFirstName\": \"<string>\",\n        \"receiverMiddleName\": \"<string>\",\n        \"receiverLastName\": \"<string>\",\n        \"receiverStreetAddress\": \"<string>\",\n        \"receiverCity\": \"<string>\",\n        \"receiverStateCode\": \"<string>\",\n        \"receiverCountry\": \"<string>\",\n        \"receiverPostalCode\": \"<string>\",\n        \"receiverPhoneNumber\": \"<string>\",\n        \"receiverDateOfBirth\": \"<string>\",\n        \"receiverCardNumber\": \"<string>\",\n        \"receiverIdentification_type\": \"<string>\",\n        \"receiverIdentificationNumber\": \"<string>\",\n        \"receiverIdentificationCountryCode\": \"<string>\",\n        \"receiverIdentification_expirationDate\": \"<string>\",\n        \"receiverNationality\": \"<string>\",\n        \"receiverCountryOfBirth\": \"<string>\",\n        \"senderMiddleName\": \"<string>\"\n      }\n    },\n    {\n      \"transaction\": {\n        \"id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"currencyCode\": \"<string>\",\n        \"status\": \"<string>\",\n        \"createdAt\": \"<string>\",\n        \"integrationTransactionId\": \"<string>\",\n        \"integrationAccountId\": \"<string>\",\n        \"authorizationNo\": \"<string>\",\n        \"expirationDate\": \"<string>\",\n        \"calculatedFee\": \"<string>\",\n        \"integrationId\": \"<string>\",\n        \"terminalId\": \"<string>\",\n        \"parentId\": \"<string>\",\n        \"orderId\": \"<string>\",\n        \"typeName\": \"<string>\",\n        \"errorCode\": \"<string>\",\n        \"descriptor\": \"<string>\",\n        \"processingAccountId\": \"<string>\"\n      },\n      \"company\": {\n        \"id\": \"<string>\",\n        \"name\": \"<string>\"\n      },\n      \"card\": {\n        \"holderName\": \"<string>\",\n        \"maskedNumber\": \"<string>\",\n        \"brandName\": \"<string>\"\n      },\n      \"customer\": {\n        \"id\": \"<string>\",\n        \"phone\": \"<string>\",\n        \"email\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"city\": \"<string>\",\n        \"address\": \"<string>\",\n        \"zipCode\": \"<string>\",\n        \"ip\": \"<string>\",\n        \"state\": \"<string>\"\n      },\n      \"settlement\": {\n        \"exist\": \"<string>\",\n        \"cardCountry\": \"<string>\",\n        \"cardType\": \"<string>\",\n        \"bin\": \"<string>\",\n        \"region\": \"<string>\",\n        \"txArn\": \"<string>\",\n        \"3dsResult\": \"<string>\",\n        \"recurring\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amountGross\": \"<string>\",\n        \"amountNet\": \"<string>\",\n        \"schemaFee\": \"<string>\",\n        \"interchangeFee\": \"<string>\",\n        \"chargeSum\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"fraudDate\": \"<string>\"\n      },\n      \"p2p\": {\n        \"senderFirstName\": \"<string>\",\n        \"senderLastName\": \"<string>\",\n        \"senderStreetAddress\": \"<string>\",\n        \"senderCity\": \"<string>\",\n        \"senderStateCode\": \"<string>\",\n        \"senderCountry\": \"<string>\",\n        \"senderPostalCode\": \"<string>\",\n        \"senderPhoneNumber\": \"<string>\",\n        \"senderDateOfBirth\": \"<string>\",\n        \"senderIdentification_type\": \"<string>\",\n        \"senderIdentificationNumber\": \"<string>\",\n        \"senderIdentificationCountryCode\": \"<string>\",\n        \"senderIdentification_expirationDate\": \"<string>\",\n        \"senderNationality\": \"<string>\",\n        \"senderCountryOfBirth\": \"<string>\",\n        \"receiverFirstName\": \"<string>\",\n        \"receiverMiddleName\": \"<string>\",\n        \"receiverLastName\": \"<string>\",\n        \"receiverStreetAddress\": \"<string>\",\n        \"receiverCity\": \"<string>\",\n        \"receiverStateCode\": \"<string>\",\n        \"receiverCountry\": \"<string>\",\n        \"receiverPostalCode\": \"<string>\",\n        \"receiverPhoneNumber\": \"<string>\",\n        \"receiverDateOfBirth\": \"<string>\",\n        \"receiverCardNumber\": \"<string>\",\n        \"receiverIdentification_type\": \"<string>\",\n        \"receiverIdentificationNumber\": \"<string>\",\n        \"receiverIdentificationCountryCode\": \"<string>\",\n        \"receiverIdentification_expirationDate\": \"<string>\",\n        \"receiverNationality\": \"<string>\",\n        \"receiverCountryOfBirth\": \"<string>\",\n        \"senderMiddleName\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1beed7a4-4b98-4977-8b31-1497a96bdc25",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-transactions-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-report-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"1e68b6f0-da16-4e0a-b68a-5286ad4e787\",\n  \"recordsTotal\": \"17\",\n  \"recordsPerPage\": \"200\",\n  \"currentPage\": \"1\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"report_transactions\"\n  },\n  \"records\": [\n    {\n      \"transaction\": {\n        \"id\": \"502811178725015553\",\n        \"amount\": \"1.11\",\n        \"currencyCode\": \"EUR\",\n        \"status\": \"success\",\n        \"createdAt\": \"2023-08-01 07:38:16\",\n        \"integrationTransactionId\": \"0000000123456789213456798\",\n        \"integrationAccountId\": \"102223\",\n        \"authorizationNo\": \"N/A\",\n        \"expirationDate\": \"2023-12-11 08:45:27\",\n        \"calculatedFee\": \"1,11\",\n        \"integrationId\": \"87\",\n        \"terminalId\": \"26543\",\n        \"parentId\": \"0\",\n        \"orderId\": \"2568896541\",\n        \"typeName\": \"sale\",\n        \"errorCode\": \"000\",\n        \"descriptor\": \"<string>\",\n        \"processingAccountId\": \"102223\"\n      },\n      \"company\": {\n        \"id\": \"6666615\",\n        \"name\": \"My Company Name\"\n      },\n      \"card\": {\n        \"holderName\": \"John Doe von Soap\",\n        \"maskedNumber\": \"599999XXXXXX0125\",\n        \"brandName\": \"Mastercard\"\n      },\n      \"customer\": {\n        \"id\": \"user123\",\n        \"phone\": \"0123456789\",\n        \"email\": \"email@email.com\",\n        \"countryCode\": \"GB\",\n        \"city\": \"City\",\n        \"address\": \"Address\",\n        \"zipCode\": \"GU16 7HF\",\n        \"ip\": \"1.1.1.1\",\n        \"state\": \"AL\"\n      },\n      \"settlement\": {\n        \"exist\": \"1\",\n        \"cardCountry\": \"<string>\",\n        \"cardType\": \"N/A\",\n        \"bin\": \"N/A\",\n        \"region\": \"N/A\",\n        \"txArn\": \"N/A\",\n        \"3dsResult\": \"N/A\",\n        \"recurring\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amountGross\": \"N/A\",\n        \"amountNet\": \"N/A\",\n        \"schemaFee\": \"N/A\",\n        \"interchangeFee\": \"N/A\",\n        \"chargeSum\": \"N/A\",\n        \"currency\": \"N/A\",\n        \"fraudDate\": \"<string>\"\n      },\n      \"p2p\": {\n        \"senderFirstName\": \"N/A\",\n        \"senderLastName\": \"N/A\",\n        \"senderStreetAddress\": \"N/A\",\n        \"senderCity\": \"N/A\",\n        \"senderStateCode\": \"N/A\",\n        \"senderCountry\": \"<string>\",\n        \"senderPostalCode\": \"<string>\",\n        \"senderPhoneNumber\": \"N/A\",\n        \"senderDateOfBirth\": \"<string>\",\n        \"senderIdentification_type\": \"<string>\",\n        \"senderIdentificationNumber\": \"N/A\",\n        \"senderIdentificationCountryCode\": \"<string>\",\n        \"senderIdentification_expirationDate\": \"<string>\",\n        \"senderNationality\": \"<string>\",\n        \"senderCountryOfBirth\": \"<string>\",\n        \"receiverFirstName\": \"N/A\",\n        \"receiverMiddleName\": \"<string>\",\n        \"receiverLastName\": \"N/A\",\n        \"receiverStreetAddress\": \"N/A\",\n        \"receiverCity\": \"N/A\",\n        \"receiverStateCode\": \"N/A\",\n        \"receiverCountry\": \"<string>\",\n        \"receiverPostalCode\": \"<string>\",\n        \"receiverPhoneNumber\": \"N/A\",\n        \"receiverDateOfBirth\": \"<string>\",\n        \"receiverCardNumber\": \"<string>\",\n        \"receiverIdentification_type\": \"<string>\",\n        \"receiverIdentificationNumber\": \"N/A\",\n        \"receiverIdentificationCountryCode\": \"<string>\",\n        \"receiverIdentification_expirationDate\": \"<string>\",\n        \"receiverNationality\": \"<string>\",\n        \"receiverCountryOfBirth\": \"<string>\",\n        \"senderMiddleName\": \"<string>\"\n      }\n    },\n    {\n      \"transaction\": {\n        \"id\": \"502811178725015553\",\n        \"amount\": \"1.11\",\n        \"currencyCode\": \"EUR\",\n        \"status\": \"success\",\n        \"createdAt\": \"2023-08-01 07:38:16\",\n        \"integrationTransactionId\": \"0000000123456789213456798\",\n        \"integrationAccountId\": \"102223\",\n        \"authorizationNo\": \"N/A\",\n        \"expirationDate\": \"2023-12-11 08:45:27\",\n        \"calculatedFee\": \"1,11\",\n        \"integrationId\": \"87\",\n        \"terminalId\": \"26543\",\n        \"parentId\": \"0\",\n        \"orderId\": \"2568896541\",\n        \"typeName\": \"sale\",\n        \"errorCode\": \"000\",\n        \"descriptor\": \"<string>\",\n        \"processingAccountId\": \"102223\"\n      },\n      \"company\": {\n        \"id\": \"6666615\",\n        \"name\": \"My Company Name\"\n      },\n      \"card\": {\n        \"holderName\": \"John Doe von Soap\",\n        \"maskedNumber\": \"599999XXXXXX0125\",\n        \"brandName\": \"Mastercard\"\n      },\n      \"customer\": {\n        \"id\": \"user123\",\n        \"phone\": \"0123456789\",\n        \"email\": \"email@email.com\",\n        \"countryCode\": \"GB\",\n        \"city\": \"City\",\n        \"address\": \"Address\",\n        \"zipCode\": \"GU16 7HF\",\n        \"ip\": \"1.1.1.1\",\n        \"state\": \"AL\"\n      },\n      \"settlement\": {\n        \"exist\": \"1\",\n        \"cardCountry\": \"<string>\",\n        \"cardType\": \"N/A\",\n        \"bin\": \"N/A\",\n        \"region\": \"N/A\",\n        \"txArn\": \"N/A\",\n        \"3dsResult\": \"N/A\",\n        \"recurring\": \"<string>\",\n        \"date\": \"<string>\",\n        \"amountGross\": \"N/A\",\n        \"amountNet\": \"N/A\",\n        \"schemaFee\": \"N/A\",\n        \"interchangeFee\": \"N/A\",\n        \"chargeSum\": \"N/A\",\n        \"currency\": \"N/A\",\n        \"fraudDate\": \"<string>\"\n      },\n      \"p2p\": {\n        \"senderFirstName\": \"N/A\",\n        \"senderLastName\": \"N/A\",\n        \"senderStreetAddress\": \"N/A\",\n        \"senderCity\": \"N/A\",\n        \"senderStateCode\": \"N/A\",\n        \"senderCountry\": \"<string>\",\n        \"senderPostalCode\": \"<string>\",\n        \"senderPhoneNumber\": \"N/A\",\n        \"senderDateOfBirth\": \"<string>\",\n        \"senderIdentification_type\": \"<string>\",\n        \"senderIdentificationNumber\": \"N/A\",\n        \"senderIdentificationCountryCode\": \"<string>\",\n        \"senderIdentification_expirationDate\": \"<string>\",\n        \"senderNationality\": \"<string>\",\n        \"senderCountryOfBirth\": \"<string>\",\n        \"receiverFirstName\": \"N/A\",\n        \"receiverMiddleName\": \"<string>\",\n        \"receiverLastName\": \"N/A\",\n        \"receiverStreetAddress\": \"N/A\",\n        \"receiverCity\": \"N/A\",\n        \"receiverStateCode\": \"N/A\",\n        \"receiverCountry\": \"<string>\",\n        \"receiverPostalCode\": \"<string>\",\n        \"receiverPhoneNumber\": \"N/A\",\n        \"receiverDateOfBirth\": \"<string>\",\n        \"receiverCardNumber\": \"<string>\",\n        \"receiverIdentification_type\": \"<string>\",\n        \"receiverIdentificationNumber\": \"N/A\",\n        \"receiverIdentificationCountryCode\": \"<string>\",\n        \"receiverIdentification_expirationDate\": \"<string>\",\n        \"receiverNationality\": \"<string>\",\n        \"receiverCountryOfBirth\": \"<string>\",\n        \"senderMiddleName\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17596465-e41a-4abd-82fb-b476a478f71c",
+      "name": "Processing accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84b668a6-2207-4b47-9cbc-3c27600b6fbf",
+          "name": "postprocessing-accounts",
+          "request": {
+            "name": "postprocessing-accounts",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-processing-accounts-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"processingAccounts\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"companyName\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"testAccount\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"companyName\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"testAccount\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f07ef08-ddb2-4fb4-8f59-32be1fae5bf8",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-processing-accounts-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-report-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"1e68b6f0-da16-4e0a-b68a-5286ad4e787\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"report_processing_accounts\"\n  },\n  \"processingAccounts\": [\n    {\n      \"id\": \"200085\",\n      \"name\": \"Procssing account name\",\n      \"companyName\": \"Company name\",\n      \"enabled\": true,\n      \"testAccount\": true\n    },\n    {\n      \"id\": \"200085\",\n      \"name\": \"Procssing account name\",\n      \"companyName\": \"Company name\",\n      \"enabled\": true,\n      \"testAccount\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://127.0.0.1:10010/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-report-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7a26f65d-8241-4ddb-a133-aa170ad0d22f",
+    "name": "Merchant API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Merchant API documentation",
+      "type": "text/plain"
+    }
+  }
+}

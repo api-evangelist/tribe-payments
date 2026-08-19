@@ -1,0 +1,196 @@
+{
+  "item": [
+    {
+      "id": "a0cc3dab-c6f4-4313-94f2-ba1b32f85bd8",
+      "name": "Sale",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b3ed388-c30f-477e-b9ac-a5e2c2ea6d34",
+          "name": "postsale",
+          "request": {
+            "name": "postsale",
+            "description": {},
+            "url": {
+              "path": [
+                "sale"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"amount\": \"<string>\",\n    \"currencyCode\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"redirectUrlFor3ds\": \"<string>\",\n    \"descriptor\": \"<string>\",\n    \"avsCheck\": \"<boolean>\",\n    \"typeOf3ds\": \"<integer>\",\n    \"deviceChannel\": \"<string>\",\n    \"paymentTypeIndicator\": \"<string>\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"customer\": {\n    \"email\": \"<string>\",\n    \"countryCode\": \"<string>\",\n    \"name\": \"<string>\",\n    \"ip\": \"<string>\",\n    \"id\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"dateOfBirth\": \"<string>\",\n    \"state\": \"<string>\",\n    \"city\": \"<string>\",\n    \"address\": \"<string>\",\n    \"zipCode\": \"<string>\"\n  },\n  \"paymentMethod\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ec8c050-cc2e-4ef1-83d7-cd644add314d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"email\": \"email@email.com\",\n    \"countryCode\": \"GB\",\n    \"name\": \"Name\",\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"paymentMethod\": {\n    \"type\": \"googlePay\",\n    \"token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8af2ec21-af8d-4421-9fa8-1f3eaa7b2cf2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sale"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"amount\": \"123\",\n    \"currencyCode\": \"EUR\",\n    \"orderId\": \"32131231231241\",\n    \"redirectUrlFor3ds\": \"https://urlfor3ds.com\",\n    \"descriptor\": \"descriptor\",\n    \"avsCheck\": true,\n    \"typeOf3ds\": 2,\n    \"deviceChannel\": \"02\",\n    \"paymentTypeIndicator\": \"C07\"\n  },\n  \"shippingLocation\": {\n    \"countryCode\": \"GB\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address 11\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"customer\": {\n    \"email\": \"email@email.com\",\n    \"countryCode\": \"GB\",\n    \"name\": \"Name\",\n    \"ip\": \"1.1.1.1\",\n    \"id\": \"user123\",\n    \"phone\": \"0123456789\",\n    \"dateOfBirth\": \"2000-01-01\",\n    \"state\": \"AL\",\n    \"city\": \"City\",\n    \"address\": \"Address\",\n    \"zipCode\": \"GU16 7HF\"\n  },\n  \"paymentMethod\": {\n    \"type\": \"googlePay\",\n    \"token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"b44724c9-3844-450d-b36a-986fc9c38d7b\",\n  \"message\": \"Error occurred\",\n  \"violations\": [\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2001\",\n      \"message\": \"Value is not provided\"\n    },\n    {\n      \"propertyPath\": \"parameterName\",\n      \"code\": \"2001\",\n      \"message\": \"Value is not provided\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e8f01957-5962-41dc-b8a7-00dddf6cadc4",
+    "name": "Merchant API Credit Card Token",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

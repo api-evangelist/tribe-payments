@@ -1,0 +1,137 @@
+{
+  "item": [
+    {
+      "id": "a05a307c-8d97-4f40-b937-1e0aa935b316",
+      "name": "Sale",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "88611bb1-044b-4452-b021-5204c6e5cc4e",
+          "name": "postsale",
+          "request": {
+            "name": "postsale",
+            "description": {},
+            "url": {
+              "path": [
+                "registered-sale-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"<string>\",\n    \"orderId\": \"<string>\",\n    \"code\": \"<string>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"avsCheckResponse\": \"<string>\",\n    \"statementDescriptor\": \"<string>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"card\": {\n    \"hash\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "de5c774b-b54e-4e1a-9b8a-16a6daecf40a",
+              "name": "Expected response: HTTP status code 200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-sale-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-auth-account-id",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"<string>\",\n  \"webhook\": {\n    \"id\": \"<string>\",\n    \"type\": \"transaction_cc\"\n  },\n  \"transaction\": {\n    \"id\": \"<string>\",\n    \"date\": \"2023-06-01\",\n    \"orderId\": \"32131231231241\",\n    \"code\": \"000\",\n    \"message\": \"Transaction successfully completed\",\n    \"status\": \"true\",\n    \"avsCheckResponse\": \"G\",\n    \"statementDescriptor\": \"onlinemerchant.com\",\n    \"currencyCode\": \"EUR\"\n  },\n  \"card\": {\n    \"hash\": \"6899a2bb31fe4fcb619f8cac7f8d300e\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-auth-account-id"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5fe31e93-7762-4dc8-9de2-08faa87e9304",
+    "name": "Merchant API Credit Card Token Webhook",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

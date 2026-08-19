@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Collection",
+    "version": "0.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "bearer",
+      "value": "{{bearer}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates event data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/events/:eventId/data",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "1",
+                "type": "path",
+                "description": "ID assigned to the specific event, as indicated in the admin portal."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates data records for the chosen events. For this, the unique identifier of the specific event must be passed as a path parameter with the POST request. Newly created entries can be reviewed in the admin portal. "
+        },
+        {
+          "info": {
+            "name": "Retrieves event data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/events/:eventId/data/:identifier",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "1",
+                "type": "path",
+                "description": "ID assigned to the specific event, as indicated in the admin portal."
+              },
+              {
+                "name": "identifier",
+                "value": "15s4dsc3s",
+                "type": "path",
+                "description": "Identifier assigned to the event data during the initial event data creation."
+              }
+            ]
+          },
+          "docs": "Retrieves the chosen event data records for checking if the processor received the request and processed it successfully. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the GET request. The existing data entries recorded for the specific event are returned as a response. "
+        },
+        {
+          "info": {
+            "name": "Updates event data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/v1/events/:eventId/data/:identifier",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "1",
+                "type": "path",
+                "description": "ID assigned to the specific event, as indicated in the admin portal."
+              },
+              {
+                "name": "identifier",
+                "value": "12asd1asd451",
+                "type": "path",
+                "description": "Identifier assigned to the event data during the initial event data creation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates existing data records for the chosen events. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the PATCH request. Updated entries can be reviewed in the admin portal under History. "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Actions Trigger",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Triggers action for the event data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/events/:eventId/data/:identifier/trigger-user-actions/:actionId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "1",
+                "type": "path",
+                "description": "ID assigned to the specific event, as indicated in the admin portal."
+              },
+              {
+                "name": "identifier",
+                "value": "15s4dsc3s",
+                "type": "path",
+                "description": "Identifier assigned to the event data during the initial event data creation."
+              },
+              {
+                "name": "actionId",
+                "value": "10",
+                "type": "path",
+                "description": "ID assigned to the specific action, as indicated in the admin portal."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers action for the event data"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Health Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Performs system health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/health-check",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks the status of the system and network connection as well as validates the received credentials."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

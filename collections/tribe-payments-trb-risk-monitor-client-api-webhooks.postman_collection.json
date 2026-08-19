@@ -1,0 +1,444 @@
+{
+  "item": [
+    {
+      "id": "05ee5de1-81ca-4ad5-9242-f12f5ae320f8",
+      "name": "Event Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e20e0be-30fc-4e84-9f29-4559b4e00085",
+          "name": "Summary",
+          "request": {
+            "name": "Summary",
+            "description": {
+              "content": "The Event Data Summary webhook is sent to the client after all system actions are processed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registered-summary-web-hook-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) See Webhook signature generating in Appendix",
+                "key": "x-hook-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"<string>\",\n  \"state\": \"<string>\",\n  \"event\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"actions\": [\n    {\n      \"action\": {\n        \"id\": \"<integer>\",\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"groupCode\": \"<string>\"\n      },\n      \"data\": {\n        \"changeSet\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"custom\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\"\n        }\n      },\n      \"eventTags\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"action\": {\n        \"id\": \"<integer>\",\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"type\": \"<string>\",\n        \"groupCode\": \"<string>\"\n      },\n      \"data\": {\n        \"changeSet\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"custom\": {\n          \"key_0\": \"<string>\"\n        }\n      },\n      \"eventTags\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "254e5422-7656-4607-999c-e9376a9f3abe",
+              "name": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-summary-web-hook-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) See Webhook signature generating in Appendix",
+                    "key": "x-hook-signature",
+                    "value": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"4a384750-d27a-11ec-9d64-0242ac120002\",\n  \"state\": \"<string>\",\n  \"event\": {\n    \"id\": 12,\n    \"type\": \"BANK_TRANSFER\"\n  },\n  \"actions\": [\n    {\n      \"action\": {\n        \"id\": 12,\n        \"code\": \"R5-P1\",\n        \"name\": \"Decline payment\",\n        \"type\": \"<string>\",\n        \"groupCode\": \"G1\"\n      },\n      \"data\": {\n        \"changeSet\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\",\n          \"key_3\": \"<string>\"\n        },\n        \"custom\": {\n          \"key_0\": \"<string>\"\n        }\n      },\n      \"eventTags\": [\n        {\n          \"id\": 12,\n          \"name\": \"SUSPICIOUS-TRANSACTION\"\n        },\n        {\n          \"id\": 12,\n          \"name\": \"SUSPICIOUS-TRANSACTION\"\n        }\n      ]\n    },\n    {\n      \"action\": {\n        \"id\": 12,\n        \"code\": \"R5-P1\",\n        \"name\": \"Decline payment\",\n        \"type\": \"<string>\",\n        \"groupCode\": \"G1\"\n      },\n      \"data\": {\n        \"changeSet\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\"\n        },\n        \"custom\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        }\n      },\n      \"eventTags\": [\n        {\n          \"id\": 12,\n          \"name\": \"SUSPICIOUS-TRANSACTION\"\n        },\n        {\n          \"id\": 12,\n          \"name\": \"SUSPICIOUS-TRANSACTION\"\n        }\n      ]\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35df6cc7-f569-4e6d-9887-a1492b97fab7",
+          "name": "System action",
+          "request": {
+            "name": "System action",
+            "description": {
+              "content": "The System Action Webhook is sent to the client when the event action conditions group is hit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registered-system-action-web-hook-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) See Webhook signature generating in Appendix",
+                "key": "x-hook-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"<string>\",\n  \"event\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"action\": {\n    \"id\": \"<integer>\",\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"<string>\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e790d8de-4976-4a25-8a81-72b27239c7c8",
+              "name": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-system-action-web-hook-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) See Webhook signature generating in Appendix",
+                    "key": "x-hook-signature",
+                    "value": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"4a384750-d27a-11ec-9d64-0242ac120002\",\n  \"event\": {\n    \"id\": 12,\n    \"type\": \"BANK_TRANSFER\"\n  },\n  \"action\": {\n    \"id\": 12,\n    \"code\": \"R5-P1\",\n    \"name\": \"Decline payment\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"G1\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42a4bcb0-1277-4995-ab73-913dfbcfba0e",
+          "name": "Operator action",
+          "request": {
+            "name": "Operator action",
+            "description": {
+              "content": "The Operator Action Webhook is sent to the client when the event action conditions group is hit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registered-user-action-web-hook-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) See Webhook signature generating in Appendix",
+                "key": "x-hook-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"<string>\",\n  \"event\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"action\": {\n    \"id\": \"<integer>\",\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"<string>\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"triggeredBy\": {\n    \"id\": \"<integer>\",\n    \"username\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18aa83ae-c9be-444a-afa0-0ecb9099a53f",
+              "name": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-user-action-web-hook-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) See Webhook signature generating in Appendix",
+                    "key": "x-hook-signature",
+                    "value": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"4a384750-d27a-11ec-9d64-0242ac120002\",\n  \"event\": {\n    \"id\": 12,\n    \"type\": \"BANK_TRANSFER\"\n  },\n  \"action\": {\n    \"id\": 12,\n    \"code\": \"R5-P1\",\n    \"name\": \"Decline payment\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"G1\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\",\n  \"triggeredBy\": {\n    \"id\": 14,\n    \"username\": \"James\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "551bfe6a-5de8-4dc3-a5cb-715372d83919",
+          "name": "Recurring action",
+          "request": {
+            "name": "Recurring action",
+            "description": {
+              "content": "The Recurring Action Webhook is sent to the client when the event action conditions group is hit, and the action type is set to Recurring action.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "registered-recurring-action-web-hook-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) See Webhook signature generating in Appendix.",
+                "key": "x-hook-signature",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"<string>\",\n  \"event\": {\n    \"id\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  \"action\": {\n    \"id\": \"<integer>\",\n    \"code\": \"<string>\",\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"<string>\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cca42cd5-5e8c-4d9c-96c0-50ac7ed7ae38",
+              "name": "The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "registered-recurring-action-web-hook-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) See Webhook signature generating in Appendix.",
+                    "key": "x-hook-signature",
+                    "value": "KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw=="
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"identifier\": \"4a384750-d27a-11ec-9d64-0242ac120002\",\n  \"event\": {\n    \"id\": 12,\n    \"type\": \"BANK_TRANSFER\"\n  },\n  \"action\": {\n    \"id\": 12,\n    \"code\": \"R5-P1\",\n    \"name\": \"Decline payment\",\n    \"type\": \"<string>\",\n    \"groupCode\": \"G1\"\n  },\n  \"data\": {\n    \"changeSet\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"custom\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"eventTags\": [\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"SUSPICIOUS-TRANSACTION\"\n    }\n  ],\n  \"type\": \"<string>\",\n  \"date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b93a3bb7-251b-4196-b38d-302013d0246c",
+    "name": "Imported from OpenAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

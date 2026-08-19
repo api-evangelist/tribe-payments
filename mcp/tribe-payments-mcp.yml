@@ -2,61 +2,68 @@ generated: '2026-07-24'
 method: derived
 status: candidate
 source: openapi/* (candidate tools derived from published operations)
-note: >-
-  Tribe Payments does not publish an official hosted MCP server. This is a
-  candidate tool surface derived from Tribe's REST operations so an MCP server
-  could be generated. Each tool's real input contract is the referenced OpenAPI
-  operation's parameters + requestBody. Not an authoritative Tribe artifact.
+note: Tribe Payments does not publish an official hosted MCP server. This is a candidate tool surface
+  derived from Tribe's REST operations so an MCP server could be generated. Each tool's real input contract
+  is the referenced OpenAPI operation's parameters + requestBody. Not an authoritative Tribe artifact.
 server:
   name: tribe-payments
   transport: http
   url: null
 tools:
-  - name: list_bank_accounts
-    description: List accessible bank accounts (Open Banking AIS).
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts
-  - name: get_bank_account
-    description: Retrieve a single bank account by id.
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}
-  - name: get_account_balances
-    description: Retrieve balances for an account.
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}/balances
-  - name: get_account_transactions
-    description: List transactions for an account (cursor paginated).
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}/transactions
-  - name: list_banks
-    description: List connectable banks/ASPSPs and their supported schemes.
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /banks
-  - name: initiate_payment
-    description: Initiate an account-to-account payment (PIS).
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#POST /payments
-  - name: get_payment_status
-    description: Retrieve the status of an initiated payment.
-    source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /payments/{paymentId}/status
-  - name: card_sale
-    description: Process an immediate card sale (auth + capture).
-    source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postsale
-  - name: card_authorize
-    description: Authorize a card transaction (no capture).
-    source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postauthorize
-  - name: card_capture
-    description: Capture a previously authorized card transaction.
-    source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postcapture
-  - name: card_refund
-    description: Refund a card transaction.
-    source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postrefund
-  - name: prepare_hosted_payment
-    description: Create a Tribe-hosted checkout (HPP) session.
-    source_operation: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json#postprepare
-  - name: get_transactions_report
-    description: Request a transactions report (async, delivered via callback).
-    source_operation: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json#posttransactions
-  - name: list_devices
-    description: List POS devices under a processor.
-    source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#GET /processors/{processorId}/devices
-  - name: list_hosts
-    description: List POS hosts under a processor.
-    source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#GET /processors/{processorId}/hosts
-  - name: register_device
-    description: Register a device against a host (supports idempotency-key).
-    source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#POST /hosts/{hostId}/devices
+- name: list_bank_accounts
+  description: List accessible bank accounts (Open Banking AIS).
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts
+- name: get_bank_account
+  description: Retrieve a single bank account by id.
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}
+- name: get_account_balances
+  description: Retrieve balances for an account.
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}/balances
+- name: get_account_transactions
+  description: List transactions for an account (cursor paginated).
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /accounts/{accountId}/transactions
+- name: list_banks
+  description: List connectable banks/ASPSPs and their supported schemes.
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /banks
+- name: initiate_payment
+  description: Initiate an account-to-account payment (PIS).
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#POST /payments
+- name: get_payment_status
+  description: Retrieve the status of an initiated payment.
+  source_operation: openapi/tribe-payments-obb-tpp-api-openapi.json#GET /payments/{paymentId}/status
+- name: card_sale
+  description: Process an immediate card sale (auth + capture).
+  source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postsale
+- name: card_authorize
+  description: Authorize a card transaction (no capture).
+  source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postauthorize
+- name: card_capture
+  description: Capture a previously authorized card transaction.
+  source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postcapture
+- name: card_refund
+  description: Refund a card transaction.
+  source_operation: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json#postrefund
+- name: prepare_hosted_payment
+  description: Create a Tribe-hosted checkout (HPP) session.
+  source_operation: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json#postprepare
+- name: get_transactions_report
+  description: Request a transactions report (async, delivered via callback).
+  source_operation: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json#posttransactions
+- name: list_devices
+  description: List POS devices under a processor.
+  source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#GET
+    /processors/{processorId}/devices
+- name: list_hosts
+  description: List POS hosts under a processor.
+  source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#GET
+    /processors/{processorId}/hosts
+- name: register_device
+  description: Register a device against a host (supports idempotency-key).
+  source_operation: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json#POST
+    /hosts/{hostId}/devices
+deployment:
+  mode: none
+  verified: derived
+  tools: 16
+  checked: '2026-08-12'
+  source: catalog MCP census

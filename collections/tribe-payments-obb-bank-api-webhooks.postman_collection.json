@@ -1,0 +1,1072 @@
+{
+  "item": [
+    {
+      "id": "7d05c473-7d3a-4aca-a2f2-a60a961cc136",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "111b5753-1179-4b3e-8b84-e8998f3dbcfd",
+          "name": "Get account list.",
+          "request": {
+            "name": "Get account list.",
+            "description": {
+              "content": "Get the list of accounts for the authenticated user.\n\n \"Get accounts\" is initiated by the request from TPP and it is part of the [Get data flow](#appendix--workflow-get-data) between the BANK and TOB. TPP requests client’s accounts information from TOB which requests the information from the BANK. \n\n In the case of multicurrency accounts, the account for each of the currencies associated with the same account identifier (e.g. IBAN) will be returned in the response with a different `resource_id`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08e0cc62-92d6-4900-9e9a-dcbeaf2d7fe6",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accounts\": [\n    {\n      \"resource_id\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"account_number\": \"<integer>\",\n      \"sort_code\": \"<integer>\",\n      \"currency\": \"<string>\",\n      \"name\": \"<string>\",\n      \"payment_schemes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"resource_id\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"bban\": \"<string>\",\n      \"account_number\": \"<integer>\",\n      \"sort_code\": \"<integer>\",\n      \"currency\": \"<string>\",\n      \"name\": \"<string>\",\n      \"payment_schemes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07ee1074-fced-4917-b447-ae9a1643a272",
+          "name": "Get single account details.",
+          "request": {
+            "name": "Get single account details.",
+            "description": {
+              "content": "Get details for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cf7f6ff-0dbd-49f5-a904-411866b98642",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": {\n    \"resource_id\": \"<string>\",\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"name\": \"<string>\",\n    \"payment_schemes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "894cfeda-43ac-4d05-aac3-2864765b4194",
+          "name": "Get account balances.",
+          "request": {
+            "name": "Get account balances.",
+            "description": {
+              "content": "Get balances for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_account_balances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef69aae3-dbc6-41e0-a57e-56a680607b05",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_account_balances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balances\": [\n    {\n      \"balance_amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"balance_type\": \"nonInvoiced\"\n    },\n    {\n      \"balance_amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"balance_type\": \"nonInvoiced\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af9f02ad-f08a-4a1b-9978-4a67f66581ea",
+          "name": "Get account transactions.",
+          "request": {
+            "name": "Get account transactions.",
+            "description": {
+              "content": "Get transactions for a specific account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_account_transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"booking_status\": \"<string>\",\n  \"page_key\": \"<string>\",\n  \"page_size\": 100,\n  \"date_from\": \"<string>\",\n  \"date_to\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc10b398-1616-4de0-85cc-b917601a1976",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_account_transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"booking_status\": \"<string>\",\n  \"page_key\": \"<string>\",\n  \"page_size\": 100,\n  \"date_from\": \"<string>\",\n  \"date_to\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactions\": {\n    \"booked\": [\n      {\n        \"transaction_id\": \"string\",\n        \"creditor_name\": \"string\",\n        \"creditor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"debtor_name\": \"string\",\n        \"debtor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"remittance_information_unstructured\": \"string\",\n        \"remittance_information_structured\": {\n          \"reference\": \"<string>\",\n          \"reference_type\": \"<string>\"\n        },\n        \"transaction_amount\": {\n          \"amount\": \"string\",\n          \"currency\": \"str\",\n          \"value_date\": \"2019-02-26\",\n          \"booking_date\": \"2020-07-02\"\n        }\n      },\n      {\n        \"transaction_id\": \"string\",\n        \"creditor_name\": \"string\",\n        \"creditor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"debtor_name\": \"string\",\n        \"debtor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"remittance_information_unstructured\": \"string\",\n        \"remittance_information_structured\": {\n          \"reference\": \"<string>\",\n          \"reference_type\": \"<string>\"\n        },\n        \"transaction_amount\": {\n          \"amount\": \"string\",\n          \"currency\": \"str\",\n          \"value_date\": \"2009-10-27\",\n          \"booking_date\": \"2015-01-08\"\n        }\n      }\n    ],\n    \"pending\": [\n      {\n        \"transaction_id\": \"string\",\n        \"creditor_name\": \"string\",\n        \"creditor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"debtor_name\": \"string\",\n        \"debtor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"remittance_information_unstructured\": \"string\",\n        \"remittance_information_structured\": {\n          \"reference\": \"<string>\",\n          \"reference_type\": \"<string>\"\n        },\n        \"transaction_amount\": {\n          \"amount\": \"string\",\n          \"currency\": \"str\",\n          \"value_date\": \"2014-09-20\",\n          \"booking_date\": \"1996-05-24\"\n        }\n      },\n      {\n        \"transaction_id\": \"string\",\n        \"creditor_name\": \"string\",\n        \"creditor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"debtor_name\": \"string\",\n        \"debtor_account\": {\n          \"resource_id\": \"<string>\",\n          \"iban\": \"<string>\",\n          \"bban\": \"<string>\",\n          \"account_number\": \"<integer>\",\n          \"sort_code\": \"<integer>\",\n          \"currency\": \"<string>\",\n          \"name\": \"<string>\",\n          \"payment_schemes\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        \"remittance_information_unstructured\": \"string\",\n        \"remittance_information_structured\": {\n          \"reference\": \"<string>\",\n          \"reference_type\": \"<string>\"\n        },\n        \"transaction_amount\": {\n          \"amount\": \"string\",\n          \"currency\": \"str\",\n          \"value_date\": \"2011-10-09\",\n          \"booking_date\": \"1978-03-08\"\n        }\n      }\n    ]\n  },\n  \"page_key\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1068dbae-b7af-4ec7-a26c-80f8b2b13304",
+      "name": "Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4035b594-2aac-4f2e-944f-ac173f16d6f5",
+          "name": "Single payment",
+          "request": {
+            "name": "Single payment",
+            "description": {
+              "content": "\"Single payment\" is initiated by the request from TPP, which requests TOB to initiate the [payment](#appendix--workflow--payment). \nTOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected to complete the SCA.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_single"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a1fffda-1c9f-4c4b-9475-cf9538253ddc",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"PDNG\",\n  \"confirmation_url\": \"string\",\n  \"payment_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "47e1ec68-1364-4769-ab1c-856a416d6c20",
+              "name": "Callback URL parameters for redirect after user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ACCP\",\n  \"payment_id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "850890d6-e920-4212-b9cf-8ac4568141df",
+          "name": "Get single payment status",
+          "request": {
+            "name": "Get single payment status",
+            "description": {
+              "content": "\"Get single payment status\" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\nTPP requests the status of initiated payment from TOB, which then requests the information from the BANK.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_single_status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36d0da0d-555d-4ac2-9bdb-4ae79c2f3711",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_single_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transaction_status\": \"ACTC\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "847c097f-2345-44e1-a11a-3dbf77547ea4",
+          "name": "Bulk payment.",
+          "request": {
+            "name": "Bulk payment.",
+            "description": {
+              "content": "\"Bulk payment\" is initiated by the request from TPP to TOB to initiate the [payment](#appendix--workflow--payment).\nTOB requests BANK to initiate a bulk of payments and respond with a `confirmation_url` to which the user should be redirected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<string>\",\n  \"instructed_totals\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<string>\"\n  },\n  \"payments\": [\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "285b53ce-6429-4953-b3ee-6a1787c3fc5a",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"instructed_totals\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<string>\"\n  },\n  \"payments\": [\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"PDNG\",\n  \"confirmation_url\": \"string\",\n  \"payment_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44fb5ad6-bc00-437c-b7ef-08091704a258",
+              "name": "Callback URL parameters for redirect after user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"instructed_totals\": {\n    \"currency\": \"<string>\",\n    \"amount\": \"<string>\"\n  },\n  \"payments\": [\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"creditor_account\": {\n        \"iban\": \"<string>\",\n        \"bban\": \"<string>\",\n        \"account_number\": \"<string>\",\n        \"sort_code\": \"<integer>\"\n      },\n      \"creditorName\": \"<string>\",\n      \"remittanceInformationUnstructured\": \"<string>\",\n      \"remittanceInformationStructured\": {\n        \"reference\": \"<string>\",\n        \"reference_type\": \"<string>\"\n      },\n      \"creditorAddress\": {\n        \"country\": \"<string>\",\n        \"street_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"town_name\": \"<string>\",\n        \"postal_code\": \"<string>\"\n      },\n      \"instructedAmount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ],\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ACCP\",\n  \"payment_id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7bc6c3e-d75e-4737-a859-b9e586b49692",
+          "name": "Get bulk payment status",
+          "request": {
+            "name": "Get bulk payment status",
+            "description": {
+              "content": "\"Get bulk payment status\" is initiated by the request from TPP. It is part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\nTPP requests the status of initiated payment from TOB, which then requests the information from the BANK.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_bulk_status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06cbfad3-43f0-4ccd-a2c5-8d331d2bfb2d",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_bulk_status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transaction_status\": \"ACTC\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9041200-9e8b-4db7-a463-4e678cda9f4b",
+          "name": "Direct payment initiation.",
+          "request": {
+            "name": "Direct payment initiation.",
+            "description": {
+              "content": "\"Direct payment initiation\" is initiated by the request from TPP. TOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected.\nIt is a part of the flow where TPP requests TOB to initiate the [Direct payment](#appendix--workflow--direct-payment).\nThe endpoint is almost identical to the [payment](#webhooks--payment--initiate) one. The difference has to do with [Security](#security) where the `X-Auth-Token` header identifying the user is not passed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_payment_direct_single"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e015acdf-4c1e-46d2-a7c3-4e5196a4dada",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_direct_single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"PDNG\",\n  \"confirmation_url\": \"string\",\n  \"payment_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae229a98-1550-4a30-ada3-00855f9dbd14",
+              "name": "Callback URL parameters for redirect after the user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:\n.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_payment_direct_single"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<string>\",\n  \"payment_scheme\": \"<string>\",\n  \"debtor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"debtor_name\": \"<string>\",\n  \"creditor_account\": {\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<string>\",\n    \"sort_code\": \"<integer>\"\n  },\n  \"creditor_name\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"remittanceInformationStructured\": {\n    \"reference\": \"<string>\",\n    \"reference_type\": \"<string>\"\n  },\n  \"creditorAddress\": {\n    \"country\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"town_name\": \"<string>\",\n    \"postal_code\": \"<string>\"\n  },\n  \"instructedAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"creditor_bank\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"bic\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"ACCP\",\n  \"payment_id\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ea4b8a0e-b2b1-49d1-a513-de37d1debf81",
+      "name": "Funds",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b93b5fb4-d5ac-4a0b-a8d6-dd47cd720694",
+          "name": "Confirmation of funds.",
+          "request": {
+            "name": "Confirmation of funds.",
+            "description": {
+              "content": "\"Confirmation of funds\" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.\n\nIt can be used by CBPII to confirm the amount of funds available in the account. Funds can only be confirmed against the currency of the account. This action does not reserve an amount requested in the account but only indicates if the requested amount is present at the time of the API call.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2_funds_confirmations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account\": {\n    \"resource_id\": \"<string>\",\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"name\": \"<string>\",\n    \"payment_schemes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"instructed_amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af5af197-8897-426b-ae97-bb20a73af21d",
+              "name": "The successful response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2_funds_confirmations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account\": {\n    \"resource_id\": \"<string>\",\n    \"iban\": \"<string>\",\n    \"bban\": \"<string>\",\n    \"account_number\": \"<integer>\",\n    \"sort_code\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"name\": \"<string>\",\n    \"payment_schemes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"instructed_amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"funds_available\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8ff7b2a4-960d-4d1f-95c3-52c0ac134d2b",
+    "name": "Bank Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API documentation for bank-related webhooks, including account and payment operations.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Collection",
+    "version": "0.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/registered-summary-web-hook-address",
+            "headers": [
+              {
+                "name": "x-hook-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Event Data Summary webhook is sent to the client after all system actions are processed."
+        },
+        {
+          "info": {
+            "name": "System action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/registered-system-action-web-hook-address",
+            "headers": [
+              {
+                "name": "x-hook-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The System Action Webhook is sent to the client when the event action conditions group is hit."
+        },
+        {
+          "info": {
+            "name": "Operator action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/registered-user-action-web-hook-address",
+            "headers": [
+              {
+                "name": "x-hook-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Operator Action Webhook is sent to the client when the event action conditions group is hit."
+        },
+        {
+          "info": {
+            "name": "Recurring action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/registered-recurring-action-web-hook-address",
+            "headers": [
+              {
+                "name": "x-hook-signature",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Recurring Action Webhook is sent to the client when the event action conditions group is hit, and the action type is set to Recurring action."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

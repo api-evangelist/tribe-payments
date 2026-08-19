@@ -1,0 +1,880 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Banking: TPP API v2",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of accounts.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/accounts",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "**Scope:** `accounts`"
+        },
+        {
+          "info": {
+            "name": "Returns details of a single account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/accounts/:accountId",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The account ID. Identical to `accountId` from the [Get account list](#actions--accounts--get-/v2/accounts) action."
+              }
+            ]
+          },
+          "docs": "**Scope:** `accounts`"
+        },
+        {
+          "info": {
+            "name": "Returns a list of account balances.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/accounts/:accountId/balances",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The account ID. Identical to `accountId` from the [Get account list](#actions--accounts--get-/v2/accounts) action."
+              }
+            ]
+          },
+          "docs": "**Scope:** `accounts.balances`"
+        },
+        {
+          "info": {
+            "name": "Returns a list of account transactions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/accounts/:accountId/transactions",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The account ID. Identical to `accountId` from the [Get account list](#actions--accounts--get-/v2/accounts) action."
+              },
+              {
+                "name": "bookingStatus",
+                "value": "",
+                "type": "query",
+                "description": "The type of transaction to return. Possible values: `booked`, `pending`, `both`."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of transactions in a single response. The default value is `100`."
+              },
+              {
+                "name": "pageKey",
+                "value": "",
+                "type": "query",
+                "description": "A parameter used when paging value points to the page following the previous API call."
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query",
+                "description": "Filters transactions since a specific date in the `YYYY-MM-DD` format."
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query",
+                "description": "Filters transactions until a specific date in the `YYYY-MM-DD` format."
+              }
+            ]
+          },
+          "docs": "**Scope:** `accounts.transactions`"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a single new payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%tpp_api_url%/tpp/v2/payments",
+            "headers": [
+              {
+                "name": "TPP-Redirect-URI",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              },
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Scope:** `payments.single`. \n\nThe action is initiated by the TPP, and it is a part of the [Payment flow](#appendix--workflow--payment). \n\n In `TPP-Redirect-URI` header, an URL to which PSU is redirected after payment confirmation needs to be provided,\nadditional parameters indicating `status` and `paymentId` (optionally message) are added to the URL after the redirect.\nThis can be used to indicate if payment was confirmed successfully.\n\nIn the case of debtorAccount and creditorAccount, at leas"
+        },
+        {
+          "info": {
+            "name": "Retrieve content of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/payments/:paymentId",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "**Scope:** `payments.single` \n\n The action is initiated by the TPP and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        },
+        {
+          "info": {
+            "name": "Retrieve current status of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/payments/:paymentId/status",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "**Scope:** `payments.single` \n\n The action is initiated by the TPP and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Bulk payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a bulk payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%tpp_api_url%/tpp/v2/bulk-payments",
+            "headers": [
+              {
+                "name": "TPP-Redirect-URI",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              },
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Scope:** `payments.bulk` \n\n The action is initiated by the TPP and it is a part of the [Payment flow](#appendix--workflow--payment). \n\nIn the `TPP-Redirect-URI` header, the URL to which the PSU is redirected after payment confirmation needs to be provided.\nAdditional parameters indicating the `status` and `paymentId` (optionally, with a message) are added to the URL after the redirect.\nThis can be used to indicate if payment was confirmed successfully.\n\nIn the case of debtorAccount and credito"
+        },
+        {
+          "info": {
+            "name": "Retrieve content of an initiated bulk payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/bulk-payments/:paymentId",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "**Scope:** `payments.bulk`"
+        },
+        {
+          "info": {
+            "name": "Retrieve current status of an initiated bulk payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/bulk-payments/:paymentId/status",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "**Scope:** `payments.bulk`"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "General",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of banks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/banks",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The bank name."
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query",
+                "description": "The bank identifier code."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "ISO 3166-1 alpha-2."
+              },
+              {
+                "name": "scopes[]",
+                "value": "",
+                "type": "query",
+                "description": "Available [Scopes](#appendix--enum--scopes) in the bank."
+              },
+              {
+                "name": "paymentSchemes[]",
+                "value": "",
+                "type": "query",
+                "description": "Available [Payment Schemes](#appendix--enum--payment-schemes) in the bank."
+              },
+              {
+                "name": "directPaymentSupport",
+                "value": "",
+                "type": "query",
+                "description": "Determines whether the bank supports direct payments via API."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the limit of records to return."
+              }
+            ]
+          },
+          "docs": "Returns a list of banks."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Funds confirmation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Used by the CBPII to confirm whether the amount of funds is available in the account.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%tpp_api_url%/tpp/v2/funds-confirmations",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Scope:** `funds_confirmations`. \n\n Used by the CBPII to confirm whether the amount of funds is available in the account. \n\n Funds can only be confirmed against the currency of the account. This action does not reserve the amount requested in the account but only indicates if the requested amount is present at the time of the API call."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Direct payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a single new payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments/:bankIdentifier",
+            "headers": [
+              {
+                "name": "TPP-Redirect-URI",
+                "value": ""
+              },
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bankIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of a BANK to initiate the payment. In case the parameter is not provided, the user has the option to select their bank through the GUI during the SCA confirmation."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Direct_payment flow](#appendix--workflow--direct-payment). \n\nThe `bankIdentifier` parameter in the URL may be omitted. In this case, the user is redirected to the `scaRedirect` URL from the response and then needs to select the BANK through which the payment is executed. \n\nIn the `TPP-Redirect-URI` header, the URL to which the PSU is redirected after payment confirmation needs to be provided.\nAdditional parameters indicating the `statu"
+        },
+        {
+          "info": {
+            "name": "Retrieve content of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments/:bankIdentifier/:paymentId",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              },
+              {
+                "name": "bankIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of a BANK to initiate the payment. In case the parameter is not provided, the user has the option to select their bank through the GUI during the SCA confirmation."
+              }
+            ]
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        },
+        {
+          "info": {
+            "name": "Retrieve current status of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments/:bankIdentifier/:paymentId/status",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              },
+              {
+                "name": "bankIdentifier",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of a BANK to initiate the payment. In case the parameter is not provided, the user has the option to select their bank through the GUI during the SCA confirmation."
+              }
+            ]
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Direct payments without Bank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a single new payment, with PSU selecting ASPSP during SCA.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments",
+            "headers": [
+              {
+                "name": "TPP-Redirect-URI",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              },
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Direct_payment flow](#appendix--workflow--direct-payment). \n\n The user is redirected to the `scaRedirect` URL from the response and then needs to select the BANK through which the payment will be executed.\n\nIn the case of debtorAccount and creditorAccount, at least one of iban, bban or accountNumber with sortCode has to be provided, depending on the paymentScheme and type of payment that is being initiated."
+        },
+        {
+          "info": {
+            "name": "Retrieve content of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments/:paymentId",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        },
+        {
+          "info": {
+            "name": "Retrieve current status of an initiated payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "%tpp_api_url%/tpp/v2/direct/payments/:paymentId/status",
+            "headers": [
+              {
+                "name": "Digest",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              },
+              {
+                "name": "Signature",
+                "value": ""
+              },
+              {
+                "name": "Tpp-Signature-Certificate",
+                "value": ""
+              },
+              {
+                "name": "Date",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "paymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of a payment to retrieve."
+              }
+            ]
+          },
+          "docs": "The action is initiated by the TPP, and it is a part of the [Get data flow](#appendix--workflow--get-data)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

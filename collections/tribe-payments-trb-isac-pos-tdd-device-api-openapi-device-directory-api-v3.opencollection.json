@@ -1,0 +1,797 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Device Directory API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Processor",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of hosts assigned to processor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/processors/:processorId/hosts",
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "created[from]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "created[to]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "externalReferenceId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the host external reference id."
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the host url."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of hosts per page."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch hosts list with page-based pagination."
+        },
+        {
+          "info": {
+            "name": "Create a host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/processors/:processorId/hosts",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to create a host."
+        },
+        {
+          "info": {
+            "name": "Get a host",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/processors/:processorId/hosts/:hostId",
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch a host."
+        },
+        {
+          "info": {
+            "name": "Update a host.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/processors/:processorId/hosts/:hostId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to update a host."
+        },
+        {
+          "info": {
+            "name": "Delete a host",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/processors/:processorId/hosts/:hostId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ]
+          },
+          "docs": "Endpoint to delete host."
+        },
+        {
+          "info": {
+            "name": "Get a list of devices assigned to processor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/processors/:processorId/devices",
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "created[from]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "created[to]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "serialNumber",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the device serial number."
+              },
+              {
+                "name": "configurationTag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the device configuration tag."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of devices per page."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device list with page-based pagination."
+        },
+        {
+          "info": {
+            "name": "Get a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/processors/:processorId/devices/:deviceId",
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the device."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device."
+        },
+        {
+          "info": {
+            "name": "Get a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/processors/:processorId/terminals/:terminalId",
+            "params": [
+              {
+                "name": "processorId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the processor."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "App",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a host",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps/:appId/hosts/:hostId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the app."
+              },
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch a host."
+        },
+        {
+          "info": {
+            "name": "Get a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps/:appId/terminals/:terminalId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the app."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ]
+          },
+          "docs": "Endpoint to get a terminal."
+        },
+        {
+          "info": {
+            "name": "Get a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/apps/:appId/devices/:deviceId",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the app."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the device."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device."
+        },
+        {
+          "info": {
+            "name": "Activate a terminal.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/apps/:appId/terminals/:terminalId/activate",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the app."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to activate a terminal."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Host",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of devices assigned to host",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hosts/:hostId/devices",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "created[from]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "created[to]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "serialNumber",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the device serial number."
+              },
+              {
+                "name": "configurationTag",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the device configuration tag."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device list."
+        },
+        {
+          "info": {
+            "name": "Create a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/hosts/:hostId/devices",
+            "headers": [
+              {
+                "name": "apk-version",
+                "value": ""
+              },
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to create for a device."
+        },
+        {
+          "info": {
+            "name": "Get a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hosts/:hostId/devices/:deviceId",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the device."
+              }
+            ]
+          },
+          "docs": "Endpoint to fetch device."
+        },
+        {
+          "info": {
+            "name": "Update a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/hosts/:hostId/devices/:deviceId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the device."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to update device."
+        },
+        {
+          "info": {
+            "name": "Delete a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/hosts/:hostId/devices/:deviceId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the device."
+              }
+            ]
+          },
+          "docs": "Endpoint to delete device."
+        },
+        {
+          "info": {
+            "name": "Get terminals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "created[from]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "created[to]",
+                "value": "2024-09-26T14:45:30.123+02:00",
+                "type": "query",
+                "description": "Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items per page."
+              }
+            ]
+          },
+          "docs": "Endpoint to get terminals with page-based pagination."
+        },
+        {
+          "info": {
+            "name": "Create a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Endpoint to create a terminal."
+        },
+        {
+          "info": {
+            "name": "Get a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals/:terminalId",
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ]
+          },
+          "docs": "Endpoint to get a terminal."
+        },
+        {
+          "info": {
+            "name": "Update a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals/:terminalId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update to get a terminal."
+        },
+        {
+          "info": {
+            "name": "Delete a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals/:terminalId",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ]
+          },
+          "docs": "Endpoint to delete a terminal."
+        },
+        {
+          "info": {
+            "name": "Regenarate activation code for a terminal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/hosts/:hostId/terminals/:terminalId/regenerate-activation-code",
+            "headers": [
+              {
+                "name": "idempotency-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "hostId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the host."
+              },
+              {
+                "name": "terminalId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the terminal."
+              }
+            ]
+          },
+          "docs": "Endpoint to regenerate activation code for a terminal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
