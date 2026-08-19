@@ -27,7 +27,7 @@ tags:
 - Point of Sale
 created: '2026-07-24'
 modified: '2026-07-24'
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 kind: company
 apis:
 - aid: tribe-payments:gateway-credit-card-api
