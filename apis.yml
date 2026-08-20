@@ -22,6 +22,19 @@ tags:
 - Payment Processing
 - Open Banking
 - Account-to-Account
+- Banking as a Service
+- Fraud
+- Point-of-Sale
+tags_raw:
+- Payments
+- United Kingdom
+- Issuer Processor
+- Card Issuing
+- Acquiring
+- Payment Gateway
+- Payment Processing
+- Open Banking
+- Account-to-Account
 - Banking-as-a-Service
 - Fraud
 - Point of Sale
@@ -38,6 +51,12 @@ apis:
     portal.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Payments
+  - Payment Gateway
+  - Card Payments
+  - E-Commerce
+  - United Kingdom
+  tags_raw:
   - Payments
   - Payment Gateway
   - Card Payments
@@ -59,6 +78,12 @@ apis:
     status notifications. Specification harvested verbatim from the Tribe developer portal.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
   tags:
+  - Payments
+  - Payment Gateway
+  - Hosted Payment Page
+  - E-Commerce
+  - United Kingdom
+  tags_raw:
   - Payments
   - Payment Gateway
   - Hosted Payment Page
@@ -122,6 +147,12 @@ apis:
     Harvested verbatim from the Tribe developer portal.
   humanURL: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
   tags:
+  - Payments
+  - Point-of-Sale
+  - Terminals
+  - Device Management
+  - United Kingdom
+  tags_raw:
   - Payments
   - Point of Sale
   - Terminals
@@ -227,6 +258,12 @@ apis:
   - Card Issuing
   - Issuer Processor
   - Authorization
+  - Webhook
+  tags_raw:
+  - Payments
+  - Card Issuing
+  - Issuer Processor
+  - Authorization
   - Webhooks
   properties:
   - type: Documentation
@@ -276,6 +313,12 @@ apis:
   tags:
   - Payments
   - Acquiring
+  - Point-of-Sale
+  - Terminals
+  - United Kingdom
+  tags_raw:
+  - Payments
+  - Acquiring
   - Point of Sale
   - Terminals
   - United Kingdom
@@ -308,6 +351,12 @@ apis:
     OpenAPI is published for the current version.
   humanURL: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
   tags:
+  - Payments
+  - Banking as a Service
+  - Digital Banking
+  - Fintech
+  - United Kingdom
+  tags_raw:
   - Payments
   - Banking-as-a-Service
   - Digital Banking
