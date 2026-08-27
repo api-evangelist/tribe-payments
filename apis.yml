@@ -43,198 +43,12 @@ modified: '2026-07-24'
 specificationVersion: '0.23'
 kind: company
 apis:
-- aid: tribe-payments:gateway-credit-card-api
-  name: Payment Gateway - Credit Card API
-  description: Tribe Payments Gateway Credit Card API (v3) for merchants processing credit and debit card
-    e-commerce (ECOM) transactions - sale, authorization, capture, refund, and void - organized around
-    REST with JSON. Card-transaction and callback specifications harvested verbatim from the Tribe developer
-    portal.
-  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
-  tags:
-  - Payments
-  - Payment Gateway
-  - Card Payments
-  - E-Commerce
-  - United Kingdom
-  tags_raw:
-  - Payments
-  - Payment Gateway
-  - Card Payments
-  - E-commerce
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
-  - type: APIReference
-    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
-- aid: tribe-payments:gateway-hosted-payments-api
-  name: Payment Gateway - Hosted Payments API (HPP)
-  description: Tribe Payments Gateway Hosted Payments Page API (v3) that lets merchants collect card payments
-    through a Tribe-hosted checkout, offloading PCI scope, plus a webhook interface for asynchronous transaction
-    status notifications. Specification harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
-  tags:
-  - Payments
-  - Payment Gateway
-  - Hosted Payment Page
-  - E-Commerce
-  - United Kingdom
-  tags_raw:
-  - Payments
-  - Payment Gateway
-  - Hosted Payment Page
-  - E-commerce
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
-  - type: APIReference
-    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-v3.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-hpp-api-merchant-api-hpp-webhook-v3.json
-- aid: tribe-payments:gateway-credit-card-token-api
-  name: Payment Gateway - Credit Card Token API
-  description: Tribe Payments Gateway Credit Card Token API (v3) for tokenizing card credentials so merchants
-    can store and reuse cards for recurring and card-on-file payments without holding raw PAN data, with
-    an accompanying token webhook interface. Harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
-  tags:
-  - Payments
-  - Payment Gateway
-  - Tokenization
-  - Card on File
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
-  - type: APIReference
-    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json
-- aid: tribe-payments:gateway-reports-api
-  name: Payment Gateway - Reports API
-  description: Tribe Payments Gateway Reports API (v3) providing merchants programmatic access to transaction
-    reporting and reconciliation data over REST, with a report callback interface for delivering generated
-    reports asynchronously. Harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
-  tags:
-  - Payments
-  - Payment Gateway
-  - Reporting
-  - Reconciliation
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
-  - type: APIReference
-    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
-- aid: tribe-payments:pos-device-directory-api
-  name: Point of Sale - Device Directory API
-  description: Tribe Payments Point of Sale Device Directory API (v3) for registering, managing, and querying
-    the estate of physical and SoftPOS payment terminals (devices) connected to Tribe's acquiring platform.
-    Harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
-  tags:
-  - Payments
-  - Point-of-Sale
-  - Terminals
-  - Device Management
-  - United Kingdom
-  tags_raw:
-  - Payments
-  - Point of Sale
-  - Terminals
-  - Device Management
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
-  - type: APIReference
-    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-isac-pos-tdd-device-api-openapi-device-directory-api-v3.json
-- aid: tribe-payments:risk-monitor-client-api
-  name: Risk Monitor - Client API
-  description: Tribe Payments Risk Monitor Client API (v1.1) for real-time fraud and transaction-risk
-    monitoring, letting clients submit and query risk decisions, with a webhooks interface for risk event
-    notifications. Harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/
-  tags:
-  - Payments
-  - Fraud
-  - Risk Management
-  - Transaction Monitoring
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/
-  - type: APIReference
-    url: https://doc.tribepayments.com/
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-risk-monitor-client-api-openapi.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json
-- aid: tribe-payments:open-banking-bank-api
-  name: Open Banking - Bank API
-  description: Tribe Payments Open Banking Bank API (v2) - the bank/ASPSP-facing side of Tribe's Open
-    Banking product, exposing account information and payment-initiation capabilities to permissioned
-    third-party providers under PSD2, with a Bank Webhooks API for event notifications. Harvested verbatim
-    from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/
-  tags:
-  - Payments
-  - Open Banking
-  - Account-to-Account
-  - PSD2
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/
-  - type: APIReference
-    url: https://doc.tribepayments.com/
-  - type: OpenAPI
-    url: openapi/tribe-payments-obb-bank-api-openapi.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-obb-bank-api-webhooks-openapi.json
-- aid: tribe-payments:open-banking-tpp-api
-  name: Open Banking - Third-Party Providers API (TPP)
-  description: Tribe Payments Open Banking Third-Party Providers (TPP) API (v2) - the TPP-facing side
-    of Tribe's Open Banking product for initiating account-to-account payments (PIS) and retrieving account
-    information (AIS) from connected banks, authenticated with a bearer token plus X-Client-ID, with a
-    Payment Webhooks interface. Harvested verbatim from the Tribe developer portal.
-  humanURL: https://doc.tribepayments.com/
-  tags:
-  - Payments
-  - Open Banking
-  - Account-to-Account
-  - Payment Initiation
-  - United Kingdom
-  properties:
-  - type: Documentation
-    url: https://doc.tribepayments.com/
-  - type: APIReference
-    url: https://doc.tribepayments.com/
-  - type: OpenAPI
-    url: openapi/tribe-payments-obb-tpp-api-openapi.json
-  - type: OpenAPI
-    url: openapi/tribe-payments-obb-tpp-api-webhooks-openapi.json
 - aid: tribe-payments:issuer-program-manager-api
   name: Issuer Processor - Program Manager API (PM API)
-  description: Program Manager API (v1.2) for card issuers to interact with Tribe's ISAAC issuer-processing
-    platform - issuing cards, managing programs and cardholders, and processing card transactions. Documented
-    in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
+  description: >-
+    Program Manager API (v1.2) for card issuers to interact with Tribe's ISAAC issuer-processing platform
+    - issuing cards, managing programs and cardholders, and processing card transactions. Documented in
+    the Tribe developer portal; no downloadable OpenAPI is published for the current version.
   humanURL: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
   tags:
   - Payments
@@ -249,9 +63,10 @@ apis:
     url: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
 - aid: tribe-payments:issuer-transaction-authorization-api
   name: Issuer Processor - Transaction Authorization Interface (TAI API)
-  description: Transaction Authorization Interface (v1.2) that sends webhook messages to issuers with
-    the latest information about card-transaction status changes and system events on Tribe's ISAAC platform.
-    Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
+  description: >-
+    Transaction Authorization Interface (v1.2) that sends webhook messages to issuers with the latest
+    information about card-transaction status changes and system events on Tribe's ISAAC platform. Documented
+    in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
   humanURL: https://doc.tribepayments.com/docs/issuing--transaction-authorization-interface--v1.2
   tags:
   - Payments
@@ -272,9 +87,10 @@ apis:
     url: https://doc.tribepayments.com/docs/issuing--transaction-authorization-interface--v1.2
 - aid: tribe-payments:acquirer-api
   name: Acquiring Processor - Acquirer API (ACAPI)
-  description: Acquirer API (ACAPI, v1) for Tribe's acquiring-processor platform, covering acquirer-side
-    transaction processing and settlement. Documented in the Tribe developer portal; no downloadable OpenAPI
-    is published for the current version.
+  description: >-
+    Acquirer API (ACAPI, v1) for Tribe's acquiring-processor platform, covering acquirer-side transaction
+    processing and settlement. Documented in the Tribe developer portal; no downloadable OpenAPI is published
+    for the current version.
   humanURL: https://doc.tribepayments.com/docs/acquiring--acquirer-api--v1
   tags:
   - Payments
@@ -289,9 +105,10 @@ apis:
     url: https://doc.tribepayments.com/docs/acquiring--acquirer-api--v1
 - aid: tribe-payments:acquirer-merchant-api
   name: Acquiring Processor - Merchant API (MAPI)
-  description: Merchant API (MAPI, v1) for onboarding and managing merchants on Tribe's acquiring-processor
-    platform. Documented in the Tribe developer portal as Markdown; no downloadable OpenAPI is published
-    for the current version.
+  description: >-
+    Merchant API (MAPI, v1) for onboarding and managing merchants on Tribe's acquiring-processor platform.
+    Documented in the Tribe developer portal as Markdown; no downloadable OpenAPI is published for the
+    current version.
   humanURL: https://doc.tribepayments.com/docs/acquiring--merchant-api--v1
   tags:
   - Payments
@@ -306,7 +123,8 @@ apis:
     url: https://doc.tribepayments.com/docs/acquiring--merchant-api--v1
 - aid: tribe-payments:acquirer-terminal-api
   name: Acquiring Processor - Terminal API (TAPI)
-  description: Terminal API (TAPI, v2) for integrating physical payment terminals with Tribe's acquiring-processor
+  description: >-
+    Terminal API (TAPI, v2) for integrating physical payment terminals with Tribe's acquiring-processor
     platform. Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current
     version.
   humanURL: https://doc.tribepayments.com/docs/acquiring--terminal-api--v2
@@ -329,9 +147,9 @@ apis:
     url: https://doc.tribepayments.com/docs/acquiring--terminal-api--v2
 - aid: tribe-payments:acquirer-tokenization-api
   name: Acquiring Processor - Tokenization API (TOKAPI)
-  description: Tokenization API (TOKAPI, v1) for tokenizing card data within Tribe's acquiring-processor
-    platform. Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current
-    version.
+  description: >-
+    Tokenization API (TOKAPI, v1) for tokenizing card data within Tribe's acquiring-processor platform.
+    Documented in the Tribe developer portal; no downloadable OpenAPI is published for the current version.
   humanURL: https://doc.tribepayments.com/docs/acquiring--tokenization-api--v1
   tags:
   - Payments
@@ -346,9 +164,10 @@ apis:
     url: https://doc.tribepayments.com/docs/acquiring--tokenization-api--v1
 - aid: tribe-payments:bank-connect-payment-services-api
   name: Bank Connect - Payment Services API
-  description: Payment Services API (v1) for Tribe's Bank Connect / Banking-as-a-Service product, enabling
-    fintechs to embed banking and payment services. Documented in the Tribe developer portal; no downloadable
-    OpenAPI is published for the current version.
+  description: >-
+    Payment Services API (v1) for Tribe's Bank Connect / Banking-as-a-Service product, enabling fintechs
+    to embed banking and payment services. Documented in the Tribe developer portal; no downloadable OpenAPI
+    is published for the current version.
   humanURL: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
   tags:
   - Payments
@@ -367,6 +186,1269 @@ apis:
     url: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
   - type: APIReference
     url: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
+- aid: tribe-payments:tribe-payments-3ds-authentication-required-api
+  name: Tribe Payments 3DS authentication required API
+  description: >-
+    The 3DS authentication required API from Tribe Payments — 1 operation(s) for 3ds authentication required.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - 3DS authentication required
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-3ds-authentication-required-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-account-api
+  name: Tribe Payments Account API
+  description: Endpoints for confirming funds in the account.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-account-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-accounts-api
+  name: Tribe Payments Accounts API
+  description: The Accounts API from Tribe Payments — 4 operation(s) for accounts.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-app-api
+  name: Tribe Payments App API
+  description: The App API from Tribe Payments — 4 operation(s) for app.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - App
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-app-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-authorization-api
+  name: Tribe Payments Authorization API
+  description: The Authorization API from Tribe Payments — 3 operation(s) for authorization.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-authorize-api
+  name: Tribe Payments Authorize API
+  description: The Authorize API from Tribe Payments — 2 operation(s) for authorize.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Authorize
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-authorize-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-bulk-payments-api
+  name: Tribe Payments Bulk payments API
+  description: Endpoints for executing bulk payments.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Bulk payments
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-bulk-payments-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-cancel-api
+  name: Tribe Payments Cancel API
+  description: The Cancel API from Tribe Payments — 2 operation(s) for cancel.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Cancel
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-cancel-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-cancel-recurring-api
+  name: Tribe Payments Cancel recurring API
+  description: The Cancel recurring API from Tribe Payments — 2 operation(s) for cancel recurring.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Cancel recurring
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-cancel-recurring-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-capture-api
+  name: Tribe Payments Capture API
+  description: The Capture API from Tribe Payments — 2 operation(s) for capture.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Capture
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-capture-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-credit-api
+  name: Tribe Payments Credit API
+  description: The Credit API from Tribe Payments — 2 operation(s) for credit.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Credit
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-credit-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-direct-payments-api
+  name: Tribe Payments Direct payments API
+  description: >-
+    Some supported ASPSPs provide a more direct approach to some actions. Instead of retrieving prior
+    user consent, actions can be executed directly,
+
+    followed by an SCA confirmation in the next step. [Direct action security](#security--direct-security)
+    is also different from the usual action [security](#security).
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Direct payments
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-direct-payments-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-direct-payments-without-bank-api
+  name: Tribe Payments Direct payments without Bank API
+  description: Endpoints for executing direct payments (without acquiring previous consent).
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Direct payments without Bank
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-direct-payments-without-bank-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-disputes-api
+  name: Tribe Payments Disputes API
+  description: The Disputes API from Tribe Payments — 2 operation(s) for disputes.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-disputes-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-event-data-api
+  name: Tribe Payments Event Data API
+  description: The Event Data API from Tribe Payments — 6 operation(s) for event data.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Event Data
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-event-data-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-funds-api
+  name: Tribe Payments Funds API
+  description: The Funds API from Tribe Payments — 1 operation(s) for funds.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Funds
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-funds-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-funds-confirmation-api
+  name: Tribe Payments Funds confirmation API
+  description: Endpoints for confirming funds in the account.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Funds confirmation
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-funds-confirmation-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-general-api
+  name: Tribe Payments General API
+  description: Endpoints for interacting with the general data.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - General
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-general-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-health-check-api
+  name: Tribe Payments Health Check API
+  description: The Health Check API from Tribe Payments — 1 operation(s) for health check.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-host-api
+  name: Tribe Payments Host API
+  description: The Host API from Tribe Payments — 5 operation(s) for host.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Host
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-host-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-incremental-authorize-api
+  name: Tribe Payments Incremental authorize API
+  description: >-
+    The Incremental authorize API from Tribe Payments — 2 operation(s) for incremental authorize.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Incremental authorize
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-incremental-authorize-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-order-status-api
+  name: Tribe Payments Order status API
+  description: The Order status API from Tribe Payments — 2 operation(s) for order status.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Order status
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-order-status-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-p2p-api
+  name: Tribe Payments P2 P API
+  description: The P2P API from Tribe Payments — 2 operation(s) for p2p.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - P2P
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-p2p-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-payment-api
+  name: Tribe Payments Payment API
+  description: The Payment API from Tribe Payments — 4 operation(s) for payment.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-payment-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-payments-api
+  name: Tribe Payments Payments API
+  description: The Payments API from Tribe Payments — 7 operation(s) for payments.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-payments-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-performance-api
+  name: Tribe Payments Performance API
+  description: The Performance API from Tribe Payments — 1 operation(s) for performance.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Performance
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-performance-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-pre-authorize-api
+  name: Tribe Payments Pre authorize API
+  description: The Pre authorize API from Tribe Payments — 2 operation(s) for pre authorize.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Pre authorize
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-pre-authorize-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-prepare-api
+  name: Tribe Payments Prepare API
+  description: The Prepare API from Tribe Payments — 1 operation(s) for prepare.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Prepare
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-prepare-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-prepare-error-api
+  name: Tribe Payments Prepare error API
+  description: The Prepare error API from Tribe Payments — 1 operation(s) for prepare error.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Prepare error
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-prepare-error-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-prepare-success-api
+  name: Tribe Payments Prepare success API
+  description: The Prepare success API from Tribe Payments — 1 operation(s) for prepare success.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Prepare success
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-prepare-success-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-process-api
+  name: Tribe Payments Process API
+  description: The Process API from Tribe Payments — 2 operation(s) for process.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Process
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-process-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-processing-accounts-api
+  name: Tribe Payments Processing accounts API
+  description: >-
+    The Processing accounts API from Tribe Payments — 2 operation(s) for processing accounts.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Processing accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-processing-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-processor-api
+  name: Tribe Payments Processor API
+  description: The Processor API from Tribe Payments — 5 operation(s) for processor.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Processor
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-processor-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-refund-api
+  name: Tribe Payments Refund API
+  description: The Refund API from Tribe Payments — 2 operation(s) for refund.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Refund
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-refund-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-sale-api
+  name: Tribe Payments Sale API
+  description: The Sale API from Tribe Payments — 2 operation(s) for sale.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Sale
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-sale-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-status-api
+  name: Tribe Payments Status API
+  description: The Status API from Tribe Payments — 1 operation(s) for status.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-status-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-transactions-api
+  name: Tribe Payments Transactions API
+  description: The Transactions API from Tribe Payments — 2 operation(s) for transactions.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
+- aid: tribe-payments:tribe-payments-user-actions-trigger-api
+  name: Tribe Payments User Actions Trigger API
+  description: >-
+    The User Actions Trigger API from Tribe Payments — 1 operation(s) for user actions trigger.
+  humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  tags:
+  - User Actions Trigger
+  properties:
+  - type: OpenAPI
+    url: openapi/tribe-payments-user-actions-trigger-api-openapi.yml
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--hosted-payments-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-token-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/trb-gateway--report-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: APIReference
+    url: https://doc.tribepayments.com/docs/point-of-sale--device-directory-api--v3
+  - type: Documentation
+    url: https://doc.tribepayments.com/
+  - type: APIReference
+    url: https://doc.tribepayments.com/
 common:
 - type: AgenticAccess
   url: agentic-access/tribe-payments-agentic-access.yml
