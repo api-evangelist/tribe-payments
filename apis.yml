@@ -11,6 +11,18 @@ description: Tribe Payments is a London, United Kingdom-based payments technolog
   sandbox access is granted on request rather than through fully open self-service signup. Its home market
   is the United Kingdom, where PSD2/Open Banking and the Faster Payments and Bacs rails operated by Pay.UK
   anchor a dense cluster of API-native payment providers.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Payments
