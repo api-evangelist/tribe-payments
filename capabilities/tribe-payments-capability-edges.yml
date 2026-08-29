@@ -1,0 +1,190 @@
+slug: tribe-payments
+provider: Tribe Payments
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 18
+edges:
+- tag: Direct payments
+  spec_file: tribe-payments-direct-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.9
+  evidence: POST /direct/payments/{bankIdentifier} 'Initiate a single new payment.' and 'Retrieve current
+    status of an initiated payment.'
+  reason: Open Banking TPP payment initiation against ASPSPs — payment instruction capture, authorisation
+    (SCA) and status.
+- tag: Direct payments without Bank
+  spec_file: tribe-payments-direct-payments-without-bank-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.9
+  evidence: POST /direct/payments 'Initiate a single new payment, with PSU selecting ASPSP during SCA.'
+  reason: Same open banking payment initiation surface, with ASPSP selection during SCA; clearly payment
+    initiation management.
+- tag: Payment
+  spec_file: tribe-payments-payment-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.9
+  evidence: POST /payments  "Initiate a single new payment." ; schemas SinglePayment, ScaRedirect, TransactionStatus
+  reason: Open-banking payment initiation with SCA redirect and status retrieval — the capture, authorisation
+    and tracking of payment instructions.
+- tag: Authorize
+  spec_file: tribe-payments-authorize-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.85
+  evidence: POST /authorize  postauthorize; schemas AuthorizeCard, AuthorizeTransaction, AuthorizeRecurring,
+    AuthorizeCustomer
+  reason: Card payment authorisation request against a card and transaction, with recurring and customer
+    detail — core card transaction switching/authorisation on an issuer/acquirer processor.
+- tag: Bulk payments
+  spec_file: tribe-payments-bulk-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.85
+  evidence: POST /bulk-payments Initiate a bulk payment.; GET /bulk-payments/{paymentId}/status Retrieve
+    current status of an initiated bulk payment; schemas BulkPayment, BulkSinglePayment, ScaRedirect
+  reason: 'Open Banking payment initiation: capture of a bulk payment instruction with SCA redirect and
+    status tracking — payment instruction capture, validation and authorisation.'
+- tag: Payments
+  spec_file: tribe-payments-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.85
+  evidence: POST /v2_payment_single "Single payment", POST /v2_payment_direct_single "Direct payment initiation.",
+    schemas CreditorAccount, DebtorAccount, RemittanceInformationStructured
+  reason: Single and bulk payment initiation plus status callbacks with debtor/creditor account and remittance
+    information — payment instruction capture and authorisation.
+- tag: 3DS authentication required
+  spec_file: tribe-payments-3ds-authentication-required-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.8
+  evidence: POST /registered-3DS-submit-address  post3DS-submit; schemas 3DSSubmit, 3DSSubmitTransaction,
+    3DSSubmitCard, 3DSSubmitWebhook
+  reason: 3-D Secure cardholder authentication submitted as part of a card transaction flow on an issuer/acquirer
+    processing platform — part of card authorisation and fraud screening within card transaction processing.
+- tag: Incremental authorize
+  spec_file: tribe-payments-incremental-authorize-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.8
+  evidence: POST /incremental-authorize; schemas IncrementalAuthorizeTransaction, IncrementalAuthorizeCard
+  reason: Incremental card authorisation on the credit-card processing API — card authorisation handling
+    within card transaction processing.
+- tag: Capture
+  spec_file: tribe-payments-capture-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.78
+  evidence: POST /capture; schemas Capture, CaptureTransaction, CaptureWebhook — from 'merchant-api-credit-card-v3'
+  reason: Card transaction capture (post-authorisation) on the merchant acquiring / credit-card processing
+    API, i.e. card transaction processing rather than any lending or accounting capability.
+- tag: P2P
+  spec_file: tribe-payments-p2p-api-openapi.yml
+  capability_id: BC-1340
+  capability_id_l1: BC-1340
+  capability_name: Payments & Card Management
+  confidence: 0.78
+  evidence: POST /p2p ; schemas P2pCard, P2pSender, P2pSenderIdentification, P2pReceiverIdentification,
+    P2pTransaction
+  reason: Card-based person-to-person money transfer transactions (sender/receiver identification, card,
+    transaction) — clearly payments/card processing. Ambiguous between payment initiation and card transaction
+    processing, so L1 only.
+- tag: Pre authorize
+  spec_file: tribe-payments-pre-authorize-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.78
+  evidence: POST /pre-authorize ; schemas PreAuthorizeCard, PreAuthorizeTransaction, PreAuthorizeRecurring
+  reason: Card pre-authorisation (authorisation hold) on a card transaction via the merchant credit-card
+    API — card transaction authorisation processing.
+- tag: Cancel
+  spec_file: tribe-payments-cancel-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.75
+  evidence: POST /cancel  postcancel; schemas CancelTransaction, CancelWebhook, Cancel
+  reason: Cancellation/void of a previously authorised card transaction on the merchant credit-card API,
+    part of card transaction processing lifecycle. Slight ambiguity over whether it is void or refund
+    handling, hence 0.75.
+- tag: Refund
+  spec_file: tribe-payments-refund-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.75
+  evidence: POST /refund; schemas Refund, RefundTransaction, RefundWebhook (merchant-api-credit-card-v3)
+  reason: Operations post refunds against card transactions through the merchant/acquiring credit-card
+    API, i.e. card transaction processing (authorisation reversal / refund handling) within Payments &
+    Card Management. Sub-capability choice between card transaction processing and payment processing
+    keeps confidence moderate.
+- tag: Sale
+  spec_file: tribe-payments-sale-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.75
+  evidence: POST /sale; schemas SaleTransaction, SaleCard, SaleRecurring, PaymentMethod (merchant-api-credit-card-token-v3)
+  reason: A 'sale' here is a card purchase transaction submitted through the merchant credit-card/gateway
+    API, with card, recurring and payment-method schemas — card transaction authorisation and processing.
+    Ambiguity remains between card transaction processing and payment initiation.
+- tag: Disputes
+  spec_file: tribe-payments-disputes-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.72
+  evidence: POST /disputes; schemas DisputesRecordsDispute, DisputesRecordsCard, DisputesWebhook
+  reason: Card dispute/chargeback records reported to merchants by the acquirer processor; chargeback
+    handling sits in card transaction processing.
+- tag: Process
+  spec_file: tribe-payments-process-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.72
+  evidence: POST /process ; schemas ProcessCard, ProcessTransaction, ProcessCustomer, ProcessReceiver
+  reason: Executes a card transaction (card, transaction, customer, receiver) through the merchant credit-card
+    API — card authorisation/transaction processing. Generic tag name tempers confidence.
+- tag: Cancel recurring
+  spec_file: tribe-payments-cancel-recurring-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.7
+  evidence: POST /cancel-recurring  postcancel-recurring; schemas CancelRecurring, CancelRecurringTransaction,
+    CancelRecurringWebhook
+  reason: Cancellation of a recurring card payment arrangement on the merchant card API — card transaction/mandate
+    processing. Confidence tempered because recurring-mandate management could arguably sit under payment
+    initiation.
+- tag: Credit
+  spec_file: tribe-payments-credit-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.7
+  evidence: POST /credit; schemas CreditTransaction, CreditCard, CreditReceiver in 'merchant-api-credit-card-v3'
+  reason: 'Homograph: ''Credit'' here is a credit (refund/payout) transaction pushed to a card via the
+    credit-card processing API, not credit/lending. Maps to card transaction processing.'

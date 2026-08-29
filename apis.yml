@@ -1462,6 +1462,9 @@ apis:
   - type: APIReference
     url: https://doc.tribepayments.com/
 common:
+- type: CapabilityMap
+  url: capabilities/tribe-payments-capability-edges.yml
+  name: Tribe Payments Business Capability Map
 - type: AgenticAccess
   url: agentic-access/tribe-payments-agentic-access.yml
 - type: DomainSecurity
