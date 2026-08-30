@@ -1,0 +1,761 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Pre authorize API
+  version: 3.0.0
+  description: 'Operations tagged Pre authorize across 2 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: Pre authorize
+paths:
+  /registered-pre-authorize-address:
+    post:
+      tags:
+      - Pre authorize
+      summary: ''
+      operationId: postpre-authorize
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreAuthorize'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /pre-authorize:
+    post:
+      tags:
+      - Pre authorize
+      summary: ''
+      operationId: postpre-authorize
+      requestBody:
+        description: "To authorize an amount and have the ability to authorize an additional amount later, make a Pre authorize transaction.\n                Upon successful Pre authorize, funds are reserved on the cardholder's account and a transaction is created.\n                In some cases, a 3DS authentication procedure is required to successfully complete such an action.\n                For more details, please refer to [`3DS required`](#webhooks--3ds-authentication-required).\n                To authorize an additional amount, make an [`Incremental authorize`](#actions--incremental-authorize) transaction by providing the Pre authorize transaction ID.\n                To charge this authorized amount, make a Capture transaction by providing the Pre authorize transaction ID.\n                See [`Capture`](#actions--capture) for details.\n                After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                For more details, refer to the [`Pre authorize`](#webhooks--pre-authorize) webhook."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreAuthorize_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseError'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    PreAuthorizeCard:
+      type: object
+      description: Object containing the Pre Authorize transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    PreAuthorizeTransaction:
+      type: object
+      description: Object containing data of the Pre Authorize transaction
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '397209271826453991'
+          maxLength: 16
+          minLength: 16
+        date:
+          description: 'Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`'
+          type: string
+          example: '2023-06-01 11:21:15'
+          maxLength: 19
+          minLength: 19
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        code:
+          description: '[`Transaction error code`](#appendix--enum--transaction-error-code)'
+          type: string
+          example: '000'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: '[`Transaction error message`](#appendix--transaction-error-code)'
+          type: string
+          example: Transaction successfully completed
+          maxLength: 100
+          minLength: 1
+        errorDescription:
+          description: Error description
+          type: string
+          example: null
+          maxLength: 100
+          minLength: 1
+        expirationDate:
+          description: Expiration date
+          type: string
+          example: '2023-06-01 08:01:01'
+          maxLength: 19
+          minLength: 19
+        status:
+          description: The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)
+          type: string
+          example: 'true'
+          maxLength: 20
+          minLength: 1
+        avsCheckResponse:
+          description: '[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request'
+          type: string
+          example: G
+          maxLength: 1
+          minLength: 1
+        statementDescriptor:
+          description: Transaction descriptor text that appears on a customer's credit card statement
+          type: string
+          example: onlinemerchant.com
+          maxLength: 50
+          minLength: 1
+        type:
+          description: '[`Transaction type`](#appendix--enum--transaction-type)'
+          type: integer
+          example: 101
+      required:
+      - id
+      - date
+      - orderId
+      - code
+      - message
+      - errorDescription
+      - status
+      - type
+    PreAuthorize:
+      title: pre-authorize
+      properties:
+        webhook:
+          $ref: '#/components/schemas/PreAuthorizeWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/PreAuthorizeTransaction'
+        card:
+          $ref: '#/components/schemas/PreAuthorizeCard'
+      type: object
+      required:
+      - requestId
+    PreAuthorizeWebhook:
+      type: object
+      description: Object containing the Pre Authorize webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    PreAuthorizeRecurring:
+      type: object
+      properties:
+        paymentType:
+          description: 'Recurring payment type. Possible value: `2` - unscheduled Merchant Initiated Transaction (MIT) payment'
+          type: integer
+          example: 2
+    PreAuthorizeTransaction_2:
+      type: object
+      description: Object containing data of the Pre Authorize transaction
+      properties:
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents). For customer’s card verification use `0`
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        descriptor:
+          description: Custom descriptor
+          type: string
+          example: descriptor
+          maxLength: 22
+          minLength: 1
+        avsCheck:
+          description: 'Possible values: `true` or `false`. If the value is set to `true`, the Address Verification Service will be initiated'
+          type: boolean
+          example: true
+        typeOf3ds:
+          description: '[`3DS Type`]
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>KEY</th>
+
+            <th>3DS Type</th>
+
+            <th>Description</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+            <td>1</td>
+
+            <td>Attempt 3DS</td>
+
+            <td>Processing transactions regardless card enrollment in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>2</td>
+
+            <td>Soft 3DS</td>
+
+            <td>Processing transactions with cards enrolled in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>3</td>
+
+            <td>No 3DS</td>
+
+            <td>Processing transactions by skipping card 3DS verification at all.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>4</td>
+
+            <td>Hard 3DS</td>
+
+            <td>Processing transactions only with full 3DS verification the cardholder.</td>
+
+            </tr>
+
+            </tbody>
+
+            </table>'
+          type: integer
+          example: 2
+        deviceChannel:
+          description: '[`Device channel value.`](#appendix--enum--device-channel-values) The default value is `02`'
+          type: string
+          example: '02'
+          maxLength: 2
+          minLength: 2
+        redirectUrlFor3ds:
+          description: Redirect URL for 3DS
+          type: string
+          example: https://urlfor3ds.com
+          maxLength: 255
+          minLength: 1
+        cryptogram:
+          description: 'The unique cryptogram that is generated to validate the authorized use of the token for secure remote payments.
+
+            Optionally, the parameter can be provided together with 3DS data. Also, the parameter can be provided together with recurring/MIT (Merchant Initiated Transaction) parameters. For MIT (not subsequent), either 3DS or token, or both, are necessary.
+
+            The content of this field must be passed unmodified when provided by the Digital Wallet.'
+          type: string
+          example: ALnt+yWSJdXBACMLLWMNGgADFA==
+          maxLength: 255
+          minLength: 1
+        eciIndicator:
+          description: '[`ECI`]
+
+            The electronic commerce indicator must be passed unmodified when provided by a Digital Wallet and when received together with a "cryptogram".
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>Value</th>
+
+            <th>MasterCard</th>
+
+            <th>Visa</th>
+
+            <th>UnionPay</th>
+
+            <th>JCB</th>
+
+            <th>Amex</th>
+
+            <th>Discover</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+            <td>00</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            </tr>
+
+            <tr>
+
+            <td>01</td>
+
+            <td>Attempted authentication</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            </tr>
+
+            <tr>
+
+            <td>02</td>
+
+            <td>Fully authenticated (CIT)</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            </tr>
+
+            <tr>
+
+            <td>05</td>
+
+            <td>Not applicable</td>
+
+            <td>Fully authenticated</td>
+
+            <td>Fully authenticated</td>
+
+            <td>Fully authenticated</td>
+
+            <td>Fully authenticated</td>
+
+            <td>Fully authenticated</td>
+
+            </tr>
+
+            <tr>
+
+            <td>06</td>
+
+            <td>Not applicable</td>
+
+            <td>Attempted authentication</td>
+
+            <td>Attempted authentication</td>
+
+            <td>Attempted authentication</td>
+
+            <td>Attempted authentication</td>
+
+            <td>Attempted authentication</td>
+
+            </tr>
+
+            <tr>
+
+            <td>07</td>
+
+            <td>Fully authenticated (MIT)</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            <td>Non 3-D secure transaction</td>
+
+            </tr>
+
+            <tr>
+
+            <td>10</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Used for customer not present authorizations when authentication was not used</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            <td>Not applicable</td>
+
+            </tr>
+
+            </tbody>
+
+            </table>'
+          type: string
+          example: '07'
+          maxLength: 2
+          minLength: 2
+      required:
+      - amount
+      - currencyCode
+      - orderId
+      - redirectUrlFor3ds
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    PreAuthorizeCustomer:
+      type: object
+      description: Object containing data of the customer to be pre authorized
+      properties:
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        dateOfBirth:
+          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
+      required:
+      - ip
+    PreAuthorizeShippingLocation:
+      type: object
+      description: Object containing the Pre Authorize transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    PreAuthorize_2:
+      title: pre-authorize
+      properties:
+        transaction:
+          $ref: '#/components/schemas/PreAuthorizeTransaction_2'
+        card:
+          $ref: '#/components/schemas/PreAuthorizeCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/PreAuthorizeShippingLocation'
+        customer:
+          $ref: '#/components/schemas/PreAuthorizeCustomer'
+        recurring:
+          $ref: '#/components/schemas/PreAuthorizeRecurring'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+    PreAuthorizeCard_2:
+      type: object
+      description: Object containing the Pre Authorize transaction card details
+      properties:
+        number:
+          description: Customer’s card number
+          type: string
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        expirationMonth:
+          description: Card expiry month
+          type: integer
+          example: 12
+        expirationYear:
+          description: Card expiry year. Must be within the next 50 years
+          type: integer
+          example: 2028
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        holderName:
+          description: Customer’s full name
+          type: string
+          example: John Doe von Soap
+          maxLength: 26
+          minLength: 3
+      required:
+      - number
+      - expirationMonth
+      - expirationYear
+      - holderName
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password
+x-refined-from:
+- tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+- tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json

@@ -1,0 +1,280 @@
+openapi: 3.2.0
+info:
+  title: Bank Webhooks Accounts API
+  version: 2.0.0
+  description: API documentation for bank-related webhooks, including account and payment operations.
+tags:
+- name: Accounts
+paths:
+  /v2_accounts:
+    post:
+      summary: Get account list.
+      description: "Get the list of accounts for the authenticated user.\n\n \"Get accounts\" is initiated by the request from TPP and it is part of the [Get data flow](#appendix--workflow-get-data) between the BANK and TOB. TPP requests client’s accounts information from TOB which requests the information from the BANK. \n\n In the case of multicurrency accounts, the account for each of the currencies associated with the same account identifier (e.g. IBAN) will be returned in the response with a different `resource_id`."
+      tags:
+      - Accounts
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+  /v2_account:
+    post:
+      summary: Get single account details.
+      description: Get details for a specific account.
+      tags:
+      - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResponse'
+  /v2_account_balances:
+    post:
+      summary: Get account balances.
+      description: Get balances for a specific account.
+      tags:
+      - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountBalanceRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalanceResponse'
+  /v2_account_transactions:
+    post:
+      summary: Get account transactions.
+      description: Get transactions for a specific account.
+      tags:
+      - Accounts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountTransactionsRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountTransactionsResponse'
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        resource_id:
+          type: string
+          description: The account ID.
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: integer
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
+        currency:
+          type: string
+          description: The account currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+        name:
+          type: string
+          description: The account name.
+        payment_schemes:
+          type: array
+          description: The list of possible payment schemes for when the account is used as a debtor during the payment.
+          items:
+            type: string
+            enum:
+            - SCT
+            - SCTI
+            - FPS
+            - BACS
+            - CHAPS
+            - SWIFT
+    AccountRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
+    AccountBalanceRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
+    AccountTransaction:
+      type: object
+      properties:
+        booked:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        pending:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    AccountTransactionsResponse:
+      type: object
+      properties:
+        transactions:
+          $ref: '#/components/schemas/AccountTransaction'
+        page_key:
+          type: string
+          description: The key for the next page of results.
+    Balance:
+      type: object
+      properties:
+        balance_amount:
+          $ref: '#/components/schemas/Amount'
+        balance_type:
+          type: string
+          description: The type of the balance.
+          enum:
+          - openingBooked
+          - interimAvailable
+          - interimBooked
+          - forwardAvailable
+          - nonInvoiced
+    RemittanceInformationStructured:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: The remittance information.
+          maxLength: 35
+        reference_type:
+          type: string
+          description: The type of the remittance information.
+          maxLength: 35
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    AccountBalanceResponse:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          description: The transaction ID.
+        creditor_name:
+          type: string
+          description: The transaction recipient's name.
+        creditor_account:
+          $ref: '#/components/schemas/Account'
+        debtor_name:
+          type: string
+          description: The transaction sender's name.
+        debtor_account:
+          $ref: '#/components/schemas/Account'
+        remittance_information_unstructured:
+          type: string
+          description: The remittance information in a single string.
+          maxLength: 140
+        remittance_information_structured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        transaction_amount:
+          type: object
+          properties:
+            amount:
+              type: string
+              description: The transaction amount.
+            currency:
+              type: string
+              description: The transaction currency in ISO 4217 alpha-3 currency code.
+              maxLength: 3
+            value_date:
+              type: string
+              description: The date when assets become available.
+              format: date
+            booking_date:
+              type: string
+              description: The date when entry is posted to the account.
+              format: date
+    AccountTransactionsRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID. Identical to the `resource_id` from the [Get account list](#webhooks--accounts--get-account-list) webhook.
+        booking_status:
+          type: string
+          description: The type of transactions to return.
+          enum:
+          - booked
+          - pending
+          - both
+        page_key:
+          type: string
+          description: The value indicates which page to retrieve. Applicable when there is more than one data page available.
+        page_size:
+          type: integer
+          description: The maximum number of transactions to show in the response. The default value is `100`.
+          default: 100
+        date_from:
+          type: string
+          description: Filters transactions beginning from a specific date in `YYYY-MM-DD` format.
+        date_to:
+          type: string
+          description: Filters transactions ending on a specific date in `YYYY-MM-DD` format.
+      required:
+      - account_id
+      - booking_status
+    AccountResponse:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'

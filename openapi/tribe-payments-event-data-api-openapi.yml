@@ -1,0 +1,917 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Event Data API
+  version: 0.0.0
+  description: 'Operations tagged Event Data across 2 of this provider''s published API definitions: tribe-payments-trb-risk-monitor-client-api-openapi.json, tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: /
+  description: ''
+security:
+- Bearer: []
+- Token: []
+tags:
+- name: Event Data
+paths:
+  /v1/events/{eventId}/data:
+    parameters: []
+    post:
+      operationId: subresource_postEventDataCollection
+      tags:
+      - Event Data
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestErrorResponseDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorResponseDto'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorResponseDto'
+        '415':
+          description: Unsupported media type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnsupportedMediaTypeErrorResponseDto'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityErrorResponseDto'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponseDto'
+      summary: Creates event data
+      description: 'Creates data records for the chosen events. For this, the unique identifier of the specific event must be passed as a path parameter with the POST request. Newly created entries can be reviewed in the admin portal. '
+      parameters:
+      - name: eventId
+        in: path
+        description: ID assigned to the specific event, as indicated in the admin portal.
+        required: true
+        deprecated: false
+        schema:
+          type: integer
+        style: simple
+        example: 1
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identifier:
+                  type: string
+                  description: Unique event data identifier.
+                  maxLength: 100
+                actionGroupCode:
+                  type:
+                  - string
+                  - 'null'
+                  description: 'Code of the action group that should be triggered by the event data. If the action group code is not provided, all actions configured for the specific event are triggered. '
+                  maxLength: 100
+                data:
+                  type: object
+                  description: 'Object containing data parameters available for the specific event. The exact names (as configured in the admin portal) of data fields must be passed as keys. '
+                parentIdentifier:
+                  type:
+                  - string
+                  - 'null'
+                  description: Parent event data identifier.
+                  maxLength: 100
+                createdAt:
+                  type:
+                  - string
+                  - 'null'
+                  description: 'Date when the event data was created. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+                  format: date-time
+                skipProcessing:
+                  type: boolean
+                  description: If set to true, action or integration processing is skipped, and only data is saved to the database with the status COMPLETED.
+                  default: false
+                  required: false
+            example:
+              identifier: 1as5d4as5das51
+              data:
+                username: test
+                amount: 50
+        required: false
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+  /v1/events/{eventId}/data/{identifier}:
+    parameters: []
+    get:
+      operationId: data_get_for_clientEventItem
+      tags:
+      - Event Data
+      responses:
+        '200':
+          description: Event data resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event.EventDataResponseDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorResponseDto'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorResponseDto'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponseDto'
+      summary: Retrieves event data
+      description: 'Retrieves the chosen event data records for checking if the processor received the request and processed it successfully. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the GET request. The existing data entries recorded for the specific event are returned as a response. '
+      parameters:
+      - name: eventId
+        in: path
+        description: ID assigned to the specific event, as indicated in the admin portal.
+        required: true
+        deprecated: false
+        schema:
+          type: integer
+        style: simple
+        example: 1
+      - name: identifier
+        in: path
+        description: Identifier assigned to the event data during the initial event data creation.
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        example: 15s4dsc3s
+      deprecated: false
+    patch:
+      operationId: subresource_patchEventDataItem
+      tags:
+      - Event Data
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestErrorResponseDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorResponseDto'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorResponseDto'
+        '415':
+          description: Unsupported media type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnsupportedMediaTypeErrorResponseDto'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityErrorResponseDto'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponseDto'
+      summary: Updates event data
+      description: 'Updates existing data records for the chosen events. For this, the unique identifier of the specific event and unique event data identifier, which was assigned during the initial event data creation, must be passed as path parameters with the PATCH request. Updated entries can be reviewed in the admin portal under History. '
+      parameters:
+      - name: eventId
+        in: path
+        description: ID assigned to the specific event, as indicated in the admin portal.
+        required: true
+        deprecated: false
+        schema:
+          type: integer
+        style: simple
+        example: 1
+      - name: identifier
+        in: path
+        description: Identifier assigned to the event data during the initial event data creation.
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        example: 12asd1asd451
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: Object containing specific event data parameters whose values need to be updated. The exact names (as configured in the admin portal) of available data fields must be passed as keys.
+            example:
+              data:
+                username: test
+                amount: 50
+        required: false
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+  /registered-summary-web-hook-address:
+    parameters:
+    - in: header
+      name: x-hook-signature
+      description: See Webhook signature generating in Appendix
+      schema:
+        type: string
+        maxLength: 88
+        minLength: 88
+        example: KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw==
+      required: true
+    post:
+      operationId: webhook_send_summary
+      tags:
+      - Event Data
+      responses:
+        '200':
+          description: The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.
+          content:
+            application/json:
+              schema: {}
+      summary: Summary
+      description: The Event Data Summary webhook is sent to the client after all system actions are processed.
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook.EventDataSummaryPayloadDto'
+        required: true
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+  /registered-system-action-web-hook-address:
+    parameters:
+    - in: header
+      name: x-hook-signature
+      description: See Webhook signature generating in Appendix
+      schema:
+        type: string
+        maxLength: 88
+        minLength: 88
+        example: KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw==
+      required: true
+    post:
+      operationId: webhook_send_system_action
+      tags:
+      - Event Data
+      responses:
+        '200':
+          description: The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.
+          content:
+            application/json:
+              schema: {}
+      summary: System action
+      description: The System Action Webhook is sent to the client when the event action conditions group is hit.
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook.SystemActionPayloadDto'
+        required: true
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+  /registered-user-action-web-hook-address:
+    parameters:
+    - in: header
+      name: x-hook-signature
+      description: See Webhook signature generating in Appendix
+      schema:
+        type: string
+        maxLength: 88
+        minLength: 88
+        example: KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw==
+      required: true
+    post:
+      operationId: webhook_send_operator_action
+      tags:
+      - Event Data
+      responses:
+        '200':
+          description: The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.
+          content:
+            application/json:
+              schema: {}
+      summary: Operator action
+      description: The Operator Action Webhook is sent to the client when the event action conditions group is hit.
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook.UserActionPayloadDto'
+        required: true
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+  /registered-recurring-action-web-hook-address:
+    parameters:
+    - in: header
+      name: x-hook-signature
+      description: See Webhook signature generating in Appendix.
+      schema:
+        type: string
+        maxLength: 88
+        minLength: 88
+        example: KX2ooE/kCxGSNxCtZlVw9AJd+TfqXZm5fqC4khzms28rHBPheKkreOQhQL95ms8RE0oAF86ZwB1OY+4o//qTlw==
+      required: true
+    post:
+      operationId: webhook_send_recurring_action
+      tags:
+      - Event Data
+      responses:
+        '200':
+          description: The client application must respond with the HTTP status code 200 OK. If another status code is returned, the Risk Monitor system will retry sending a webhook. For more detailed information, see Webhook retry strategy.
+          content:
+            application/json:
+              schema: {}
+      summary: Recurring action
+      description: The Recurring Action Webhook is sent to the client when the event action conditions group is hit, and the action type is set to Recurring action.
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook.RecurringActionPayloadDto'
+        required: true
+      deprecated: false
+    servers:
+    - url: /
+      description: ''
+components:
+  schemas:
+    EventDataActionDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Action ID.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Action code.
+        name:
+          type: string
+          description: Action name.
+    BadRequestErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Syntax error
+      required:
+      - type
+      - title
+      - detail
+    UnprocessableEntityErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: '[id]: This value should be of type int.'
+        violations:
+          type: array
+          description: Array of violation objects.
+          items:
+            $ref: '#/components/schemas/ViolationDto'
+      required:
+      - type
+      - title
+      - detail
+      - violations
+    InternalServerErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Internal Server Error
+      required:
+      - type
+      - title
+      - detail
+    NotFoundErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    UnsupportedMediaTypeErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+      required:
+      - type
+      - title
+      - detail
+    Event.EventDataResponseDto:
+      type: object
+      description: ''
+      properties:
+        id:
+          type: string
+          description: Event data record ID.
+        eventId:
+          type: integer
+          description: ID assigned to the specific event, as indicated in the admin portal.
+        identifier:
+          type: string
+          description: Identifier assigned to the event data during the initial event data creation.
+        state:
+          type: string
+          description: Event data state.
+          enum:
+          - PROCESSING
+          - MANUAL_PROCESSING
+          - MANUAL_REPROCESSING
+          - RETRIGGER
+          - INTEGRATION_RETRIGGER
+          - COMPLETED
+        data:
+          type: object
+          description: Object containing data parameters available for the specific event.
+          items:
+            type: string
+        createdAt:
+          type: string
+          description: 'Date when the event data was created. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+          format: date-time
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          description: 'Date when the event data was last updated. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+          format: date-time
+        eventTags:
+          type: array
+          description: Array of tags assigned to the event data after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventDataTagDto'
+        actions:
+          type: array
+          description: Array of actions that were hit.
+          items:
+            $ref: '#/components/schemas/EventDataActionDto'
+        actionGroupCode:
+          type:
+          - string
+          - 'null'
+          description: Code of the action group that was triggered by the event data.
+        parentIdentifier:
+          type:
+          - string
+          - 'null'
+          description: Parent event data identifier.
+    EventDataTagDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Event data tag ID.
+        name:
+          type: string
+          description: Event data tag name.
+    ViolationDto:
+      type: object
+      properties:
+        propertyPath:
+          type:
+          - string
+          - 'null'
+          description: Invalid identifier.
+          example: '[id]'
+        message:
+          type: string
+          description: Error message.
+          example: This value should be of type int.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Error code.
+          example: ba785a8c-82cb-4283-967c-3cf342181b40
+      required:
+      - propertyPath
+      - message
+      - code
+    UnauthorizedErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Full authentication is required to access this resource.
+      required:
+      - type
+      - title
+      - detail
+    ActionHitDto:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+      required:
+      - action
+      - data
+      - eventTags
+    Webhook.EventDataSummaryPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        state:
+          type: string
+          maxLength: 100
+          enum:
+          - PROCESSING
+          - COMPLETED
+          description: Event data state.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionHitDto'
+          description: Array of actions that were hit. If no actions were hit, an empty value is returned.
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - SUMMARY
+          - RETRIGGER-SUMMARY
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+      required:
+      - identifier
+      - state
+      - event
+      - actions
+    Webhook.RecurringActionPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - RECURRING
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+      required:
+      - identifier
+      - event
+      - action
+      - data
+      - eventTags
+    ActionHitDataCustomDto:
+      type: object
+      description: Additional parameters that should be sent with a webhook. The result depends on the action setup.
+      additionalProperties:
+        oneOf:
+        - type: string
+        - type: string
+          format: date-time
+        - type: integer
+        - type: number
+        - type: boolean
+      example:
+        status: 1
+        riskStatus: Suspicious
+    EventDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+          description: Event ID.
+        type:
+          type: string
+          maxLength: 100
+          example: BANK_TRANSFER
+          description: Event type.
+      required:
+      - id
+      - type
+    Webhook.UserActionPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - USER
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+        triggeredBy:
+          $ref: '#/components/schemas/TriggeredByDto'
+      required:
+      - identifier
+      - event
+      - action
+      - data
+      - eventTags
+    ActionHitDataDto:
+      type: object
+      description: Data object that contains changeset.
+      properties:
+        changeSet:
+          $ref: '#/components/schemas/ActionHitDataChangeSetDto'
+        custom:
+          $ref: '#/components/schemas/ActionHitDataCustomDto'
+      required:
+      - changeSet
+      - custom
+    ActionHitDataChangeSetDto:
+      type: object
+      description: Changes made after the action hit. The result depends on the action setup.
+      additionalProperties:
+        oneOf:
+        - type: string
+        - type: string
+          format: date-time
+        - type: integer
+        - type: number
+        - type: boolean
+      example:
+        status: 1
+        riskStatus: Suspicious
+    ActionHitActionDto:
+      type: object
+      description: Object of the action that was hit.
+      properties:
+        id:
+          type: integer
+          example: 12
+          description: Action ID.
+        code:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: R5-P1
+          description: Action ID (code).
+        name:
+          type: string
+          maxLength: 100
+          example: Decline payment
+          description: Action name.
+        type:
+          type: string
+          enum:
+          - SYSTEM-ACTION
+          - OPERATOR-ACTION
+          description: Action type.
+        groupCode:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          example: G1
+          description: Action group.
+      required:
+      - id
+      - code
+      - name
+      - type
+      - groupCode
+    TriggeredByDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 14
+          description: User ID.
+        username:
+          type: string
+          maxLength: 100
+          example: James
+          description: User name.
+      required:
+      - id
+      - username
+    Webhook.SystemActionPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - SYSTEM
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+      required:
+      - identifier
+      - event
+      - action
+      - data
+      - eventTags
+    EventTagDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+          description: Event tag identifier.
+        name:
+          type: string
+          example: SUSPICIOUS-TRANSACTION
+          description: Event tag name.
+      required:
+      - id
+      - name
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: Value for the bearer header parameter.
+      name: bearer
+      in: header
+    Token:
+      type: apiKey
+      description: Value for the X-AUTH-TOKEN header parameter.
+      name: X-AUTH-TOKEN
+      in: header
+x-refined-from:
+- tribe-payments-trb-risk-monitor-client-api-openapi.json
+- tribe-payments-trb-risk-monitor-client-api-webhooks-openapi.json

@@ -1,0 +1,780 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Process API
+  version: 3.0.0
+  description: 'Operations tagged Process across 2 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: Process
+paths:
+  /registered-process-address:
+    post:
+      tags:
+      - Process
+      summary: ''
+      operationId: postprocess
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /process:
+    post:
+      tags:
+      - Process
+      summary: ''
+      operationId: postprocess
+      requestBody:
+        description: "To process a transaction without cardholder details, use card hash received in the webhook response of any previous API call.\n                Depending on the provided operationType, three actions can be done: [`Authorize`](#actions--authorize), [`Sale`](#actions--sale) or [`Credit`](#actions--credit) request.\n                In some cases, a 3DS authentication procedure is required to successfully complete such an action.\n                For more details, please refer to [`3DS required`](#webhooks--3ds-authentication-required).\n                After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                For more details, refer to the [`Process`](#webhooks--process) webhook."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseError'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    ProcessTransaction:
+      type: object
+      description: Object containing data for the transaction
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '397209271826453991'
+          maxLength: 16
+          minLength: 16
+        date:
+          description: 'Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`'
+          type: string
+          example: '2023-06-01 11:21:15'
+          maxLength: 19
+          minLength: 19
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        parentId:
+          description: Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.
+          type: string
+          example: '675689811821989225'
+          maxLength: 19
+          minLength: 16
+        code:
+          description: '[`Transaction error code`](#appendix--enum--transaction-error-code)'
+          type: string
+          example: '000'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: '[`Transaction error message`](#appendix--transaction-error-code)'
+          type: string
+          example: Transaction successfully completed
+          maxLength: 100
+          minLength: 1
+        errorDescription:
+          description: Error description
+          type: string
+          example: null
+          maxLength: 100
+          minLength: 1
+        expirationDate:
+          description: Expiration date
+          type: string
+          example: '2023-06-01 08:01:01'
+          maxLength: 19
+          minLength: 19
+        status:
+          description: The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)
+          type: string
+          example: 'true'
+          maxLength: 20
+          minLength: 1
+        statementDescriptor:
+          description: Transaction descriptor text that appears on a customer's credit card statement
+          type: string
+          example: onlinemerchant.com
+          maxLength: 50
+          minLength: 1
+        type:
+          description: '[`Transaction type`](#appendix--enum--transaction-type)'
+          type: integer
+          example: 4
+      required:
+      - id
+      - date
+      - orderId
+      - code
+      - message
+      - errorDescription
+      - status
+      - type
+    Process:
+      title: process
+      properties:
+        webhook:
+          $ref: '#/components/schemas/ProcessWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction'
+        card:
+          $ref: '#/components/schemas/ProcessCard'
+      type: object
+      required:
+      - requestId
+    ProcessCard:
+      type: object
+      description: Object containing the transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    ProcessWebhook:
+      type: object
+      description: Object containing the webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    ProcessShippingLocation:
+      type: object
+      description: Object containing the transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+    Process_2:
+      title: process
+      properties:
+        operationType:
+          description: 'Possible operations: sale, authorize, credit'
+          type: string
+          example: sale
+          maxLength: 20
+          minLength: 1
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction_2'
+        card:
+          $ref: '#/components/schemas/ProcessCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/ProcessShippingLocation'
+        customer:
+          $ref: '#/components/schemas/ProcessCustomer'
+        receiver:
+          $ref: '#/components/schemas/ProcessReceiver'
+      type: object
+      required:
+      - operationType
+    ProcessCard_2:
+      type: object
+      description: Object containing the transaction card details
+      properties:
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        hash:
+          description: Tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 32
+          minLength: 32
+      required:
+      - hash
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    ProcessReceiver:
+      type: object
+      description: Object containing data of the transaction receiver
+      properties:
+        firstName:
+          description: '**Conditional parameter**: Receiver’s first name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Firstname
+          maxLength: 35
+          minLength: 1
+        lastName:
+          description: '**Conditional parameter**: Receiver’s last name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Lastname
+          maxLength: 35
+          minLength: 1
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    ProcessCustomer:
+      type: object
+      description: Object containing data of the actual transaction customer
+      properties:
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided and `operationType` is `sale` or `authorize`. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided and `operationType` is `sale` or `authorize`.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        dateOfBirth:
+          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city. Might be mandatory for some integrations
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address. Might be mandatory for some integrations
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code. Might be mandatory for some integrations
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
+    ProcessTransaction_2:
+      type: object
+      description: Object containing data for the transaction
+      properties:
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        descriptor:
+          description: Custom descriptor
+          type: string
+          example: descriptor
+          maxLength: 22
+          minLength: 1
+        typeOf3ds:
+          description: '[`3DS Type`]
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>KEY</th>
+
+            <th>3DS Type</th>
+
+            <th>Description</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+            <td>1</td>
+
+            <td>Attempt 3DS</td>
+
+            <td>Processing transactions regardless card enrollment in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>2</td>
+
+            <td>Soft 3DS</td>
+
+            <td>Processing transactions with cards enrolled in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>3</td>
+
+            <td>No 3DS</td>
+
+            <td>Processing transactions by skipping card 3DS verification at all.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>4</td>
+
+            <td>Hard 3DS</td>
+
+            <td>Processing transactions only with full 3DS verification the cardholder.</td>
+
+            </tr>
+
+            </tbody>
+
+            </table>'
+          type: integer
+          example: 2
+        deviceChannel:
+          description: '[`Device channel value.`](#appendix--enum--device-channel-values) The default value is `02`'
+          type: string
+          example: '02'
+          maxLength: 2
+          minLength: 2
+        mitParentTransactionId:
+          description: Transaction ID of the initial MIT transaction
+          type: string
+          example: '497709221425450974'
+          maxLength: 19
+          minLength: 5
+        mitMessageReasonCode:
+          description: '[`The MIT message reason code `]
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>Scheme</th>
+
+            <th>Code</th>
+
+            <th>Description</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+
+            <tr>
+
+            <td>Mastercard</td>
+
+            <td>ps</td>
+
+            <td>Partial Shipment</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Mastercard</td>
+
+            <td>in</td>
+
+            <td>Installment</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Mastercard</td>
+
+            <td>so</td>
+
+            <td>Standing Order (variable amount, fixed frequency)</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Mastercard</td>
+
+            <td>sf</td>
+
+            <td>Subscription (fixed amount, fixed frequency)</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Mastercard</td>
+
+            <td>uco</td>
+
+            <td>Unscheduled Credential On File</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Visa</td>
+
+            <td>inc</td>
+
+            <td>Incremental Authorization Transaction</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Visa</td>
+
+            <td>rea</td>
+
+            <td>Reauthorization Transaction</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Visa, Mastercard</td>
+
+            <td>res</td>
+
+            <td>Resubmission Transaction</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Visa, Mastercard</td>
+
+            <td>del</td>
+
+            <td>Delayed Charges Transaction</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>Visa, Mastercard</td>
+
+            <td>ns</td>
+
+            <td>No Show Transaction</td>
+
+            </tr>
+
+
+            </tbody>
+
+            </table>'
+          type: string
+          example: ps
+          maxLength: 3
+          minLength: 2
+        redirectUrlFor3ds:
+          description: Redirect URL for 3DS
+          type: string
+          example: https://urlfor3ds.com
+          maxLength: 255
+          minLength: 1
+        category:
+          description: 'MOTO category
+
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>Value</th>
+
+            <th>Comment</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+
+            <tr>
+
+            <td>MO</td>
+
+            <td>Mail order</td>
+
+            </tr>
+
+
+            <tr>
+
+            <td>TO</td>
+
+            <td>Telephone order</td>
+
+            </tr>
+
+            <tr>
+
+            <td>MOTO</td>
+
+            <td>Mail order Telephone order</td>
+
+            </tr>
+
+
+            </tbody>
+
+            </table>'
+          type: string
+          example: MO
+          maxLength: 4
+          minLength: 2
+      required:
+      - amount
+      - currencyCode
+      - orderId
+      - redirectUrlFor3ds
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password
+x-refined-from:
+- tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+- tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json

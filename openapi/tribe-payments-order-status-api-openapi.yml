@@ -1,0 +1,355 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Order status API
+  version: 3.0.0
+  description: 'Operations tagged Order status across 2 of this provider''s published API definitions: tribe-payments-trb-report-api-merchant-api-report-callback-v3.json, tribe-payments-trb-report-api-merchant-api-report-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- apiKey: []
+  apiPassword: []
+tags:
+- name: Order status
+paths:
+  /registered-order-status-address:
+    post:
+      tags:
+      - Order status
+      summary: ''
+      operationId: postorder-status
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatus'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /order-status:
+    post:
+      tags:
+      - Order status
+      summary: ''
+      operationId: postorder-status
+      requestBody:
+        description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Order status`](#webhooks--order-status--registeredorderstatusaddress) webhook."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatus_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseErrorReport'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unprocessableContent'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseTooManyRequests'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    OrderStatusWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_order_status</td><td>Report webhook for order status request</td></tr></table>'
+          type: string
+          example: report_order_status
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    OrderStatus:
+      title: order-status
+      properties:
+        webhook:
+          $ref: '#/components/schemas/OrderStatusWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action.
+          type: string
+          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
+          maxLength: 200
+          minLength: 1
+        orderStatus:
+          description: '[`Order status`]<table><thead><tr><th>Order Status</th><th>Tx status</th></tr></thead><tbody><tr><td>Transaction successfully captured</td><td>Success</td></tr><tr><td>Transaction is refunded</td><td>Success</td></tr><tr><td>Transaction is chargebacked</td><td>Success</td></tr><tr><td>Transaction is disputed</td><td>Success</td></tr><tr><td>Transaction is cancelled</td><td>Success</td></tr><tr><td>Authorize transaction successfully completed</td><td>Success</td></tr><tr><td>Credit transaction successfully captured</td><td>Success</td></tr><tr><td>Credit transaction is cancelled</td><td>Success</td></tr><tr><td>Authorize Credit transaction successfully completed</td><td>Success</td></tr><tr><td>Any error message from [`Response`](#appendix--enum--transaction-error-code)</td><td>Fail</td></tr><tr><td>N/A</td><td>Unknown</td></tr><tr><td>Exist-processing</td><td>Unknown</td></tr><tr><td>No transactions found for orderId: xxx</td><td>Unknown</td></tr></tbody></table>
+
+            '
+          type: string
+          example: Transaction successfully captured
+          maxLength: 100
+          minLength: 1
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderStatusTransaction'
+      type: object
+      required:
+      - requestId
+      - orderStatus
+    OrderStatusTransaction:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '502811178725015553'
+          maxLength: 20
+          minLength: 1
+        date:
+          description: ''
+          type: string
+          example: '2021-03-02 07:03:02'
+          maxLength: 19
+          minLength: 19
+        status:
+          description: ''
+          type: string
+          example: success
+          maxLength: 20
+          minLength: 1
+        amount:
+          description: ''
+          type: string
+          example: '1.11'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: ''
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        code:
+          description: ''
+          type: string
+          example: '000'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: ''
+          type: string
+          example: Transaction successfully completed
+          maxLength: 100
+          minLength: 1
+        historyId:
+          description: ''
+          type: string
+          example: '512811178725015557'
+          maxLength: 20
+          minLength: 1
+        type:
+          description: ''
+          type: integer
+          example: 4
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    unprocessableContent:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company webhook URL is not set
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    OrderStatus_2:
+      title: order-status
+      properties:
+        orderId:
+          description: Merchant’s order ID
+          type: string
+          example: order_id_1
+          maxLength: 32
+          minLength: 1
+      type: object
+      required:
+      - orderId
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    violationObjectReport:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body contains unknown field "randomName"
+      type: object
+    responseErrorReport:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectReport'
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
+      type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-key
+    apiPassword:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-password
+x-refined-from:
+- tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+- tribe-payments-trb-report-api-merchant-api-report-v3.json

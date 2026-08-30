@@ -1,0 +1,782 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments P2 P API
+  version: 3.0.0
+  description: 'Operations tagged P2P across 2 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: P2P
+paths:
+  /registered-p2p-address:
+    post:
+      tags:
+      - P2P
+      summary: ''
+      operationId: postp2p
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2p'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /p2p:
+    post:
+      tags:
+      - P2P
+      summary: ''
+      operationId: postp2p
+      requestBody:
+        description: "To transfer funds from one cardholder's account to another cardholder's account, make a P2P transaction.\n                Person-to-person (also known as Peer-to-Peer or P2P) transactions are electronic funds transfers from one person to another through an intermediary,\n                typically referred to as a P2P payment application.\n                After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                For more details, refer to the [`P2P`](#webhooks--p2p) webhook.\n                In some cases, a 3DS authentication procedure is required to successfully complete such an action.\n                For more details, please refer to [`3DS required`](#webhooks--3ds-authentication-required)."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/P2p_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseError'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    P2p:
+      title: p2p
+      properties:
+        webhook:
+          $ref: '#/components/schemas/P2pWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/P2pTransaction'
+        card:
+          $ref: '#/components/schemas/P2pCard'
+      type: object
+      required:
+      - requestId
+    P2pCard:
+      type: object
+      description: Object containing the P2P transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    P2pWebhook:
+      type: object
+      description: Object containing the P2P webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    P2pTransaction:
+      type: object
+      description: Object containing data of the P2P transaction
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '397209271826453991'
+          maxLength: 16
+          minLength: 16
+        date:
+          description: 'Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`'
+          type: string
+          example: '2023-06-01 11:21:15'
+          maxLength: 19
+          minLength: 19
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        parentId:
+          description: Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.
+          type: string
+          example: '675689811821989225'
+          maxLength: 19
+          minLength: 16
+        code:
+          description: '[`Transaction error code`](#appendix--enum--transaction-error-code)'
+          type: string
+          example: '000'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: '[`Transaction error message`](#appendix--transaction-error-code)'
+          type: string
+          example: Transaction successfully completed
+          maxLength: 100
+          minLength: 1
+        errorDescription:
+          description: Error description
+          type: string
+          example: null
+          maxLength: 100
+          minLength: 1
+        status:
+          description: The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)
+          type: string
+          example: 'true'
+          maxLength: 20
+          minLength: 1
+        type:
+          description: '[`Transaction type`](#appendix--enum--transaction-type)'
+          type: integer
+          example: 190
+      required:
+      - id
+      - date
+      - orderId
+      - code
+      - message
+      - errorDescription
+      - status
+      - type
+    P2pCard_2:
+      type: object
+      description: Object containing the P2P transaction card details
+      properties:
+        number:
+          description: Customer’s card number
+          type: string
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        expirationMonth:
+          description: Card expiry month
+          type: integer
+          example: 12
+        expirationYear:
+          description: Card expiry year. Must be within the next 50 years
+          type: integer
+          example: 2028
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        holderName:
+          description: Customer’s full name
+          type: string
+          example: John Doe von Soap
+          maxLength: 26
+          minLength: 3
+        hash:
+          description: Tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 32
+          minLength: 32
+      required:
+      - expirationMonth
+      - expirationYear
+      - holderName
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    P2pTransaction_2:
+      type: object
+      description: Object containing data of the P2P transaction
+      properties:
+        sendingAmount:
+          description: Amount that will be deducted from the sender's card. Number in minor units, e.g. cents
+          type: string
+          example: '120'
+          maxLength: 13
+          minLength: 1
+        receivingAmount:
+          description: Amount that will be sent to the receiver's card. Number in minor units, e.g. cents
+          type: string
+          example: '130'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        typeOf3ds:
+          description: '[`3DS Type`]
+
+            <table>
+
+            <thead>
+
+            <tr>
+
+            <th>KEY</th>
+
+            <th>3DS Type</th>
+
+            <th>Description</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+            <td>1</td>
+
+            <td>Attempt 3DS</td>
+
+            <td>Processing transactions regardless card enrollment in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>2</td>
+
+            <td>Soft 3DS</td>
+
+            <td>Processing transactions with cards enrolled in 3DS.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>3</td>
+
+            <td>No 3DS</td>
+
+            <td>Processing transactions by skipping card 3DS verification at all.</td>
+
+            </tr>
+
+            <tr>
+
+            <td>4</td>
+
+            <td>Hard 3DS</td>
+
+            <td>Processing transactions only with full 3DS verification the cardholder.</td>
+
+            </tr>
+
+            </tbody>
+
+            </table>'
+          type: integer
+          example: 2
+        deviceChannel:
+          description: '[`Device channel value.`](#appendix--enum--device-channel-values) The default value is `02`'
+          type: string
+          example: '02'
+          maxLength: 2
+          minLength: 2
+        redirectUrlFor3ds:
+          description: Redirect URL for 3DS
+          type: string
+          example: https://urlfor3ds.com
+          maxLength: 255
+          minLength: 1
+        paymentTypeIndicator:
+          description: The parameter handles the [`payment transaction type`](#appendix--enum--payment-transaction-type-indicator). Required for Mastercard and Visa money transfers as well as Account Funding transactions
+          type: string
+          example: C07
+          maxLength: 3
+          minLength: 2
+      required:
+      - sendingAmount
+      - receivingAmount
+      - currencyCode
+      - orderId
+      - redirectUrlFor3ds
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    P2pShippingLocation:
+      type: object
+      description: Object containing the P2P transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+    P2pSenderLocation:
+      type: object
+      properties:
+        countryCode:
+          description: '[`Country list`](#appendix--enum--country)'
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Sender's city name
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Sender's street address
+          type: string
+          example: Address
+          maxLength: 50
+          minLength: 1
+        zipCode:
+          description: Sender's ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+      required:
+      - countryCode
+      - city
+      - address
+      - zipCode
+    P2pSender:
+      type: object
+      description: Object containing data of the P2P transaction sender, i.e. the person or institution initiating a P2P transaction
+      properties:
+        firstName:
+          description: Sender's first name
+          type: string
+          example: Firstname
+          maxLength: 35
+          minLength: 1
+        middleName:
+          description: Sender's middle name initial
+          type: string
+          example: S
+          maxLength: 1
+          minLength: 1
+        lastName:
+          description: Sender's last name
+          type: string
+          example: Lastname
+          maxLength: 35
+          minLength: 1
+        countryOfBirth:
+          description: Country of birth. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        dateOfBirth:
+          description: 'ISO 8601 format: `YYYY-MM-DD`'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        nationality:
+          description: ISO 3166-1 numeric country code. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        phone:
+          description: Sender's phone number. Only numbers and, optionally, `+` symbol can be used
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        location:
+          $ref: '#/components/schemas/P2pSenderLocation'
+        identification:
+          $ref: '#/components/schemas/P2pSenderIdentification'
+      required:
+      - firstName
+      - lastName
+    P2pReceiverLocation:
+      type: object
+      description: Object containing the P2P transaction receiver location data
+      properties:
+        countryCode:
+          description: '[`Country list`](#appendix--enum--country)'
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Receiver's city name
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Receiver's street address
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Receiver's ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+      required:
+      - countryCode
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    P2pSenderIdentification:
+      type: object
+      properties:
+        countryCode:
+          description: '[`Country list`](#appendix--enum--country)'
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        expirationDate:
+          description: 'ISO 8601 format: YYYY-MM-DD'
+          type: string
+          example: '2029-02-02'
+          maxLength: 10
+          minLength: 10
+        number:
+          description: Sender's identification number
+          type: string
+          example: Nr.123456789
+          maxLength: 25
+          minLength: 1
+        type:
+          description: '[`Identification type code`](#appendix--enum--identification-type-code)'
+          type: string
+          example: '12'
+          maxLength: 2
+          minLength: 2
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    P2pCustomer:
+      type: object
+      description: Object containing data of the actual P2P transaction customer
+      properties:
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
+      required:
+      - ip
+    P2p_2:
+      title: p2p
+      properties:
+        transaction:
+          $ref: '#/components/schemas/P2pTransaction_2'
+        card:
+          $ref: '#/components/schemas/P2pCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/P2pShippingLocation'
+        customer:
+          $ref: '#/components/schemas/P2pCustomer'
+        receiver:
+          $ref: '#/components/schemas/P2pReceiver'
+        sender:
+          $ref: '#/components/schemas/P2pSender'
+      type: object
+    P2pReceiverIdentification:
+      type: object
+      description: Object containing the P2P transaction receiver identification data
+      properties:
+        countryCode:
+          description: '[`Country list`](#appendix--enum--country)'
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        expirationDate:
+          description: 'ISO 8601 format: `YYYY-MM-DD`'
+          type: string
+          example: '2029-02-02'
+          maxLength: 10
+          minLength: 10
+        number:
+          description: Receiver's identification number
+          type: string
+          example: Nr.123456789
+          maxLength: 25
+          minLength: 1
+        type:
+          description: '[`Identification type code`](#appendix--enum--identification-type-code)'
+          type: string
+          example: '12'
+          maxLength: 2
+          minLength: 2
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+    P2pReceiver:
+      type: object
+      description: Object containing data of the P2P transaction receiver, i.e. the person or institution receiving funds
+      properties:
+        firstName:
+          description: '**Conditional parameter**: Receiver’s first name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Firstname
+          maxLength: 35
+          minLength: 1
+        middleName:
+          description: Receiver's middle name initial
+          type: string
+          example: R
+          maxLength: 1
+          minLength: 1
+        lastName:
+          description: '**Conditional parameter**: Receiver’s last name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Lastname
+          maxLength: 35
+          minLength: 1
+        cardNumber:
+          description: Receiver's PAN number
+          type: string
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        countryOfBirth:
+          description: Country of birth. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        dateOfBirth:
+          description: 'ISO 8601 format: `YYYY-MM-DD`'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        nationality:
+          description: ISO 3166-1 numeric country code. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        phone:
+          description: Receiver's phone number. Only numbers and, optionally, `+` symbol can be used
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        location:
+          $ref: '#/components/schemas/P2pReceiverLocation'
+        identification:
+          $ref: '#/components/schemas/P2pReceiverIdentification'
+      required:
+      - cardNumber
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password
+x-refined-from:
+- tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+- tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json

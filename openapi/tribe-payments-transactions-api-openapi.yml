@@ -1,0 +1,951 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Transactions API
+  version: 3.0.0
+  description: 'Operations tagged Transactions across 2 of this provider''s published API definitions: tribe-payments-trb-report-api-merchant-api-report-callback-v3.json, tribe-payments-trb-report-api-merchant-api-report-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- apiKey: []
+  apiPassword: []
+tags:
+- name: Transactions
+paths:
+  /registered-transactions-address:
+    post:
+      tags:
+      - Transactions
+      summary: ''
+      operationId: posttransactions
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transactions'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /transactions:
+    post:
+      tags:
+      - Transactions
+      summary: ''
+      operationId: posttransactions
+      requestBody:
+        description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Transactions`](#webhooks--transactions--registeredtransactionsaddress) webhook.\n                The configurations in Report Settings determine which columns are visible in the final output.\n                The transaction list shows only transactions with types specified in the Report Settings."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transactions_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseErrorTransactions'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unprocessableContent'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseTooManyRequests'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    TransactionsRecordsCustomer:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: ''
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 1
+        email:
+          description: ''
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 1
+        countryCode:
+          description: ''
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: ''
+          type: string
+          example: AL
+          maxLength: 2
+          minLength: 2
+        city:
+          description: ''
+          type: string
+          example: City
+          maxLength: 100
+          minLength: 1
+        address:
+          description: ''
+          type: string
+          example: Address
+          maxLength: 255
+          minLength: 1
+        zipCode:
+          description: ''
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: ''
+          type: string
+          example: 1.1.1.1
+          maxLength: 50
+          minLength: 1
+      required:
+      - id
+      - phone
+      - email
+      - countryCode
+      - city
+      - address
+      - zipCode
+      - ip
+    Transactions:
+      title: transactions
+      properties:
+        webhook:
+          $ref: '#/components/schemas/TransactionsWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action.
+          type: string
+          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
+          maxLength: 200
+          minLength: 1
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionsRecords'
+        recordsTotal:
+          description: ''
+          type: string
+          example: '17'
+          maxLength: 20
+          minLength: 1
+        recordsPerPage:
+          description: ''
+          type: string
+          example: '200'
+          maxLength: 20
+          minLength: 1
+        currentPage:
+          description: ''
+          type: string
+          example: '1'
+          maxLength: 20
+          minLength: 1
+      type: object
+      required:
+      - requestId
+      - recordsTotal
+      - recordsPerPage
+      - currentPage
+    TransactionsRecordsP2p:
+      type: object
+      properties:
+        senderFirstName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 35
+          minLength: 1
+        senderMiddleName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 1
+          minLength: 1
+        senderLastName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 35
+          minLength: 1
+        senderStreetAddress:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 50
+          minLength: 1
+        senderCity:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 85
+          minLength: 1
+        senderStateCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 3
+          minLength: 1
+        senderCountry:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        senderPostalCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 4
+        senderPhoneNumber:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 3
+        senderDateOfBirth:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 10
+        senderIdentification_type:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        senderIdentificationNumber:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 25
+          minLength: 1
+        senderIdentificationCountryCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        senderIdentification_expirationDate:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 10
+        senderNationality:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        senderCountryOfBirth:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        receiverFirstName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 35
+          minLength: 1
+        receiverMiddleName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 1
+          minLength: 1
+        receiverLastName:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 35
+          minLength: 1
+        receiverStreetAddress:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 100
+          minLength: 1
+        receiverCity:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 85
+          minLength: 1
+        receiverStateCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 3
+          minLength: 1
+        receiverCountry:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        receiverPostalCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 4
+        receiverPhoneNumber:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 3
+        receiverDateOfBirth:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 10
+        receiverCardNumber:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 22
+          minLength: 13
+        receiverIdentification_type:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        receiverIdentificationNumber:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 25
+          minLength: 1
+        receiverIdentificationCountryCode:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        receiverIdentification_expirationDate:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 10
+        receiverNationality:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        receiverCountryOfBirth:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+      required:
+      - senderFirstName
+      - senderLastName
+      - senderStreetAddress
+      - senderCity
+      - senderStateCode
+      - senderCountry
+      - senderPostalCode
+      - senderPhoneNumber
+      - senderDateOfBirth
+      - senderIdentification_type
+      - senderIdentificationNumber
+      - senderIdentificationCountryCode
+      - senderIdentification_expirationDate
+      - senderNationality
+      - senderCountryOfBirth
+      - receiverFirstName
+      - receiverMiddleName
+      - receiverLastName
+      - receiverStreetAddress
+      - receiverCity
+      - receiverStateCode
+      - receiverCountry
+      - receiverPostalCode
+      - receiverPhoneNumber
+      - receiverDateOfBirth
+      - receiverCardNumber
+      - receiverIdentification_type
+      - receiverIdentificationNumber
+      - receiverIdentificationCountryCode
+      - receiverIdentification_expirationDate
+      - receiverNationality
+      - receiverCountryOfBirth
+    TransactionsRecordsSettlement:
+      type: object
+      properties:
+        exist:
+          description: ''
+          type: string
+          example: '1'
+          maxLength: 1
+          minLength: 1
+        cardCountry:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 2
+          minLength: 2
+        cardType:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 10
+          minLength: 1
+        bin:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 1
+        region:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 100
+          minLength: 1
+        txArn:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 100
+          minLength: 1
+        3dsResult:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 200
+          minLength: 1
+        recurring:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 1
+          minLength: 1
+        date:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 19
+          minLength: 19
+        amountGross:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 13
+          minLength: 1
+        amountNet:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 13
+          minLength: 1
+        schemaFee:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 1
+        interchangeFee:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 1
+        chargeSum:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 20
+          minLength: 1
+        currency:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 3
+          minLength: 3
+        fraudDate:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 19
+          minLength: 19
+      required:
+      - exist
+      - cardCountry
+      - cardType
+      - bin
+      - region
+      - txArn
+      - 3dsResult
+      - recurring
+      - date
+      - amountGross
+      - amountNet
+      - schemaFee
+      - interchangeFee
+      - chargeSum
+      - currency
+      - fraudDate
+    TransactionsRecordsTransaction:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '502811178725015553'
+          maxLength: 20
+          minLength: 1
+        amount:
+          description: ''
+          type: string
+          example: '1.11'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: ''
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        status:
+          description: ''
+          type: string
+          example: success
+          maxLength: 20
+          minLength: 1
+        createdAt:
+          description: ''
+          type: string
+          example: '2023-08-01 07:38:16'
+          maxLength: 19
+          minLength: 19
+        integrationTransactionId:
+          description: ''
+          type: string
+          example: 0000000123456789213456798
+          maxLength: 255
+          minLength: 1
+        integrationAccountId:
+          description: ''
+          type: string
+          example: '102223'
+          maxLength: 11
+          minLength: 1
+        authorizationNo:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 50
+          minLength: 1
+        expirationDate:
+          description: ''
+          type: string
+          example: '2023-12-11 08:45:27'
+          maxLength: 19
+          minLength: 19
+        calculatedFee:
+          description: ''
+          type: string
+          example: 1,11
+          maxLength: 13
+          minLength: 1
+        integrationId:
+          description: ''
+          type: string
+          example: '87'
+          maxLength: 11
+          minLength: 1
+        terminalId:
+          description: ''
+          type: string
+          example: '26543'
+          maxLength: 20
+          minLength: 1
+        parentId:
+          description: ''
+          type: string
+          example: '0'
+          maxLength: 20
+          minLength: 1
+        orderId:
+          description: ''
+          type: string
+          example: '2568896541'
+          maxLength: 255
+          minLength: 1
+        typeName:
+          description: ''
+          type: string
+          example: sale
+          maxLength: 50
+          minLength: 1
+        errorCode:
+          description: ''
+          type: string
+          example: '000'
+          maxLength: 10
+          minLength: 1
+        descriptor:
+          description: ''
+          type: string
+          example: ''
+          maxLength: 255
+          minLength: 1
+        processingAccountId:
+          description: ''
+          type: string
+          example: '102223'
+          maxLength: 20
+          minLength: 1
+      required:
+      - id
+      - amount
+      - currencyCode
+      - status
+      - createdAt
+      - integrationTransactionId
+      - integrationAccountId
+      - authorizationNo
+      - expirationDate
+      - calculatedFee
+      - integrationId
+      - terminalId
+      - parentId
+      - orderId
+      - typeName
+      - errorCode
+      - descriptor
+      - processingAccountId
+    TransactionsRecords:
+      properties:
+        transaction:
+          $ref: '#/components/schemas/TransactionsRecordsTransaction'
+        company:
+          $ref: '#/components/schemas/TransactionsRecordsCompany'
+        card:
+          $ref: '#/components/schemas/TransactionsRecordsCard'
+        customer:
+          $ref: '#/components/schemas/TransactionsRecordsCustomer'
+        settlement:
+          $ref: '#/components/schemas/TransactionsRecordsSettlement'
+        p2p:
+          $ref: '#/components/schemas/TransactionsRecordsP2p'
+    TransactionsRecordsCard:
+      type: object
+      properties:
+        holderName:
+          description: ''
+          type: string
+          example: John Doe von Soap
+          maxLength: 255
+          minLength: 1
+        maskedNumber:
+          description: ''
+          type: string
+          example: 599999XXXXXX0125
+          maxLength: 22
+          minLength: 13
+        brandName:
+          description: ''
+          type: string
+          example: Mastercard
+          maxLength: 150
+          minLength: 1
+      required:
+      - holderName
+      - maskedNumber
+      - brandName
+    TransactionsRecordsCompany:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '6666615'
+          maxLength: 11
+          minLength: 1
+        name:
+          description: ''
+          type: string
+          example: My Company Name
+          maxLength: 100
+          minLength: 1
+      required:
+      - id
+      - name
+    TransactionsWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_transaction_list</td><td>Report webhook for transaction list request</td></tr></table>'
+          type: string
+          example: report_transactions
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    Transactions_2:
+      title: transactions
+      properties:
+        page:
+          description: Page number
+          type: integer
+          example: 3
+        transaction:
+          $ref: '#/components/schemas/TransactionsTransaction'
+        settlement:
+          $ref: '#/components/schemas/TransactionsSettlement'
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    unprocessableContent:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company webhook URL is not set
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    TransactionsSettlement:
+      type: object
+      properties:
+        dateTimeFrom:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 00:00:00 (today - 1 day)'
+          type: string
+          example: '2023-02-02 02:02:02'
+          maxLength: 19
+          minLength: 19
+        dateTimeTo:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 23:59:59 (today - 1 day)'
+          type: string
+          example: '2023-03-03 03:03:03'
+          maxLength: 19
+          minLength: 19
+    TransactionsTransaction:
+      type: object
+      properties:
+        processingAccountId:
+          description: Processing account ID
+          type: string
+          example: '200085'
+          maxLength: 32
+          minLength: 1
+        dateTimeFrom:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 00:00:00 (today - 1 day)'
+          type: string
+          example: '2023-02-02 02:02:02'
+          maxLength: 19
+          minLength: 19
+        dateTimeTo:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 23:59:59 (today - 1 day)'
+          type: string
+          example: '2023-03-03 03:03:03'
+          maxLength: 19
+          minLength: 19
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseErrorTransactions:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectTransactions'
+      type: object
+    violationObjectTransactions:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body must not be empty
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
+      type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-key
+    apiPassword:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-password
+x-refined-from:
+- tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+- tribe-payments-trb-report-api-merchant-api-report-v3.json

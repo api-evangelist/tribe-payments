@@ -1,0 +1,407 @@
+openapi: 3.2.0
+info:
+  title: 'Open Banking: TPP API v2 General API'
+  description: Endpoints for interacting with ASPSPs accounts.
+  version: 2.0.0
+servers:
+- url: '%tpp_api_url%/tpp/v2'
+security:
+- tokenAuth: []
+- clientId: []
+tags:
+- name: General
+  description: Endpoints for interacting with the general data.
+paths:
+  /banks:
+    get:
+      tags:
+      - General
+      summary: Returns a list of banks.
+      parameters:
+      - name: name
+        in: query
+        description: The bank name.
+        required: false
+        schema:
+          type: string
+          example: Swedbank LT Sandbox
+      - name: identifier
+        in: query
+        description: The bank identifier code.
+        required: false
+        schema:
+          type: string
+          example: SANDLT22
+      - name: country
+        in: query
+        description: ISO 3166-1 alpha-2.
+        required: false
+        schema:
+          type: string
+          example: LT
+      - name: scopes[]
+        in: query
+        description: Available [Scopes](#appendix--enum--scopes) in the bank.
+        required: false
+        schema:
+          type: array
+          example:
+          - accounts.transactions
+          items:
+            type: string
+            description: Available scopes in the consent.
+      - name: paymentSchemes[]
+        in: query
+        description: Available [Payment Schemes](#appendix--enum--payment-schemes) in the bank.
+        required: false
+        schema:
+          type: array
+          example: []
+          items:
+            type: string
+            example: SCT
+            description: Describes which payment scheme is used. See [Payment Schemes](#appendix--enum--payment-schemes) for possible values.
+      - name: directPaymentSupport
+        in: query
+        description: Determines whether the bank supports direct payments via API.
+        required: false
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        required: false
+        allowEmptyValue: true
+        description: The page number.
+        schema:
+          type: integer
+          example: 1
+      - name: limit
+        in: query
+        required: false
+        allowEmptyValue: true
+        description: Specifies the limit of records to return.
+        schema:
+          type: integer
+          example: 5
+      responses:
+        '200':
+          description: A JSON array of banks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  banks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Bank'
+                  _links:
+                    $ref: '#/components/schemas/NextLinks'
+        '400':
+          description: A generic error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized, e.g., expired token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '405':
+          description: A forbidden HTTP method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAllowedError'
+        '406':
+          description: An unsupported Accept header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableError'
+        '500':
+          description: An Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    NextLink:
+      type: object
+      description: The link pointing to the following page.
+      properties:
+        href:
+          type: string
+          description: The URL of the following page.
+          example: /tpp/v2/banks?page=4&limit=5
+    NextLinks:
+      type: object
+      description: Links pointing to other pages.
+      properties:
+        next:
+          $ref: '#/components/schemas/NextLink'
+    InternalServerError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: INTERNAL_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Internal Error
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    NotAcceptableError:
+      type: object
+      description: An unsupported `Accept` header.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: REQUESTED_FORMATS_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Only application/json supported
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    EmptyAdditionalErrors:
+      type: array
+      example: []
+      items:
+        $ref: '#/components/schemas/AdditionalError'
+    NotAllowedError:
+      type: object
+      description: A forbidden HTTP method.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: SERVICE_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Used HTTP method not supported for current action
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    UnauthorizedError:
+      type: object
+      description: The unauthorized error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: TOKEN_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: OAuth token not valid
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    AdditionalError:
+      type: object
+      description: The error object providing additional error information.
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        details:
+          type: string
+          description: The longer, human-readable description of the error.
+          example: Longer description of error
+          maxLength: 500
+    ForbiddenError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: ROLE_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Role not valid for current resource
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    Error:
+      type: object
+      description: The generic error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          type: array
+          description: Might be used if more than one error is to be communicated.
+          items:
+            $ref: '#/components/schemas/AdditionalError'
+    Bank:
+      type: object
+      required:
+      - name
+      - identifier
+      properties:
+        name:
+          type: string
+          description: Name.
+          example: Swedbank
+        identifier:
+          type: string
+          description: Bank identifier.
+          example: SWED22LT
+        scopes:
+          type: array
+          description: Array of scopes.
+          example:
+          - payments.single
+          - accounts
+          - accounts.balances
+          - accounts.transactions
+          items:
+            type: string
+            description: Available scopes in consent.
+            enum:
+            - accounts
+            - accounts.balances
+            - accounts.transactions
+            - payments.single
+            - payments.bulk
+            - funds_confirmations
+        paymentSchemes:
+          type: array
+          description: Array of payment schemes.
+          example:
+          - CHAPS
+          - SCT
+          - SCTI
+          items:
+            type: string
+            example: SCT
+            description: Describes which payment scheme is used. See [Payment Schemes](#appendix--enum--payment-schemes) for possible values.
+            enum:
+            - FPS
+            - BACS
+            - CHAPS
+            - SCT
+            - SCTI
+            - SWIFT
+        country:
+          type: string
+          description: Country.
+          example: LT
+        directPaymentSupport:
+          type: boolean
+          description: Indicates whether the bank supports direct API payments.
+          example: false
+  securitySchemes:
+    tokenAuth:
+      type: http
+      scheme: bearer
+    clientId:
+      type: apiKey
+      in: header
+      name: X-Client-ID

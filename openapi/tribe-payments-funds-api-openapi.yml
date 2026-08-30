@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Bank Webhooks Funds API
+  version: 2.0.0
+  description: API documentation for bank-related webhooks, including account and payment operations.
+tags:
+- name: Funds
+paths:
+  /v2_funds_confirmations:
+    post:
+      summary: Confirmation of funds.
+      description: '"Confirmation of funds" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.
+
+
+        It can be used by CBPII to confirm the amount of funds available in the account. Funds can only be confirmed against the currency of the account. This action does not reserve an amount requested in the account but only indicates if the requested amount is present at the time of the API call.
+
+        '
+      tags:
+      - Funds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account:
+                  $ref: '#/components/schemas/Account'
+                instructed_amount:
+                  $ref: '#/components/schemas/Amount'
+              required:
+              - account
+              - instructed_amount
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  funds_available:
+                    type: boolean
+                    description: Indicates if the requested amount is available in the account.
+                required:
+                - funds_available
+components:
+  schemas:
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    Account:
+      type: object
+      properties:
+        resource_id:
+          type: string
+          description: The account ID.
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: integer
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
+        currency:
+          type: string
+          description: The account currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+        name:
+          type: string
+          description: The account name.
+        payment_schemes:
+          type: array
+          description: The list of possible payment schemes for when the account is used as a debtor during the payment.
+          items:
+            type: string
+            enum:
+            - SCT
+            - SCTI
+            - FPS
+            - BACS
+            - CHAPS
+            - SWIFT

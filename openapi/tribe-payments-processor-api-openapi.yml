@@ -1,0 +1,500 @@
+openapi: 3.2.0
+info:
+  title: Device Directory Processor API
+  version: 3.0.0
+tags:
+- name: Processor
+paths:
+  /processors/{processorId}/hosts:
+    get:
+      tags:
+      - Processor
+      summary: Get a list of hosts assigned to processor
+      description: Endpoint to fetch hosts list with page-based pagination.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: created[from]
+        in: query
+        description: 'Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created[to]
+        in: query
+        description: 'Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: externalReferenceId
+        in: query
+        description: Filter by the host external reference id.
+        required: false
+        schema:
+          type: string
+          example: SP000000004
+      - name: url
+        in: query
+        description: Filter by the host url.
+        required: false
+        schema:
+          type: string
+          example: test-v1-all-all
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: limit
+        in: query
+        description: The number of hosts per page.
+        required: false
+        schema:
+          type: integer
+          example: 50
+      responses:
+        '200':
+          description: Devices fetched successfully.
+          headers:
+            X-Total-Count:
+              description: The total number of hosts available.
+              schema:
+                type: integer
+                example: 1000
+            X-Total-Pages:
+              description: The total number of pages available.
+              schema:
+                type: integer
+                example: 20
+            X-Current-Page:
+              description: The current page number.
+              schema:
+                type: integer
+                example: 1
+            X-Next-Page:
+              description: The next page number, if available.
+              schema:
+                type: integer
+                example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Host'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Processor
+      summary: Create a host.
+      description: Endpoint to create a host.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HostCreate'
+      responses:
+        '201':
+          description: Host created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /processors/{processorId}/hosts/{hostId}:
+    get:
+      tags:
+      - Processor
+      summary: Get a host
+      description: Endpoint to fetch a host.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Host'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+      - Processor
+      summary: Update a host.
+      description: Endpoint to update a host.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HostCreate'
+      responses:
+        '200':
+          description: Host updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HostCreate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Processor
+      summary: Delete a host
+      description: Endpoint to delete host.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      responses:
+        '204':
+          description: Host deleted.
+        '404':
+          description: Host not found.
+  /processors/{processorId}/devices:
+    get:
+      tags:
+      - Processor
+      summary: Get a list of devices assigned to processor
+      description: Endpoint to fetch device list with page-based pagination.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: created[from]
+        in: query
+        description: 'Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created[to]
+        in: query
+        description: 'Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: serialNumber
+        in: query
+        description: Filter by the device serial number.
+        required: false
+        schema:
+          type: string
+          example: SP000000004
+      - name: configurationTag
+        in: query
+        description: Filter by the device configuration tag.
+        required: false
+        schema:
+          type: string
+          example: test-v1-all-all
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: limit
+        in: query
+        description: The number of devices per page.
+        required: false
+        schema:
+          type: integer
+          example: 50
+      responses:
+        '200':
+          description: Devices fetched successfully.
+          headers:
+            X-Total-Count:
+              description: The total number of devices available.
+              schema:
+                type: integer
+                example: 1000
+            X-Total-Pages:
+              description: The total number of pages available.
+              schema:
+                type: integer
+                example: 20
+            X-Current-Page:
+              description: The current page number.
+              schema:
+                type: integer
+                example: 1
+            X-Next-Page:
+              description: The next page number, if available.
+              schema:
+                type: integer
+                example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /processors/{processorId}/devices/{deviceId}:
+    get:
+      tags:
+      - Processor
+      summary: Get a device
+      description: Endpoint to fetch device.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        description: Unique identifier for the device.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found.
+  /processors/{processorId}/terminals/{terminalId}:
+    get:
+      tags:
+      - Processor
+      summary: Get a device
+      description: Endpoint to fetch device.
+      parameters:
+      - name: processorId
+        in: path
+        description: Unique identifier for the processor.
+        required: true
+        schema:
+          type: string
+      - name: terminalId
+        in: path
+        description: Unique identifier for the terminal.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found.
+components:
+  schemas:
+    Host:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Host.
+          example: 844456
+        url:
+          type: integer
+          description: Host URL.
+          example: https://host.example
+        externalReferenceId:
+          type: string
+          description: Host external reference id.
+          example: '02'
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A description of the error that occurred.
+          example: Error occured.
+        violations:
+          type: array
+          description: List of validation errors or violations.
+          items:
+            $ref: '#/components/schemas/Violation'
+    Violation:
+      type: object
+      properties:
+        propertyPath:
+          type: string
+          description: The path to the parameter or property where the violation occurred.
+        code:
+          type: string
+          description: Specific error code representing the violation.
+        message:
+          type: string
+          description: A message describing what went wrong.
+    HostCreate:
+      type: object
+      properties:
+        url:
+          type: integer
+          description: Host URL.
+          example: https://host.example
+        externalReferenceId:
+          type: string
+          description: Host external reference id.
+          example: '02'
+    Device:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Device.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        serialNumber:
+          type: string
+          description: Model version of device.
+          example: SP000000004
+        configurationTag:
+          type: string
+          description: Model version of device.
+          example: test-v1-all-all
+        hostId:
+          type: integer
+          description: Host unique identifier.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'

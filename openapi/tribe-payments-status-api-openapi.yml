@@ -1,0 +1,82 @@
+openapi: 3.2.0
+info:
+  title: Merchant API HPP Webhook Status API
+  version: 3.0.0
+  description: Merchant API HPP Webhook
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: Status
+paths:
+  /registered-status-address:
+    post:
+      tags:
+      - Status
+      summary: ''
+      operationId: poststatus
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Status'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+components:
+  schemas:
+    Status:
+      title: status
+      properties:
+        webhook:
+          $ref: '#/components/schemas/StatusWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b
+          maxLength: 36
+          minLength: 36
+        hostedPayment:
+          $ref: '#/components/schemas/HostedPaymentStatus'
+      type: object
+      required:
+      - requestId
+    StatusWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '5455223499197002'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type] hosted_payment_status'
+          type: string
+          example: hosted_payment_status
+          maxLength: 50
+          minLength: 1
+      required:
+      - id
+      - type
+    HostedPaymentStatus:
+      type: object
+      properties:
+        status:
+          description: 'The newly assigned status, which can be: 1 - Active; 2 - Expired'
+          type: integer
+          example: 2
+      required:
+      - status
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password

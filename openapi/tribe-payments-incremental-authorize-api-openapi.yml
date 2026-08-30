@@ -1,0 +1,355 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Incremental authorize API
+  version: 3.0.0
+  description: 'Operations tagged Incremental authorize across 2 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: Incremental authorize
+paths:
+  /registered-incremental-authorize-address:
+    post:
+      tags:
+      - Incremental authorize
+      summary: ''
+      operationId: postincremental-authorize
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncrementalAuthorize'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /incremental-authorize:
+    post:
+      tags:
+      - Incremental authorize
+      summary: ''
+      operationId: postincremental-authorize
+      requestBody:
+        description: "To authorize an additional amount later, make an Incremental authorize transaction.\n                    Upon successful Incremental authorize, additional funds are reserved on the cardholder\\s account, and a transaction is created.\n                    To charge the authorized amount, make a Capture transaction by providing the Pre authorize transaction ID. See [`Capture`](#actions--capture) for details.\n                    After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                    For more details, refer to the [`Incremental authorize`](#webhooks--authorize--registeredincrementalauthorizeaddress) webhook."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncrementalAuthorize_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseError'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    IncrementalAuthorizeTransaction:
+      type: object
+      description: Object containing data of the Incremental authorize transaction
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '397209271826453991'
+          maxLength: 16
+          minLength: 16
+        date:
+          description: 'Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`'
+          type: string
+          example: '2023-06-01 11:21:15'
+          maxLength: 19
+          minLength: 19
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        parentId:
+          description: Parent transaction ID for `Cancel`, `Capture`, `Incremental authorize`, `Refund`, etc.
+          type: string
+          example: '675689811821989225'
+          maxLength: 19
+          minLength: 16
+        code:
+          description: '[`Transaction error code`](#appendix--enum--transaction-error-code)'
+          type: string
+          example: '000'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: '[`Transaction error message`](#appendix--transaction-error-code)'
+          type: string
+          example: Transaction successfully completed
+          maxLength: 100
+          minLength: 1
+        errorDescription:
+          description: Error description
+          type: string
+          example: null
+          maxLength: 100
+          minLength: 1
+        expirationDate:
+          description: Expiration date
+          type: string
+          example: '2023-06-01 08:01:01'
+          maxLength: 19
+          minLength: 19
+        status:
+          description: The transaction status can be `true` (for authorized transactions) or `false` (for unauthorized transactions)
+          type: string
+          example: 'true'
+          maxLength: 20
+          minLength: 1
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents). For customer’s card verification use `0`
+          type: string
+          example: '10'
+          maxLength: 40
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        totalAmount:
+          description: Total authorized amount. Number in minor units, e.g. cents; 100 cents equal 1 dollar
+          type: string
+          example: '522'
+          maxLength: 50
+          minLength: 1
+        type:
+          description: '[`Transaction type`](#appendix--enum--transaction-type)'
+          type: integer
+          example: 102
+      required:
+      - id
+      - date
+      - orderId
+      - code
+      - message
+      - errorDescription
+      - status
+      - amount
+      - currencyCode
+      - totalAmount
+      - type
+    IncrementalAuthorizeCard:
+      type: object
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    IncrementalAuthorizeWebhook:
+      type: object
+      description: Object containing the Incremental Authorize webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    IncrementalAuthorize:
+      title: incremental-authorize
+      properties:
+        webhook:
+          $ref: '#/components/schemas/IncrementalAuthorizeWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/IncrementalAuthorizeTransaction'
+        card:
+          $ref: '#/components/schemas/IncrementalAuthorizeCard'
+      type: object
+      required:
+      - requestId
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    IncrementalAuthorize_2:
+      title: incremental-authorize
+      properties:
+        transaction:
+          $ref: '#/components/schemas/IncrementalAuthorizeTransaction_2'
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    IncrementalAuthorizeTransaction_2:
+      type: object
+      description: Object containing data of the Incremental authorize transaction
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '497709205608728597'
+          maxLength: 16
+          minLength: 16
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+      required:
+      - id
+      - amount
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password
+x-refined-from:
+- tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
+- tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json

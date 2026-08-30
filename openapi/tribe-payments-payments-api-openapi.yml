@@ -1,0 +1,606 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments API
+  version: 2.0.0
+  description: 'Operations tagged Payments across 2 of this provider''s published API definitions: tribe-payments-obb-bank-api-webhooks-openapi.json, tribe-payments-obb-tpp-api-webhooks-openapi.json. Each path carries the servers of the definition it was published in.'
+tags:
+- name: Payments
+paths:
+  /v2_payment_single:
+    post:
+      summary: Single payment
+      description: "\"Single payment\" is initiated by the request from TPP, which requests TOB to initiate the [payment](#appendix--workflow--payment). \nTOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected to complete the SCA."
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        description: 'In the case of debtor_account and creditor_account, at least one of IBAN, BBAN or account_number **with** sort_code has to be provided, depending on the `payment_scheme` and type of payment initiated.
+
+          '
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSingleRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSingleResponse'
+        '302':
+          description: 'Callback URL parameters for redirect after user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCallbackParameters'
+  /v2_payment_single_status:
+    post:
+      summary: Get single payment status
+      description: '"Get single payment status" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.
+
+        TPP requests the status of initiated payment from TOB, which then requests the information from the BANK.'
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSingleStatusRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatusResponse'
+  /v2_payment_bulk:
+    post:
+      summary: Bulk payment.
+      description: '"Bulk payment" is initiated by the request from TPP to TOB to initiate the [payment](#appendix--workflow--payment).
+
+        TOB requests BANK to initiate a bulk of payments and respond with a `confirmation_url` to which the user should be redirected.'
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        description: In the case of debtor_account and creditor_account, at least one of IBAN, BBAN, or account_number with sort_code has to be provided.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentBulkRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSingleResponse'
+        '302':
+          description: 'Callback URL parameters for redirect after user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCallbackParameters'
+  /v2_payment_bulk_status:
+    post:
+      summary: Get bulk payment status
+      description: '"Get bulk payment status" is initiated by the request from TPP. It is part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.
+
+        TPP requests the status of initiated payment from TOB, which then requests the information from the BANK.'
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentBulkStatusRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatusResponse'
+  /v2_payment_direct_single:
+    post:
+      summary: Direct payment initiation.
+      description: '"Direct payment initiation" is initiated by the request from TPP. TOB requests BANK to initiate the payment and respond with a `confirmation_url` to which the user should be redirected.
+
+        It is a part of the flow where TPP requests TOB to initiate the [Direct payment](#appendix--workflow--direct-payment).
+
+        The endpoint is almost identical to the [payment](#webhooks--payment--initiate) one. The difference has to do with [Security](#security) where the `X-Auth-Token` header identifying the user is not passed.'
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSingleRequest'
+      responses:
+        '200':
+          description: The successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSingleResponse'
+        '302':
+          description: 'Callback URL parameters for redirect after the user accesses `confirmation_url` and BANK performs redirect to `callback_url` from request content:
+
+            .'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCallbackParameters'
+  /v2_payment_status:
+    post:
+      tags:
+      - Payments
+      summary: Payment Status Update
+      description: Informs the TPP that the payment status has changed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentStatusRequest'
+      responses:
+        '200':
+          description: A successful response with the HTTP 200 status code.
+  /v2_payment_confirmation_link_expire:
+    post:
+      tags:
+      - Payments
+      summary: Payment Confirmation Link Expiration
+      description: Informs the TPP about the expiration of a payment confirmation link.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paymentId:
+                  type: string
+                  description: The unique payment identifier.
+              required:
+              - paymentId
+      responses:
+        '200':
+          description: A successful response with the HTTP 200 status code.
+components:
+  schemas:
+    PaymentBulkRequest:
+      type: object
+      properties:
+        payment_scheme:
+          type: string
+          enum:
+          - SCT
+          - SCTI
+          - FPS
+          - BACS
+          - CHAPS
+          - SWIFT
+          description: Describes which payment scheme is used.
+        debtor_account:
+          $ref: '#/components/schemas/DebtorAccount'
+        debtor_name:
+          type: string
+          maxLength: 70
+          description: The name of the debtor/sender.
+        callback_url:
+          type: string
+          description: The URL to which the transaction flow redirects after the SCA.
+        instructed_totals:
+          $ref: '#/components/schemas/InstructedTotals'
+        payments:
+          type: array
+          maxItems: 1000
+          items:
+            $ref: '#/components/schemas/SingleBulkPayment'
+      required:
+      - callback_url
+      - instructed_totals
+      - payments
+    PaymentSingleRequest:
+      type: object
+      properties:
+        payment_scheme:
+          type: string
+          enum:
+          - SCT
+          - SCTI
+          - FPS
+          - BACS
+          - CHAPS
+          - SWIFT
+          description: Describes which payment scheme is used. See [Payment Schemes](#appendix--enum--payment-schemes) for possible values.
+        debtor_account:
+          $ref: '#/components/schemas/DebtorAccount'
+        debtor_name:
+          type: string
+          maxLength: 70
+          description: The name of the debtor/sender.
+        creditor_account:
+          $ref: '#/components/schemas/CreditorAccount'
+        creditor_name:
+          type: string
+          maxLength: 70
+          description: The name of the creditor/receiver.
+        remittanceInformationUnstructured:
+          type: string
+          maxLength: 140
+          description: An unstructured reference of the transaction.
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/Address'
+        instructedAmount:
+          $ref: '#/components/schemas/Amount'
+        callback_url:
+          type: string
+          description: The URL to which the transaction flow redirects after the SCA.
+        creditor_bank:
+          $ref: '#/components/schemas/CreditorBank'
+      required:
+      - instructed_amount
+      - callback_url
+    PaymentSingleResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: '[Payment Status](#appendix--enum--payment-status)'
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+        confirmation_url:
+          type: string
+          description: The URL to which the user gets redirected to enter their SCA confirmation.
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - status
+      - confirmation_url
+      - payment_id
+    Address:
+      type: object
+      properties:
+        street_name:
+          type: string
+          description: Street name.
+          maxLength: 70
+        building_number:
+          type: string
+          description: Building number.
+        town_name:
+          type: string
+          description: Name of town/city.
+        postal_code:
+          type: string
+          description: Postal code.
+        country:
+          type: string
+          description: The country identifier as defined by ISO 3166-1 alpha-2.
+          maxLength: 2
+      required:
+      - country
+    PaymentSingleStatusRequest:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
+    CreditorAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: string
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
+    DebtorAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: integer
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
+    CreditorBank:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the institution.
+        bic:
+          type: string
+          description: The Business Identifier Code.
+        country:
+          type: string
+          description: The country identifier as defined by the ISO 3166-1 alpha-2.
+          maxLength: 2
+      required:
+      - name
+      - country
+    SingleBulkPayment:
+      type: object
+      properties:
+        creditor_account:
+          $ref: '#/components/schemas/CreditorAccount'
+        creditorName:
+          type: string
+          maxLength: 70
+          description: The name of the creditor/receiver.
+        remittanceInformationUnstructured:
+          type: string
+          maxLength: 140
+          description: An unstructured reference of the transaction.
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/Address'
+        instructedAmount:
+          $ref: '#/components/schemas/Amount'
+      required:
+      - instructed_amount
+    PaymentCallbackParameters:
+      type: object
+      required:
+      - status
+      - payment_id
+      properties:
+        status:
+          type: string
+          description: The payment status after confirmation.
+          maxLength: 4
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+        message:
+          type: string
+          description: The message with a description in case of error.
+    RemittanceInformationStructured:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: The remittance information.
+          maxLength: 35
+        reference_type:
+          type: string
+          description: The type of the remittance information.
+          maxLength: 35
+    InstructedTotals:
+      type: object
+      properties:
+        currency:
+          type: string
+          maxLength: 3
+          description: The total amount of currency in ISO 4217 alpha-3 currency code.
+        amount:
+          type: string
+          maxLength: 10
+          description: The total amount.
+      required:
+      - currency
+      - amount
+    PaymentBulkStatusRequest:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    TransactionStatusResponse:
+      type: object
+      properties:
+        transaction_status:
+          type: string
+          description: '[Payment status](#appendix--enum--payment-status)'
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+      required:
+      - transaction_status
+    PaymentStatusRequest:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          description: The unique payment identifier.
+        paymentStatus:
+          type: string
+          description: The transaction status as per ISO 20022 codes.
+          maxLength: 4
+        accountTransaction:
+          $ref: '#/components/schemas/AccountTransaction'
+      required:
+      - paymentId
+      - paymentStatus
+    TransactionAmount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The transaction amount in the transaction currency. The decimal separator is dot.
+        currency:
+          type: string
+          description: The transaction currency in the ISO 4217 alpha-3 currency code.
+          maxLength: 3
+        valueDate:
+          type: string
+          description: The date in `YYYY-MM-DD` format, indicating when assets become available.
+          maxLength: 10
+        bookingDate:
+          type: string
+          description: The date in `YYYY-MM-DD` format, indicating when the entry is posted.
+          maxLength: 10
+    DebtorAccount_2:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        accountNumber:
+          type: string
+          description: The account number for the United Kingdom.
+          maxLength: 8
+        sortCode:
+          type: string
+          description: The sort code for the United Kingdom.
+          maxLength: 6
+    RemittanceInformationStructured_2:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: The actual reference.
+          maxLength: 35
+        referenceType:
+          type: string
+          description: The remittance information type.
+          maxLength: 35
+    CreditorAccount_2:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        accountNumber:
+          type: string
+          description: The account number for the United Kingdom.
+          maxLength: 8
+        sortCode:
+          type: string
+          description: The sort code for the United Kingdom.
+          maxLength: 6
+    AccountTransaction:
+      type: object
+      description: Includes the transaction information if available.
+      properties:
+        transactionId:
+          type: string
+          description: The ID of the transaction.
+        creditorName:
+          type: string
+          description: The name of creditor/receiver.
+          maxLength: 70
+        creditorAccount:
+          $ref: '#/components/schemas/CreditorAccount_2'
+        debtorName:
+          type: string
+          description: The name of the transaction debtor/sender.
+        debtorAccount:
+          $ref: '#/components/schemas/DebtorAccount_2'
+        remittanceInformationUnstructured:
+          type: string
+          description: An unstructured reference of the transaction.
+          maxLength: 140
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured_2'
+        transactionAmount:
+          $ref: '#/components/schemas/TransactionAmount'
+x-refined-from:
+- tribe-payments-obb-bank-api-webhooks-openapi.json
+- tribe-payments-obb-tpp-api-webhooks-openapi.json

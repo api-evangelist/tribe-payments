@@ -1,0 +1,286 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments User Actions Trigger API
+  description: ''
+  version: 0.0.0
+servers:
+- url: /
+  description: ''
+security:
+- Bearer: []
+- Token: []
+tags:
+- name: User Actions Trigger
+paths:
+  /v1/events/{eventId}/data/{identifier}/trigger-user-actions/{actionId}:
+    parameters: []
+    post:
+      operationId: subresource_postTrigerUserActionsForEventDataItem
+      tags:
+      - User Actions Trigger
+      responses:
+        '204':
+          description: No content
+        '400':
+          description: Bad request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestErrorResponseDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorResponseDto'
+        '404':
+          description: Not Found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorResponseDto'
+        '409':
+          description: Conflict
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ConflictErrorResponseDto'
+        '415':
+          description: Unsupported media type
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnsupportedMediaTypeErrorResponseDto'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityErrorResponseDto'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorResponseDto'
+      summary: Triggers action for the event data
+      description: Triggers action for the event data
+      parameters:
+      - name: eventId
+        in: path
+        description: ID assigned to the specific event, as indicated in the admin portal.
+        required: true
+        deprecated: false
+        schema:
+          type: integer
+        style: simple
+        example: 1
+      - name: identifier
+        in: path
+        description: Identifier assigned to the event data during the initial event data creation.
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        example: 15s4dsc3s
+      - name: actionId
+        in: path
+        description: ID assigned to the specific action, as indicated in the admin portal.
+        required: true
+        deprecated: false
+        schema:
+          type: string
+        style: simple
+        example: '10'
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: 'Object containing data parameters available for the specific event. The exact names (as configured in the admin portal) of data fields must be passed as keys. '
+            example:
+              data:
+                username: test
+                amount: 50
+        required: false
+      deprecated: false
+components:
+  schemas:
+    BadRequestErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Syntax error
+      required:
+      - type
+      - title
+      - detail
+    UnprocessableEntityErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: '[id]: This value should be of type int.'
+        violations:
+          type: array
+          description: Array of violation objects.
+          items:
+            $ref: '#/components/schemas/ViolationDto'
+      required:
+      - type
+      - title
+      - detail
+      - violations
+    NotFoundErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    InternalServerErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Internal Server Error
+      required:
+      - type
+      - title
+      - detail
+    UnsupportedMediaTypeErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+      required:
+      - type
+      - title
+      - detail
+    ConflictErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    ViolationDto:
+      type: object
+      properties:
+        propertyPath:
+          type:
+          - string
+          - 'null'
+          description: Invalid identifier.
+          example: '[id]'
+        message:
+          type: string
+          description: Error message.
+          example: This value should be of type int.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Error code.
+          example: ba785a8c-82cb-4283-967c-3cf342181b40
+      required:
+      - propertyPath
+      - message
+      - code
+    UnauthorizedErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Full authentication is required to access this resource.
+      required:
+      - type
+      - title
+      - detail
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: Value for the bearer header parameter.
+      name: bearer
+      in: header
+    Token:
+      type: apiKey
+      description: Value for the X-AUTH-TOKEN header parameter.
+      name: X-AUTH-TOKEN
+      in: header

@@ -1,0 +1,377 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Disputes API
+  version: 3.0.0
+  description: 'Operations tagged Disputes across 2 of this provider''s published API definitions: tribe-payments-trb-report-api-merchant-api-report-callback-v3.json, tribe-payments-trb-report-api-merchant-api-report-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- apiKey: []
+  apiPassword: []
+tags:
+- name: Disputes
+paths:
+  /registered-disputes-address:
+    post:
+      tags:
+      - Disputes
+      summary: ''
+      operationId: postdisputes
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Disputes'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /disputes:
+    post:
+      tags:
+      - Disputes
+      summary: ''
+      operationId: postdisputes
+      requestBody:
+        description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Disputes`](#webhooks--disputes--registereddisputesaddress) webhook."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Disputes_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseErrorDisputes'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unprocessableContent'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseTooManyRequests'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    DisputesRecordsDispute:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '15689614966399'
+          maxLength: 16
+          minLength: 1
+        date:
+          description: ''
+          type: string
+          example: '2023-12-11 08:45:27'
+          maxLength: 19
+          minLength: 19
+        amount:
+          description: ''
+          type: string
+          example: '1'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: ''
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        parentId:
+          description: ''
+          type: string
+          example: '12345678'
+          maxLength: 20
+          minLength: 1
+        typeName:
+          description: ''
+          type: string
+          example: First Chargeback
+          maxLength: 50
+          minLength: 1
+        status:
+          description: ''
+          type: string
+          example: In progress
+          maxLength: 1
+          minLength: 1
+      required:
+      - id
+      - date
+      - amount
+      - currencyCode
+      - parentId
+      - typeName
+      - status
+    DisputesWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_disputes</td><td>Report webhook for dispute request</td></tr></table>'
+          type: string
+          example: report_disputes
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    Disputes:
+      title: disputes
+      properties:
+        webhook:
+          $ref: '#/components/schemas/DisputesWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action.
+          type: string
+          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
+          maxLength: 200
+          minLength: 1
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisputesRecords'
+      type: object
+      required:
+      - requestId
+    DisputesRecordsCard:
+      type: object
+      properties:
+        hash:
+          description: ''
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 200
+          minLength: 1
+      required:
+      - hash
+    DisputesRecords:
+      type: object
+      properties:
+        dispute:
+          $ref: '#/components/schemas/DisputesRecordsDispute'
+        card:
+          $ref: '#/components/schemas/DisputesRecordsCard'
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    unprocessableContent:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company webhook URL is not set
+      type: object
+    responseErrorDisputes:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectDisputes'
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    Disputes_2:
+      title: disputes
+      properties:
+        dateFrom:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
+          type: string
+          example: '2023-02-02'
+          maxLength: 10
+          minLength: 10
+        dateTo:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
+          type: string
+          example: '2023-03-03'
+          maxLength: 10
+          minLength: 10
+      type: object
+      required:
+      - dateFrom
+      - dateTo
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    violationObjectDisputes:
+      title: Validation object disputes
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '3007'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Invalid date format
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
+      type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-key
+    apiPassword:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-password
+x-refined-from:
+- tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+- tribe-payments-trb-report-api-merchant-api-report-v3.json

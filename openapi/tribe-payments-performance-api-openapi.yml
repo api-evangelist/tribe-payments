@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: 'Open Banking: Bank Performance API'
+  description: API documentation for OBB Bank services.
+  version: 2.0.0
+servers:
+- url: '%bank_api_url%/bank/v2'
+tags:
+- name: Performance
+paths:
+  /daily_performance:
+    post:
+      summary: Daily Performance
+      description: 'The Bank should inform the TOB each day about the daily performance average on consent authorization and payment confirmation flows.
+
+        '
+      tags:
+      - Performance
+      requestBody:
+        description: Daily performance data request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyPerformanceRequest'
+      responses:
+        '200':
+          description: Daily performance metrics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyPerformanceResponse'
+components:
+  schemas:
+    DailyPerformanceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Confirms the correct response by returning the success status.
+    DailyPerformanceRequest:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The specific date for which the duration data is being submitted.
+          example: '2023-11-27'
+        consentDuration:
+          type: integer
+          description: The average time, in milliseconds, taken for users to confirm consent in the process.
+          example: 51144
+        paymentDuration:
+          type: integer
+          description: The average time, in milliseconds, taken for users to complete the payment confirmation step.
+          example: 21215
+      required:
+      - date

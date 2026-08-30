@@ -1,0 +1,312 @@
+openapi: 3.2.0
+info:
+  title: Tribe Payments Processing accounts API
+  version: 3.0.0
+  description: 'Operations tagged Processing accounts across 2 of this provider''s published API definitions: tribe-payments-trb-report-api-merchant-api-report-callback-v3.json, tribe-payments-trb-report-api-merchant-api-report-v3.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- apiKey: []
+  apiPassword: []
+tags:
+- name: Processing accounts
+paths:
+  /registered-processing-accounts-address:
+    post:
+      tags:
+      - Processing accounts
+      summary: ''
+      operationId: postprocessing-accounts
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessingAccounts'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+  /processing-accounts:
+    post:
+      tags:
+      - Processing accounts
+      summary: ''
+      operationId: postprocessing-accounts
+      requestBody:
+        description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Webhooks - Processing accounts`](#webhooks--processing-accounts--registeredprocessingaccountsaddress) webhook.\n                No request body should be included in this action. All required data must be provided in the headers."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessingAccounts_2'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseErrorProcessing'
+        '401':
+          description: Unauthorized Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseUnauthorized'
+        '403':
+          description: Forbidden Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseForbidden'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unprocessableContent'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseTooManyRequests'
+    servers:
+    - url: http://127.0.0.1:10010/v3
+components:
+  schemas:
+    ProcessingAccountsWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>'
+          type: string
+          example: report_processing_accounts
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    ProcessingAccountsProcessingAccount:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '200085'
+          maxLength: 20
+          minLength: 1
+        name:
+          description: ''
+          type: string
+          example: Procssing account name
+          maxLength: 255
+          minLength: 1
+        companyName:
+          description: ''
+          type: string
+          example: Company name
+          maxLength: 100
+          minLength: 1
+        enabled:
+          description: ''
+          type: boolean
+          example: true
+        testAccount:
+          description: ''
+          type: boolean
+          example: true
+    ProcessingAccounts:
+      title: processing-accounts
+      properties:
+        webhook:
+          $ref: '#/components/schemas/ProcessingAccountsWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action.
+          type: string
+          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
+          maxLength: 200
+          minLength: 1
+        processingAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessingAccountsProcessingAccount'
+      type: object
+      required:
+      - requestId
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseErrorProcessing:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectProcessing'
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    unprocessableContent:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company webhook URL is not set
+      type: object
+    ProcessingAccounts_2:
+      title: processing-accounts
+      properties: {}
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    violationObjectProcessing:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body contains unknown field \"parameterName\"
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
+      type: object
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-key
+    apiPassword:
+      type: apiKey
+      in: header
+      name: x-auth-report-api-password
+x-refined-from:
+- tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
+- tribe-payments-trb-report-api-merchant-api-report-v3.json

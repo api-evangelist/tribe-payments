@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: Merchant API Credit Card Callback 3DS authentication required API
+  version: 3.0.0
+servers:
+- url: http://127.0.0.1:10010/v3
+security:
+- accountId: []
+  accountPassword: []
+tags:
+- name: 3DS authentication required
+paths:
+  /registered-3DS-submit-address:
+    post:
+      tags:
+      - 3DS authentication required
+      summary: ''
+      operationId: post3DS-submit
+      requestBody:
+        description: Object containing the 3DS authentication webhook data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/3DSSubmit'
+      responses:
+        '200':
+          description: 'Expected response: HTTP status code 200'
+components:
+  schemas:
+    3DSSubmit:
+      title: 3DS-submit
+      properties:
+        webhook:
+          $ref: '#/components/schemas/3DSSubmitWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/3DSSubmitTransaction'
+        card:
+          $ref: '#/components/schemas/3DSSubmitCard'
+      type: object
+      required:
+      - requestId
+    3DSSubmitTransaction:
+      type: object
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '397209271826453991'
+          maxLength: 16
+          minLength: 16
+        date:
+          description: 'Transaction date in UTC. ISO 8601 format: `YYYY-MM-DD hh:ii:ss`'
+          type: string
+          example: '2023-06-01 11:21:15'
+          maxLength: 19
+          minLength: 19
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        code:
+          description: '[`Transaction error code`](#appendix--enum--transaction-error-code)'
+          type: string
+          example: '655'
+          maxLength: 5
+          minLength: 3
+        message:
+          description: '[`Transaction error message`](#appendix--transaction-error-code)'
+          type: string
+          example: 3DS authentication required
+          maxLength: 100
+          minLength: 1
+        errorDescription:
+          description: Error description
+          type: string
+          example: null
+          maxLength: 100
+          minLength: 1
+        status:
+          description: Text representation of transaction status. `3DS authentication required`
+          type: string
+          example: 'false'
+          maxLength: 20
+          minLength: 1
+        statementDescriptor:
+          description: Transaction descriptor text that appears on a customer's credit card statement
+          type: string
+          example: onlinemerchant.com
+          maxLength: 50
+          minLength: 1
+        redirectUrl:
+          description: Redirect URL
+          type: string
+          example: https://risk.payment.domain.com/sapi/3ds/544191344642360565
+          maxLength: 255
+          minLength: 1
+        type:
+          description: '[`Transaction type`](#appendix--enum--transaction-type)'
+          type: integer
+          example: 6
+      required:
+      - id
+      - date
+      - orderId
+      - code
+      - message
+      - errorDescription
+      - status
+      - statementDescriptor
+      - redirectUrl
+      - type
+    3DSSubmitWebhook:
+      type: object
+      description: Object containing the 3DS authentication webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc_3ds
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    3DSSubmitCard:
+      type: object
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+  securitySchemes:
+    accountId:
+      type: apiKey
+      in: header
+      name: x-auth-account-id
+    accountPassword:
+      type: apiKey
+      in: header
+      name: x-auth-account-password

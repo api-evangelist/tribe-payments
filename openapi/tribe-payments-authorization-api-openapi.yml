@@ -1,0 +1,159 @@
+openapi: 3.2.0
+info:
+  title: 'Open Banking: Bank Authorization API'
+  description: API documentation for OBB Bank services.
+  version: 2.0.0
+servers:
+- url: '%bank_api_url%/bank/v2'
+tags:
+- name: Authorization
+paths:
+  /init_authorization:
+    post:
+      summary: Initiate authorization
+      description: 'The "Initial authorization" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. The BANK sends `POST /init_authorization` request to TOB immediately after the user reaches the BANK. The TOB responds with the TPP and necessary consent information and adds the URL that needs to be used if the BANK does not want to provide access.
+
+        '
+      tags:
+      - Authorization
+      requestBody:
+        description: Request for initial authorization
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitAuthorizationRequest'
+      responses:
+        '200':
+          description: A successful response with the TPP and necessary consent information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitAuthorizationResponse'
+  /consent:
+    post:
+      summary: Save consent
+      description: '"Save consent" is the part of the [Authorization flow](#appendix--workflow--authorization) between the BANK and TOB. BANK sends the request with the consents (scopes) and accounts for which the consents were approved. When TOB gets a request from the BANK, it responds with the callback URL and the token.'
+      tags:
+      - Authorization
+      requestBody:
+        description: A request to save approved consents and accounts for which consents were approved.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveConsentRequest'
+      responses:
+        '200':
+          description: Successful response with the callback URL and generated token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveConsentResponse'
+  /token/revoke:
+    post:
+      summary: Revoke token
+      description: 'A request with a currently used access token is used to revoke the PSU token.
+
+        '
+      tags:
+      - Authorization
+      requestBody:
+        description: A Request with a currently used access token to revoke the PSU token.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+      responses:
+        '200':
+          description: Token revoked successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevokeTokenResponse'
+components:
+  schemas:
+    SaveConsentResponse:
+      type: object
+      properties:
+        callbackUrl:
+          type: string
+          description: A callback URL to redirect the user back to the TPP.
+          example: https://tpp.example.com/signed
+        accessToken:
+          type: string
+          description: A generated token used for accessing user data.
+          example: $#@%#$%^$@#$56445641653!@#$%3
+        validUntil:
+          type: string
+          description: The expiration date of the token.
+          example: '2020-10-13T12:54:58+00:00'
+    InitAuthorizationRequest:
+      type: object
+      properties:
+        requestUrl:
+          type: string
+          description: The URL with Oauth2 authorization information.
+          example: https://bank.example.com/obb/authorize?client_id=gt34tg3tg34tg&redirect_uri=http%3A%2F%2Ftpp.example.com%2Ftoken&state=1111111&response_type=code&scope=account.list+account.details
+      required:
+      - requestUrl
+    RevokeTokenResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Confirms token revocation by returning the success status.
+          example: success
+    RevokeTokenRequest:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: An access token used with PSU account(s).
+          example: defdb58e7a412c74ff9ee692ce9abe3f36d900676edf07ce90cdb30f1529a1e3c0209515a81d2a314f7e740415b1f0fa691e38fecdd380d7d1924f97300aa3232ce1a76e56c59b081e604003a2382b0b67f32500a70cb33af319e4668277a0ad7c72bf8b85708fd530591514d270dd8faa43349d251288ddb6a3a524d0aad6
+    InitAuthorizationResponse:
+      type: object
+      properties:
+        tppName:
+          type: string
+          description: The TPP name.
+        tppRegistrationNumber:
+          type: string
+          description: The TPP registration number.
+          example: UK-145441
+        scopes:
+          type: array
+          items:
+            type: string
+            description: Scopes to be approved.
+        cancelUrl:
+          type: string
+          description: The URL for canceling authorization.
+    SaveConsentRequest:
+      type: object
+      properties:
+        scopes:
+          type: array
+          items:
+            type: string
+            description: A list of approved consents.
+        requestUrl:
+          type: string
+          description: The used authorization URL.
+          example: https://bank.example.com/obb/authorize?client_id=gt34tg3tg34tg&redirect_uri=http%3A%2F%2Ftpp.example.com%2Ftoken&state=1111111&response_type=code&scope=account.list+account.details
+        ibans:
+          type: array
+          items:
+            type: string
+            description: A list of IBANs approved by the scope.
+        accountIds:
+          type: array
+          items:
+            type: string
+            description: A list of account IDs approved by the scope.
+        accountNumbers:
+          type: array
+          items:
+            type: string
+            description: A list of account numbers approved by the scope (possibly in combination with sort codes).

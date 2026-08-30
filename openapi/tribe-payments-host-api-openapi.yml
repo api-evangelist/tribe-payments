@@ -1,0 +1,696 @@
+openapi: 3.2.0
+info:
+  title: Device Directory Host API
+  version: 3.0.0
+tags:
+- name: Host
+paths:
+  /hosts/{hostId}/devices:
+    get:
+      tags:
+      - Host
+      summary: Get a list of devices assigned to host
+      description: Endpoint to fetch device list.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: created[from]
+        in: query
+        description: 'Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created[to]
+        in: query
+        description: 'Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: serialNumber
+        in: query
+        description: Filter by the device serial number.
+        required: false
+        schema:
+          type: string
+          example: SP000000004
+      - name: configurationTag
+        in: query
+        description: Filter by the device configuration tag.
+        required: false
+        schema:
+          type: string
+          example: test-v1-all-all
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: pageSize
+        in: query
+        description: The number of items per page.
+        required: false
+        schema:
+          type: integer
+          example: 50
+      responses:
+        '200':
+          description: Devices fetched successfully.
+          headers:
+            X-Total-Count:
+              description: The total number of devices available.
+              schema:
+                type: integer
+                example: 1000
+            X-Total-Pages:
+              description: The total number of pages available.
+              schema:
+                type: integer
+                example: 20
+            X-Current-Page:
+              description: The current page number.
+              schema:
+                type: integer
+                example: 1
+            X-Next-Page:
+              description: The next page number, if available.
+              schema:
+                type: integer
+                example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Host
+      summary: Create a device
+      description: Endpoint to create for a device.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: apk-version
+        in: header
+        required: true
+        schema:
+          type: string
+        description: Application version.
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRequest'
+      responses:
+        '201':
+          description: Device created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '422':
+          description: Unprocessable Entity, validation errors.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+  /hosts/{hostId}/devices/{deviceId}:
+    get:
+      tags:
+      - Host
+      summary: Get a device
+      description: Endpoint to fetch device.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        description: Unique identifier for the device.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device fetched successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '404':
+          description: Device not found.
+    put:
+      tags:
+      - Host
+      summary: Update a device
+      description: Endpoint to update device.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        description: Unique identifier for the device.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeviceRequest'
+      responses:
+        '200':
+          description: Device updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Device not found.
+        '422':
+          description: Unprocessable Entity, validation errors.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+    delete:
+      tags:
+      - Host
+      summary: Delete a device
+      description: Endpoint to delete device.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        description: Unique identifier for the device.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      responses:
+        '204':
+          description: Device deleted.
+        '404':
+          description: Device not found.
+  /hosts/{hostId}/terminals:
+    get:
+      tags:
+      - Host
+      summary: Get terminals
+      description: Endpoint to get terminals with page-based pagination.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: created[from]
+        in: query
+        description: 'Filter transactions from this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created[to]
+        in: query
+        description: 'Filter transactions up to this date (inclusive). Format: ISO 8601 (YYYY-MM-DDThh:mm:ss.sss±hh:mm).'
+        example: '2024-09-26T14:45:30.123+02:00'
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: limit
+        in: query
+        description: The number of items per page.
+        required: false
+        schema:
+          type: integer
+          example: 50
+      responses:
+        '200':
+          description: Terminals fetched successfully.
+          headers:
+            X-Total-Count:
+              description: The total number of terminals available.
+              schema:
+                type: integer
+                example: 1000
+            X-Total-Pages:
+              description: The total number of pages available.
+              schema:
+                type: integer
+                example: 20
+            X-Current-Page:
+              description: The current page number.
+              schema:
+                type: integer
+                example: 1
+            X-Next-Page:
+              description: The next page number, if available.
+              schema:
+                type: integer
+                example: 2
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Terminal'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Host
+      summary: Create a terminal
+      description: Endpoint to create a terminal.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTerminalRequest'
+      responses:
+        '201':
+          description: Terminal created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity, validation errors.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+  /hosts/{hostId}/terminals/{terminalId}:
+    get:
+      tags:
+      - Host
+      summary: Get a terminal
+      description: Endpoint to get a terminal.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: terminalId
+        in: path
+        description: Unique identifier for the terminal.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get a terminal.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '404':
+          description: Terminal not found.
+    put:
+      tags:
+      - Host
+      summary: Update a terminal
+      description: Update to get a terminal.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: terminalId
+        in: path
+        description: Unique identifier for the terminal.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTerminalRequest'
+      responses:
+        '200':
+          description: Get a terminal.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Terminal not found.
+        '422':
+          description: Unprocessable Entity, validation errors.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+    delete:
+      tags:
+      - Host
+      summary: Delete a terminal
+      description: Endpoint to delete a terminal.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: terminalId
+        in: path
+        description: Unique identifier for the terminal.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      responses:
+        '204':
+          description: Terminal deleted.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Terminal not found.
+  /hosts/{hostId}/terminals/{terminalId}/regenerate-activation-code:
+    post:
+      tags:
+      - Host
+      summary: Regenarate activation code for a terminal
+      description: Endpoint to regenerate activation code for a terminal.
+      parameters:
+      - name: hostId
+        in: path
+        description: Unique identifier for the host.
+        required: true
+        schema:
+          type: string
+      - name: terminalId
+        in: path
+        description: Unique identifier for the terminal.
+        required: true
+        schema:
+          type: string
+      - name: idempotency-key
+        in: header
+        description: A unique key to ensure idempotent requests. It should be a UUID or unique string to prevent duplicate transactions.
+        required: false
+        schema:
+          type: string
+          example: f5033990-1965-4bd6-86d5-cdc274164553
+      responses:
+        '200':
+          description: Terminal activation code regenerated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Terminal'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateDeviceRequest:
+      type: object
+      required:
+      - serialNumber
+      - externalReferenceId
+      - configurationTag
+      properties:
+        serialNumber:
+          type: string
+          description: Model version of device.
+          example: SP000000004
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        configurationTag:
+          type: string
+          description: Model version of device.
+          example: test-v1-all-all
+    Terminal:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Terminal.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        deviceId:
+          type: integer
+          description: Device id.
+          example: 1
+        activationCode:
+          type: string
+          description: Terminal activation code.
+          example: '000000'
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        activatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A description of the error that occurred.
+          example: Error occured.
+        violations:
+          type: array
+          description: List of validation errors or violations.
+          items:
+            $ref: '#/components/schemas/Violation'
+    ValidationProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          description: A URI reference that identifies the problem type.
+          example: https://example.com/probs/validation-error
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+          example: The request body contains invalid fields.
+        violations:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                description: The name of the field that failed validation.
+                example: field
+              message:
+                type: string
+                description: A description of the validation failure.
+                example: This value is too long. It should have {{ limit }} characters or less.
+    Violation:
+      type: object
+      properties:
+        propertyPath:
+          type: string
+          description: The path to the parameter or property where the violation occurred.
+        code:
+          type: string
+          description: Specific error code representing the violation.
+        message:
+          type: string
+          description: A message describing what went wrong.
+    Device:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Device.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        serialNumber:
+          type: string
+          description: Model version of device.
+          example: SP000000004
+        configurationTag:
+          type: string
+          description: Model version of device.
+          example: test-v1-all-all
+        hostId:
+          type: integer
+          description: Host unique identifier.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    UpdateDeviceRequest:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+          description: Model version of device.
+          example: SP000000004
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        configurationTag:
+          type: string
+          description: Model version of device.
+          example: test-v1-all-all
+    CreateTerminalRequest:
+      type: object
+      required:
+      - externalReferenceId
+      properties:
+        externalReferenceId:
+          type: string
+          description: Terminal external reference id.
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+        deviceId:
+          type: integer
+          description: The ID of device to which the terminal will be assigned. This ID must correspond to an existing device within the system.
+          example: 1

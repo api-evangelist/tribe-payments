@@ -1,0 +1,947 @@
+openapi: 3.2.0
+info:
+  title: 'Open Banking: TPP API v2 Bulk payments API'
+  description: Endpoints for interacting with ASPSPs accounts.
+  version: 2.0.0
+servers:
+- url: '%tpp_api_url%/tpp/v2'
+security:
+- tokenAuth: []
+- clientId: []
+tags:
+- name: Bulk payments
+  description: Endpoints for executing bulk payments.
+paths:
+  /bulk-payments:
+    post:
+      tags:
+      - Bulk payments
+      summary: Initiate a bulk payment.
+      description: "**Scope:** `payments.bulk` \n\n The action is initiated by the TPP and it is a part of the [Payment flow](#appendix--workflow--payment). \n\nIn the `TPP-Redirect-URI` header, the URL to which the PSU is redirected after payment confirmation needs to be provided.\nAdditional parameters indicating the `status` and `paymentId` (optionally, with a message) are added to the URL after the redirect.\nThis can be used to indicate if payment was confirmed successfully.\n\nIn the case of debtorAccount and creditorAccount, at least one of iban, bban or accountNumber with sortCode has to be provided, depending on the paymentScheme and type of payment that is being initiated."
+      parameters:
+      - name: TPP-Redirect-URI
+        in: header
+        required: true
+        description: The URI of the TPP, where the transaction flow redirects to after the successful SCA.
+        schema:
+          type: string
+          example: http://example.com/payment-initiated
+      - name: Accept-Language
+        in: header
+        description: "The SCA page is displayed based on the BCP47 language identifiers used in this standard HTTP header. Used when ASPSP requires a separate indication of language preference from the PSU’s browser’s Accept-Language. \n Only the most preferred language is being passed."
+        schema:
+          type: string
+          example: en-US
+      - name: Digest
+        in: header
+        description: A hash (SHA256, SHA512) of the request content encoded in base64.
+        required: false
+        schema:
+          type: string
+          example: SHA-256=LsUn8L4rScYKhYKf8eNr5QIbiB+1n9wFioBJ0C3XSU8=
+      - name: X-Request-Id
+        in: header
+        description: A randomly generated request ID - must be a valid UUID.
+        required: true
+        schema:
+          type: string
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+      - name: Signature
+        in: header
+        description: A calculated HTTP Signature for the request.
+        required: false
+        schema:
+          type: string
+          example: keyId="SN=3595A71FCB74E837959C3F0CF5F73A03B31F1952,CA=TribePayments CA",algorithm="rsa-sha256",headers="digest x-request-id x-client-id",signature="fNQmDCpFT5K8qAx0bNvNQsRfCm9mGKN/Srv7pufS07s8VuEGGk7HTVGVfwkYFrhpnXxtWimu77/3o+U+v61ZYsLdfOyKpv3v8u3jwee3warI6u+FyZbBvMFDnzWND68lecWB5OTdh6GlNQp8fQKp/ef/mJOVGhZ1wMVVTMH9kbH6/hVV6OoYpMs0kpIpfglnWXDJSiu8glTAGi7iC5n9eWCDunoH0a2QT2vr/gI6acEvPIin2Cqm8rIGCYk43G8K1fhdVaMDvhkyG76ld/IM7wVWzBkxiwrDYf1h3nDpzxPhJKHUv4d/BMcUd2JuVW+y5yYMd8RUnf6Ti5mmSEC90w=="
+      - name: Tpp-Signature-Certificate
+        in: header
+        description: A certificate that was used to sign the request. Provided as a base64 encoded value.
+        required: false
+        schema:
+          type: string
+          example: MIIFLjCCBBagAwIBAgIBEzANBgkqhkiG9w0BAQsFADCBszElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTEZMBcGA1UECgwQVHJpYmVQYXltZW50cyBDQTEPMA0GA1UEBwwGTG9uZG9uMQ8wDQYDVQQIDAZMb25kb24xCzAJBgNVBAYTAkdCMB4XDTIxMDkyODE1MTA0NVoXDTMxMDkyNjE1MTA0NVowgcsxCzAJBgNVBAYTAkdCMQ8wDQYDVQQIDAZMb25kb24xDzANBgNVBAcMBkxvbmRvbjEWMBQGA1UECgwNVHJpYmVQYXltZW50czEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTEZMBcGA1UEYQwQR0ItVFNULTAwMDAwMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANxZeuMSN1RyuMj/xNfwPzfW3ffepWQ4PYSE6kdja75EALosifw6n5RhDte9De57xxXnQAzyJcCGC/4GCpMfzecN/hcmSxHZhe8zbITqRmyLPXbcaEswDnGYRxIGNqGG2RWKZ6I0wSGK89t1Fw1Kz8ob8Lzh6k0UQNfujYOItTaVM4JCgKp5yjTb0HWcqp7X2Jb0eamMWfY5cxKolbJYSIlclt4loAhpEdCiqVJi5hc05+GrsSjchjNQzUpwot/GZFfm2faBPSR5sfxV0B+pXLehmzXdF7nA6Q2hAqXb8jjpbIXgDzcSRdaP7kNBLzXzNuUUUNf2LL4rFkTn5k2XgrcCAwEAAaOCATEwggEtMB0GA1UdDgQWBBSmFBRxrHvtWHkjDHg6Do6GrW5evDAfBgNVHSMEGDAWgBSmFBRxrHvtWHkjDHg6Do6GrW5evDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDBKBgNVHREEQzBBggtleGFtcGxlLmNvbYIPd3d3LmV4YW1wbGUuY29tghBtYWlsLmV4YW1wbGUuY29tgg9mdHAuZXhhbXBsZS5jb20wLAYJYIZIAYb4QgENBB8WHU9wZW5TU0wgR2VuZXJhdGVkIENlcnRpZmljYXRlMEQGCCsGAQUFBwEBBDgwNjA0BggrBgEFBQcwAYYoaHR0cDovL3RwcC12YWxpZGF0b3Iub3BlbmJhbmsubG9jYWwvb2NzcDATBgNVHSUEDDAKBggrBgEFBQcDCTANBgkqhkiG9w0BAQsFAAOCAQEAXgIfFYqAv/KKh/7l8XfnsQC6QXhQ6h+0Cm9lO03XxoUcZDGlPLYrjhaiTs7gfGcQjktBRnY+mSLMVfea+bSHI3tj+e8fkRNKryU2wLQpFfmTN2e7lF5tIc1KxHusxU5nSqRxVq/tmGx4Jt2G2lVmdjdrBGnpzbce8+YjPJGAHB+lxC7rX2qp8yNvFXWAEn8T6FjZN7/yBqIzIXUyGAuAuFB/zQm1O73JLhkeLJA6+5NYRgPGYMANjsMmQvUu68Ztk8wX1+HYXcHIQ6NHuDhjtzYwMPio9rr2uXBvIopKwkOivic6vHMb4pEiowZjBswIaN2ppjtn8Z+VFDb8/2fKyA==
+      - name: Date
+        in: header
+        required: false
+        description: A standard HTTP header element defines the date and time at which the request originated (as defined by RFC 7231).
+        schema:
+          type: string
+          example: Thu, 18 Apr 2024 11:02:45 GMT
+      requestBody:
+        description: The information about the executed payment.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkPayment'
+        required: true
+      responses:
+        '201':
+          description: A successful response indicating a payment initiation request was created. Payment execution does not start until the PSU performs the SCA.
+          headers:
+            X-Rate-Limit-Limit:
+              schema:
+                type: integer
+                example: 4
+              description: The number of requests allowed per day.
+              required: true
+            X-Rate-Limit-Remaining:
+              schema:
+                type: integer
+                example: 4
+              description: The number of remaining requests.
+              required: true
+            X-Rate-Limit-Reset:
+              schema:
+                type: integer
+                example: 3566
+              description: A number of seconds remaining until a limit reset.
+              required: true
+            X-Request-Id:
+              schema:
+                type: string
+                example: 39c97edf-7469-42af-96ca-169a902fd8a6
+              description: The same value as provided in the request.
+              required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: A generic error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized, e.g., expired token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '405':
+          description: A forbidden HTTP method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAllowedError'
+        '406':
+          description: An unsupported Accept header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableError'
+        '415':
+          description: An unsupported Content-Type header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnsupportedMediaTypeError'
+        '429':
+          description: Too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessExceededError'
+        '500':
+          description: An Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /bulk-payments/{paymentId}:
+    get:
+      tags:
+      - Bulk payments
+      summary: Retrieve content of an initiated bulk payment.
+      description: '**Scope:** `payments.bulk`'
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: The ID of a payment to retrieve.
+        schema:
+          type: string
+      - name: Digest
+        in: header
+        description: A hash (SHA256, SHA512) of the request content encoded in base64.
+        required: false
+        schema:
+          type: string
+          example: SHA-256=LsUn8L4rScYKhYKf8eNr5QIbiB+1n9wFioBJ0C3XSU8=
+      - name: X-Request-Id
+        in: header
+        description: A randomly generated request ID - must be a valid UUID.
+        required: true
+        schema:
+          type: string
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+      - name: Signature
+        in: header
+        description: A calculated HTTP Signature for the request.
+        required: false
+        schema:
+          type: string
+          example: keyId="SN=3595A71FCB74E837959C3F0CF5F73A03B31F1952,CA=TribePayments CA",algorithm="rsa-sha256",headers="digest x-request-id x-client-id",signature="fNQmDCpFT5K8qAx0bNvNQsRfCm9mGKN/Srv7pufS07s8VuEGGk7HTVGVfwkYFrhpnXxtWimu77/3o+U+v61ZYsLdfOyKpv3v8u3jwee3warI6u+FyZbBvMFDnzWND68lecWB5OTdh6GlNQp8fQKp/ef/mJOVGhZ1wMVVTMH9kbH6/hVV6OoYpMs0kpIpfglnWXDJSiu8glTAGi7iC5n9eWCDunoH0a2QT2vr/gI6acEvPIin2Cqm8rIGCYk43G8K1fhdVaMDvhkyG76ld/IM7wVWzBkxiwrDYf1h3nDpzxPhJKHUv4d/BMcUd2JuVW+y5yYMd8RUnf6Ti5mmSEC90w=="
+      - name: Tpp-Signature-Certificate
+        in: header
+        description: A certificate that was used to sign the request. Provided as a base64 encoded value.
+        required: false
+        schema:
+          type: string
+          example: MIIFLjCCBBagAwIBAgIBEzANBgkqhkiG9w0BAQsFADCBszElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTEZMBcGA1UECgwQVHJpYmVQYXltZW50cyBDQTEPMA0GA1UEBwwGTG9uZG9uMQ8wDQYDVQQIDAZMb25kb24xCzAJBgNVBAYTAkdCMB4XDTIxMDkyODE1MTA0NVoXDTMxMDkyNjE1MTA0NVowgcsxCzAJBgNVBAYTAkdCMQ8wDQYDVQQIDAZMb25kb24xDzANBgNVBAcMBkxvbmRvbjEWMBQGA1UECgwNVHJpYmVQYXltZW50czEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTEZMBcGA1UEYQwQR0ItVFNULTAwMDAwMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANxZeuMSN1RyuMj/xNfwPzfW3ffepWQ4PYSE6kdja75EALosifw6n5RhDte9De57xxXnQAzyJcCGC/4GCpMfzecN/hcmSxHZhe8zbITqRmyLPXbcaEswDnGYRxIGNqGG2RWKZ6I0wSGK89t1Fw1Kz8ob8Lzh6k0UQNfujYOItTaVM4JCgKp5yjTb0HWcqp7X2Jb0eamMWfY5cxKolbJYSIlclt4loAhpEdCiqVJi5hc05+GrsSjchjNQzUpwot/GZFfm2faBPSR5sfxV0B+pXLehmzXdF7nA6Q2hAqXb8jjpbIXgDzcSRdaP7kNBLzXzNuUUUNf2LL4rFkTn5k2XgrcCAwEAAaOCATEwggEtMB0GA1UdDgQWBBSmFBRxrHvtWHkjDHg6Do6GrW5evDAfBgNVHSMEGDAWgBSmFBRxrHvtWHkjDHg6Do6GrW5evDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDBKBgNVHREEQzBBggtleGFtcGxlLmNvbYIPd3d3LmV4YW1wbGUuY29tghBtYWlsLmV4YW1wbGUuY29tgg9mdHAuZXhhbXBsZS5jb20wLAYJYIZIAYb4QgENBB8WHU9wZW5TU0wgR2VuZXJhdGVkIENlcnRpZmljYXRlMEQGCCsGAQUFBwEBBDgwNjA0BggrBgEFBQcwAYYoaHR0cDovL3RwcC12YWxpZGF0b3Iub3BlbmJhbmsubG9jYWwvb2NzcDATBgNVHSUEDDAKBggrBgEFBQcDCTANBgkqhkiG9w0BAQsFAAOCAQEAXgIfFYqAv/KKh/7l8XfnsQC6QXhQ6h+0Cm9lO03XxoUcZDGlPLYrjhaiTs7gfGcQjktBRnY+mSLMVfea+bSHI3tj+e8fkRNKryU2wLQpFfmTN2e7lF5tIc1KxHusxU5nSqRxVq/tmGx4Jt2G2lVmdjdrBGnpzbce8+YjPJGAHB+lxC7rX2qp8yNvFXWAEn8T6FjZN7/yBqIzIXUyGAuAuFB/zQm1O73JLhkeLJA6+5NYRgPGYMANjsMmQvUu68Ztk8wX1+HYXcHIQ6NHuDhjtzYwMPio9rr2uXBvIopKwkOivic6vHMb4pEiowZjBswIaN2ppjtn8Z+VFDb8/2fKyA==
+      - name: Date
+        in: header
+        required: false
+        description: A standard HTTP header element defines the date and time at which the request originated (as defined by RFC 7231).
+        schema:
+          type: string
+          example: Thu, 18 Apr 2024 11:02:45 GMT
+      responses:
+        '200':
+          description: A successful response returns the content of a previously initiated payment.
+          headers:
+            X-Rate-Limit-Limit:
+              schema:
+                type: integer
+                example: 4
+              description: The number of requests allowed per day.
+              required: true
+            X-Rate-Limit-Remaining:
+              schema:
+                type: integer
+                example: 4
+              description: The number of remaining requests.
+              required: true
+            X-Rate-Limit-Reset:
+              schema:
+                type: integer
+                example: 3566
+              description: A number of seconds remaining until a limit reset.
+              required: true
+            X-Request-Id:
+              schema:
+                type: string
+                example: 39c97edf-7469-42af-96ca-169a902fd8a6
+              description: The same value as provided in the request.
+              required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SinglePayment'
+        '400':
+          description: A generic error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized, e.g., expired token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '405':
+          description: A forbidden HTTP method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAllowedError'
+        '406':
+          description: An unsupported Accept header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableError'
+        '429':
+          description: Too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessExceededError'
+        '500':
+          description: An Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+  /bulk-payments/{paymentId}/status:
+    get:
+      tags:
+      - Bulk payments
+      summary: Retrieve current status of an initiated bulk payment.
+      description: '**Scope:** `payments.bulk`'
+      parameters:
+      - name: paymentId
+        in: path
+        required: true
+        description: The ID of a payment to retrieve.
+        schema:
+          type: string
+      - name: Digest
+        in: header
+        description: A hash (SHA256, SHA512) of the request content encoded in base64.
+        required: false
+        schema:
+          type: string
+          example: SHA-256=LsUn8L4rScYKhYKf8eNr5QIbiB+1n9wFioBJ0C3XSU8=
+      - name: X-Request-Id
+        in: header
+        description: A randomly generated request ID - must be a valid UUID.
+        required: true
+        schema:
+          type: string
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+      - name: Signature
+        in: header
+        description: A calculated HTTP Signature for the request.
+        required: false
+        schema:
+          type: string
+          example: keyId="SN=3595A71FCB74E837959C3F0CF5F73A03B31F1952,CA=TribePayments CA",algorithm="rsa-sha256",headers="digest x-request-id x-client-id",signature="fNQmDCpFT5K8qAx0bNvNQsRfCm9mGKN/Srv7pufS07s8VuEGGk7HTVGVfwkYFrhpnXxtWimu77/3o+U+v61ZYsLdfOyKpv3v8u3jwee3warI6u+FyZbBvMFDnzWND68lecWB5OTdh6GlNQp8fQKp/ef/mJOVGhZ1wMVVTMH9kbH6/hVV6OoYpMs0kpIpfglnWXDJSiu8glTAGi7iC5n9eWCDunoH0a2QT2vr/gI6acEvPIin2Cqm8rIGCYk43G8K1fhdVaMDvhkyG76ld/IM7wVWzBkxiwrDYf1h3nDpzxPhJKHUv4d/BMcUd2JuVW+y5yYMd8RUnf6Ti5mmSEC90w=="
+      - name: Tpp-Signature-Certificate
+        in: header
+        description: A certificate that was used to sign the request. Provided as a base64 encoded value.
+        required: false
+        schema:
+          type: string
+          example: MIIFLjCCBBagAwIBAgIBEzANBgkqhkiG9w0BAQsFADCBszElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTEZMBcGA1UECgwQVHJpYmVQYXltZW50cyBDQTEPMA0GA1UEBwwGTG9uZG9uMQ8wDQYDVQQIDAZMb25kb24xCzAJBgNVBAYTAkdCMB4XDTIxMDkyODE1MTA0NVoXDTMxMDkyNjE1MTA0NVowgcsxCzAJBgNVBAYTAkdCMQ8wDQYDVQQIDAZMb25kb24xDzANBgNVBAcMBkxvbmRvbjEWMBQGA1UECgwNVHJpYmVQYXltZW50czEZMBcGA1UECwwQT3BlbmJhbmtpbmcgVGVhbTElMCMGA1UEAwwcVHBwU2FuZGJveCBRc2VhbCBDZXJ0aWZpY2F0ZTElMCMGCSqGSIb3DQEJARYWaW5mb0B0cmliZXBheW1lbnRzLmNvbTEZMBcGA1UEYQwQR0ItVFNULTAwMDAwMDAwMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANxZeuMSN1RyuMj/xNfwPzfW3ffepWQ4PYSE6kdja75EALosifw6n5RhDte9De57xxXnQAzyJcCGC/4GCpMfzecN/hcmSxHZhe8zbITqRmyLPXbcaEswDnGYRxIGNqGG2RWKZ6I0wSGK89t1Fw1Kz8ob8Lzh6k0UQNfujYOItTaVM4JCgKp5yjTb0HWcqp7X2Jb0eamMWfY5cxKolbJYSIlclt4loAhpEdCiqVJi5hc05+GrsSjchjNQzUpwot/GZFfm2faBPSR5sfxV0B+pXLehmzXdF7nA6Q2hAqXb8jjpbIXgDzcSRdaP7kNBLzXzNuUUUNf2LL4rFkTn5k2XgrcCAwEAAaOCATEwggEtMB0GA1UdDgQWBBSmFBRxrHvtWHkjDHg6Do6GrW5evDAfBgNVHSMEGDAWgBSmFBRxrHvtWHkjDHg6Do6GrW5evDAJBgNVHRMEAjAAMAsGA1UdDwQEAwIFoDBKBgNVHREEQzBBggtleGFtcGxlLmNvbYIPd3d3LmV4YW1wbGUuY29tghBtYWlsLmV4YW1wbGUuY29tgg9mdHAuZXhhbXBsZS5jb20wLAYJYIZIAYb4QgENBB8WHU9wZW5TU0wgR2VuZXJhdGVkIENlcnRpZmljYXRlMEQGCCsGAQUFBwEBBDgwNjA0BggrBgEFBQcwAYYoaHR0cDovL3RwcC12YWxpZGF0b3Iub3BlbmJhbmsubG9jYWwvb2NzcDATBgNVHSUEDDAKBggrBgEFBQcDCTANBgkqhkiG9w0BAQsFAAOCAQEAXgIfFYqAv/KKh/7l8XfnsQC6QXhQ6h+0Cm9lO03XxoUcZDGlPLYrjhaiTs7gfGcQjktBRnY+mSLMVfea+bSHI3tj+e8fkRNKryU2wLQpFfmTN2e7lF5tIc1KxHusxU5nSqRxVq/tmGx4Jt2G2lVmdjdrBGnpzbce8+YjPJGAHB+lxC7rX2qp8yNvFXWAEn8T6FjZN7/yBqIzIXUyGAuAuFB/zQm1O73JLhkeLJA6+5NYRgPGYMANjsMmQvUu68Ztk8wX1+HYXcHIQ6NHuDhjtzYwMPio9rr2uXBvIopKwkOivic6vHMb4pEiowZjBswIaN2ppjtn8Z+VFDb8/2fKyA==
+      - name: Date
+        in: header
+        required: false
+        description: A standard HTTP header element defines the date and time at which the request originated (as defined by RFC 7231).
+        schema:
+          type: string
+          example: Thu, 18 Apr 2024 11:02:45 GMT
+      responses:
+        '200':
+          description: A successful response returns the content with the transaction status indication. The transaction status is filled with codes of the ISO 20022.
+          headers:
+            X-Rate-Limit-Limit:
+              schema:
+                type: integer
+                example: 4
+              description: The number of requests allowed per day.
+              required: true
+            X-Rate-Limit-Remaining:
+              schema:
+                type: integer
+                example: 4
+              description: The number of remaining requests.
+              required: true
+            X-Rate-Limit-Reset:
+              schema:
+                type: integer
+                example: 3566
+              description: A number of seconds remaining until a limit reset.
+              required: true
+            X-Request-Id:
+              schema:
+                type: string
+                example: 39c97edf-7469-42af-96ca-169a902fd8a6
+              description: The same value as provided in the request.
+              required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionStatus'
+        '400':
+          description: A generic error response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized, e.g., expired token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Forbidden, not allowed to access the resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '405':
+          description: A forbidden HTTP method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAllowedError'
+        '406':
+          description: An unsupported Accept header.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableError'
+        '429':
+          description: Too many requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessExceededError'
+        '500':
+          description: An Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+components:
+  schemas:
+    PaymentResponse:
+      type: object
+      description: A JSON body.
+      required:
+      - paymentId
+      - transactionStatus
+      properties:
+        paymentId:
+          type: string
+          description: The unique payment identifier.
+          example: 1234-wertiq-983
+          maxLength: 255
+        transactionStatus:
+          type: string
+          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
+          example: RCVD
+          minLength: 4
+          maxLength: 4
+        _links:
+          $ref: '#/components/schemas/PaymentLinks'
+    PaymentLinks:
+      type: object
+      description: Contains redirect information for a payment confirmation.
+      properties:
+        scaRedirect:
+          $ref: '#/components/schemas/ScaRedirect'
+    AccountReference:
+      type: object
+      description: The identifier of the addressed account.
+      properties:
+        iban:
+          description: The IBAN of the account.
+          type: string
+          example: GB29NWBK60161331926819
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          example: '29823529'
+          maxLength: 30
+        accountNumber:
+          type: string
+          description: 'The account number. Used to identify the account in the United Kingdom.
+
+            '
+          minLength: 8
+          maxLength: 8
+          example: '29823529'
+        sortCode:
+          type: string
+          description: The sort code. Used to identify the account in the United Kingdom.
+          minLength: 6
+          maxLength: 6
+          example: '902127'
+    UnsupportedMediaTypeError:
+      type: object
+      description: An unsupported `Content-Type` header.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: REQUEST_FORMAT_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Only application/json supported
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    TransactionStatus:
+      type: object
+      description: Contains status of the payment.
+      properties:
+        transactionStatus:
+          type: string
+          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
+          example: RCVD
+          minLength: 4
+          maxLength: 4
+    NotFoundError:
+      type: object
+      description: Not found.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: RESOURCE_NOT_FOUND
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Account not found
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    BulkPayment:
+      type: object
+      description: A JSON structure initiating a bulk payment.
+      required:
+      - paymentScheme
+      properties:
+        paymentScheme:
+          type: string
+          example: SCT
+          description: Describes which payment scheme is used. See [Payment Schemes](#appendix--enum--payment-schemes) for possible values.
+          enum:
+          - FPS
+          - BACS
+          - CHAPS
+          - SCT
+          - SCTI
+          - SWIFT
+        debtorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        debtorName:
+          type: string
+          description: The name of debtor/sender.
+          example: John Doe
+          maxLength: 70
+        payments:
+          type: array
+          description: The array of single bulk payment entries.
+          items:
+            $ref: '#/components/schemas/BulkSinglePayment'
+    NotAcceptableError:
+      type: object
+      description: An unsupported `Accept` header.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: REQUESTED_FORMATS_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Only application/json supported
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    EmptyAdditionalErrors:
+      type: array
+      example: []
+      items:
+        $ref: '#/components/schemas/AdditionalError'
+    NotAllowedError:
+      type: object
+      description: A forbidden HTTP method.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: SERVICE_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Used HTTP method not supported for current action
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    ForbiddenError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: ROLE_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Role not valid for current resource
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    InternalServerError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: INTERNAL_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Internal Error
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    UnauthorizedError:
+      type: object
+      description: The unauthorized error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: TOKEN_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: OAuth token not valid
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    Error:
+      type: object
+      description: The generic error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          type: array
+          description: Might be used if more than one error is to be communicated.
+          items:
+            $ref: '#/components/schemas/AdditionalError'
+    SinglePayment:
+      type: object
+      description: A JSON structure initiating a single payment.
+      required:
+      - instructedAmount
+      - creditorAccount
+      - creditorName
+      properties:
+        paymentScheme:
+          type: string
+          example: SCT
+          description: Describes which payment scheme is used. See [Payment Schemes](#appendix--enum--payment-schemes) for possible values.
+          enum:
+          - FPS
+          - BACS
+          - CHAPS
+          - SCT
+          - SCTI
+          - SWIFT
+        debtorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        debtorName:
+          type: string
+          description: The name of debtor/sender.
+          example: John Doe
+          maxLength: 70
+        creditorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        creditorName:
+          type: string
+          description: The name of creditor/receiver.
+          example: John Doe
+          maxLength: 70
+        remittanceInformationUnstructured:
+          type: string
+          description: An unstructured reference of the transaction.
+          example: Ref1234
+          maxLength: 140
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/CreditorAddress'
+        instructedAmount:
+          $ref: '#/components/schemas/StructuredAmount'
+        creditorBank:
+          $ref: '#/components/schemas/BankReference'
+    AccessExceededError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: ACCESS_EXCEEDED
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Exceeded API limit
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    BulkSinglePayment:
+      type: object
+      description: A JSON structure of a single payment inside a bulk payment.
+      required:
+      - instructedAmount
+      - creditorAccount
+      - creditorName
+      properties:
+        creditorAccount:
+          $ref: '#/components/schemas/AccountReference'
+        creditorName:
+          type: string
+          description: The name of creditor/receiver.
+          example: John Doe
+          maxLength: 70
+        remittanceInformationUnstructured:
+          type: string
+          description: An unstructured reference of the transaction.
+          example: Ref1234
+          maxLength: 140
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/CreditorAddress'
+        instructedAmount:
+          $ref: '#/components/schemas/StructuredAmount'
+    ScaRedirect:
+      type: object
+      description: The link to which to redirect the PSU browser for a SCA confirmation of the payment.
+      properties:
+        href:
+          type: string
+          description: A URL of the scaRedirect.
+          example: https://www.testbank.com/asdfasdfasdf
+    StructuredAmount:
+      description: An amount with a currency.
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: The amount of funds in the balance. The decimal separator is dot.
+          example: '123.22'
+          maxLength: 14
+        currency:
+          type: string
+          description: The account currency in ISO 4217 alpha-3 currency code.
+          example: EUR
+          maxLength: 3
+          minLength: 3
+    RemittanceInformationStructured:
+      type: object
+      required:
+      - reference
+      description: The reference as contained in the structured remittance reference structure.
+      properties:
+        reference:
+          type: string
+          description: The actual reference.
+          example: ORD123
+          maxLength: 35
+        referenceType:
+          type: string
+          description: The remittance information type.
+          example: UNSTRUCTURED
+          maxLength: 35
+    AdditionalError:
+      type: object
+      description: The error object providing additional error information.
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        details:
+          type: string
+          description: The longer, human-readable description of the error.
+          example: Longer description of error
+          maxLength: 500
+    CreditorAddress:
+      type: object
+      description: An address of the account holder.
+      required:
+      - country
+      properties:
+        streetName:
+          type: string
+          description: Street name.
+          example: Random st.
+          maxLength: 70
+        buildingNumber:
+          type: string
+          description: Building number.
+          example: '22'
+        townName:
+          type: string
+          description: Name of a town/city.
+          example: London
+        postCode:
+          type: string
+          description: Postal code.
+          example: LE5 2QF
+        country:
+          type: string
+          description: Two characters as defined by ISO 3166.
+          maxLength: 2
+          minLength: 2
+          example: GB
+    BankReference:
+      type: object
+      description: The information about the payment receiver's institution. Mandatory to use with the [SWIFT](#appendix--enum--payment-schemes) payment scheme.
+      properties:
+        name:
+          type: string
+          description: The name of the institution.
+          example: Example bank
+        bic:
+          type: string
+          description: The Business Identifier Code is an international standard for routing business transactions and identifying business parties.
+          example: FAKEBICX
+        country:
+          type: string
+          description: Two characters as defined by ISO 3166.
+          maxLength: 2
+          minLength: 2
+          example: GB
+  securitySchemes:
+    tokenAuth:
+      type: http
+      scheme: bearer
+    clientId:
+      type: apiKey
+      in: header
+      name: X-Client-ID
