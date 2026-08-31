@@ -34,7 +34,7 @@ tags:
 - Payment Processing
 - Open Banking
 - Account-to-Account
-- Banking as a Service
+- Banking-as-a-Service
 - Fraud
 - Point-of-Sale
 tags_raw:
@@ -183,7 +183,7 @@ apis:
   humanURL: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
   tags:
   - Payments
-  - Banking as a Service
+  - Banking-as-a-Service
   - Digital Banking
   - Fintech
   - United Kingdom
@@ -270,6 +270,8 @@ apis:
   description: The Accounts API from Tribe Payments — 4 operation(s) for accounts.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -402,6 +404,8 @@ apis:
   description: Endpoints for executing bulk payments.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Bulk Payments
+  tags_raw:
   - Bulk payments
   properties:
   - type: OpenAPI
@@ -737,6 +741,8 @@ apis:
   description: Endpoints for confirming funds in the account.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Funds Confirmation
+  tags_raw:
   - Funds confirmation
   properties:
   - type: OpenAPI
@@ -769,7 +775,8 @@ apis:
   name: Tribe Payments General API
   description: Endpoints for interacting with the general data.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
-  tags:
+  tags: []
+  tags_raw:
   - General
   properties:
   - type: OpenAPI
@@ -836,6 +843,8 @@ apis:
   description: The Host API from Tribe Payments — 5 operation(s) for host.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Hosts
+  tags_raw:
   - Host
   properties:
   - type: OpenAPI
@@ -903,6 +912,8 @@ apis:
   description: The Order status API from Tribe Payments — 2 operation(s) for order status.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Order Status
+  tags_raw:
   - Order status
   properties:
   - type: OpenAPI
@@ -1200,6 +1211,8 @@ apis:
   description: The Process API from Tribe Payments — 2 operation(s) for process.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Processes
+  tags_raw:
   - Process
   properties:
   - type: OpenAPI
@@ -1399,6 +1412,8 @@ apis:
   description: The Transactions API from Tribe Payments — 2 operation(s) for transactions.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
