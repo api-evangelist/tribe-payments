@@ -34,7 +34,7 @@ tags:
 - Payment Processing
 - Open Banking
 - Account-to-Account
-- Banking-as-a-Service
+- Banking as a Service
 - Fraud
 - Point-of-Sale
 tags_raw:
@@ -183,7 +183,7 @@ apis:
   humanURL: https://doc.tribepayments.com/docs/bank-connect--payment-services-api--v1
   tags:
   - Payments
-  - Banking-as-a-Service
+  - Banking as a Service
   - Digital Banking
   - Fintech
   - United Kingdom
