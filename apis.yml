@@ -158,7 +158,7 @@ apis:
   - Payments
   - Acquiring
   - Point-of-Sale
-  - Terminals
+  - Terminal
   - United Kingdom
   tags_raw:
   - Payments
@@ -722,6 +722,8 @@ apis:
   description: The Funds API from Tribe Payments — 1 operation(s) for funds.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Fund
+  tags_raw:
   - Funds
   properties:
   - type: OpenAPI
@@ -961,6 +963,8 @@ apis:
   description: The Payment API from Tribe Payments — 4 operation(s) for payment.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Payments
+  tags_raw:
   - Payment
   properties:
   - type: OpenAPI
@@ -1261,6 +1265,8 @@ apis:
   description: The Processor API from Tribe Payments — 5 operation(s) for processor.
   humanURL: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   tags:
+  - Processors
+  tags_raw:
   - Processor
   properties:
   - type: OpenAPI
@@ -1462,6 +1468,8 @@ apis:
   description: The P2 P API from Tribe Payments — 2 operation(s) for p2 p.
   humanURL: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
   tags:
+  - P2P
+  tags_raw:
   - P2 P
   properties:
   - type: OpenAPI
