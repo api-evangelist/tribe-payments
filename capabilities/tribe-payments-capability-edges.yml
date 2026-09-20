@@ -100,7 +100,8 @@ edges:
   reason: Card transaction capture (post-authorisation) on the merchant acquiring / credit-card processing
     API, i.e. card transaction processing rather than any lending or accounting capability.
 - tag: P2P
-  spec_file: tribe-payments-p2p-api-openapi.yml
+  spec_file: tribe-payments-p2-p-api-openapi.yml
+  reanchored_from: tribe-payments-p2p-api-openapi.yml
   capability_id: BC-1340
   capability_id_l1: BC-1340
   capability_name: Payments & Card Management
