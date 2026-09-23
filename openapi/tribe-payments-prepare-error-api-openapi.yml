@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Prepare error
-      summary: ''
+      summary: Postprepare error
       operationId: postprepare-error
       requestBody:
         description: ''
@@ -26,33 +26,9 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
 components:
   schemas:
-    PrepareError:
-      title: prepare-error
-      properties:
-        webhook:
-          $ref: '#/components/schemas/PrepareErrorWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error message
-          type: string
-          example: Error occurred
-          maxLength: 255
-          minLength: 1
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrepareErrorViolations'
-      type: object
-      required:
-      - requestId
-      - message
     PrepareErrorWebhook:
       type: object
       properties:
@@ -86,6 +62,31 @@ components:
           example: Company is disabled
           maxLength: 100
           minLength: 1
+    PrepareError:
+      title: prepare-error
+      properties:
+        webhook:
+          $ref: '#/components/schemas/PrepareErrorWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error message
+          type: string
+          example: Error occurred
+          maxLength: 255
+          minLength: 1
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrepareErrorViolations'
+      type: object
+      required:
+      - requestId
+      - message
   securitySchemes:
     accountId:
       type: apiKey

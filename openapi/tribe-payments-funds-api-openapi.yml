@@ -8,13 +8,11 @@ tags:
 paths:
   /v2_funds_confirmations:
     post:
-      summary: Confirmation of funds.
-      description: '"Confirmation of funds" is initiated by the request from TPP. It is a part of the [Get data flow](#appendix--workflow--get-data) between the BANK and TOB.
+      summary: Confirmation of funds
+      description: '"Confirmation of funds" is initiated by the request from TPP. It is a part of the Get data flow between the BANK and TOB.
 
 
-        It can be used by CBPII to confirm the amount of funds available in the account. Funds can only be confirmed against the currency of the account. This action does not reserve an amount requested in the account but only indicates if the requested amount is present at the time of the API call.
-
-        '
+        It can be used by CBPII to confirm the amount of funds available in the account. Funds can only be confirmed against the currency of the account. This action does not reserve an amount requested in the account but only indicates if the requested amount is present at the time of the API call.'
       tags:
       - Funds
       requestBody:
@@ -44,6 +42,8 @@ paths:
                     description: Indicates if the requested amount is available in the account.
                 required:
                 - funds_available
+      operationId: postV2FundsConfirmations
+      x-operation-id-source: derived
 components:
   schemas:
     Amount:

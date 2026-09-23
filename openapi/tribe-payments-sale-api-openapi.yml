@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
   title: Tribe Payments Sale API
-  version: '1.0'
-  description: 'Operations tagged Sale across 4 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json, tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json, tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json. Each path carries the servers of the definition it was published in.'
+  version: 3.0.0
+  description: 'Operations tagged Sale across 2 of this provider''s published API definitions: tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json, tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: http://127.0.0.1:10010/v3
 security:
@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Sale
-      summary: ''
+      summary: Postsale
       operationId: postsale
       requestBody:
         description: ''
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /sale:
     post:
       tags:
       - Sale
-      summary: ''
+      summary: Postsale
       operationId: postsale
       requestBody:
         description: "To charge the card directly, make a Sale transaction. Upon successful Sale transaction,\n                funds are transferred from the cardholder to the merchant, and a transaction record is created.\n                In some cases, a 3DS authentication procedure is required to successfully complete such an action.\n                For more details, please refer to [`3DS required`](#webhooks--3ds-authentication-required).\n                After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                For more details, refer to the [`Sale`](#webhooks--sale) webhook."
@@ -65,10 +66,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    Sale:
+      title: sale
+      properties:
+        webhook:
+          $ref: '#/components/schemas/SaleWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/SaleTransaction'
+        card:
+          $ref: '#/components/schemas/SaleCard'
+      type: object
+      required:
+      - requestId
     SaleTransaction:
       type: object
       description: Object containing data of the Sale transaction
@@ -146,18 +166,6 @@ components:
       - errorDescription
       - status
       - type
-    SaleCard:
-      type: object
-      description: Object containing the Sale transaction card details
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
     SaleWebhook:
       type: object
       description: Object containing the Sale webhook data
@@ -177,50 +185,18 @@ components:
       required:
       - id
       - type
-    Sale:
-      title: sale
-      properties:
-        webhook:
-          $ref: '#/components/schemas/SaleWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction'
-        card:
-          $ref: '#/components/schemas/SaleCard'
+    SaleCard:
       type: object
-      required:
-      - requestId
-    violationObjectForbidden:
-      title: Validation object
+      description: Object containing the Sale transaction card details
       properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
           type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
           maxLength: 50
           minLength: 1
-          example: Company is disabled
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
+      required:
+      - hash
     SaleTransaction_2:
       type: object
       description: Object containing data of the Sale transaction
@@ -715,6 +691,85 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
+    SaleCard_2:
+      type: object
+      description: Object containing the Sale transaction card details
+      properties:
+        number:
+          description: Customer’s card number
+          type: string
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        expirationMonth:
+          description: Card expiry month
+          type: integer
+          example: 12
+        expirationYear:
+          description: Card expiry year. Must be within the next 50 years
+          type: integer
+          example: 2028
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        holderName:
+          description: Customer’s full name
+          type: string
+          example: John Doe von Soap
+          maxLength: 26
+          minLength: 3
+      required:
+      - number
+      - expirationMonth
+      - expirationYear
+      - holderName
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    SaleShippingLocation:
+      type: object
+      description: Object containing the Sale transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
     SaleRecurring:
       type: object
       description: Object containing data of the recurring Sale payment
@@ -733,6 +788,20 @@ components:
           example: '20230901'
           maxLength: 8
           minLength: 8
+    Sale_2:
+      title: sale
+      properties:
+        transaction:
+          $ref: '#/components/schemas/SaleTransaction_2'
+        card:
+          $ref: '#/components/schemas/SaleCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/SaleShippingLocation'
+        customer:
+          $ref: '#/components/schemas/SaleCustomer'
+        recurring:
+          $ref: '#/components/schemas/SaleRecurring'
+      type: object
     responseUnauthorized:
       properties:
         requestId:
@@ -752,26 +821,6 @@ components:
           items:
             type: string
           example: []
-      type: object
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
       type: object
     SaleCustomer:
       type: object
@@ -839,58 +888,6 @@ components:
           minLength: 7
       required:
       - ip
-    SaleCard_2:
-      type: object
-      description: Object containing the Sale transaction card details
-      properties:
-        number:
-          description: Customer’s card number
-          type: string
-          example: '5099993000018223'
-          maxLength: 22
-          minLength: 13
-        expirationMonth:
-          description: Card expiry month
-          type: integer
-          example: 12
-        expirationYear:
-          description: Card expiry year. Must be within the next 50 years
-          type: integer
-          example: 2028
-        securityCode:
-          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
-          type: string
-          example: '000'
-          maxLength: 4
-          minLength: 3
-        holderName:
-          description: Customer’s full name
-          type: string
-          example: John Doe von Soap
-          maxLength: 26
-          minLength: 3
-      required:
-      - number
-      - expirationMonth
-      - expirationYear
-      - holderName
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
     violationObject:
       title: Validation object
       properties:
@@ -915,121 +912,31 @@ components:
           minLength: 1
           example: Value is not provided
       type: object
-    Sale_2:
-      title: sale
+    violationObjectForbidden:
+      title: Validation object
       properties:
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction_2'
-        card:
-          $ref: '#/components/schemas/SaleCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/SaleShippingLocation'
-        customer:
-          $ref: '#/components/schemas/SaleCustomer'
-        recurring:
-          $ref: '#/components/schemas/SaleRecurring'
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
       type: object
-    SaleShippingLocation:
-      type: object
-      description: Object containing the Sale transaction shipping location data
-      properties:
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address
-          type: string
-          example: Address 11
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-    SaleShippingLocation_2:
-      type: object
-      properties:
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address
-          type: string
-          example: Address 11
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code
-          type: string
-          example: GU16 7HF
-          maxLength: 10
-          minLength: 4
-    responseSuccess_2:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-      type: object
-    PaymentMethod:
-      type: object
-      properties:
-        type:
-          description: Payment method type.
-          type: string
-          enum:
-          - googlePay
-          - applePay
-          example: googlePay
-        token:
-          description: The base64-encoded Google Pay or Apple Pay token.
-          type: string
-          example: eyJzaWdUjnXFx1AzZFwifSJ9XFx1AzZFwifSJ9XFx1AzZFwXFx1AzZFwifSJ9XFx1AzZFwifSJ9XFx1AzZFwifSJ9ifSJ9XFx1AzZFwifSJ9XFx1AzZFwifSJ9...XFx1AzZFwifSJ9
-          minLength: 200
-          maxLength: 5000
-      required:
-      - type
-      - token
-    responseError_2:
+    responseError:
       title: Error response
       properties:
         requestId:
           description: Request ID
           type: string
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
         message:
           description: Error response
           type: string
@@ -1039,290 +946,25 @@ components:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/violationObject_2'
+            $ref: '#/components/schemas/violationObject'
       type: object
-    SaleCustomer_2:
-      type: object
+    responseForbidden:
       properties:
-        id:
-          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
-          type: string
-          example: user123
-          maxLength: 50
-          minLength: 1
-        phone:
-          description: Customer’s phone number. Only numbers and, optionally, "+" symbol can be used
-          type: string
-          example: 0123456789
-          maxLength: 20
-          minLength: 3
-        email:
-          description: Customer’s email address
-          type: string
-          example: email@email.com
-          maxLength: 50
-          minLength: 6
-        dateOfBirth:
-          description: 'Customer’s date of birth. ISO 8601 format: YYYY-MM-DD. Required by some providers or when MCC is 6012'
-          type: string
-          example: '2000-01-01'
-          maxLength: 10
-          minLength: 10
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is true
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        name:
-          description: Customer’s name
-          type: string
-          example: Name
-          maxLength: 26
-          minLength: 3
-        address:
-          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is true
-          type: string
-          example: Address
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is true
-          type: string
-          example: GU16 7HF
-          maxLength: 10
-          minLength: 4
-        ip:
-          description: IPv4 or IPv6 address
-          type: string
-          example: 1.1.1.1
-          maxLength: 40
-          minLength: 7
-      required:
-      - email
-      - countryCode
-      - name
-      - ip
-    violationObject_2:
-      title: Validation object
-      properties:
-        propertyPath:
-          description: Path of parameter causing an error. Null for general errors
-          type:
-          - string
-          - 'null'
-          example: parameterName
-          maxLength: 50
-          minLength: 1
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '2001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Value is not provided
-      type: object
-    Sale_3:
-      title: Sale
-      properties:
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction_3'
-        shippingLocation:
-          $ref: '#/components/schemas/SaleShippingLocation_2'
-        customer:
-          $ref: '#/components/schemas/SaleCustomer_2'
-        paymentMethod:
-          $ref: '#/components/schemas/PaymentMethod'
-      type: object
-      required: []
-    SaleTransaction_3:
-      type: object
-      properties:
-        amount:
-          description: Number in minor units, e.g. cents. For customer’s card verification, use 0
-          type: string
-          example: '123'
-          maxLength: 13
-          minLength: 1
-        currencyCode:
-          description: Currency ISO 4217 code
-          type: string
-          example: EUR
-          maxLength: 3
-          minLength: 3
-        orderId:
-          description: Custom merchant’s reference
-          type: string
-          example: '32131231231241'
-          maxLength: 32
-          minLength: 1
-        descriptor:
-          description: Custom descriptor
-          type: string
-          example: descriptor
-          maxLength: 32
-          minLength: 1
-        avsCheck:
-          description: 'Possible values: true or false. If the value is set to true, the Address Verification Service will be initiated'
-          type: boolean
-          example: true
-        typeOf3ds:
-          description: '[`3DS Type`]\n<table>\n<thead>\n<tr>\n<th>KEY</th>\n<th>3DS Type</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Attempt 3DS</td>\n<td>Processing transactions regardless card enrollment in 3DS.</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Soft 3DS</td>\n<td>Processing transactions with cards enrolled with 3DS.</td>\n</tr>\n<tr>\n<td>3</td>\n<td>No 3DS</td>\n<td>Processing transactions by skipping card 3DS verification at all.</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Hard 3DS</td>\n<td>Processing transactions only with full 3DS verification by the cardholder.</td>\n</tr>\n</tbody>\n</table>'
-          type: integer
-          example: 2
-          maxLength: 1
-          minLength: 1
-        deviceChannel:
-          description: Device channel value. The default value is 02
-          type: string
-          example: '02'
-          maxLength: 2
-          minLength: 2
-        redirectUrlFor3ds:
-          description: Redirect URL for 3DS
-          type: string
-          example: https://urlfor3ds.com
-          maxLength: 255
-          minLength: 1
-        paymentTypeIndicator:
-          description: The parameter handles the [`payment transaction type`](#appendix--enum--payment-transaction-type-indicator). Required for Mastercard and Visa money transfers as well as Account Funding transactions
-          type: string
-          example: C07
-          maxLength: 3
-          minLength: 2
-      required:
-      - amount
-      - currencyCode
-      - orderId
-      - redirectUrlFor3ds
-    SaleTransaction_4:
-      type: object
-      properties:
-        id:
-          description: Transaction ID
-          type: string
-          example: '397209271826453991'
-          maxLength: 16
-          minLength: 16
-        date:
-          description: 'Transaction date. ISO 8601 format: YYYY-MM-DD'
-          type: string
-          example: '2023-06-01'
-          maxLength: 10
-          minLength: 10
-        orderId:
-          description: Custom merchant’s reference
-          type: string
-          example: '32131231231241'
-          maxLength: 32
-          minLength: 1
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          example: '000'
-          maxLength: 5
-          minLength: 3
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          example: Transaction successfully completed
-          maxLength: 100
-          minLength: 1
-        status:
-          description: Text representation of transaction status. Authorized or Not authorized
-          type: string
-          example: 'true'
-          maxLength: 20
-          minLength: 1
-        avsCheckResponse:
-          description: '[`Address verification response code`](#appendix--enum--address-verification-response-code). The code will be returned if the Address Verification Service (AVS) was initiated in the request'
-          type: string
-          example: G
-          maxLength: 1
-          minLength: 1
-        statementDescriptor:
-          description: e.g. onlinemerchant.com
-          type: string
-          example: onlinemerchant.com
-          maxLength: 50
-          minLength: 1
-        currencyCode:
-          description: Currency ISO 4217 code
-          type: string
-          example: EUR
-          maxLength: 3
-          minLength: 3
-      required:
-      - id
-      - date
-      - orderId
-      - code
-      - message
-      - status
-    SaleCard_3:
-      type: object
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
-    SaleWebhook_2:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for 3DS confirmation needed event</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    Sale_4:
-      title: Sale
-      properties:
-        webhook:
-          $ref: '#/components/schemas/SaleWebhook_2'
         requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
+          description: Request ID
           type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 16
-          minLength: 16
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction_4'
-        card:
-          $ref: '#/components/schemas/SaleCard_3'
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
-      required:
-      - requestId
   securitySchemes:
     accountId:
       type: apiKey
@@ -1335,5 +977,3 @@ components:
 x-refined-from:
 - tribe-payments-trb-cc-api-merchant-api-credit-card-callback-v3.json
 - tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
-- tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-v3.json
-- tribe-payments-trb-cc-token-api-merchant-api-credit-card-token-webhook-v3.json

@@ -98,10 +98,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getProcessorsByProcessorIdHosts
+      x-operation-id-source: derived
     post:
       tags:
       - Processor
-      summary: Create a host.
+      summary: Create a host
       description: Endpoint to create a host.
       parameters:
       - name: processorId
@@ -136,6 +138,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: postProcessorsByProcessorIdHosts
+      x-operation-id-source: derived
   /processors/{processorId}/hosts/{hostId}:
     get:
       tags:
@@ -168,10 +172,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getProcessorsByProcessorIdHostsByHostId
+      x-operation-id-source: derived
     put:
       tags:
       - Processor
-      summary: Update a host.
+      summary: Update a host
       description: Endpoint to update a host.
       parameters:
       - name: processorId
@@ -212,6 +218,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: putProcessorsByProcessorIdHostsByHostId
+      x-operation-id-source: derived
     delete:
       tags:
       - Processor
@@ -242,6 +250,8 @@ paths:
           description: Host deleted.
         '404':
           description: Host not found.
+      operationId: deleteProcessorsByProcessorIdHostsByHostId
+      x-operation-id-source: derived
   /processors/{processorId}/devices:
     get:
       tags:
@@ -335,6 +345,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      operationId: getProcessorsByProcessorIdDevices
+      x-operation-id-source: derived
   /processors/{processorId}/devices/{deviceId}:
     get:
       tags:
@@ -369,6 +381,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Device not found.
+      operationId: getProcessorsByProcessorIdDevicesByDeviceId
+      x-operation-id-source: derived
   /processors/{processorId}/terminals/{terminalId}:
     get:
       tags:
@@ -403,6 +417,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Device not found.
+      operationId: getProcessorsByProcessorIdTerminalsByTerminalId
+      x-operation-id-source: derived
 components:
   schemas:
     Host:
@@ -430,18 +446,17 @@ components:
           format: date-time
           description: Updated at.
           example: '2024-09-26T14:45:30.123+02:00'
-    ErrorResponse:
+    HostCreate:
       type: object
       properties:
-        message:
+        url:
+          type: integer
+          description: Host URL.
+          example: https://host.example
+        externalReferenceId:
           type: string
-          description: A description of the error that occurred.
-          example: Error occured.
-        violations:
-          type: array
-          description: List of validation errors or violations.
-          items:
-            $ref: '#/components/schemas/Violation'
+          description: Host external reference id.
+          example: '02'
     Violation:
       type: object
       properties:
@@ -454,17 +469,18 @@ components:
         message:
           type: string
           description: A message describing what went wrong.
-    HostCreate:
+    ErrorResponse:
       type: object
       properties:
-        url:
-          type: integer
-          description: Host URL.
-          example: https://host.example
-        externalReferenceId:
+        message:
           type: string
-          description: Host external reference id.
-          example: '02'
+          description: A description of the error that occurred.
+          example: Error occured.
+        violations:
+          type: array
+          description: List of validation errors or violations.
+          items:
+            $ref: '#/components/schemas/Violation'
     Device:
       type: object
       properties:

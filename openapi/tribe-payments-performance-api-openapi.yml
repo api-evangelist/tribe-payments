@@ -11,9 +11,7 @@ paths:
   /daily_performance:
     post:
       summary: Daily Performance
-      description: 'The Bank should inform the TOB each day about the daily performance average on consent authorization and payment confirmation flows.
-
-        '
+      description: The Bank should inform the TOB each day about the daily performance average on consent authorization and payment confirmation flows.
       tags:
       - Performance
       requestBody:
@@ -30,14 +28,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DailyPerformanceResponse'
+      operationId: postDailyPerformance
+      x-operation-id-source: derived
 components:
   schemas:
-    DailyPerformanceResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Confirms the correct response by returning the success status.
     DailyPerformanceRequest:
       type: object
       properties:
@@ -55,3 +49,9 @@ components:
           example: 21215
       required:
       - date
+    DailyPerformanceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Confirms the correct response by returning the success status.

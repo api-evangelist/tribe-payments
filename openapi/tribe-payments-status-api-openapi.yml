@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Status
-      summary: ''
+      summary: Poststatus
       operationId: poststatus
       requestBody:
         description: ''
@@ -26,24 +26,9 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
 components:
   schemas:
-    Status:
-      title: status
-      properties:
-        webhook:
-          $ref: '#/components/schemas/StatusWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b
-          maxLength: 36
-          minLength: 36
-        hostedPayment:
-          $ref: '#/components/schemas/HostedPaymentStatus'
-      type: object
-      required:
-      - requestId
     StatusWebhook:
       type: object
       properties:
@@ -62,6 +47,22 @@ components:
       required:
       - id
       - type
+    Status:
+      title: status
+      properties:
+        webhook:
+          $ref: '#/components/schemas/StatusWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: bdc84215-d2ed-4e39-b4dd-e7b3ba85e38b
+          maxLength: 36
+          minLength: 36
+        hostedPayment:
+          $ref: '#/components/schemas/HostedPaymentStatus'
+      type: object
+      required:
+      - requestId
     HostedPaymentStatus:
       type: object
       properties:

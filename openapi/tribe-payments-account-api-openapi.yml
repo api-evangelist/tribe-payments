@@ -16,7 +16,7 @@ paths:
     get:
       tags:
       - Account
-      summary: Returns a list of accounts.
+      summary: Returns a list of accounts
       description: '**Scope:** `accounts`'
       parameters:
       - name: Digest
@@ -128,11 +128,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
+      operationId: getAccounts
+      x-operation-id-source: derived
   /accounts/{accountId}:
     get:
       tags:
       - Account
-      summary: Returns details of a single account.
+      summary: Returns details of a single account
       description: '**Scope:** `accounts`'
       parameters:
       - name: accountId
@@ -256,11 +258,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
+      operationId: getAccountsByAccountId
+      x-operation-id-source: derived
   /accounts/{accountId}/balances:
     get:
       tags:
       - Account
-      summary: Returns a list of account balances.
+      summary: Returns a list of account balances
       description: '**Scope:** `accounts.balances`'
       parameters:
       - name: accountId
@@ -384,11 +388,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
+      operationId: getAccountsByAccountIdBalances
+      x-operation-id-source: derived
   /accounts/{accountId}/transactions:
     get:
       tags:
       - Account
-      summary: Returns a list of account transactions.
+      summary: Returns a list of account transactions
       description: '**Scope:** `accounts.transactions`'
       parameters:
       - name: accountId
@@ -554,8 +560,271 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
+      operationId: getAccountsByAccountIdTransactions
+      x-operation-id-source: derived
 components:
   schemas:
+    NotFoundError:
+      type: object
+      description: Not found.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: RESOURCE_NOT_FOUND
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Account not found
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    AccessExceededError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: ACCESS_EXCEEDED
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Exceeded API limit
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    NotAllowedError:
+      type: object
+      description: A forbidden HTTP method.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: SERVICE_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Used HTTP method not supported for current action
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    EmptyAdditionalErrors:
+      type: array
+      example: []
+      items:
+        $ref: '#/components/schemas/AdditionalError'
+    NotAcceptableError:
+      type: object
+      description: An unsupported `Accept` header.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: REQUESTED_FORMATS_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Only application/json supported
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    Error:
+      type: object
+      description: The generic error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          type: array
+          description: Might be used if more than one error is to be communicated.
+          items:
+            $ref: '#/components/schemas/AdditionalError'
+    UnauthorizedError:
+      type: object
+      description: The unauthorized error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: TOKEN_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: OAuth token not valid
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    AccountBalance:
+      type: object
+      description: The object with the balance amount and currency.
+      required:
+      - balanceAmount
+      - balanceType
+      properties:
+        balanceAmount:
+          $ref: '#/components/schemas/StructuredAmount'
+        balanceType:
+          type: string
+          description: '[Balance type](#appendix--enum--balance-type)'
+          example: interimBooked
+          enum:
+          - openingBooked
+          - interimAvailable
+          - interimBooked
+          - forwardAvailable
+          - nonInvoiced
+    RemittanceInformationStructured:
+      type: object
+      required:
+      - reference
+      description: The reference as contained in the structured remittance reference structure.
+      properties:
+        reference:
+          type: string
+          description: The actual reference.
+          example: ORD123
+          maxLength: 35
+        referenceType:
+          type: string
+          description: The remittance information type.
+          example: UNSTRUCTURED
+          maxLength: 35
+    AccountTransactionList:
+      type: object
+      description: The object containing a list of booked and pending transactions.
+      properties:
+        booked:
+          type: array
+          description: A list of booked transactions of the account.
+          items:
+            $ref: '#/components/schemas/AccountTransaction'
+        pending:
+          type: array
+          description: A list of pending transactions of the account.
+          items:
+            $ref: '#/components/schemas/AccountTransaction'
+    AccountResponse:
+      type: object
+      required:
+      - account
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+    InternalServerError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: INTERNAL_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Internal Error
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    NextLink:
+      type: object
+      description: The link pointing to the following page.
+      properties:
+        href:
+          type: string
+          description: The URL of the following page.
+          example: /tpp/v2/banks?page=4&limit=5
     AccountReference:
       type: object
       description: The identifier of the addressed account.
@@ -584,168 +853,6 @@ components:
           minLength: 6
           maxLength: 6
           example: '902127'
-    NextLink:
-      type: object
-      description: The link pointing to the following page.
-      properties:
-        href:
-          type: string
-          description: The URL of the following page.
-          example: /tpp/v2/banks?page=4&limit=5
-    NotFoundError:
-      type: object
-      description: Not found.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: RESOURCE_NOT_FOUND
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Account not found
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    NextLinks:
-      type: object
-      description: Links pointing to other pages.
-      properties:
-        next:
-          $ref: '#/components/schemas/NextLink'
-    NotAcceptableError:
-      type: object
-      description: An unsupported `Accept` header.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: REQUESTED_FORMATS_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Only application/json supported
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    EmptyAdditionalErrors:
-      type: array
-      example: []
-      items:
-        $ref: '#/components/schemas/AdditionalError'
-    AccountTransactionsResponse:
-      type: object
-      description: The response object containing a list of transactions.
-      properties:
-        transactions:
-          $ref: '#/components/schemas/AccountTransactionList'
-        _links:
-          $ref: '#/components/schemas/NextLinks'
-    NotAllowedError:
-      type: object
-      description: A forbidden HTTP method.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: SERVICE_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Used HTTP method not supported for current action
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    ForbiddenError:
-      type: object
-      description: The forbidden error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: ROLE_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Role not valid for current resource
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    InternalServerError:
-      type: object
-      description: The forbidden error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: INTERNAL_ERROR
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Internal Error
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
     Account:
       type: object
       required:
@@ -804,71 +911,7 @@ components:
           description: The name of the account.
           example: Main checking account
           maxLength: 255
-    UnauthorizedError:
-      type: object
-      description: The unauthorized error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: TOKEN_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: OAuth token not valid
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    Error:
-      type: object
-      description: The generic error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: FORMAT_ERROR
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Error in provided content
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          type: array
-          description: Might be used if more than one error is to be communicated.
-          items:
-            $ref: '#/components/schemas/AdditionalError'
-    AccountResponse:
-      type: object
-      required:
-      - account
-      properties:
-        account:
-          $ref: '#/components/schemas/Account'
-    AccessExceededError:
+    ForbiddenError:
       type: object
       description: The forbidden error object example.
       required:
@@ -879,11 +922,11 @@ components:
         code:
           type: string
           description: The message code to explain the nature of the underlying error.
-          example: ACCESS_EXCEEDED
+          example: ROLE_INVALID
         title:
           type: string
           description: The short, human-readable description of the error.
-          example: Exceeded API limit
+          example: Role not valid for current resource
           maxLength: 70
         timestamp:
           type: string
@@ -905,103 +948,14 @@ components:
           description: The array containing a list of balances.
           items:
             $ref: '#/components/schemas/AccountBalance'
-    AccountBalance:
+    AccountTransactionsResponse:
       type: object
-      description: The object with the balance amount and currency.
-      required:
-      - balanceAmount
-      - balanceType
+      description: The response object containing a list of transactions.
       properties:
-        balanceAmount:
-          $ref: '#/components/schemas/StructuredAmount'
-        balanceType:
-          type: string
-          description: '[Balance type](#appendix--enum--balance-type)'
-          example: interimBooked
-          enum:
-          - openingBooked
-          - interimAvailable
-          - interimBooked
-          - forwardAvailable
-          - nonInvoiced
-    StructuredAmount:
-      description: An amount with a currency.
-      type: object
-      required:
-      - amount
-      - currency
-      properties:
-        amount:
-          type: string
-          description: The amount of funds in the balance. The decimal separator is dot.
-          example: '123.22'
-          maxLength: 14
-        currency:
-          type: string
-          description: The account currency in ISO 4217 alpha-3 currency code.
-          example: EUR
-          maxLength: 3
-          minLength: 3
-    RemittanceInformationStructured:
-      type: object
-      required:
-      - reference
-      description: The reference as contained in the structured remittance reference structure.
-      properties:
-        reference:
-          type: string
-          description: The actual reference.
-          example: ORD123
-          maxLength: 35
-        referenceType:
-          type: string
-          description: The remittance information type.
-          example: UNSTRUCTURED
-          maxLength: 35
-    AdditionalError:
-      type: object
-      description: The error object providing additional error information.
-      required:
-      - code
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: FORMAT_ERROR
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Error in provided content
-          maxLength: 70
-        details:
-          type: string
-          description: The longer, human-readable description of the error.
-          example: Longer description of error
-          maxLength: 500
-    AccountListResponse:
-      type: object
-      required:
-      - accounts
-      properties:
-        accounts:
-          type: array
-          description: The list of accounts.
-          items:
-            $ref: '#/components/schemas/Account'
-    AccountTransactionList:
-      type: object
-      description: The object containing a list of booked and pending transactions.
-      properties:
-        booked:
-          type: array
-          description: A list of booked transactions of the account.
-          items:
-            $ref: '#/components/schemas/AccountTransaction'
-        pending:
-          type: array
-          description: A list of pending transactions of the account.
-          items:
-            $ref: '#/components/schemas/AccountTransaction'
+        transactions:
+          $ref: '#/components/schemas/AccountTransactionList'
+        _links:
+          $ref: '#/components/schemas/NextLinks'
     AccountTransaction:
       type: object
       required:
@@ -1047,6 +1001,60 @@ components:
           example: '2022-10-10'
           maxLength: 10
           minLength: 10
+    AccountListResponse:
+      type: object
+      required:
+      - accounts
+      properties:
+        accounts:
+          type: array
+          description: The list of accounts.
+          items:
+            $ref: '#/components/schemas/Account'
+    AdditionalError:
+      type: object
+      description: The error object providing additional error information.
+      required:
+      - code
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: FORMAT_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Error in provided content
+          maxLength: 70
+        details:
+          type: string
+          description: The longer, human-readable description of the error.
+          example: Longer description of error
+          maxLength: 500
+    NextLinks:
+      type: object
+      description: Links pointing to other pages.
+      properties:
+        next:
+          $ref: '#/components/schemas/NextLink'
+    StructuredAmount:
+      description: An amount with a currency.
+      type: object
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: The amount of funds in the balance. The decimal separator is dot.
+          example: '123.22'
+          maxLength: 14
+        currency:
+          type: string
+          description: The account currency in ISO 4217 alpha-3 currency code.
+          example: EUR
+          maxLength: 3
+          minLength: 3
   securitySchemes:
     tokenAuth:
       type: http

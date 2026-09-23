@@ -64,7 +64,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/InternalServerErrorResponseDto'
       summary: Triggers action for the event data
-      description: Triggers action for the event data
       parameters:
       - name: eventId
         in: path
@@ -111,7 +110,7 @@ paths:
       deprecated: false
 components:
   schemas:
-    BadRequestErrorResponseDto:
+    InternalServerErrorResponseDto:
       type: object
       properties:
         type:
@@ -125,7 +124,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: Syntax error
+          example: Internal Server Error
       required:
       - type
       - title
@@ -155,7 +154,7 @@ components:
       - title
       - detail
       - violations
-    NotFoundErrorResponseDto:
+    UnauthorizedErrorResponseDto:
       type: object
       properties:
         type:
@@ -169,26 +168,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: event
-      required:
-      - type
-      - title
-      - detail
-    InternalServerErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Internal Server Error
+          example: Full authentication is required to access this resource.
       required:
       - type
       - title
@@ -212,7 +192,45 @@ components:
       - type
       - title
       - detail
+    BadRequestErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Syntax error
+      required:
+      - type
+      - title
+      - detail
     ConflictErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    NotFoundErrorResponseDto:
       type: object
       properties:
         type:
@@ -254,25 +272,6 @@ components:
       - propertyPath
       - message
       - code
-    UnauthorizedErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Full authentication is required to access this resource.
-      required:
-      - type
-      - title
-      - detail
   securitySchemes:
     Bearer:
       type: apiKey

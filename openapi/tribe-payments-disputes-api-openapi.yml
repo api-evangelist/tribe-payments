@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Disputes
-      summary: ''
+      summary: Postdisputes
       operationId: postdisputes
       requestBody:
         description: ''
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /disputes:
     post:
       tags:
       - Disputes
-      summary: ''
+      summary: Postdisputes
       operationId: postdisputes
       requestBody:
         description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Disputes`](#webhooks--disputes--registereddisputesaddress) webhook."
@@ -77,10 +78,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseTooManyRequests'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    Disputes:
+      title: disputes
+      properties:
+        webhook:
+          $ref: '#/components/schemas/DisputesWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action.
+          type: string
+          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
+          maxLength: 200
+          minLength: 1
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisputesRecords'
+      type: object
+      required:
+      - requestId
+    DisputesRecords:
+      type: object
+      properties:
+        dispute:
+          $ref: '#/components/schemas/DisputesRecordsDispute'
+        card:
+          $ref: '#/components/schemas/DisputesRecordsCard'
     DisputesRecordsDispute:
       type: object
       properties:
@@ -152,24 +179,6 @@ components:
       required:
       - id
       - type
-    Disputes:
-      title: disputes
-      properties:
-        webhook:
-          $ref: '#/components/schemas/DisputesWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action.
-          type: string
-          example: 1e68b6f0-da16-4e0a-b68a-5286ad4e787
-          maxLength: 200
-          minLength: 1
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/DisputesRecords'
-      type: object
-      required:
-      - requestId
     DisputesRecordsCard:
       type: object
       properties:
@@ -181,55 +190,6 @@ components:
           minLength: 1
       required:
       - hash
-    DisputesRecords:
-      type: object
-      properties:
-        dispute:
-          $ref: '#/components/schemas/DisputesRecordsDispute'
-        card:
-          $ref: '#/components/schemas/DisputesRecordsCard'
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    violationObjectTooManyRequests:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Retry after 30 seconds
-      type: object
     unprocessableContent:
       title: Validation object
       properties:
@@ -245,6 +205,23 @@ components:
           maxLength: 50
           minLength: 1
           example: Company webhook URL is not set
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
       type: object
     responseErrorDisputes:
       title: Error response
@@ -266,7 +243,8 @@ components:
           items:
             $ref: '#/components/schemas/violationObjectDisputes'
       type: object
-    responseUnauthorized:
+    responseSuccess:
+      title: Success response
       properties:
         requestId:
           description: Request ID
@@ -274,17 +252,6 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
       type: object
     Disputes_2:
       title: disputes
@@ -305,7 +272,7 @@ components:
       required:
       - dateFrom
       - dateTo
-    responseForbidden:
+    responseUnauthorized:
       properties:
         requestId:
           description: Request ID
@@ -316,11 +283,14 @@ components:
         message:
           description: Request ID
           type: string
-          example: Error occurred
+          example: Unauthorized request
         violations:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/violationObjectForbidden'
+            type: string
+          example: []
       type: object
     violationObjectDisputes:
       title: Validation object disputes
@@ -346,7 +316,39 @@ components:
           minLength: 1
           example: Invalid date format
       type: object
-    responseTooManyRequests:
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    responseForbidden:
       properties:
         requestId:
           description: Request ID
@@ -357,11 +359,11 @@ components:
         message:
           description: Request ID
           type: string
-          example: Too many requests
+          example: Error occurred
         violations:
           type: array
           items:
-            $ref: '#/components/schemas/violationObjectTooManyRequests'
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
   securitySchemes:
     apiKey:

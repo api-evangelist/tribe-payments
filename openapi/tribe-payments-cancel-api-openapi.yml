@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Cancel
-      summary: ''
+      summary: Postcancel
       operationId: postcancel
       requestBody:
         description: ''
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /cancel:
     post:
       tags:
       - Cancel
-      summary: ''
+      summary: Postcancel
       operationId: postcancel
       requestBody:
         description: "To release the authorized amount reserved on the cardholder's account, make a Cancel transaction by providing the transaction ID of the initial\n                    [`Authorize`](#actions--authorize) or [`Pre Authorize`](#actions--pre-authorize) request.\n                    You can also perform multiple cancellations for authorizations with partial amounts.\n                    After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                     For more details, refer to the [`Cancel`](#webhooks--authorize--registeredcanceladdress) webhook."
@@ -65,6 +66,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
@@ -88,6 +90,22 @@ components:
       required:
       - id
       - type
+    Cancel:
+      title: cancel
+      properties:
+        webhook:
+          $ref: '#/components/schemas/CancelWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/CancelTransaction'
+      type: object
+      required:
+      - requestId
     CancelTransaction:
       type: object
       description: Object containing data of the transaction to be canceled
@@ -160,38 +178,6 @@ components:
       - status
       - amountRemaining
       - type
-    Cancel:
-      title: cancel
-      properties:
-        webhook:
-          $ref: '#/components/schemas/CancelWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/CancelTransaction'
-      type: object
-      required:
-      - requestId
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
     responseSuccess:
       title: Success response
       properties:
@@ -202,25 +188,6 @@ components:
           maxLength: 36
           minLength: 36
       type: object
-    CancelTransaction_2:
-      type: object
-      description: Object containing data of the transaction to be canceled
-      properties:
-        id:
-          description: Transaction ID
-          type: string
-          example: '497709205608728597'
-          maxLength: 16
-          minLength: 16
-        amount:
-          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
-          type: string
-          example: '123'
-          maxLength: 13
-          minLength: 1
-      required:
-      - id
-      - amount
     responseUnauthorized:
       properties:
         requestId:
@@ -241,48 +208,11 @@ components:
             type: string
           example: []
       type: object
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
     Cancel_2:
       title: cancel
       properties:
         transaction:
           $ref: '#/components/schemas/CancelTransaction_2'
-      type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     violationObject:
       title: Validation object
@@ -308,6 +238,78 @@ components:
           minLength: 1
           example: Value is not provided
       type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    CancelTransaction_2:
+      type: object
+      description: Object containing data of the transaction to be canceled
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '497709205608728597'
+          maxLength: 16
+          minLength: 16
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+      required:
+      - id
+      - amount
   securitySchemes:
     accountId:
       type: apiKey

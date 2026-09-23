@@ -8,8 +8,14 @@ tags:
 paths:
   /v2_accounts:
     post:
-      summary: Get account list.
-      description: "Get the list of accounts for the authenticated user.\n\n \"Get accounts\" is initiated by the request from TPP and it is part of the [Get data flow](#appendix--workflow-get-data) between the BANK and TOB. TPP requests client’s accounts information from TOB which requests the information from the BANK. \n\n In the case of multicurrency accounts, the account for each of the currencies associated with the same account identifier (e.g. IBAN) will be returned in the response with a different `resource_id`."
+      summary: Get account list
+      description: 'Get the list of accounts for the authenticated user.
+
+
+        "Get accounts" is initiated by the request from TPP and it is part of the Get data flow between the BANK and TOB. TPP requests client’s accounts information from TOB which requests the information from the BANK.
+
+
+        In the case of multicurrency accounts, the account for each of the currencies associated with the same account identifier (e.g. IBAN) will be returned in the response with a different `resource_id`.'
       tags:
       - Accounts
       responses:
@@ -24,9 +30,11 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Account'
+      operationId: postV2Accounts
+      x-operation-id-source: derived
   /v2_account:
     post:
-      summary: Get single account details.
+      summary: Get single account details
       description: Get details for a specific account.
       tags:
       - Accounts
@@ -43,9 +51,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountResponse'
+      operationId: postV2Account
+      x-operation-id-source: derived
   /v2_account_balances:
     post:
-      summary: Get account balances.
+      summary: Get account balances
       description: Get balances for a specific account.
       tags:
       - Accounts
@@ -62,9 +72,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountBalanceResponse'
+      operationId: postV2AccountBalances
+      x-operation-id-source: derived
   /v2_account_transactions:
     post:
-      summary: Get account transactions.
+      summary: Get account transactions
       description: Get transactions for a specific account.
       tags:
       - Accounts
@@ -81,8 +93,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountTransactionsResponse'
+      operationId: postV2AccountTransactions
+      x-operation-id-source: derived
 components:
   schemas:
+    AccountTransactionsResponse:
+      type: object
+      properties:
+        transactions:
+          $ref: '#/components/schemas/AccountTransaction'
+        page_key:
+          type: string
+          description: The key for the next page of results.
+    AccountBalanceResponse:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+    Balance:
+      type: object
+      properties:
+        balance_amount:
+          $ref: '#/components/schemas/Amount'
+        balance_type:
+          type: string
+          description: The type of the balance.
+          enum:
+          - openingBooked
+          - interimAvailable
+          - interimBooked
+          - forwardAvailable
+          - nonInvoiced
+    AccountRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          description: The transaction ID.
+        creditor_name:
+          type: string
+          description: The transaction recipient's name.
+        creditor_account:
+          $ref: '#/components/schemas/Account'
+        debtor_name:
+          type: string
+          description: The transaction sender's name.
+        debtor_account:
+          $ref: '#/components/schemas/Account'
+        remittance_information_unstructured:
+          type: string
+          description: The remittance information in a single string.
+          maxLength: 140
+        remittance_information_structured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        transaction_amount:
+          type: object
+          properties:
+            amount:
+              type: string
+              description: The transaction amount.
+            currency:
+              type: string
+              description: The transaction currency in ISO 4217 alpha-3 currency code.
+              maxLength: 3
+            value_date:
+              type: string
+              description: The date when assets become available.
+              format: date
+            booking_date:
+              type: string
+              description: The date when entry is posted to the account.
+              format: date
+    RemittanceInformationStructured:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: The remittance information.
+          maxLength: 35
+        reference_type:
+          type: string
+          description: The type of the remittance information.
+          maxLength: 35
+    AccountTransaction:
+      type: object
+      properties:
+        booked:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        pending:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
     Account:
       type: object
       properties:
@@ -124,126 +250,11 @@ components:
             - BACS
             - CHAPS
             - SWIFT
-    AccountRequest:
+    AccountResponse:
       type: object
       properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountBalanceRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountTransaction:
-      type: object
-      properties:
-        booked:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        pending:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-    AccountTransactionsResponse:
-      type: object
-      properties:
-        transactions:
-          $ref: '#/components/schemas/AccountTransaction'
-        page_key:
-          type: string
-          description: The key for the next page of results.
-    Balance:
-      type: object
-      properties:
-        balance_amount:
-          $ref: '#/components/schemas/Amount'
-        balance_type:
-          type: string
-          description: The type of the balance.
-          enum:
-          - openingBooked
-          - interimAvailable
-          - interimBooked
-          - forwardAvailable
-          - nonInvoiced
-    RemittanceInformationStructured:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: The remittance information.
-          maxLength: 35
-        reference_type:
-          type: string
-          description: The type of the remittance information.
-          maxLength: 35
-    Amount:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
-          type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
-      required:
-      - amount
-      - currency
-    AccountBalanceResponse:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Balance'
-    Transaction:
-      type: object
-      properties:
-        transaction_id:
-          type: string
-          description: The transaction ID.
-        creditor_name:
-          type: string
-          description: The transaction recipient's name.
-        creditor_account:
+        account:
           $ref: '#/components/schemas/Account'
-        debtor_name:
-          type: string
-          description: The transaction sender's name.
-        debtor_account:
-          $ref: '#/components/schemas/Account'
-        remittance_information_unstructured:
-          type: string
-          description: The remittance information in a single string.
-          maxLength: 140
-        remittance_information_structured:
-          $ref: '#/components/schemas/RemittanceInformationStructured'
-        transaction_amount:
-          type: object
-          properties:
-            amount:
-              type: string
-              description: The transaction amount.
-            currency:
-              type: string
-              description: The transaction currency in ISO 4217 alpha-3 currency code.
-              maxLength: 3
-            value_date:
-              type: string
-              description: The date when assets become available.
-              format: date
-            booking_date:
-              type: string
-              description: The date when entry is posted to the account.
-              format: date
     AccountTransactionsRequest:
       type: object
       properties:
@@ -273,8 +284,11 @@ components:
       required:
       - account_id
       - booking_status
-    AccountResponse:
+    AccountBalanceRequest:
       type: object
       properties:
-        account:
-          $ref: '#/components/schemas/Account'
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id

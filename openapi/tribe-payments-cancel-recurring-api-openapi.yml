@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Cancel recurring
-      summary: ''
+      summary: Postcancel recurring
       operationId: postcancel-recurring
       requestBody:
         description: ''
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /cancel-recurring:
     post:
       tags:
       - Cancel recurring
-      summary: ''
+      summary: Postcancel recurring
       operationId: postcancel-recurring
       requestBody:
         description: "To cancel a recurring transaction which was initiated with the\n                    [`Authorize`](#actions--authorize) or [`Sale`](#actions--sale) request,\n                    make the Cancel Recurring request by providing the initial transaction ID of a previous [`Authorize`](#actions--authorize) or [`Sale`](#actions--sale) request.\n                    After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                    For more details, refer to the [`Cancel recurring`](#webhooks--authorize--registeredcancelrecurringaddress) webhook."
@@ -65,26 +66,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    CancelRecurring:
-      title: cancel-recurring
-      properties:
-        webhook:
-          $ref: '#/components/schemas/CancelRecurringWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/CancelRecurringTransaction'
-      type: object
-      required:
-      - requestId
     CancelRecurringWebhook:
       type: object
       description: Object containing the Cancel Recurring webhook data
@@ -169,28 +155,34 @@ components:
       - errorDescription
       - status
       - type
-    CancelRecurring_2:
+    CancelRecurring:
       title: cancel-recurring
       properties:
+        webhook:
+          $ref: '#/components/schemas/CancelRecurringWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
         transaction:
-          $ref: '#/components/schemas/CancelRecurringTransaction_2'
+          $ref: '#/components/schemas/CancelRecurringTransaction'
       type: object
-    violationObjectForbidden:
-      title: Validation object
+      required:
+      - requestId
+    CancelRecurringTransaction_2:
+      type: object
+      description: Object containing data of the recurring transaction to be canceled
       properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
+        id:
+          description: Transaction ID
           type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
+          example: '497709205608728597'
+          maxLength: 16
+          minLength: 16
+      required:
+      - id
     responseSuccess:
       title: Success response
       properties:
@@ -220,6 +212,46 @@ components:
           items:
             type: string
           example: []
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
       type: object
     responseError:
       title: Error response
@@ -258,41 +290,11 @@ components:
           items:
             $ref: '#/components/schemas/violationObjectForbidden'
       type: object
-    CancelRecurringTransaction_2:
-      type: object
-      description: Object containing data of the recurring transaction to be canceled
+    CancelRecurring_2:
+      title: cancel-recurring
       properties:
-        id:
-          description: Transaction ID
-          type: string
-          example: '497709205608728597'
-          maxLength: 16
-          minLength: 16
-      required:
-      - id
-    violationObject:
-      title: Validation object
-      properties:
-        propertyPath:
-          description: Path of parameter causing an error. Null for general errors
-          type:
-          - string
-          - 'null'
-          example: parameterName
-          maxLength: 50
-          minLength: 1
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '2000'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Value is not provided
+        transaction:
+          $ref: '#/components/schemas/CancelRecurringTransaction_2'
       type: object
   securitySchemes:
     accountId:

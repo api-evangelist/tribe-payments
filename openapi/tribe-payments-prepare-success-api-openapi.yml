@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Prepare success
-      summary: ''
+      summary: Postprepare
       operationId: postprepare
       requestBody:
         description: ''
@@ -26,6 +26,7 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
 components:
   schemas:
     PrepareWebhook:

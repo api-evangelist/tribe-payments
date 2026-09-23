@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Process
-      summary: ''
+      summary: Postprocess
       operationId: postprocess
       requestBody:
         description: ''
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /process:
     post:
       tags:
       - Process
-      summary: ''
+      summary: Postprocess
       operationId: postprocess
       requestBody:
         description: "To process a transaction without cardholder details, use card hash received in the webhook response of any previous API call.\n                Depending on the provided operationType, three actions can be done: [`Authorize`](#actions--authorize), [`Sale`](#actions--sale) or [`Credit`](#actions--credit) request.\n                In some cases, a 3DS authentication procedure is required to successfully complete such an action.\n                For more details, please refer to [`3DS required`](#webhooks--3ds-authentication-required).\n                After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                For more details, refer to the [`Process`](#webhooks--process) webhook."
@@ -65,10 +66,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    Process:
+      title: process
+      properties:
+        webhook:
+          $ref: '#/components/schemas/ProcessWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction'
+        card:
+          $ref: '#/components/schemas/ProcessCard'
+      type: object
+      required:
+      - requestId
+    ProcessWebhook:
+      type: object
+      description: Object containing the webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     ProcessTransaction:
       type: object
       description: Object containing data for the transaction
@@ -146,24 +185,6 @@ components:
       - errorDescription
       - status
       - type
-    Process:
-      title: process
-      properties:
-        webhook:
-          $ref: '#/components/schemas/ProcessWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/ProcessTransaction'
-        card:
-          $ref: '#/components/schemas/ProcessCard'
-      type: object
-      required:
-      - requestId
     ProcessCard:
       type: object
       description: Object containing the transaction card details
@@ -176,165 +197,6 @@ components:
           minLength: 1
       required:
       - hash
-    ProcessWebhook:
-      type: object
-      description: Object containing the webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    ProcessShippingLocation:
-      type: object
-      description: Object containing the transaction shipping location data
-      properties:
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address
-          type: string
-          example: Address 11
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-    Process_2:
-      title: process
-      properties:
-        operationType:
-          description: 'Possible operations: sale, authorize, credit'
-          type: string
-          example: sale
-          maxLength: 20
-          minLength: 1
-        transaction:
-          $ref: '#/components/schemas/ProcessTransaction_2'
-        card:
-          $ref: '#/components/schemas/ProcessCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/ProcessShippingLocation'
-        customer:
-          $ref: '#/components/schemas/ProcessCustomer'
-        receiver:
-          $ref: '#/components/schemas/ProcessReceiver'
-      type: object
-      required:
-      - operationType
-    ProcessCard_2:
-      type: object
-      description: Object containing the transaction card details
-      properties:
-        securityCode:
-          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
-          type: string
-          example: '000'
-          maxLength: 4
-          minLength: 3
-        hash:
-          description: Tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 32
-          minLength: 32
-      required:
-      - hash
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseUnauthorized:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
-      type: object
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
     ProcessReceiver:
       type: object
       description: Object containing data of the transaction receiver
@@ -351,23 +213,6 @@ components:
           example: Lastname
           maxLength: 35
           minLength: 1
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
     ProcessCustomer:
       type: object
       description: Object containing data of the actual transaction customer
@@ -432,6 +277,187 @@ components:
           example: 1.1.1.1
           maxLength: 40
           minLength: 7
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    Process_2:
+      title: process
+      properties:
+        operationType:
+          description: 'Possible operations: sale, authorize, credit'
+          type: string
+          example: sale
+          maxLength: 20
+          minLength: 1
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction_2'
+        card:
+          $ref: '#/components/schemas/ProcessCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/ProcessShippingLocation'
+        customer:
+          $ref: '#/components/schemas/ProcessCustomer'
+        receiver:
+          $ref: '#/components/schemas/ProcessReceiver'
+      type: object
+      required:
+      - operationType
+    ProcessShippingLocation:
+      type: object
+      description: Object containing the transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    ProcessCard_2:
+      type: object
+      description: Object containing the transaction card details
+      properties:
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        hash:
+          description: Tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 32
+          minLength: 32
+      required:
+      - hash
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
     ProcessTransaction_2:
       type: object
       description: Object containing data for the transaction
@@ -742,30 +768,6 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
-    violationObject:
-      title: Validation object
-      properties:
-        propertyPath:
-          description: Path of parameter causing an error. Null for general errors
-          type:
-          - string
-          - 'null'
-          example: parameterName
-          maxLength: 50
-          minLength: 1
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '2000'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Value is not provided
-      type: object
   securitySchemes:
     accountId:
       type: apiKey

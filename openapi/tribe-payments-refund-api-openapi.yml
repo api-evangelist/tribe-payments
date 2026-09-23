@@ -15,7 +15,7 @@ paths:
     post:
       tags:
       - Refund
-      summary: ''
+      summary: Postrefund
       operationId: postrefund
       requestBody:
         description: Object containing the Refund webhook data
@@ -26,13 +26,14 @@ paths:
       responses:
         '200':
           description: 'Expected response: HTTP status code 200'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
   /refund:
     post:
       tags:
       - Refund
-      summary: ''
+      summary: Postrefund
       operationId: postrefund
       requestBody:
         description: "To refund up to the amount of the received payment,\n                    make a Refund transaction by providing the transaction ID created with a previous [`Capture`](#actions--capture) or [`Sale`](#actions--sale) request.\n                    After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                    For more details, refer to the [`Refund`](#webhooks--authorize--registeredrefundaddress) webhook."
@@ -65,6 +66,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
+      x-summary-source: derived
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
@@ -85,6 +87,25 @@ components:
       type: object
       required:
       - requestId
+    RefundWebhook:
+      type: object
+      description: Object containing the Refund webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     RefundTransaction:
       type: object
       description: Object containing data of the transaction to be refunded
@@ -159,41 +180,6 @@ components:
       - status
       - amountRemaining
       - type
-    RefundWebhook:
-      type: object
-      description: Object containing the Refund webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
     responseSuccess:
       title: Success response
       properties:
@@ -210,25 +196,6 @@ components:
         transaction:
           $ref: '#/components/schemas/RefundTransaction_2'
       type: object
-    RefundTransaction_2:
-      type: object
-      description: Object containing data of the transaction to be refunded
-      properties:
-        id:
-          description: Transaction ID
-          type: string
-          example: '497709205608728597'
-          maxLength: 16
-          minLength: 16
-        amount:
-          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
-          type: string
-          example: '123'
-          maxLength: 13
-          minLength: 1
-      required:
-      - id
-      - amount
     responseUnauthorized:
       properties:
         requestId:
@@ -249,6 +216,65 @@ components:
             type: string
           example: []
       type: object
+    violationObject:
+      title: Validation object
+      properties:
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    RefundTransaction_2:
+      type: object
+      description: Object containing data of the transaction to be refunded
+      properties:
+        id:
+          description: Transaction ID
+          type: string
+          example: '497709205608728597'
+          maxLength: 16
+          minLength: 16
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+      required:
+      - id
+      - amount
     responseError:
       title: Error response
       properties:
@@ -285,30 +311,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    violationObject:
-      title: Validation object
-      properties:
-        propertyPath:
-          description: Path of parameter causing an error. Null for general errors
-          type:
-          - string
-          - 'null'
-          example: parameterName
-          maxLength: 50
-          minLength: 1
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '2000'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Value is not provided
       type: object
   securitySchemes:
     accountId:

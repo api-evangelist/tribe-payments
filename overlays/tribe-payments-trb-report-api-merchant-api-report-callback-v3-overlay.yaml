@@ -2,8 +2,8 @@ overlay: 1.0.0
 info:
   title: "API Evangelist enhancements for Merchant API"
   version: 1.0.0
-generated: '2026-07-24'
-method: generated
+x-generated: '2026-07-24'
+x-method: generated
 extends: openapi/tribe-payments-trb-report-api-merchant-api-report-callback-v3.json
 actions:
   - target: $.info
