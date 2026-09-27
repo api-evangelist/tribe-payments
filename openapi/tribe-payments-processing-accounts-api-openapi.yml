@@ -34,7 +34,7 @@ paths:
       tags:
       - Processing accounts
       summary: Postprocessing accounts
-      operationId: postprocessing-accounts
+      operationId: postProcessingAccounts
       requestBody:
         description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Webhooks - Processing accounts`](#webhooks--processing-accounts--registeredprocessingaccountsaddress) webhook.\n                No request body should be included in this action. All required data must be provided in the headers."
         content:
@@ -79,28 +79,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/responseTooManyRequests'
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: postprocessing-accounts
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    ProcessingAccountsWebhook:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>'
-          type: string
-          example: report_processing_accounts
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
     ProcessingAccounts:
       title: processing-accounts
       properties:
@@ -119,6 +103,24 @@ components:
       type: object
       required:
       - requestId
+    ProcessingAccountsWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>'
+          type: string
+          example: report_processing_accounts
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     ProcessingAccountsProcessingAccount:
       type: object
       properties:
@@ -148,6 +150,105 @@ components:
           description: ''
           type: boolean
           example: true
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    ProcessingAccounts_2:
+      title: processing-accounts
+      properties: {}
+      type: object
+    violationObjectProcessing:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body contains unknown field \"parameterName\"
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
     unprocessableContent:
       title: Validation object
       properties:
@@ -181,36 +282,6 @@ components:
           items:
             $ref: '#/components/schemas/violationObjectTooManyRequests'
       type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseUnauthorized:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
-      type: object
     responseErrorProcessing:
       title: Error response
       properties:
@@ -230,75 +301,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/violationObjectProcessing'
-      type: object
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    violationObjectTooManyRequests:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Retry after 30 seconds
-      type: object
-    violationObjectProcessing:
-      title: Validation object disputes
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '1004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Request body contains unknown field \"parameterName\"
-      type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    ProcessingAccounts_2:
-      title: processing-accounts
-      properties: {}
       type: object
   securitySchemes:
     apiKey:

@@ -34,7 +34,7 @@ paths:
       tags:
       - Transactions
       summary: Posttransactions
-      operationId: posttransactions
+      operationId: postTransactions
       requestBody:
         description: "After the request is processed, a webhook will be sent to your URL specified in the Company setup.\n                For more details, refer to [`Transactions`](#webhooks--transactions--registeredtransactionsaddress) webhook.\n                The configurations in Report Settings determine which columns are visible in the final output.\n                The transaction list shows only transactions with types specified in the Report Settings."
         content:
@@ -79,10 +79,208 @@ paths:
               schema:
                 $ref: '#/components/schemas/responseTooManyRequests'
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: posttransactions
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    TransactionsRecordsTransaction:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '502811178725015553'
+          maxLength: 20
+          minLength: 1
+        amount:
+          description: ''
+          type: string
+          example: '1.11'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: ''
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        status:
+          description: ''
+          type: string
+          example: success
+          maxLength: 20
+          minLength: 1
+        createdAt:
+          description: ''
+          type: string
+          example: '2023-08-01 07:38:16'
+          maxLength: 19
+          minLength: 19
+        integrationTransactionId:
+          description: ''
+          type: string
+          example: 0000000123456789213456798
+          maxLength: 255
+          minLength: 1
+        integrationAccountId:
+          description: ''
+          type: string
+          example: '102223'
+          maxLength: 11
+          minLength: 1
+        authorizationNo:
+          description: ''
+          type: string
+          example: N/A
+          maxLength: 50
+          minLength: 1
+        expirationDate:
+          description: ''
+          type: string
+          example: '2023-12-11 08:45:27'
+          maxLength: 19
+          minLength: 19
+        calculatedFee:
+          description: ''
+          type: string
+          example: 1,11
+          maxLength: 13
+          minLength: 1
+        integrationId:
+          description: ''
+          type: string
+          example: '87'
+          maxLength: 11
+          minLength: 1
+        terminalId:
+          description: ''
+          type: string
+          example: '26543'
+          maxLength: 20
+          minLength: 1
+        parentId:
+          description: ''
+          type: string
+          example: '0'
+          maxLength: 20
+          minLength: 1
+        orderId:
+          description: ''
+          type: string
+          example: '2568896541'
+          maxLength: 255
+          minLength: 1
+        typeName:
+          description: ''
+          type: string
+          example: sale
+          maxLength: 50
+          minLength: 1
+        errorCode:
+          description: ''
+          type: string
+          example: '000'
+          maxLength: 10
+          minLength: 1
+        descriptor:
+          description: ''
+          type: string
+          example: ''
+          maxLength: 255
+          minLength: 1
+        processingAccountId:
+          description: ''
+          type: string
+          example: '102223'
+          maxLength: 20
+          minLength: 1
+      required:
+      - id
+      - amount
+      - currencyCode
+      - status
+      - createdAt
+      - integrationTransactionId
+      - integrationAccountId
+      - authorizationNo
+      - expirationDate
+      - calculatedFee
+      - integrationId
+      - terminalId
+      - parentId
+      - orderId
+      - typeName
+      - errorCode
+      - descriptor
+      - processingAccountId
+    TransactionsRecordsCustomer:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: ''
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 1
+        email:
+          description: ''
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 1
+        countryCode:
+          description: ''
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: ''
+          type: string
+          example: AL
+          maxLength: 2
+          minLength: 2
+        city:
+          description: ''
+          type: string
+          example: City
+          maxLength: 100
+          minLength: 1
+        address:
+          description: ''
+          type: string
+          example: Address
+          maxLength: 255
+          minLength: 1
+        zipCode:
+          description: ''
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: ''
+          type: string
+          example: 1.1.1.1
+          maxLength: 50
+          minLength: 1
+      required:
+      - id
+      - phone
+      - email
+      - countryCode
+      - city
+      - address
+      - zipCode
+      - ip
     Transactions:
       title: transactions
       properties:
@@ -122,6 +320,49 @@ components:
       - recordsTotal
       - recordsPerPage
       - currentPage
+    TransactionsRecordsCompany:
+      type: object
+      properties:
+        id:
+          description: ''
+          type: string
+          example: '6666615'
+          maxLength: 11
+          minLength: 1
+        name:
+          description: ''
+          type: string
+          example: My Company Name
+          maxLength: 100
+          minLength: 1
+      required:
+      - id
+      - name
+    TransactionsRecordsCard:
+      type: object
+      properties:
+        holderName:
+          description: ''
+          type: string
+          example: John Doe von Soap
+          maxLength: 255
+          minLength: 1
+        maskedNumber:
+          description: ''
+          type: string
+          example: 599999XXXXXX0125
+          maxLength: 22
+          minLength: 13
+        brandName:
+          description: ''
+          type: string
+          example: Mastercard
+          maxLength: 150
+          minLength: 1
+      required:
+      - holderName
+      - maskedNumber
+      - brandName
     TransactionsRecordsP2p:
       type: object
       properties:
@@ -356,259 +597,6 @@ components:
       - receiverIdentification_expirationDate
       - receiverNationality
       - receiverCountryOfBirth
-    TransactionsRecords:
-      properties:
-        transaction:
-          $ref: '#/components/schemas/TransactionsRecordsTransaction'
-        company:
-          $ref: '#/components/schemas/TransactionsRecordsCompany'
-        card:
-          $ref: '#/components/schemas/TransactionsRecordsCard'
-        customer:
-          $ref: '#/components/schemas/TransactionsRecordsCustomer'
-        settlement:
-          $ref: '#/components/schemas/TransactionsRecordsSettlement'
-        p2p:
-          $ref: '#/components/schemas/TransactionsRecordsP2p'
-    TransactionsRecordsTransaction:
-      type: object
-      properties:
-        id:
-          description: ''
-          type: string
-          example: '502811178725015553'
-          maxLength: 20
-          minLength: 1
-        amount:
-          description: ''
-          type: string
-          example: '1.11'
-          maxLength: 13
-          minLength: 1
-        currencyCode:
-          description: ''
-          type: string
-          example: EUR
-          maxLength: 3
-          minLength: 3
-        status:
-          description: ''
-          type: string
-          example: success
-          maxLength: 20
-          minLength: 1
-        createdAt:
-          description: ''
-          type: string
-          example: '2023-08-01 07:38:16'
-          maxLength: 19
-          minLength: 19
-        integrationTransactionId:
-          description: ''
-          type: string
-          example: 0000000123456789213456798
-          maxLength: 255
-          minLength: 1
-        integrationAccountId:
-          description: ''
-          type: string
-          example: '102223'
-          maxLength: 11
-          minLength: 1
-        authorizationNo:
-          description: ''
-          type: string
-          example: N/A
-          maxLength: 50
-          minLength: 1
-        expirationDate:
-          description: ''
-          type: string
-          example: '2023-12-11 08:45:27'
-          maxLength: 19
-          minLength: 19
-        calculatedFee:
-          description: ''
-          type: string
-          example: 1,11
-          maxLength: 13
-          minLength: 1
-        integrationId:
-          description: ''
-          type: string
-          example: '87'
-          maxLength: 11
-          minLength: 1
-        terminalId:
-          description: ''
-          type: string
-          example: '26543'
-          maxLength: 20
-          minLength: 1
-        parentId:
-          description: ''
-          type: string
-          example: '0'
-          maxLength: 20
-          minLength: 1
-        orderId:
-          description: ''
-          type: string
-          example: '2568896541'
-          maxLength: 255
-          minLength: 1
-        typeName:
-          description: ''
-          type: string
-          example: sale
-          maxLength: 50
-          minLength: 1
-        errorCode:
-          description: ''
-          type: string
-          example: '000'
-          maxLength: 10
-          minLength: 1
-        descriptor:
-          description: ''
-          type: string
-          example: ''
-          maxLength: 255
-          minLength: 1
-        processingAccountId:
-          description: ''
-          type: string
-          example: '102223'
-          maxLength: 20
-          minLength: 1
-      required:
-      - id
-      - amount
-      - currencyCode
-      - status
-      - createdAt
-      - integrationTransactionId
-      - integrationAccountId
-      - authorizationNo
-      - expirationDate
-      - calculatedFee
-      - integrationId
-      - terminalId
-      - parentId
-      - orderId
-      - typeName
-      - errorCode
-      - descriptor
-      - processingAccountId
-    TransactionsRecordsCompany:
-      type: object
-      properties:
-        id:
-          description: ''
-          type: string
-          example: '6666615'
-          maxLength: 11
-          minLength: 1
-        name:
-          description: ''
-          type: string
-          example: My Company Name
-          maxLength: 100
-          minLength: 1
-      required:
-      - id
-      - name
-    TransactionsRecordsCard:
-      type: object
-      properties:
-        holderName:
-          description: ''
-          type: string
-          example: John Doe von Soap
-          maxLength: 255
-          minLength: 1
-        maskedNumber:
-          description: ''
-          type: string
-          example: 599999XXXXXX0125
-          maxLength: 22
-          minLength: 13
-        brandName:
-          description: ''
-          type: string
-          example: Mastercard
-          maxLength: 150
-          minLength: 1
-      required:
-      - holderName
-      - maskedNumber
-      - brandName
-    TransactionsRecordsCustomer:
-      type: object
-      properties:
-        id:
-          description: ''
-          type: string
-          example: user123
-          maxLength: 50
-          minLength: 1
-        phone:
-          description: ''
-          type: string
-          example: 0123456789
-          maxLength: 20
-          minLength: 1
-        email:
-          description: ''
-          type: string
-          example: email@email.com
-          maxLength: 50
-          minLength: 1
-        countryCode:
-          description: ''
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: ''
-          type: string
-          example: AL
-          maxLength: 2
-          minLength: 2
-        city:
-          description: ''
-          type: string
-          example: City
-          maxLength: 100
-          minLength: 1
-        address:
-          description: ''
-          type: string
-          example: Address
-          maxLength: 255
-          minLength: 1
-        zipCode:
-          description: ''
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-        ip:
-          description: ''
-          type: string
-          example: 1.1.1.1
-          maxLength: 50
-          minLength: 1
-      required:
-      - id
-      - phone
-      - email
-      - countryCode
-      - city
-      - address
-      - zipCode
-      - ip
     TransactionsWebhook:
       type: object
       properties:
@@ -743,6 +731,104 @@ components:
       - chargeSum
       - currency
       - fraudDate
+    TransactionsRecords:
+      properties:
+        transaction:
+          $ref: '#/components/schemas/TransactionsRecordsTransaction'
+        company:
+          $ref: '#/components/schemas/TransactionsRecordsCompany'
+        card:
+          $ref: '#/components/schemas/TransactionsRecordsCard'
+        customer:
+          $ref: '#/components/schemas/TransactionsRecordsCustomer'
+        settlement:
+          $ref: '#/components/schemas/TransactionsRecordsSettlement'
+        p2p:
+          $ref: '#/components/schemas/TransactionsRecordsP2p'
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    TransactionsTransaction:
+      type: object
+      properties:
+        processingAccountId:
+          description: Processing account ID
+          type: string
+          example: '200085'
+          maxLength: 32
+          minLength: 1
+        dateTimeFrom:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 00:00:00 (today - 1 day)'
+          type: string
+          example: '2023-02-02 02:02:02'
+          maxLength: 19
+          minLength: 19
+        dateTimeTo:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 23:59:59 (today - 1 day)'
+          type: string
+          example: '2023-03-03 03:03:03'
+          maxLength: 19
+          minLength: 19
+    responseErrorTransactions:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectTransactions'
+      type: object
     TransactionsSettlement:
       type: object
       properties:
@@ -758,6 +844,54 @@ components:
           example: '2023-03-03 03:03:03'
           maxLength: 19
           minLength: 19
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    Transactions_2:
+      title: transactions
+      properties:
+        page:
+          description: Page number
+          type: integer
+          example: 3
+        transaction:
+          $ref: '#/components/schemas/TransactionsTransaction'
+        settlement:
+          $ref: '#/components/schemas/TransactionsSettlement'
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
     unprocessableContent:
       title: Validation object
       properties:
@@ -790,138 +924,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/violationObjectTooManyRequests'
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseUnauthorized:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
-      type: object
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    responseErrorTransactions:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObjectTransactions'
-      type: object
-    violationObjectTooManyRequests:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Retry after 30 seconds
-      type: object
-    TransactionsTransaction:
-      type: object
-      properties:
-        processingAccountId:
-          description: Processing account ID
-          type: string
-          example: '200085'
-          maxLength: 32
-          minLength: 1
-        dateTimeFrom:
-          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 00:00:00 (today - 1 day)'
-          type: string
-          example: '2023-02-02 02:02:02'
-          maxLength: 19
-          minLength: 19
-        dateTimeTo:
-          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD hh:ii:ss. If not provided, the default value is yesterday''s date at 23:59:59 (today - 1 day)'
-          type: string
-          example: '2023-03-03 03:03:03'
-          maxLength: 19
-          minLength: 19
-    Transactions_2:
-      title: transactions
-      properties:
-        page:
-          description: Page number
-          type: integer
-          example: 3
-        transaction:
-          $ref: '#/components/schemas/TransactionsTransaction'
-        settlement:
-          $ref: '#/components/schemas/TransactionsSettlement'
-      type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     violationObjectTransactions:
       title: Validation object disputes

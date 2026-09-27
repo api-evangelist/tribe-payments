@@ -34,7 +34,7 @@ paths:
       tags:
       - Capture
       summary: Postcapture
-      operationId: postcapture
+      operationId: postCapture
       requestBody:
         description: "To charge the authorized amount reserved on the cardholder's account,\n                    make a Capture transaction by providing the transaction ID created with a previous [`Authorize`](#actions--authorize) or [`Pre authorize`](#actions--pre-authorize) request.\n                    Upon successful Capture, funds are transferred from the cardholder to the merchant. You can charge the specified amount either partially or fully.\n                    After processing the request, a webhook will be sent to your URL specified in the Processing Account setup.\n                    For more details, refer to the [`Capture`](#webhooks--authorize--registeredcaptureaddress) webhook."
         content:
@@ -67,10 +67,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/responseForbidden'
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: postcapture
     servers:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    Capture:
+      title: capture
+      properties:
+        webhook:
+          $ref: '#/components/schemas/CaptureWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/CaptureTransaction'
+      type: object
+      required:
+      - requestId
+    CaptureWebhook:
+      type: object
+      description: Object containing the Capture webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     CaptureTransaction:
       type: object
       description: Object containing data of the transaction to be captured
@@ -136,41 +173,6 @@ components:
       - errorDescription
       - status
       - type
-    CaptureWebhook:
-      type: object
-      description: Object containing the Capture webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    Capture:
-      title: capture
-      properties:
-        webhook:
-          $ref: '#/components/schemas/CaptureWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/CaptureTransaction'
-      type: object
-      required:
-      - requestId
     responseSuccess:
       title: Success response
       properties:
@@ -180,6 +182,65 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    Capture_2:
+      title: capture
+      properties:
+        transaction:
+          $ref: '#/components/schemas/CaptureTransaction_2'
+      type: object
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
       type: object
     responseUnauthorized:
       properties:
@@ -200,22 +261,6 @@ components:
           items:
             type: string
           example: []
-      type: object
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
       type: object
     violationObject:
       title: Validation object
@@ -241,26 +286,6 @@ components:
           minLength: 1
           example: Value is not provided
       type: object
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
     CaptureTransaction_2:
       type: object
       description: Object containing data of the transaction to be captured
@@ -280,29 +305,6 @@ components:
       required:
       - id
       - amount
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    Capture_2:
-      title: capture
-      properties:
-        transaction:
-          $ref: '#/components/schemas/CaptureTransaction_2'
-      type: object
   securitySchemes:
     accountId:
       type: apiKey

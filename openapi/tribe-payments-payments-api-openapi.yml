@@ -207,6 +207,60 @@ components:
       required:
       - currency
       - amount
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    Address:
+      type: object
+      properties:
+        street_name:
+          type: string
+          description: Street name.
+          maxLength: 70
+        building_number:
+          type: string
+          description: Building number.
+        town_name:
+          type: string
+          description: Name of town/city.
+        postal_code:
+          type: string
+          description: Postal code.
+        country:
+          type: string
+          description: The country identifier as defined by ISO 3166-1 alpha-2.
+          maxLength: 2
+      required:
+      - country
+    CreditorAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: string
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
     DebtorAccount:
       type: object
       properties:
@@ -226,17 +280,24 @@ components:
           type: integer
           description: The sort code. Used to identify the account in the United Kingdom.
           maxLength: 6
-    RemittanceInformationStructured:
+    PaymentBulkStatusRequest:
       type: object
       properties:
-        reference:
+        payment_id:
           type: string
-          description: The remittance information.
-          maxLength: 35
-        reference_type:
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
+    PaymentSingleStatusRequest:
+      type: object
+      properties:
+        payment_id:
           type: string
-          description: The type of the remittance information.
-          maxLength: 35
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
     TransactionStatusResponse:
       type: object
       properties:
@@ -260,59 +321,71 @@ components:
           - PART
       required:
       - transaction_status
-    Amount:
+    PaymentBulkRequest:
       type: object
       properties:
-        amount:
+        payment_scheme:
           type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
-          type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
-      required:
-      - amount
-      - currency
-    CreditorAccount:
-      type: object
-      properties:
-        iban:
-          type: string
-          description: The IBAN of the account.
-          maxLength: 34
-        bban:
-          type: string
-          description: The local ASPSP identifier of the account.
-          maxLength: 30
-        account_number:
-          type: string
-          description: The account number. Used to identify the account in the United Kingdom.
-          maxLength: 8
-        sort_code:
-          type: integer
-          description: The sort code. Used to identify the account in the United Kingdom.
-          maxLength: 6
-    SingleBulkPayment:
-      type: object
-      properties:
-        creditor_account:
-          $ref: '#/components/schemas/CreditorAccount'
-        creditorName:
+          enum:
+          - SCT
+          - SCTI
+          - FPS
+          - BACS
+          - CHAPS
+          - SWIFT
+          description: Describes which payment scheme is used.
+        debtor_account:
+          $ref: '#/components/schemas/DebtorAccount'
+        debtor_name:
           type: string
           maxLength: 70
-          description: The name of the creditor/receiver.
-        remittanceInformationUnstructured:
+          description: The name of the debtor/sender.
+        callback_url:
           type: string
-          maxLength: 140
-          description: An unstructured reference of the transaction.
-        remittanceInformationStructured:
-          $ref: '#/components/schemas/RemittanceInformationStructured'
-        creditorAddress:
-          $ref: '#/components/schemas/Address'
-        instructedAmount:
-          $ref: '#/components/schemas/Amount'
+          description: The URL to which the transaction flow redirects after the SCA.
+        instructed_totals:
+          $ref: '#/components/schemas/InstructedTotals'
+        payments:
+          type: array
+          maxItems: 1000
+          items:
+            $ref: '#/components/schemas/SingleBulkPayment'
       required:
-      - instructed_amount
+      - callback_url
+      - instructed_totals
+      - payments
+    PaymentCallbackParameters:
+      type: object
+      required:
+      - status
+      - payment_id
+      properties:
+        status:
+          type: string
+          description: The payment status after confirmation.
+          maxLength: 4
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+        message:
+          type: string
+          description: The message with a description in case of error.
     PaymentSingleResponse:
       type: object
       properties:
@@ -345,40 +418,17 @@ components:
       - status
       - confirmation_url
       - payment_id
-    PaymentSingleStatusRequest:
+    RemittanceInformationStructured:
       type: object
       properties:
-        payment_id:
+        reference:
           type: string
-          description: The unique payment identifier.
-          maxLength: 255
-      required:
-      - payment_id
-    CreditorBank:
-      type: object
-      properties:
-        name:
+          description: The remittance information.
+          maxLength: 35
+        reference_type:
           type: string
-          description: The name of the institution.
-        bic:
-          type: string
-          description: The Business Identifier Code.
-        country:
-          type: string
-          description: The country identifier as defined by the ISO 3166-1 alpha-2.
-          maxLength: 2
-      required:
-      - name
-      - country
-    PaymentBulkStatusRequest:
-      type: object
-      properties:
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-      required:
-      - payment_id
+          description: The type of the remittance information.
+          maxLength: 35
     PaymentSingleRequest:
       type: object
       properties:
@@ -422,93 +472,80 @@ components:
       required:
       - instructed_amount
       - callback_url
-    PaymentCallbackParameters:
-      type: object
-      required:
-      - status
-      - payment_id
-      properties:
-        status:
-          type: string
-          description: The payment status after confirmation.
-          maxLength: 4
-          enum:
-          - ACCC
-          - ACCP
-          - ACSC
-          - ACSP
-          - ACTC
-          - ACWC
-          - ACWP
-          - RCVD
-          - PDNG
-          - RJCT
-          - CANC
-          - ACFC
-          - PATC
-          - PART
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-        message:
-          type: string
-          description: The message with a description in case of error.
-    PaymentBulkRequest:
+    CreditorBank:
       type: object
       properties:
-        payment_scheme:
+        name:
           type: string
-          enum:
-          - SCT
-          - SCTI
-          - FPS
-          - BACS
-          - CHAPS
-          - SWIFT
-          description: Describes which payment scheme is used.
-        debtor_account:
-          $ref: '#/components/schemas/DebtorAccount'
-        debtor_name:
+          description: The name of the institution.
+        bic:
           type: string
-          maxLength: 70
-          description: The name of the debtor/sender.
-        callback_url:
-          type: string
-          description: The URL to which the transaction flow redirects after the SCA.
-        instructed_totals:
-          $ref: '#/components/schemas/InstructedTotals'
-        payments:
-          type: array
-          maxItems: 1000
-          items:
-            $ref: '#/components/schemas/SingleBulkPayment'
-      required:
-      - callback_url
-      - instructed_totals
-      - payments
-    Address:
-      type: object
-      properties:
-        street_name:
-          type: string
-          description: Street name.
-          maxLength: 70
-        building_number:
-          type: string
-          description: Building number.
-        town_name:
-          type: string
-          description: Name of town/city.
-        postal_code:
-          type: string
-          description: Postal code.
+          description: The Business Identifier Code.
         country:
           type: string
-          description: The country identifier as defined by ISO 3166-1 alpha-2.
+          description: The country identifier as defined by the ISO 3166-1 alpha-2.
           maxLength: 2
       required:
+      - name
       - country
+    SingleBulkPayment:
+      type: object
+      properties:
+        creditor_account:
+          $ref: '#/components/schemas/CreditorAccount'
+        creditorName:
+          type: string
+          maxLength: 70
+          description: The name of the creditor/receiver.
+        remittanceInformationUnstructured:
+          type: string
+          maxLength: 140
+          description: An unstructured reference of the transaction.
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/Address'
+        instructedAmount:
+          $ref: '#/components/schemas/Amount'
+      required:
+      - instructed_amount
+    TransactionAmount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The transaction amount in the transaction currency. The decimal separator is dot.
+        currency:
+          type: string
+          description: The transaction currency in the ISO 4217 alpha-3 currency code.
+          maxLength: 3
+        valueDate:
+          type: string
+          description: The date in `YYYY-MM-DD` format, indicating when assets become available.
+          maxLength: 10
+        bookingDate:
+          type: string
+          description: The date in `YYYY-MM-DD` format, indicating when the entry is posted.
+          maxLength: 10
+    CreditorAccount_2:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        accountNumber:
+          type: string
+          description: The account number for the United Kingdom.
+          maxLength: 8
+        sortCode:
+          type: string
+          description: The sort code for the United Kingdom.
+          maxLength: 6
     DebtorAccount_2:
       type: object
       properties:
@@ -528,50 +565,6 @@ components:
           type: string
           description: The sort code for the United Kingdom.
           maxLength: 6
-    PaymentStatusRequest:
-      type: object
-      properties:
-        paymentId:
-          type: string
-          description: The unique payment identifier.
-        paymentStatus:
-          type: string
-          description: The transaction status as per ISO 20022 codes.
-          maxLength: 4
-        accountTransaction:
-          $ref: '#/components/schemas/AccountTransaction'
-      required:
-      - paymentId
-      - paymentStatus
-    RemittanceInformationStructured_2:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: The actual reference.
-          maxLength: 35
-        referenceType:
-          type: string
-          description: The remittance information type.
-          maxLength: 35
-    TransactionAmount:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: The transaction amount in the transaction currency. The decimal separator is dot.
-        currency:
-          type: string
-          description: The transaction currency in the ISO 4217 alpha-3 currency code.
-          maxLength: 3
-        valueDate:
-          type: string
-          description: The date in `YYYY-MM-DD` format, indicating when assets become available.
-          maxLength: 10
-        bookingDate:
-          type: string
-          description: The date in `YYYY-MM-DD` format, indicating when the entry is posted.
-          maxLength: 10
     AccountTransaction:
       type: object
       description: Includes the transaction information if available.
@@ -598,25 +591,32 @@ components:
           $ref: '#/components/schemas/RemittanceInformationStructured_2'
         transactionAmount:
           $ref: '#/components/schemas/TransactionAmount'
-    CreditorAccount_2:
+    RemittanceInformationStructured_2:
       type: object
       properties:
-        iban:
+        reference:
           type: string
-          description: The IBAN of the account.
-          maxLength: 34
-        bban:
+          description: The actual reference.
+          maxLength: 35
+        referenceType:
           type: string
-          description: The local ASPSP identifier of the account.
-          maxLength: 30
-        accountNumber:
+          description: The remittance information type.
+          maxLength: 35
+    PaymentStatusRequest:
+      type: object
+      properties:
+        paymentId:
           type: string
-          description: The account number for the United Kingdom.
-          maxLength: 8
-        sortCode:
+          description: The unique payment identifier.
+        paymentStatus:
           type: string
-          description: The sort code for the United Kingdom.
-          maxLength: 6
+          description: The transaction status as per ISO 20022 codes.
+          maxLength: 4
+        accountTransaction:
+          $ref: '#/components/schemas/AccountTransaction'
+      required:
+      - paymentId
+      - paymentStatus
 x-refined-from:
 - tribe-payments-obb-bank-api-webhooks-openapi.json
 - tribe-payments-obb-tpp-api-webhooks-openapi.json

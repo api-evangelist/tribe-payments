@@ -110,69 +110,6 @@ paths:
       deprecated: false
 components:
   schemas:
-    InternalServerErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Internal Server Error
-      required:
-      - type
-      - title
-      - detail
-    UnprocessableEntityErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: '[id]: This value should be of type int.'
-        violations:
-          type: array
-          description: Array of violation objects.
-          items:
-            $ref: '#/components/schemas/ViolationDto'
-      required:
-      - type
-      - title
-      - detail
-      - violations
-    UnauthorizedErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Full authentication is required to access this resource.
-      required:
-      - type
-      - title
-      - detail
     UnsupportedMediaTypeErrorResponseDto:
       type: object
       properties:
@@ -188,25 +125,6 @@ components:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
           example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
-      required:
-      - type
-      - title
-      - detail
-    BadRequestErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Syntax error
       required:
       - type
       - title
@@ -249,6 +167,50 @@ components:
       - type
       - title
       - detail
+    UnprocessableEntityErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: '[id]: This value should be of type int.'
+        violations:
+          type: array
+          description: Array of violation objects.
+          items:
+            $ref: '#/components/schemas/ViolationDto'
+      required:
+      - type
+      - title
+      - detail
+      - violations
+    BadRequestErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Syntax error
+      required:
+      - type
+      - title
+      - detail
     ViolationDto:
       type: object
       properties:
@@ -272,6 +234,44 @@ components:
       - propertyPath
       - message
       - code
+    InternalServerErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Internal Server Error
+      required:
+      - type
+      - title
+      - detail
+    UnauthorizedErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Full authentication is required to access this resource.
+      required:
+      - type
+      - title
+      - detail
   securitySchemes:
     Bearer:
       type: apiKey

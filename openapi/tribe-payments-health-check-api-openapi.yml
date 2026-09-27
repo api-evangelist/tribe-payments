@@ -63,7 +63,7 @@ paths:
       deprecated: false
 components:
   schemas:
-    InternalServerErrorResponseDto:
+    UnsupportedMediaTypeErrorResponseDto:
       type: object
       properties:
         type:
@@ -77,7 +77,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: Internal Server Error
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
       required:
       - type
       - title
@@ -101,7 +101,7 @@ components:
       - type
       - title
       - detail
-    UnsupportedMediaTypeErrorResponseDto:
+    InternalServerErrorResponseDto:
       type: object
       properties:
         type:
@@ -115,7 +115,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+          example: Internal Server Error
       required:
       - type
       - title

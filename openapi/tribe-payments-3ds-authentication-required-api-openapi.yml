@@ -28,6 +28,54 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    3DSSubmitCard:
+      type: object
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    3DSSubmit:
+      title: 3DS-submit
+      properties:
+        webhook:
+          $ref: '#/components/schemas/3DSSubmitWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/3DSSubmitTransaction'
+        card:
+          $ref: '#/components/schemas/3DSSubmitCard'
+      type: object
+      required:
+      - requestId
+    3DSSubmitWebhook:
+      type: object
+      description: Object containing the 3DS authentication webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc_3ds
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     3DSSubmitTransaction:
       type: object
       properties:
@@ -99,54 +147,6 @@ components:
       - status
       - statementDescriptor
       - redirectUrl
-      - type
-    3DSSubmitCard:
-      type: object
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
-    3DSSubmit:
-      title: 3DS-submit
-      properties:
-        webhook:
-          $ref: '#/components/schemas/3DSSubmitWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/3DSSubmitTransaction'
-        card:
-          $ref: '#/components/schemas/3DSSubmitCard'
-      type: object
-      required:
-      - requestId
-    3DSSubmitWebhook:
-      type: object
-      description: Object containing the 3DS authentication webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
-          type: string
-          example: transaction_cc_3ds
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
       - type
   securitySchemes:
     accountId:

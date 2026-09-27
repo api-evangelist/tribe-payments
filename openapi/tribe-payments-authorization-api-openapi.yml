@@ -103,28 +103,13 @@ components:
           items:
             type: string
             description: A list of account numbers approved by the scope (possibly in combination with sort codes).
-    SaveConsentResponse:
+    RevokeTokenRequest:
       type: object
       properties:
-        callbackUrl:
-          type: string
-          description: A callback URL to redirect the user back to the TPP.
-          example: https://tpp.example.com/signed
         accessToken:
           type: string
-          description: A generated token used for accessing user data.
-          example: $#@%#$%^$@#$56445641653!@#$%3
-        validUntil:
-          type: string
-          description: The expiration date of the token.
-          example: '2020-10-13T12:54:58+00:00'
-    RevokeTokenResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Confirms token revocation by returning the success status.
-          example: success
+          description: An access token used with PSU account(s).
+          example: defdb58e7a412c74ff9ee692ce9abe3f36d900676edf07ce90cdb30f1529a1e3c0209515a81d2a314f7e740415b1f0fa691e38fecdd380d7d1924f97300aa3232ce1a76e56c59b081e604003a2382b0b67f32500a70cb33af319e4668277a0ad7c72bf8b85708fd530591514d270dd8faa43349d251288ddb6a3a524d0aad6
     InitAuthorizationRequest:
       type: object
       properties:
@@ -152,10 +137,25 @@ components:
         cancelUrl:
           type: string
           description: The URL for canceling authorization.
-    RevokeTokenRequest:
+    RevokeTokenResponse:
       type: object
       properties:
+        status:
+          type: string
+          description: Confirms token revocation by returning the success status.
+          example: success
+    SaveConsentResponse:
+      type: object
+      properties:
+        callbackUrl:
+          type: string
+          description: A callback URL to redirect the user back to the TPP.
+          example: https://tpp.example.com/signed
         accessToken:
           type: string
-          description: An access token used with PSU account(s).
-          example: defdb58e7a412c74ff9ee692ce9abe3f36d900676edf07ce90cdb30f1529a1e3c0209515a81d2a314f7e740415b1f0fa691e38fecdd380d7d1924f97300aa3232ce1a76e56c59b081e604003a2382b0b67f32500a70cb33af319e4668277a0ad7c72bf8b85708fd530591514d270dd8faa43349d251288ddb6a3a524d0aad6
+          description: A generated token used for accessing user data.
+          example: $#@%#$%^$@#$56445641653!@#$%3
+        validUntil:
+          type: string
+          description: The expiration date of the token.
+          example: '2020-10-13T12:54:58+00:00'

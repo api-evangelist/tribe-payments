@@ -158,86 +158,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Host:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the Host.
-          example: 844456
-        url:
-          type: integer
-          description: Host URL.
-          example: https://host.example
-        externalReferenceId:
-          type: string
-          description: Host external reference id.
-          example: '02'
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
     TerminalActivatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the Terminal.
-          example: 844456
-        externalReferenceId:
-          type: string
-          description: Device external reference id.
-          example: a4288161-c772-43d2-831d-ee4cdc09864d
-        deviceId:
-          type: integer
-          description: Device id.
-          example: 1
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        activatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-    Violation:
-      type: object
-      properties:
-        propertyPath:
-          type: string
-          description: The path to the parameter or property where the violation occurred.
-        code:
-          type: string
-          description: Specific error code representing the violation.
-        message:
-          type: string
-          description: A message describing what went wrong.
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A description of the error that occurred.
-          example: Error occured.
-        violations:
-          type: array
-          description: List of validation errors or violations.
-          items:
-            $ref: '#/components/schemas/Violation'
-    TerminalAppResponse:
       type: object
       properties:
         id:
@@ -334,3 +255,82 @@ components:
           description: Model version of device.
           example: '0000000'
           minLength: 6
+    TerminalAppResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Terminal.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        deviceId:
+          type: integer
+          description: Device id.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        activatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    Violation:
+      type: object
+      properties:
+        propertyPath:
+          type: string
+          description: The path to the parameter or property where the violation occurred.
+        code:
+          type: string
+          description: Specific error code representing the violation.
+        message:
+          type: string
+          description: A message describing what went wrong.
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A description of the error that occurred.
+          example: Error occured.
+        violations:
+          type: array
+          description: List of validation errors or violations.
+          items:
+            $ref: '#/components/schemas/Violation'
+    Host:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Host.
+          example: 844456
+        url:
+          type: integer
+          description: Host URL.
+          example: https://host.example
+        externalReferenceId:
+          type: string
+          description: Host external reference id.
+          example: '02'
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
