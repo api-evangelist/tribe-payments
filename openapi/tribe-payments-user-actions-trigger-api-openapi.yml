@@ -110,7 +110,7 @@ paths:
       deprecated: false
 components:
   schemas:
-    UnsupportedMediaTypeErrorResponseDto:
+    BadRequestErrorResponseDto:
       type: object
       properties:
         type:
@@ -124,45 +124,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
-      required:
-      - type
-      - title
-      - detail
-    ConflictErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: event
-      required:
-      - type
-      - title
-      - detail
-    NotFoundErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: event
+          example: Syntax error
       required:
       - type
       - title
@@ -192,7 +154,7 @@ components:
       - title
       - detail
       - violations
-    BadRequestErrorResponseDto:
+    NotFoundErrorResponseDto:
       type: object
       properties:
         type:
@@ -206,7 +168,64 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: Syntax error
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    InternalServerErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Internal Server Error
+      required:
+      - type
+      - title
+      - detail
+    ConflictErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    UnauthorizedErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Full authentication is required to access this resource.
       required:
       - type
       - title
@@ -234,7 +253,7 @@ components:
       - propertyPath
       - message
       - code
-    InternalServerErrorResponseDto:
+    UnsupportedMediaTypeErrorResponseDto:
       type: object
       properties:
         type:
@@ -248,26 +267,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: Internal Server Error
-      required:
-      - type
-      - title
-      - detail
-    UnauthorizedErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Full authentication is required to access this resource.
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
       required:
       - type
       - title

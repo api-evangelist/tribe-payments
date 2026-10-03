@@ -103,24 +103,6 @@ components:
       type: object
       required:
       - requestId
-    ProcessingAccountsWebhook:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>'
-          type: string
-          example: report_processing_accounts
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
     ProcessingAccountsProcessingAccount:
       type: object
       properties:
@@ -150,6 +132,24 @@ components:
           description: ''
           type: boolean
           example: true
+    ProcessingAccountsWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_processing_account</td><td>Report webhook for processing account request</td></tr></table>'
+          type: string
+          example: report_processing_accounts
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     violationObjectTooManyRequests:
       title: Validation object
       properties:
@@ -166,15 +166,9 @@ components:
           minLength: 1
           example: Retry after 30 seconds
       type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
+    ProcessingAccounts_2:
+      title: processing-accounts
+      properties: {}
       type: object
     responseForbidden:
       properties:
@@ -193,25 +187,32 @@ components:
           items:
             $ref: '#/components/schemas/violationObjectForbidden'
       type: object
-    ProcessingAccounts_2:
-      title: processing-accounts
-      properties: {}
-      type: object
-    violationObjectProcessing:
-      title: Validation object disputes
+    responseSuccess:
+      title: Success response
       properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
+        requestId:
+          description: Request ID
           type: string
-          maxLength: 5
-          minLength: 3
-          example: '1004'
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
         message:
-          description: '[`Response message`](#appendix--enum--response-code)'
+          description: Request ID
           type: string
-          maxLength: 50
-          minLength: 1
-          example: Request body contains unknown field \"parameterName\"
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
       type: object
     violationObjectForbidden:
       title: Validation object
@@ -228,6 +229,42 @@ components:
           maxLength: 50
           minLength: 1
           example: Company is disabled
+      type: object
+    responseErrorProcessing:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectProcessing'
+      type: object
+    violationObjectProcessing:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body contains unknown field \"parameterName\"
       type: object
     responseUnauthorized:
       properties:
@@ -264,43 +301,6 @@ components:
           maxLength: 50
           minLength: 1
           example: Company webhook URL is not set
-      type: object
-    responseTooManyRequests:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Too many requests
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectTooManyRequests'
-      type: object
-    responseErrorProcessing:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObjectProcessing'
       type: object
   securitySchemes:
     apiKey:

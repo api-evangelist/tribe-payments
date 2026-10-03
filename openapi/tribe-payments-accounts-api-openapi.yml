@@ -97,13 +97,65 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AccountBalanceResponse:
+    AccountTransactionsResponse:
       type: object
       properties:
-        balances:
+        transactions:
+          $ref: '#/components/schemas/AccountTransaction'
+        page_key:
+          type: string
+          description: The key for the next page of results.
+    AccountTransaction:
+      type: object
+      properties:
+        booked:
           type: array
           items:
-            $ref: '#/components/schemas/Balance'
+            $ref: '#/components/schemas/Transaction'
+        pending:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          description: The transaction ID.
+        creditor_name:
+          type: string
+          description: The transaction recipient's name.
+        creditor_account:
+          $ref: '#/components/schemas/Account'
+        debtor_name:
+          type: string
+          description: The transaction sender's name.
+        debtor_account:
+          $ref: '#/components/schemas/Account'
+        remittance_information_unstructured:
+          type: string
+          description: The remittance information in a single string.
+          maxLength: 140
+        remittance_information_structured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        transaction_amount:
+          type: object
+          properties:
+            amount:
+              type: string
+              description: The transaction amount.
+            currency:
+              type: string
+              description: The transaction currency in ISO 4217 alpha-3 currency code.
+              maxLength: 3
+            value_date:
+              type: string
+              description: The date when assets become available.
+              format: date
+            booking_date:
+              type: string
+              description: The date when entry is posted to the account.
+              format: date
     Amount:
       type: object
       properties:
@@ -117,62 +169,6 @@ components:
       required:
       - amount
       - currency
-    AccountTransactionsResponse:
-      type: object
-      properties:
-        transactions:
-          $ref: '#/components/schemas/AccountTransaction'
-        page_key:
-          type: string
-          description: The key for the next page of results.
-    AccountRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountTransactionsRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID. Identical to the `resource_id` from the [Get account list](#webhooks--accounts--get-account-list) webhook.
-        booking_status:
-          type: string
-          description: The type of transactions to return.
-          enum:
-          - booked
-          - pending
-          - both
-        page_key:
-          type: string
-          description: The value indicates which page to retrieve. Applicable when there is more than one data page available.
-        page_size:
-          type: integer
-          description: The maximum number of transactions to show in the response. The default value is `100`.
-          default: 100
-        date_from:
-          type: string
-          description: Filters transactions beginning from a specific date in `YYYY-MM-DD` format.
-        date_to:
-          type: string
-          description: Filters transactions ending on a specific date in `YYYY-MM-DD` format.
-      required:
-      - account_id
-      - booking_status
-    AccountTransaction:
-      type: object
-      properties:
-        booked:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        pending:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
     Account:
       type: object
       properties:
@@ -214,6 +210,51 @@ components:
             - BACS
             - CHAPS
             - SWIFT
+    AccountTransactionsRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID. Identical to the `resource_id` from the [Get account list](#webhooks--accounts--get-account-list) webhook.
+        booking_status:
+          type: string
+          description: The type of transactions to return.
+          enum:
+          - booked
+          - pending
+          - both
+        page_key:
+          type: string
+          description: The value indicates which page to retrieve. Applicable when there is more than one data page available.
+        page_size:
+          type: integer
+          description: The maximum number of transactions to show in the response. The default value is `100`.
+          default: 100
+        date_from:
+          type: string
+          description: Filters transactions beginning from a specific date in `YYYY-MM-DD` format.
+        date_to:
+          type: string
+          description: Filters transactions ending on a specific date in `YYYY-MM-DD` format.
+      required:
+      - account_id
+      - booking_status
+    AccountBalanceRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
+    AccountRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
     RemittanceInformationStructured:
       type: object
       properties:
@@ -225,51 +266,6 @@ components:
           type: string
           description: The type of the remittance information.
           maxLength: 35
-    AccountResponse:
-      type: object
-      properties:
-        account:
-          $ref: '#/components/schemas/Account'
-    Transaction:
-      type: object
-      properties:
-        transaction_id:
-          type: string
-          description: The transaction ID.
-        creditor_name:
-          type: string
-          description: The transaction recipient's name.
-        creditor_account:
-          $ref: '#/components/schemas/Account'
-        debtor_name:
-          type: string
-          description: The transaction sender's name.
-        debtor_account:
-          $ref: '#/components/schemas/Account'
-        remittance_information_unstructured:
-          type: string
-          description: The remittance information in a single string.
-          maxLength: 140
-        remittance_information_structured:
-          $ref: '#/components/schemas/RemittanceInformationStructured'
-        transaction_amount:
-          type: object
-          properties:
-            amount:
-              type: string
-              description: The transaction amount.
-            currency:
-              type: string
-              description: The transaction currency in ISO 4217 alpha-3 currency code.
-              maxLength: 3
-            value_date:
-              type: string
-              description: The date when assets become available.
-              format: date
-            booking_date:
-              type: string
-              description: The date when entry is posted to the account.
-              format: date
     Balance:
       type: object
       properties:
@@ -284,11 +280,15 @@ components:
           - interimBooked
           - forwardAvailable
           - nonInvoiced
-    AccountBalanceRequest:
+    AccountResponse:
       type: object
       properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
+        account:
+          $ref: '#/components/schemas/Account'
+    AccountBalanceResponse:
+      type: object
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'

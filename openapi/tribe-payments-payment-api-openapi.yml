@@ -473,6 +473,12 @@ paths:
     - url: '%tpp_api_url%/tpp/v2'
 components:
   schemas:
+    PaymentStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Confirms the correct response by returning the success status.
     PaymentStatusRequest:
       type: object
       properties:
@@ -485,30 +491,66 @@ components:
       required:
       - paymentId
       - paymentStatus
-    PaymentStatusResponse:
+    PaymentResponse:
       type: object
+      description: A JSON body.
+      required:
+      - paymentId
+      - transactionStatus
       properties:
-        status:
+        paymentId:
           type: string
-          description: Confirms the correct response by returning the success status.
-    BankReference:
+          description: The unique payment identifier.
+          example: 1234-wertiq-983
+          maxLength: 255
+        transactionStatus:
+          type: string
+          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
+          example: RCVD
+          minLength: 4
+          maxLength: 4
+        _links:
+          $ref: '#/components/schemas/PaymentLinks'
+    ForbiddenError:
       type: object
-      description: The information about the payment receiver's institution. Mandatory to use with the [SWIFT](#appendix--enum--payment-schemes) payment scheme.
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
       properties:
-        name:
+        code:
           type: string
-          description: The name of the institution.
-          example: Example bank
-        bic:
+          description: The message code to explain the nature of the underlying error.
+          example: ROLE_INVALID
+        title:
           type: string
-          description: The Business Identifier Code is an international standard for routing business transactions and identifying business parties.
-          example: FAKEBICX
-        country:
+          description: The short, human-readable description of the error.
+          example: Role not valid for current resource
+          maxLength: 70
+        timestamp:
           type: string
-          description: Two characters as defined by ISO 3166.
-          maxLength: 2
-          minLength: 2
-          example: GB
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    EmptyAdditionalErrors:
+      type: array
+      example: []
+      items:
+        $ref: '#/components/schemas/AdditionalError'
+    ScaRedirect:
+      type: object
+      description: The link to which to redirect the PSU browser for a SCA confirmation of the payment.
+      properties:
+        href:
+          type: string
+          description: A URL of the scaRedirect.
+          example: https://www.testbank.com/asdfasdfasdf
     Error:
       type: object
       description: The generic error object example.
@@ -539,6 +581,87 @@ components:
           description: Might be used if more than one error is to be communicated.
           items:
             $ref: '#/components/schemas/AdditionalError'
+    InternalServerError:
+      type: object
+      description: The forbidden error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: INTERNAL_ERROR
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Internal Error
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    UnauthorizedError:
+      type: object
+      description: The unauthorized error object example.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: TOKEN_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: OAuth token not valid
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
+    NotAcceptableError:
+      type: object
+      description: An unsupported `Accept` header.
+      required:
+      - code
+      - requestId
+      - timestamp
+      properties:
+        code:
+          type: string
+          description: The message code to explain the nature of the underlying error.
+          example: REQUESTED_FORMATS_INVALID
+        title:
+          type: string
+          description: The short, human-readable description of the error.
+          example: Only application/json supported
+          maxLength: 70
+        timestamp:
+          type: string
+          description: ISO-8601 timestamp
+          example: 2023-04-19T13:33:42+0000
+        requestId:
+          type: string
+          description: The request ID as communicated in the `X-Request-Id` header.
+          example: 39c97edf-7469-42af-96ca-169a902fd8a6
+        additionalErrors:
+          $ref: '#/components/schemas/EmptyAdditionalErrors'
     RemittanceInformationStructured:
       type: object
       required:
@@ -583,9 +706,27 @@ components:
           minLength: 6
           maxLength: 6
           example: '902127'
-    InternalServerError:
+    StructuredAmount:
+      description: An amount with a currency.
       type: object
-      description: The forbidden error object example.
+      required:
+      - amount
+      - currency
+      properties:
+        amount:
+          type: string
+          description: The amount of funds in the balance. The decimal separator is dot.
+          example: '123.22'
+          maxLength: 14
+        currency:
+          type: string
+          description: The account currency in ISO 4217 alpha-3 currency code.
+          example: EUR
+          maxLength: 3
+          minLength: 3
+    NotAllowedError:
+      type: object
+      description: A forbidden HTTP method.
       required:
       - code
       - requestId
@@ -594,11 +735,11 @@ components:
         code:
           type: string
           description: The message code to explain the nature of the underlying error.
-          example: INTERNAL_ERROR
+          example: SERVICE_INVALID
         title:
           type: string
           description: The short, human-readable description of the error.
-          example: Internal Error
+          example: Used HTTP method not supported for current action
           maxLength: 70
         timestamp:
           type: string
@@ -610,6 +751,34 @@ components:
           example: 39c97edf-7469-42af-96ca-169a902fd8a6
         additionalErrors:
           $ref: '#/components/schemas/EmptyAdditionalErrors'
+    TransactionStatus:
+      type: object
+      description: Contains status of the payment.
+      properties:
+        transactionStatus:
+          type: string
+          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
+          example: RCVD
+          minLength: 4
+          maxLength: 4
+    BankReference:
+      type: object
+      description: The information about the payment receiver's institution. Mandatory to use with the [SWIFT](#appendix--enum--payment-schemes) payment scheme.
+      properties:
+        name:
+          type: string
+          description: The name of the institution.
+          example: Example bank
+        bic:
+          type: string
+          description: The Business Identifier Code is an international standard for routing business transactions and identifying business parties.
+          example: FAKEBICX
+        country:
+          type: string
+          description: Two characters as defined by ISO 3166.
+          maxLength: 2
+          minLength: 2
+          example: GB
     AdditionalError:
       type: object
       description: The error object providing additional error information.
@@ -630,93 +799,41 @@ components:
           description: The longer, human-readable description of the error.
           example: Longer description of error
           maxLength: 500
-    TransactionStatus:
+    CreditorAddress:
       type: object
-      description: Contains status of the payment.
-      properties:
-        transactionStatus:
-          type: string
-          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
-          example: RCVD
-          minLength: 4
-          maxLength: 4
-    UnsupportedMediaTypeError:
-      type: object
-      description: An unsupported `Content-Type` header.
+      description: An address of the account holder.
       required:
-      - code
-      - requestId
-      - timestamp
+      - country
       properties:
-        code:
+        streetName:
           type: string
-          description: The message code to explain the nature of the underlying error.
-          example: REQUEST_FORMAT_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Only application/json supported
+          description: Street name.
+          example: Random st.
           maxLength: 70
-        timestamp:
+        buildingNumber:
           type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
+          description: Building number.
+          example: '22'
+        townName:
           type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    StructuredAmount:
-      description: An amount with a currency.
+          description: Name of a town/city.
+          example: London
+        postCode:
+          type: string
+          description: Postal code.
+          example: LE5 2QF
+        country:
+          type: string
+          description: Two characters as defined by ISO 3166.
+          maxLength: 2
+          minLength: 2
+          example: GB
+    PaymentLinks:
       type: object
-      required:
-      - amount
-      - currency
+      description: Contains redirect information for a payment confirmation.
       properties:
-        amount:
-          type: string
-          description: The amount of funds in the balance. The decimal separator is dot.
-          example: '123.22'
-          maxLength: 14
-        currency:
-          type: string
-          description: The account currency in ISO 4217 alpha-3 currency code.
-          example: EUR
-          maxLength: 3
-          minLength: 3
-    EmptyAdditionalErrors:
-      type: array
-      example: []
-      items:
-        $ref: '#/components/schemas/AdditionalError'
-    ForbiddenError:
-      type: object
-      description: The forbidden error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: ROLE_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Role not valid for current resource
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
+        scaRedirect:
+          $ref: '#/components/schemas/ScaRedirect'
     SinglePayment:
       type: object
       description: A JSON structure initiating a single payment.
@@ -763,9 +880,9 @@ components:
           $ref: '#/components/schemas/StructuredAmount'
         creditorBank:
           $ref: '#/components/schemas/BankReference'
-    NotAcceptableError:
+    UnsupportedMediaTypeError:
       type: object
-      description: An unsupported `Accept` header.
+      description: An unsupported `Content-Type` header.
       required:
       - code
       - requestId
@@ -774,7 +891,7 @@ components:
         code:
           type: string
           description: The message code to explain the nature of the underlying error.
-          example: REQUESTED_FORMATS_INVALID
+          example: REQUEST_FORMAT_INVALID
         title:
           type: string
           description: The short, human-readable description of the error.
@@ -790,35 +907,6 @@ components:
           example: 39c97edf-7469-42af-96ca-169a902fd8a6
         additionalErrors:
           $ref: '#/components/schemas/EmptyAdditionalErrors'
-    CreditorAddress:
-      type: object
-      description: An address of the account holder.
-      required:
-      - country
-      properties:
-        streetName:
-          type: string
-          description: Street name.
-          example: Random st.
-          maxLength: 70
-        buildingNumber:
-          type: string
-          description: Building number.
-          example: '22'
-        townName:
-          type: string
-          description: Name of a town/city.
-          example: London
-        postCode:
-          type: string
-          description: Postal code.
-          example: LE5 2QF
-        country:
-          type: string
-          description: Two characters as defined by ISO 3166.
-          maxLength: 2
-          minLength: 2
-          example: GB
     NotFoundError:
       type: object
       description: Not found.
@@ -862,94 +950,6 @@ components:
           type: string
           description: The short, human-readable description of the error.
           example: Exceeded API limit
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    PaymentLinks:
-      type: object
-      description: Contains redirect information for a payment confirmation.
-      properties:
-        scaRedirect:
-          $ref: '#/components/schemas/ScaRedirect'
-    PaymentResponse:
-      type: object
-      description: A JSON body.
-      required:
-      - paymentId
-      - transactionStatus
-      properties:
-        paymentId:
-          type: string
-          description: The unique payment identifier.
-          example: 1234-wertiq-983
-          maxLength: 255
-        transactionStatus:
-          type: string
-          description: The transaction status is filled with codes of ISO 20022. See [Payment status](#appendix--enum--payment-statuses).
-          example: RCVD
-          minLength: 4
-          maxLength: 4
-        _links:
-          $ref: '#/components/schemas/PaymentLinks'
-    UnauthorizedError:
-      type: object
-      description: The unauthorized error object example.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: TOKEN_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: OAuth token not valid
-          maxLength: 70
-        timestamp:
-          type: string
-          description: ISO-8601 timestamp
-          example: 2023-04-19T13:33:42+0000
-        requestId:
-          type: string
-          description: The request ID as communicated in the `X-Request-Id` header.
-          example: 39c97edf-7469-42af-96ca-169a902fd8a6
-        additionalErrors:
-          $ref: '#/components/schemas/EmptyAdditionalErrors'
-    ScaRedirect:
-      type: object
-      description: The link to which to redirect the PSU browser for a SCA confirmation of the payment.
-      properties:
-        href:
-          type: string
-          description: A URL of the scaRedirect.
-          example: https://www.testbank.com/asdfasdfasdf
-    NotAllowedError:
-      type: object
-      description: A forbidden HTTP method.
-      required:
-      - code
-      - requestId
-      - timestamp
-      properties:
-        code:
-          type: string
-          description: The message code to explain the nature of the underlying error.
-          example: SERVICE_INVALID
-        title:
-          type: string
-          description: The short, human-readable description of the error.
-          example: Used HTTP method not supported for current action
           maxLength: 70
         timestamp:
           type: string

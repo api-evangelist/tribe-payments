@@ -421,17 +421,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    HostCreate:
-      type: object
-      properties:
-        url:
-          type: integer
-          description: Host URL.
-          example: https://host.example
-        externalReferenceId:
-          type: string
-          description: Host external reference id.
-          example: '02'
     Device:
       type: object
       properties:
@@ -477,6 +466,17 @@ components:
         message:
           type: string
           description: A message describing what went wrong.
+    HostCreate:
+      type: object
+      properties:
+        url:
+          type: integer
+          description: Host URL.
+          example: https://host.example
+        externalReferenceId:
+          type: string
+          description: Host external reference id.
+          example: '02'
     ErrorResponse:
       type: object
       properties:

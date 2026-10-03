@@ -554,40 +554,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Terminal:
+    ErrorResponse:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique identifier for the Terminal.
-          example: 844456
-        externalReferenceId:
+        message:
           type: string
-          description: Device external reference id.
-          example: a4288161-c772-43d2-831d-ee4cdc09864d
-        deviceId:
-          type: integer
-          description: Device id.
-          example: 1
-        activationCode:
-          type: string
-          description: Terminal activation code.
-          example: '000000'
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        activatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
+          description: A description of the error that occurred.
+          example: Error occured.
+        violations:
+          type: array
+          description: List of validation errors or violations.
+          items:
+            $ref: '#/components/schemas/Violation'
     Device:
       type: object
       properties:
@@ -621,21 +599,24 @@ components:
           format: date-time
           description: Updated at.
           example: '2024-09-26T14:45:30.123+02:00'
-    CreateTerminalRequest:
+    Violation:
+      type: object
+      properties:
+        propertyPath:
+          type: string
+          description: The path to the parameter or property where the violation occurred.
+        code:
+          type: string
+          description: Specific error code representing the violation.
+        message:
+          type: string
+          description: A message describing what went wrong.
+    CreateDeviceRequest:
       type: object
       required:
+      - serialNumber
       - externalReferenceId
-      properties:
-        externalReferenceId:
-          type: string
-          description: Terminal external reference id.
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-        deviceId:
-          type: integer
-          description: The ID of device to which the terminal will be assigned. This ID must correspond to an existing device within the system.
-          example: 1
-    UpdateDeviceRequest:
-      type: object
+      - configurationTag
       properties:
         serialNumber:
           type: string
@@ -649,12 +630,8 @@ components:
           type: string
           description: Model version of device.
           example: test-v1-all-all
-    CreateDeviceRequest:
+    UpdateDeviceRequest:
       type: object
-      required:
-      - serialNumber
-      - externalReferenceId
-      - configurationTag
       properties:
         serialNumber:
           type: string
@@ -692,27 +669,50 @@ components:
                 type: string
                 description: A description of the validation failure.
                 example: This value is too long. It should have {{ limit }} characters or less.
-    Violation:
+    Terminal:
       type: object
       properties:
-        propertyPath:
+        id:
+          type: integer
+          description: Unique identifier for the Terminal.
+          example: 844456
+        externalReferenceId:
           type: string
-          description: The path to the parameter or property where the violation occurred.
-        code:
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        deviceId:
+          type: integer
+          description: Device id.
+          example: 1
+        activationCode:
           type: string
-          description: Specific error code representing the violation.
-        message:
+          description: Terminal activation code.
+          example: '000000'
+        createdAt:
           type: string
-          description: A message describing what went wrong.
-    ErrorResponse:
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        activatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    CreateTerminalRequest:
       type: object
+      required:
+      - externalReferenceId
       properties:
-        message:
+        externalReferenceId:
           type: string
-          description: A description of the error that occurred.
-          example: Error occured.
-        violations:
-          type: array
-          description: List of validation errors or violations.
-          items:
-            $ref: '#/components/schemas/Violation'
+          description: Terminal external reference id.
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+        deviceId:
+          type: integer
+          description: The ID of device to which the terminal will be assigned. This ID must correspond to an existing device within the system.
+          example: 1

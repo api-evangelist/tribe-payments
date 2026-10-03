@@ -50,192 +50,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
-    Prepare:
-      title: prepare
-      properties:
-        transaction:
-          $ref: '#/components/schemas/PrepareTransaction'
-        customer:
-          $ref: '#/components/schemas/PrepareCustomer'
-        settings:
-          $ref: '#/components/schemas/PrepareSettings'
-        recurring:
-          $ref: '#/components/schemas/PrepareRecurring'
-      type: object
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    PrepareSettingsCustomerEmailNotification:
-      type: object
-      properties:
-        send:
-          description: 'Possible values: `true` or `false`. If the value is set to `true`, the `customer.email` field is mandatory.'
-          type: boolean
-          example: true
-        subjectTag:
-          description: Additional email subject tag which can be added in email template ([payment_link_prepare_email_subject]).
-          type: string
-          example: '#Order XYZ-987'
-          maxLength: 255
-          minLength: 1
-        messageTag:
-          description: Additional email message tag which can be added in email template ([payment_link_prepare_email_message]
-          type: string
-          example: 'Dear John Doe, Your #Order XYZ-987 was completed with greatest success.'
-          maxLength: 255
-          minLength: 1
-    PrepareRecurring:
-      type: object
-      properties:
-        paymentType:
-          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
-          type: integer
-          example: 1
-        frequency:
-          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
-          type: integer
-          example: 1
-        endDate:
-          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
-          type: string
-          example: '20230901'
-          maxLength: 8
-          minLength: 8
-    responseUnauthorized:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
-      type: object
-    PrepareSettings:
-      type: object
-      properties:
-        allowedNumberOfRetries:
-          description: Max number of customer attempts to finish the payment before redirecting to Merchant returnUrl
-          type: integer
-          example: 3
-        expiresInHours:
-          description: Expiration in hours (if not provided - default value from hosted payment setting will be used)
-          type: integer
-          example: 2
-        hppSettingId:
-          description: Hosted Payment Setting ID (if not provided - default company or default brand Hosted Payment Setting will be selected)
-          type: integer
-          example: 1
-        paymentMethod:
-          description: This parameter only accepts the value `cc`(Credit Card) (Sale transactions will be processed via the link generated using this payment method).
-          type: string
-          example: cc
-          maxLength: 50
-          minLength: 1
-        checkoutMethods:
-          description: Possible checkout methods will be received from Gateway
-          type: array
-          items:
-            type: string
-            example: cc
-        paymentDescription:
-          description: Provided payment description will be displayed in the Hosted Payment page
-          type: string
-          example: Some text
-          maxLength: 100
-          minLength: 1
-        termsAndReferencesUrl:
-          description: Terms and References URL
-          type: string
-          example: https://www.example.com/terms-and-references.html
-          maxLength: 200
-          minLength: 1
-        hideAmount:
-          description: 'Possible values: `true` or `false`. If the value is set to `true`, the Amount will be hidden.'
-          type: boolean
-          example: true
-        hideOrderId:
-          description: 'Possible values: `true` or `false`. If the value is set to `true`, the Order ID will be hidden.'
-          type: boolean
-          example: true
-        slimMode:
-          description: 'Possible values: `true` or `false`. If the value is set to `true`, Slim Mode will be enabled.'
-          type: boolean
-          example: true
-        customerEmailNotification:
-          $ref: '#/components/schemas/PrepareSettingsCustomerEmailNotification'
-      required:
-      - paymentMethod
     violationObject:
       title: Validation object
       properties:
@@ -260,38 +74,6 @@ components:
           minLength: 1
           example: Value is not provided
       type: object
-    PrepareTransaction:
-      type: object
-      properties:
-        amount:
-          description: Number in minor units, e.g., cents. The value cannot be zero.
-          type: string
-          example: '123'
-          maxLength: 13
-          minLength: 1
-        currencyCode:
-          description: Currency ISO 4217 code
-          type: string
-          example: EUR
-          maxLength: 3
-          minLength: 3
-        orderId:
-          description: Custom merchant’s reference
-          type: string
-          example: '32131231231241'
-          maxLength: 32
-          minLength: 1
-        returnUrl:
-          description: After initiating a payment, customer will be redirected to this URL with the transaction result
-          type: string
-          example: https://my-return-server/some-path
-          maxLength: 255
-          minLength: 1
-      required:
-      - amount
-      - currencyCode
-      - orderId
-      - returnUrl
     PrepareCustomer:
       type: object
       properties:
@@ -367,6 +149,224 @@ components:
           example: Doe
           maxLength: 255
           minLength: 1
+    PrepareTransaction:
+      type: object
+      properties:
+        amount:
+          description: Number in minor units, e.g., cents. The value cannot be zero.
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        returnUrl:
+          description: After initiating a payment, customer will be redirected to this URL with the transaction result
+          type: string
+          example: https://my-return-server/some-path
+          maxLength: 255
+          minLength: 1
+      required:
+      - amount
+      - currencyCode
+      - orderId
+      - returnUrl
+    PrepareRecurring:
+      type: object
+      properties:
+        paymentType:
+          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
+          type: integer
+          example: 1
+        frequency:
+          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
+          type: integer
+          example: 1
+        endDate:
+          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
+          type: string
+          example: '20230901'
+          maxLength: 8
+          minLength: 8
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    Prepare:
+      title: prepare
+      properties:
+        transaction:
+          $ref: '#/components/schemas/PrepareTransaction'
+        customer:
+          $ref: '#/components/schemas/PrepareCustomer'
+        settings:
+          $ref: '#/components/schemas/PrepareSettings'
+        recurring:
+          $ref: '#/components/schemas/PrepareRecurring'
+      type: object
+    PrepareSettings:
+      type: object
+      properties:
+        allowedNumberOfRetries:
+          description: Max number of customer attempts to finish the payment before redirecting to Merchant returnUrl
+          type: integer
+          example: 3
+        expiresInHours:
+          description: Expiration in hours (if not provided - default value from hosted payment setting will be used)
+          type: integer
+          example: 2
+        hppSettingId:
+          description: Hosted Payment Setting ID (if not provided - default company or default brand Hosted Payment Setting will be selected)
+          type: integer
+          example: 1
+        paymentMethod:
+          description: This parameter only accepts the value `cc`(Credit Card) (Sale transactions will be processed via the link generated using this payment method).
+          type: string
+          example: cc
+          maxLength: 50
+          minLength: 1
+        checkoutMethods:
+          description: Possible checkout methods will be received from Gateway
+          type: array
+          items:
+            type: string
+            example: cc
+        paymentDescription:
+          description: Provided payment description will be displayed in the Hosted Payment page
+          type: string
+          example: Some text
+          maxLength: 100
+          minLength: 1
+        termsAndReferencesUrl:
+          description: Terms and References URL
+          type: string
+          example: https://www.example.com/terms-and-references.html
+          maxLength: 200
+          minLength: 1
+        hideAmount:
+          description: 'Possible values: `true` or `false`. If the value is set to `true`, the Amount will be hidden.'
+          type: boolean
+          example: true
+        hideOrderId:
+          description: 'Possible values: `true` or `false`. If the value is set to `true`, the Order ID will be hidden.'
+          type: boolean
+          example: true
+        slimMode:
+          description: 'Possible values: `true` or `false`. If the value is set to `true`, Slim Mode will be enabled.'
+          type: boolean
+          example: true
+        customerEmailNotification:
+          $ref: '#/components/schemas/PrepareSettingsCustomerEmailNotification'
+      required:
+      - paymentMethod
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    PrepareSettingsCustomerEmailNotification:
+      type: object
+      properties:
+        send:
+          description: 'Possible values: `true` or `false`. If the value is set to `true`, the `customer.email` field is mandatory.'
+          type: boolean
+          example: true
+        subjectTag:
+          description: Additional email subject tag which can be added in email template ([payment_link_prepare_email_subject]).
+          type: string
+          example: '#Order XYZ-987'
+          maxLength: 255
+          minLength: 1
+        messageTag:
+          description: Additional email message tag which can be added in email template ([payment_link_prepare_email_message]
+          type: string
+          example: 'Dear John Doe, Your #Order XYZ-987 was completed with greatest success.'
+          maxLength: 255
+          minLength: 1
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
   securitySchemes:
     accountId:
       type: apiKey
