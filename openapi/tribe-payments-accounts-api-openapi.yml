@@ -105,6 +105,36 @@ components:
         page_key:
           type: string
           description: The key for the next page of results.
+    Balance:
+      type: object
+      properties:
+        balance_amount:
+          $ref: '#/components/schemas/Amount'
+        balance_type:
+          type: string
+          description: The type of the balance.
+          enum:
+          - openingBooked
+          - interimAvailable
+          - interimBooked
+          - forwardAvailable
+          - nonInvoiced
+    AccountRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
+    AccountBalanceRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
     AccountTransaction:
       type: object
       properties:
@@ -116,59 +146,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Transaction'
-    Transaction:
+    AccountBalanceResponse:
       type: object
       properties:
-        transaction_id:
-          type: string
-          description: The transaction ID.
-        creditor_name:
-          type: string
-          description: The transaction recipient's name.
-        creditor_account:
-          $ref: '#/components/schemas/Account'
-        debtor_name:
-          type: string
-          description: The transaction sender's name.
-        debtor_account:
-          $ref: '#/components/schemas/Account'
-        remittance_information_unstructured:
-          type: string
-          description: The remittance information in a single string.
-          maxLength: 140
-        remittance_information_structured:
-          $ref: '#/components/schemas/RemittanceInformationStructured'
-        transaction_amount:
-          type: object
-          properties:
-            amount:
-              type: string
-              description: The transaction amount.
-            currency:
-              type: string
-              description: The transaction currency in ISO 4217 alpha-3 currency code.
-              maxLength: 3
-            value_date:
-              type: string
-              description: The date when assets become available.
-              format: date
-            booking_date:
-              type: string
-              description: The date when entry is posted to the account.
-              format: date
-    Amount:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
-          type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
-      required:
-      - amount
-      - currency
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
     Account:
       type: object
       properties:
@@ -210,6 +194,59 @@ components:
             - BACS
             - CHAPS
             - SWIFT
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          description: The transaction ID.
+        creditor_name:
+          type: string
+          description: The transaction recipient's name.
+        creditor_account:
+          $ref: '#/components/schemas/Account'
+        debtor_name:
+          type: string
+          description: The transaction sender's name.
+        debtor_account:
+          $ref: '#/components/schemas/Account'
+        remittance_information_unstructured:
+          type: string
+          description: The remittance information in a single string.
+          maxLength: 140
+        remittance_information_structured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        transaction_amount:
+          type: object
+          properties:
+            amount:
+              type: string
+              description: The transaction amount.
+            currency:
+              type: string
+              description: The transaction currency in ISO 4217 alpha-3 currency code.
+              maxLength: 3
+            value_date:
+              type: string
+              description: The date when assets become available.
+              format: date
+            booking_date:
+              type: string
+              description: The date when entry is posted to the account.
+              format: date
     AccountTransactionsRequest:
       type: object
       properties:
@@ -239,22 +276,11 @@ components:
       required:
       - account_id
       - booking_status
-    AccountBalanceRequest:
+    AccountResponse:
       type: object
       properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
+        account:
+          $ref: '#/components/schemas/Account'
     RemittanceInformationStructured:
       type: object
       properties:
@@ -266,29 +292,3 @@ components:
           type: string
           description: The type of the remittance information.
           maxLength: 35
-    Balance:
-      type: object
-      properties:
-        balance_amount:
-          $ref: '#/components/schemas/Amount'
-        balance_type:
-          type: string
-          description: The type of the balance.
-          enum:
-          - openingBooked
-          - interimAvailable
-          - interimBooked
-          - forwardAvailable
-          - nonInvoiced
-    AccountResponse:
-      type: object
-      properties:
-        account:
-          $ref: '#/components/schemas/Account'
-    AccountBalanceResponse:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Balance'

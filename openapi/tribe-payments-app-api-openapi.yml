@@ -158,111 +158,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    TerminalAppResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the Terminal.
-          example: 844456
-        externalReferenceId:
-          type: string
-          description: Device external reference id.
-          example: a4288161-c772-43d2-831d-ee4cdc09864d
-        deviceId:
-          type: integer
-          description: Device id.
-          example: 1
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        activatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-    Device:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the Device.
-          example: 844456
-        externalReferenceId:
-          type: string
-          description: Device external reference id.
-          example: a4288161-c772-43d2-831d-ee4cdc09864d
-        serialNumber:
-          type: string
-          description: Model version of device.
-          example: SP000000004
-        configurationTag:
-          type: string
-          description: Model version of device.
-          example: test-v1-all-all
-        hostId:
-          type: integer
-          description: Host unique identifier.
-          example: 1
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-    Violation:
-      type: object
-      properties:
-        propertyPath:
-          type: string
-          description: The path to the parameter or property where the violation occurred.
-        code:
-          type: string
-          description: Specific error code representing the violation.
-        message:
-          type: string
-          description: A message describing what went wrong.
-    TerminalActivatedResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the Terminal.
-          example: 844456
-        externalReferenceId:
-          type: string
-          description: Device external reference id.
-          example: a4288161-c772-43d2-831d-ee4cdc09864d
-        deviceId:
-          type: integer
-          description: Device id.
-          example: 1
-        createdAt:
-          type: string
-          format: date-time
-          description: Created at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        updatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
-        activatedAt:
-          type: string
-          format: date-time
-          description: Updated at.
-          example: '2024-09-26T14:45:30.123+02:00'
     ErrorResponse:
       type: object
       properties:
@@ -299,6 +194,36 @@ components:
                 type: string
                 description: A description of the validation failure.
                 example: This value is too long. It should have {{ limit }} characters or less.
+    TerminalActivatedResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Terminal.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        deviceId:
+          type: integer
+          description: Device id.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        activatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
     TerminalActivateRequest:
       type: object
       required:
@@ -309,6 +234,39 @@ components:
           description: Model version of device.
           example: '0000000'
           minLength: 6
+    Device:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Device.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        serialNumber:
+          type: string
+          description: Model version of device.
+          example: SP000000004
+        configurationTag:
+          type: string
+          description: Model version of device.
+          example: test-v1-all-all
+        hostId:
+          type: integer
+          description: Host unique identifier.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
     Host:
       type: object
       properties:
@@ -334,3 +292,45 @@ components:
           format: date-time
           description: Updated at.
           example: '2024-09-26T14:45:30.123+02:00'
+    TerminalAppResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the Terminal.
+          example: 844456
+        externalReferenceId:
+          type: string
+          description: Device external reference id.
+          example: a4288161-c772-43d2-831d-ee4cdc09864d
+        deviceId:
+          type: integer
+          description: Device id.
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          description: Created at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        updatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+        activatedAt:
+          type: string
+          format: date-time
+          description: Updated at.
+          example: '2024-09-26T14:45:30.123+02:00'
+    Violation:
+      type: object
+      properties:
+        propertyPath:
+          type: string
+          description: The path to the parameter or property where the violation occurred.
+        code:
+          type: string
+          description: Specific error code representing the violation.
+        message:
+          type: string
+          description: A message describing what went wrong.

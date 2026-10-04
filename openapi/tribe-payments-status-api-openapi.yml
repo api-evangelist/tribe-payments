@@ -29,24 +29,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StatusWebhook:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '5455223499197002'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type] hosted_payment_status'
-          type: string
-          example: hosted_payment_status
-          maxLength: 50
-          minLength: 1
-      required:
-      - id
-      - type
     Status:
       title: status
       properties:
@@ -72,6 +54,24 @@ components:
           example: 2
       required:
       - status
+    StatusWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '5455223499197002'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type] hosted_payment_status'
+          type: string
+          example: hosted_payment_status
+          maxLength: 50
+          minLength: 1
+      required:
+      - id
+      - type
   securitySchemes:
     accountId:
       type: apiKey

@@ -73,6 +73,25 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    AuthorizeWebhook:
+      type: object
+      description: Object containing the Authorize webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     Authorize:
       title: authorize
       properties:
@@ -91,6 +110,18 @@ components:
       type: object
       required:
       - requestId
+    AuthorizeCard:
+      type: object
+      description: Object containing the Authorize transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
     AuthorizeTransaction:
       type: object
       description: Object containing data of the Authorize transaction
@@ -168,141 +199,67 @@ components:
       - errorDescription
       - status
       - type
-    AuthorizeCard:
-      type: object
-      description: Object containing the Authorize transaction card details
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
-    AuthorizeWebhook:
-      type: object
-      description: Object containing the Authorize webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    violationObject:
+    violationObjectForbidden:
       title: Validation object
       properties:
-        propertyPath:
-          description: Path of parameter causing an error. Null for general errors
-          type:
-          - string
-          - 'null'
-          example: parameterName
-          maxLength: 50
-          minLength: 1
         code:
           description: '[`Response code`](#appendix--enum--response-code)'
           type: string
           maxLength: 5
           minLength: 3
-          example: '2000'
+          example: '4001'
         message:
           description: '[`Response message`](#appendix--enum--response-code)'
           type: string
           maxLength: 50
           minLength: 1
-          example: Value is not provided
+          example: Company is disabled
       type: object
-    Authorize_2:
-      title: authorize
+    responseSuccess:
+      title: Success response
       properties:
-        transaction:
-          $ref: '#/components/schemas/AuthorizeTransaction_2'
-        card:
-          $ref: '#/components/schemas/AuthorizeCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/AuthorizeShippingLocation'
-        customer:
-          $ref: '#/components/schemas/AuthorizeCustomer'
-        recurring:
-          $ref: '#/components/schemas/AuthorizeRecurring'
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
       type: object
-    AuthorizeCustomer:
-      type: object
-      description: Object containing data of the customer to be authorized
+    responseForbidden:
       properties:
-        id:
-          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+        requestId:
+          description: Request ID
           type: string
-          example: user123
-          maxLength: 50
-          minLength: 1
-        phone:
-          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
           type: string
-          example: 0123456789
-          maxLength: 20
-          minLength: 3
-        email:
-          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    AuthorizeRecurring:
+      type: object
+      description: Object containing data of the recurring payment to be authorized
+      properties:
+        paymentType:
+          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
+          type: integer
+          example: 1
+        frequency:
+          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
+          type: integer
+          example: 1
+        endDate:
+          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
           type: string
-          example: email@email.com
-          maxLength: 50
-          minLength: 6
-        dateOfBirth:
-          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
-          type: string
-          example: '2000-01-01'
-          maxLength: 10
-          minLength: 10
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: Address
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-        ip:
-          description: IPv4 or IPv6 address
-          type: string
-          example: 1.1.1.1
-          maxLength: 40
-          minLength: 7
-      required:
-      - ip
+          example: '20230901'
+          maxLength: 8
+          minLength: 8
     AuthorizeTransaction_2:
       type: object
       description: Object containing data of the Authorize transaction
@@ -797,67 +754,6 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
-    AuthorizeShippingLocation:
-      type: object
-      description: Object containing the Authorize transaction shipping location data
-      properties:
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address
-          type: string
-          example: Address 11
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
     responseError:
       title: Error response
       properties:
@@ -878,21 +774,19 @@ components:
           items:
             $ref: '#/components/schemas/violationObject'
       type: object
-    violationObjectForbidden:
-      title: Validation object
+    Authorize_2:
+      title: authorize
       properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
+        transaction:
+          $ref: '#/components/schemas/AuthorizeTransaction_2'
+        card:
+          $ref: '#/components/schemas/AuthorizeCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/AuthorizeShippingLocation'
+        customer:
+          $ref: '#/components/schemas/AuthorizeCustomer'
+        recurring:
+          $ref: '#/components/schemas/AuthorizeRecurring'
       type: object
     AuthorizeCard_2:
       type: object
@@ -929,24 +823,64 @@ components:
       - expirationMonth
       - expirationYear
       - holderName
-    AuthorizeRecurring:
-      type: object
-      description: Object containing data of the recurring payment to be authorized
+    violationObject:
+      title: Validation object
       properties:
-        paymentType:
-          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
-          type: integer
-          example: 1
-        frequency:
-          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
-          type: integer
-          example: 1
-        endDate:
-          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
+        propertyPath:
+          description: Path of parameter causing an error. Null for general errors
+          type:
+          - string
+          - 'null'
+          example: parameterName
+          maxLength: 50
+          minLength: 1
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
           type: string
-          example: '20230901'
-          maxLength: 8
-          minLength: 8
+          maxLength: 5
+          minLength: 3
+          example: '2000'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Value is not provided
+      type: object
+    AuthorizeShippingLocation:
+      type: object
+      description: Object containing the Authorize transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
     responseUnauthorized:
       properties:
         requestId:
@@ -967,6 +901,72 @@ components:
             type: string
           example: []
       type: object
+    AuthorizeCustomer:
+      type: object
+      description: Object containing data of the customer to be authorized
+      properties:
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        dateOfBirth:
+          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
+      required:
+      - ip
   securitySchemes:
     accountId:
       type: apiKey

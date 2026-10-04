@@ -413,54 +413,6 @@ components:
       - type
       - title
       - detail
-    UnprocessableEntityErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: '[id]: This value should be of type int.'
-        violations:
-          type: array
-          description: Array of violation objects.
-          items:
-            $ref: '#/components/schemas/ViolationDto'
-      required:
-      - type
-      - title
-      - detail
-      - violations
-    ViolationDto:
-      type: object
-      properties:
-        propertyPath:
-          type:
-          - string
-          - 'null'
-          description: Invalid identifier.
-          example: '[id]'
-        message:
-          type: string
-          description: Error message.
-          example: This value should be of type int.
-        code:
-          type:
-          - string
-          - 'null'
-          description: Error code.
-          example: ba785a8c-82cb-4283-967c-3cf342181b40
-      required:
-      - propertyPath
-      - message
-      - code
     Event.EventDataResponseDto:
       type: object
       description: ''
@@ -519,25 +471,6 @@ components:
           - string
           - 'null'
           description: Parent event data identifier.
-    NotFoundErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: event
-      required:
-      - type
-      - title
-      - detail
     InternalServerErrorResponseDto:
       type: object
       properties:
@@ -553,25 +486,6 @@ components:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
           example: Internal Server Error
-      required:
-      - type
-      - title
-      - detail
-    UnauthorizedErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: Full authentication is required to access this resource.
       required:
       - type
       - title
@@ -604,6 +518,73 @@ components:
       - type
       - title
       - detail
+    UnauthorizedErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: Full authentication is required to access this resource.
+      required:
+      - type
+      - title
+      - detail
+    UnprocessableEntityErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: '[id]: This value should be of type int.'
+        violations:
+          type: array
+          description: Array of violation objects.
+          items:
+            $ref: '#/components/schemas/ViolationDto'
+      required:
+      - type
+      - title
+      - detail
+      - violations
+    ViolationDto:
+      type: object
+      properties:
+        propertyPath:
+          type:
+          - string
+          - 'null'
+          description: Invalid identifier.
+          example: '[id]'
+        message:
+          type: string
+          description: Error message.
+          example: This value should be of type int.
+        code:
+          type:
+          - string
+          - 'null'
+          description: Error code.
+          example: ba785a8c-82cb-4283-967c-3cf342181b40
+      required:
+      - propertyPath
+      - message
+      - code
     EventDataActionDto:
       type: object
       properties:
@@ -618,6 +599,70 @@ components:
         name:
           type: string
           description: Action name.
+    NotFoundErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: event
+      required:
+      - type
+      - title
+      - detail
+    ActionHitDto:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+      required:
+      - action
+      - data
+      - eventTags
+    ActionHitDataCustomDto:
+      type: object
+      description: Additional parameters that should be sent with a webhook. The result depends on the action setup.
+      additionalProperties:
+        oneOf:
+        - type: string
+        - type: string
+          format: date-time
+        - type: integer
+        - type: number
+        - type: boolean
+      example:
+        status: 1
+        riskStatus: Suspicious
+    EventDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+          description: Event ID.
+        type:
+          type: string
+          maxLength: 100
+          example: BANK_TRANSFER
+          description: Event type.
+      required:
+      - id
+      - type
     Webhook.RecurringActionPayloadDto:
       type: object
       description: ''
@@ -653,177 +698,6 @@ components:
       - action
       - data
       - eventTags
-    ActionHitDataChangeSetDto:
-      type: object
-      description: Changes made after the action hit. The result depends on the action setup.
-      additionalProperties:
-        oneOf:
-        - type: string
-        - type: string
-          format: date-time
-        - type: integer
-        - type: number
-        - type: boolean
-      example:
-        status: 1
-        riskStatus: Suspicious
-    ActionHitDataDto:
-      type: object
-      description: Data object that contains changeset.
-      properties:
-        changeSet:
-          $ref: '#/components/schemas/ActionHitDataChangeSetDto'
-        custom:
-          $ref: '#/components/schemas/ActionHitDataCustomDto'
-      required:
-      - changeSet
-      - custom
-    EventDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 12
-          description: Event ID.
-        type:
-          type: string
-          maxLength: 100
-          example: BANK_TRANSFER
-          description: Event type.
-      required:
-      - id
-      - type
-    ActionHitDto:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/ActionHitActionDto'
-        data:
-          $ref: '#/components/schemas/ActionHitDataDto'
-        eventTags:
-          type: array
-          description: Array of event tags that were assigned after the action was hit.
-          items:
-            $ref: '#/components/schemas/EventTagDto'
-      required:
-      - action
-      - data
-      - eventTags
-    Webhook.UserActionPayloadDto:
-      type: object
-      description: ''
-      properties:
-        identifier:
-          type: string
-          maxLength: 100
-          example: 4a384750-d27a-11ec-9d64-0242ac120002
-          description: Unique identifier assigned to the event data during the initial event data creation.
-        event:
-          $ref: '#/components/schemas/EventDto'
-        action:
-          $ref: '#/components/schemas/ActionHitActionDto'
-        data:
-          $ref: '#/components/schemas/ActionHitDataDto'
-        eventTags:
-          type: array
-          description: Array of event tags that were assigned after the action was hit.
-          items:
-            $ref: '#/components/schemas/EventTagDto'
-        type:
-          type: string
-          description: Webhook type.
-          enum:
-          - USER
-        date:
-          type: string
-          format: date-time
-          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
-        triggeredBy:
-          $ref: '#/components/schemas/TriggeredByDto'
-      required:
-      - identifier
-      - event
-      - action
-      - data
-      - eventTags
-    ActionHitDataCustomDto:
-      type: object
-      description: Additional parameters that should be sent with a webhook. The result depends on the action setup.
-      additionalProperties:
-        oneOf:
-        - type: string
-        - type: string
-          format: date-time
-        - type: integer
-        - type: number
-        - type: boolean
-      example:
-        status: 1
-        riskStatus: Suspicious
-    EventTagDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 12
-          description: Event tag identifier.
-        name:
-          type: string
-          example: SUSPICIOUS-TRANSACTION
-          description: Event tag name.
-      required:
-      - id
-      - name
-    Webhook.SystemActionPayloadDto:
-      type: object
-      description: ''
-      properties:
-        identifier:
-          type: string
-          maxLength: 100
-          example: 4a384750-d27a-11ec-9d64-0242ac120002
-          description: Unique identifier assigned to the event data during the initial event data creation.
-        event:
-          $ref: '#/components/schemas/EventDto'
-        action:
-          $ref: '#/components/schemas/ActionHitActionDto'
-        data:
-          $ref: '#/components/schemas/ActionHitDataDto'
-        eventTags:
-          type: array
-          description: Array of event tags that were assigned after the action was hit.
-          items:
-            $ref: '#/components/schemas/EventTagDto'
-        type:
-          type: string
-          description: Webhook type.
-          enum:
-          - SYSTEM
-        date:
-          type: string
-          format: date-time
-          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
-      required:
-      - identifier
-      - event
-      - action
-      - data
-      - eventTags
-    TriggeredByDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 14
-          description: User ID.
-        username:
-          type: string
-          maxLength: 100
-          example: James
-          description: User name.
-      required:
-      - id
-      - username
     Webhook.EventDataSummaryPayloadDto:
       type: object
       description: ''
@@ -862,6 +736,83 @@ components:
       - state
       - event
       - actions
+    ActionHitDataDto:
+      type: object
+      description: Data object that contains changeset.
+      properties:
+        changeSet:
+          $ref: '#/components/schemas/ActionHitDataChangeSetDto'
+        custom:
+          $ref: '#/components/schemas/ActionHitDataCustomDto'
+      required:
+      - changeSet
+      - custom
+    TriggeredByDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 14
+          description: User ID.
+        username:
+          type: string
+          maxLength: 100
+          example: James
+          description: User name.
+      required:
+      - id
+      - username
+    Webhook.UserActionPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - USER
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+        triggeredBy:
+          $ref: '#/components/schemas/TriggeredByDto'
+      required:
+      - identifier
+      - event
+      - action
+      - data
+      - eventTags
+    ActionHitDataChangeSetDto:
+      type: object
+      description: Changes made after the action hit. The result depends on the action setup.
+      additionalProperties:
+        oneOf:
+        - type: string
+        - type: string
+          format: date-time
+        - type: integer
+        - type: number
+        - type: boolean
+      example:
+        status: 1
+        riskStatus: Suspicious
     ActionHitActionDto:
       type: object
       description: Object of the action that was hit.
@@ -901,6 +852,55 @@ components:
       - name
       - type
       - groupCode
+    Webhook.SystemActionPayloadDto:
+      type: object
+      description: ''
+      properties:
+        identifier:
+          type: string
+          maxLength: 100
+          example: 4a384750-d27a-11ec-9d64-0242ac120002
+          description: Unique identifier assigned to the event data during the initial event data creation.
+        event:
+          $ref: '#/components/schemas/EventDto'
+        action:
+          $ref: '#/components/schemas/ActionHitActionDto'
+        data:
+          $ref: '#/components/schemas/ActionHitDataDto'
+        eventTags:
+          type: array
+          description: Array of event tags that were assigned after the action was hit.
+          items:
+            $ref: '#/components/schemas/EventTagDto'
+        type:
+          type: string
+          description: Webhook type.
+          enum:
+          - SYSTEM
+        date:
+          type: string
+          format: date-time
+          description: 'Date and time. ISO 8601 format: `YYYY-MM-DDTHH:mm:ss.SSSZ`'
+      required:
+      - identifier
+      - event
+      - action
+      - data
+      - eventTags
+    EventTagDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+          description: Event tag identifier.
+        name:
+          type: string
+          example: SUSPICIOUS-TRANSACTION
+          description: Event tag name.
+      required:
+      - id
+      - name
   securitySchemes:
     Bearer:
       type: apiKey

@@ -129,50 +129,6 @@ components:
       - type
       - title
       - detail
-    UnprocessableEntityErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: '[id]: This value should be of type int.'
-        violations:
-          type: array
-          description: Array of violation objects.
-          items:
-            $ref: '#/components/schemas/ViolationDto'
-      required:
-      - type
-      - title
-      - detail
-      - violations
-    NotFoundErrorResponseDto:
-      type: object
-      properties:
-        type:
-          type: string
-          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
-          example: https://tools.ietf.org/html/rfc2616#section-10
-        title:
-          type: string
-          description: Short human-readable summary of the problem type.
-          example: An error occurred
-        detail:
-          type: string
-          description: Human-readable explanation of the specific problem that occurred.
-          example: event
-      required:
-      - type
-      - title
-      - detail
     InternalServerErrorResponseDto:
       type: object
       properties:
@@ -211,6 +167,25 @@ components:
       - type
       - title
       - detail
+    UnsupportedMediaTypeErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+      required:
+      - type
+      - title
+      - detail
     UnauthorizedErrorResponseDto:
       type: object
       properties:
@@ -230,6 +205,31 @@ components:
       - type
       - title
       - detail
+    UnprocessableEntityErrorResponseDto:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the problem type. If not specified, the default value is 'about:blank'.
+          example: https://tools.ietf.org/html/rfc2616#section-10
+        title:
+          type: string
+          description: Short human-readable summary of the problem type.
+          example: An error occurred
+        detail:
+          type: string
+          description: Human-readable explanation of the specific problem that occurred.
+          example: '[id]: This value should be of type int.'
+        violations:
+          type: array
+          description: Array of violation objects.
+          items:
+            $ref: '#/components/schemas/ViolationDto'
+      required:
+      - type
+      - title
+      - detail
+      - violations
     ViolationDto:
       type: object
       properties:
@@ -253,7 +253,7 @@ components:
       - propertyPath
       - message
       - code
-    UnsupportedMediaTypeErrorResponseDto:
+    NotFoundErrorResponseDto:
       type: object
       properties:
         type:
@@ -267,7 +267,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+          example: event
       required:
       - type
       - title

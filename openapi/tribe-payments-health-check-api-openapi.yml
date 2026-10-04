@@ -82,7 +82,7 @@ components:
       - type
       - title
       - detail
-    UnsupportedMediaTypeErrorResponseDto:
+    UnauthorizedErrorResponseDto:
       type: object
       properties:
         type:
@@ -96,7 +96,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
+          example: Full authentication is required to access this resource.
       required:
       - type
       - title
@@ -120,7 +120,7 @@ components:
       - type
       - title
       - detail
-    UnauthorizedErrorResponseDto:
+    UnsupportedMediaTypeErrorResponseDto:
       type: object
       properties:
         type:
@@ -134,7 +134,7 @@ components:
         detail:
           type: string
           description: Human-readable explanation of the specific problem that occurred.
-          example: Full authentication is required to access this resource.
+          example: The content-type "text/plain" is not supported. Supported MIME types are "application/json".
       required:
       - type
       - title

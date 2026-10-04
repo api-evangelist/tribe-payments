@@ -29,6 +29,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PrepareErrorViolations:
+      type: object
+      properties:
+        code:
+          description: '[`Error code`](#appendix--enum--webhook-error-code)'
+          type: string
+          example: '403'
+          maxLength: 4
+          minLength: 3
+        message:
+          description: '[`Error message `](#appendix--enum--webhook-error-code)'
+          type: string
+          example: Company is disabled
+          maxLength: 100
+          minLength: 1
     PrepareErrorWebhook:
       type: object
       properties:
@@ -47,21 +62,6 @@ components:
       required:
       - id
       - type
-    PrepareErrorViolations:
-      type: object
-      properties:
-        code:
-          description: '[`Error code`](#appendix--enum--webhook-error-code)'
-          type: string
-          example: '403'
-          maxLength: 4
-          minLength: 3
-        message:
-          description: '[`Error message `](#appendix--enum--webhook-error-code)'
-          type: string
-          example: Company is disabled
-          maxLength: 100
-          minLength: 1
     PrepareError:
       title: prepare-error
       properties:

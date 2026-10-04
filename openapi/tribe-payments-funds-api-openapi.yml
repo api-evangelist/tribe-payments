@@ -46,6 +46,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
     Account:
       type: object
       properties:
@@ -87,16 +100,3 @@ components:
             - BACS
             - CHAPS
             - SWIFT
-    Amount:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
-          type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
-      required:
-      - amount
-      - currency

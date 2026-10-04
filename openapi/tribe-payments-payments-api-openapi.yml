@@ -193,6 +193,41 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CreditorAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        account_number:
+          type: string
+          description: The account number. Used to identify the account in the United Kingdom.
+          maxLength: 8
+        sort_code:
+          type: integer
+          description: The sort code. Used to identify the account in the United Kingdom.
+          maxLength: 6
+    CreditorBank:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the institution.
+        bic:
+          type: string
+          description: The Business Identifier Code.
+        country:
+          type: string
+          description: The country identifier as defined by the ISO 3166-1 alpha-2.
+          maxLength: 2
+      required:
+      - name
+      - country
     DebtorAccount:
       type: object
       properties:
@@ -212,6 +247,159 @@ components:
           type: integer
           description: The sort code. Used to identify the account in the United Kingdom.
           maxLength: 6
+    TransactionStatusResponse:
+      type: object
+      properties:
+        transaction_status:
+          type: string
+          description: '[Payment status](#appendix--enum--payment-status)'
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+      required:
+      - transaction_status
+    PaymentSingleResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: '[Payment Status](#appendix--enum--payment-status)'
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+        confirmation_url:
+          type: string
+          description: The URL to which the user gets redirected to enter their SCA confirmation.
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - status
+      - confirmation_url
+      - payment_id
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    InstructedTotals:
+      type: object
+      properties:
+        currency:
+          type: string
+          maxLength: 3
+          description: The total amount of currency in ISO 4217 alpha-3 currency code.
+        amount:
+          type: string
+          maxLength: 10
+          description: The total amount.
+      required:
+      - currency
+      - amount
+    SingleBulkPayment:
+      type: object
+      properties:
+        creditor_account:
+          $ref: '#/components/schemas/CreditorAccount'
+        creditorName:
+          type: string
+          maxLength: 70
+          description: The name of the creditor/receiver.
+        remittanceInformationUnstructured:
+          type: string
+          maxLength: 140
+          description: An unstructured reference of the transaction.
+        remittanceInformationStructured:
+          $ref: '#/components/schemas/RemittanceInformationStructured'
+        creditorAddress:
+          $ref: '#/components/schemas/Address'
+        instructedAmount:
+          $ref: '#/components/schemas/Amount'
+      required:
+      - instructed_amount
+    PaymentSingleStatusRequest:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
+    PaymentBulkStatusRequest:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+      required:
+      - payment_id
+    PaymentCallbackParameters:
+      type: object
+      required:
+      - status
+      - payment_id
+      properties:
+        status:
+          type: string
+          description: The payment status after confirmation.
+          maxLength: 4
+          enum:
+          - ACCC
+          - ACCP
+          - ACSC
+          - ACSP
+          - ACTC
+          - ACWC
+          - ACWP
+          - RCVD
+          - PDNG
+          - RJCT
+          - CANC
+          - ACFC
+          - PATC
+          - PART
+        payment_id:
+          type: string
+          description: The unique payment identifier.
+          maxLength: 255
+        message:
+          type: string
+          description: The message with a description in case of error.
     PaymentSingleRequest:
       type: object
       properties:
@@ -255,65 +443,6 @@ components:
       required:
       - instructed_amount
       - callback_url
-    PaymentSingleResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: '[Payment Status](#appendix--enum--payment-status)'
-          enum:
-          - ACCC
-          - ACCP
-          - ACSC
-          - ACSP
-          - ACTC
-          - ACWC
-          - ACWP
-          - RCVD
-          - PDNG
-          - RJCT
-          - CANC
-          - ACFC
-          - PATC
-          - PART
-        confirmation_url:
-          type: string
-          description: The URL to which the user gets redirected to enter their SCA confirmation.
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-      required:
-      - status
-      - confirmation_url
-      - payment_id
-    InstructedTotals:
-      type: object
-      properties:
-        currency:
-          type: string
-          maxLength: 3
-          description: The total amount of currency in ISO 4217 alpha-3 currency code.
-        amount:
-          type: string
-          maxLength: 10
-          description: The total amount.
-      required:
-      - currency
-      - amount
-    Amount:
-      type: object
-      properties:
-        amount:
-          type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
-          type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
-      required:
-      - amount
-      - currency
     PaymentBulkRequest:
       type: object
       properties:
@@ -347,98 +476,6 @@ components:
       - callback_url
       - instructed_totals
       - payments
-    SingleBulkPayment:
-      type: object
-      properties:
-        creditor_account:
-          $ref: '#/components/schemas/CreditorAccount'
-        creditorName:
-          type: string
-          maxLength: 70
-          description: The name of the creditor/receiver.
-        remittanceInformationUnstructured:
-          type: string
-          maxLength: 140
-          description: An unstructured reference of the transaction.
-        remittanceInformationStructured:
-          $ref: '#/components/schemas/RemittanceInformationStructured'
-        creditorAddress:
-          $ref: '#/components/schemas/Address'
-        instructedAmount:
-          $ref: '#/components/schemas/Amount'
-      required:
-      - instructed_amount
-    CreditorBank:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the institution.
-        bic:
-          type: string
-          description: The Business Identifier Code.
-        country:
-          type: string
-          description: The country identifier as defined by the ISO 3166-1 alpha-2.
-          maxLength: 2
-      required:
-      - name
-      - country
-    TransactionStatusResponse:
-      type: object
-      properties:
-        transaction_status:
-          type: string
-          description: '[Payment status](#appendix--enum--payment-status)'
-          enum:
-          - ACCC
-          - ACCP
-          - ACSC
-          - ACSP
-          - ACTC
-          - ACWC
-          - ACWP
-          - RCVD
-          - PDNG
-          - RJCT
-          - CANC
-          - ACFC
-          - PATC
-          - PART
-      required:
-      - transaction_status
-    PaymentCallbackParameters:
-      type: object
-      required:
-      - status
-      - payment_id
-      properties:
-        status:
-          type: string
-          description: The payment status after confirmation.
-          maxLength: 4
-          enum:
-          - ACCC
-          - ACCP
-          - ACSC
-          - ACSP
-          - ACTC
-          - ACWC
-          - ACWP
-          - RCVD
-          - PDNG
-          - RJCT
-          - CANC
-          - ACFC
-          - PATC
-          - PART
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-        message:
-          type: string
-          description: The message with a description in case of error.
     RemittanceInformationStructured:
       type: object
       properties:
@@ -472,25 +509,7 @@ components:
           maxLength: 2
       required:
       - country
-    PaymentSingleStatusRequest:
-      type: object
-      properties:
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-      required:
-      - payment_id
-    PaymentBulkStatusRequest:
-      type: object
-      properties:
-        payment_id:
-          type: string
-          description: The unique payment identifier.
-          maxLength: 255
-      required:
-      - payment_id
-    CreditorAccount:
+    CreditorAccount_2:
       type: object
       properties:
         iban:
@@ -501,13 +520,32 @@ components:
           type: string
           description: The local ASPSP identifier of the account.
           maxLength: 30
-        account_number:
+        accountNumber:
           type: string
-          description: The account number. Used to identify the account in the United Kingdom.
+          description: The account number for the United Kingdom.
           maxLength: 8
-        sort_code:
-          type: integer
-          description: The sort code. Used to identify the account in the United Kingdom.
+        sortCode:
+          type: string
+          description: The sort code for the United Kingdom.
+          maxLength: 6
+    DebtorAccount_2:
+      type: object
+      properties:
+        iban:
+          type: string
+          description: The IBAN of the account.
+          maxLength: 34
+        bban:
+          type: string
+          description: The local ASPSP identifier of the account.
+          maxLength: 30
+        accountNumber:
+          type: string
+          description: The account number for the United Kingdom.
+          maxLength: 8
+        sortCode:
+          type: string
+          description: The sort code for the United Kingdom.
           maxLength: 6
     AccountTransaction:
       type: object
@@ -535,25 +573,21 @@ components:
           $ref: '#/components/schemas/RemittanceInformationStructured_2'
         transactionAmount:
           $ref: '#/components/schemas/TransactionAmount'
-    DebtorAccount_2:
+    PaymentStatusRequest:
       type: object
       properties:
-        iban:
+        paymentId:
           type: string
-          description: The IBAN of the account.
-          maxLength: 34
-        bban:
+          description: The unique payment identifier.
+        paymentStatus:
           type: string
-          description: The local ASPSP identifier of the account.
-          maxLength: 30
-        accountNumber:
-          type: string
-          description: The account number for the United Kingdom.
-          maxLength: 8
-        sortCode:
-          type: string
-          description: The sort code for the United Kingdom.
-          maxLength: 6
+          description: The transaction status as per ISO 20022 codes.
+          maxLength: 4
+        accountTransaction:
+          $ref: '#/components/schemas/AccountTransaction'
+      required:
+      - paymentId
+      - paymentStatus
     TransactionAmount:
       type: object
       properties:
@@ -583,40 +617,6 @@ components:
           type: string
           description: The remittance information type.
           maxLength: 35
-    PaymentStatusRequest:
-      type: object
-      properties:
-        paymentId:
-          type: string
-          description: The unique payment identifier.
-        paymentStatus:
-          type: string
-          description: The transaction status as per ISO 20022 codes.
-          maxLength: 4
-        accountTransaction:
-          $ref: '#/components/schemas/AccountTransaction'
-      required:
-      - paymentId
-      - paymentStatus
-    CreditorAccount_2:
-      type: object
-      properties:
-        iban:
-          type: string
-          description: The IBAN of the account.
-          maxLength: 34
-        bban:
-          type: string
-          description: The local ASPSP identifier of the account.
-          maxLength: 30
-        accountNumber:
-          type: string
-          description: The account number for the United Kingdom.
-          maxLength: 8
-        sortCode:
-          type: string
-          description: The sort code for the United Kingdom.
-          maxLength: 6
 x-refined-from:
 - tribe-payments-obb-bank-api-webhooks-openapi.json
 - tribe-payments-obb-tpp-api-webhooks-openapi.json
