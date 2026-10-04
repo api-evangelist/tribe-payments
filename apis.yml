@@ -1468,6 +1468,8 @@ apis:
   description: The P2 P API from Tribe Payments — 2 operation(s) for p2 p.
   humanURL: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
   tags:
+  - P2P
+  tags_raw:
   - P2 P
   properties:
   - type: OpenAPI
