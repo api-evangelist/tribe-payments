@@ -2,7 +2,7 @@
 name: Authorize and capture a card payment
 description: Use Tribe's Gateway Credit Card API to authorize a card, capture the funds, and refund or cancel if needed.
 api: openapi/tribe-payments-trb-cc-api-merchant-api-credit-card-v3.json
-operations: [postauthorize, postcapture, postrefund, postcancel]
+operations: [postAuthorize, postCapture, postRefund, postCancel]
 ---
 
 # Authorize and capture a card payment (Tribe Gateway Credit Card API v3)

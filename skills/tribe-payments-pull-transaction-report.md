@@ -2,7 +2,7 @@
 name: Pull a transaction / order-status report
 description: Request transaction, order-status, disputes and processing-account reports from Tribe's Gateway Reports API, delivered via callback.
 api: openapi/tribe-payments-trb-report-api-merchant-api-report-v3.json
-operations: [posttransactions, postorder-status, postdisputes, postprocessing-accounts]
+operations: [postTransactions, postOrderStatus, postDisputes, postProcessingAccounts]
 ---
 
 # Pull a transaction / order-status report (Tribe Gateway Reports API v3)
