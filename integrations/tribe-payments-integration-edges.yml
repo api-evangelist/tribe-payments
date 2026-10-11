@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/tribe-payments/integrations
+- https://n8n.io/integrations/tribe-payments/
+- https://composio.dev/toolkits/tribe-payments
+- https://monid.ai/tools/tribe-payments
+checked:
+- https://composio.dev/toolkits/tribe-payments
+- https://monid.ai/tools/tribe-payments
+- https://n8n.io/integrations/tribe-payments/
+- https://zapier.com/apps/tribe-payments/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
