@@ -73,6 +73,55 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    Sale:
+      title: sale
+      properties:
+        webhook:
+          $ref: '#/components/schemas/SaleWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/SaleTransaction'
+        card:
+          $ref: '#/components/schemas/SaleCard'
+      type: object
+      required:
+      - requestId
+    SaleCard:
+      type: object
+      description: Object containing the Sale transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    SaleWebhook:
+      type: object
+      description: Object containing the Sale webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     SaleTransaction:
       type: object
       description: Object containing data of the Sale transaction
@@ -150,55 +199,6 @@ components:
       - errorDescription
       - status
       - type
-    SaleCard:
-      type: object
-      description: Object containing the Sale transaction card details
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
-    SaleWebhook:
-      type: object
-      description: Object containing the Sale webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    Sale:
-      title: sale
-      properties:
-        webhook:
-          $ref: '#/components/schemas/SaleWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction'
-        card:
-          $ref: '#/components/schemas/SaleCard'
-      type: object
-      required:
-      - requestId
     violationObjectForbidden:
       title: Validation object
       properties:
@@ -215,90 +215,6 @@ components:
           minLength: 1
           example: Company is disabled
       type: object
-    Sale_2:
-      title: sale
-      properties:
-        transaction:
-          $ref: '#/components/schemas/SaleTransaction_2'
-        card:
-          $ref: '#/components/schemas/SaleCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/SaleShippingLocation'
-        customer:
-          $ref: '#/components/schemas/SaleCustomer'
-        recurring:
-          $ref: '#/components/schemas/SaleRecurring'
-      type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    SaleRecurring:
-      type: object
-      description: Object containing data of the recurring Sale payment
-      properties:
-        paymentType:
-          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
-          type: integer
-          example: 1
-        frequency:
-          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
-          type: integer
-          example: 1
-        endDate:
-          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
-          type: string
-          example: '20230901'
-          maxLength: 8
-          minLength: 8
-    SaleCard_2:
-      type: object
-      description: Object containing the Sale transaction card details
-      properties:
-        number:
-          description: Customer’s card number
-          type: string
-          example: '5099993000018223'
-          maxLength: 22
-          minLength: 13
-        expirationMonth:
-          description: Card expiry month
-          type: integer
-          example: 12
-        expirationYear:
-          description: Card expiry year. Must be within the next 50 years
-          type: integer
-          example: 2028
-        securityCode:
-          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
-          type: string
-          example: '000'
-          maxLength: 4
-          minLength: 3
-        holderName:
-          description: Customer’s full name
-          type: string
-          example: John Doe von Soap
-          maxLength: 26
-          minLength: 3
-      required:
-      - number
-      - expirationMonth
-      - expirationYear
-      - holderName
     SaleCustomer:
       type: object
       description: Object containing the Sale customer data
@@ -399,36 +315,41 @@ components:
           example: GU16 7HF
           maxLength: 20
           minLength: 1
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
+    SaleCard_2:
       type: object
-    responseError:
-      title: Error response
+      description: Object containing the Sale transaction card details
       properties:
-        requestId:
-          description: Request ID
+        number:
+          description: Customer’s card number
           type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        expirationMonth:
+          description: Card expiry month
+          type: integer
+          example: 12
+        expirationYear:
+          description: Card expiry year. Must be within the next 50 years
+          type: integer
+          example: 2028
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
           type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        holderName:
+          description: Customer’s full name
+          type: string
+          example: John Doe von Soap
+          maxLength: 26
+          minLength: 3
+      required:
+      - number
+      - expirationMonth
+      - expirationYear
+      - holderName
     SaleTransaction_2:
       type: object
       description: Object containing data of the Sale transaction
@@ -923,6 +844,48 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    SaleRecurring:
+      type: object
+      description: Object containing data of the recurring Sale payment
+      properties:
+        paymentType:
+          description: 'Recurring payment type. Possible values: `1` - scheduled recurring payment; `2` - unscheduled MIT payment'
+          type: integer
+          example: 1
+        frequency:
+          description: '[`Recurring frequency`](#appendix--enum--recurring-frequency). Mandatory if paymentType=1'
+          type: integer
+          example: 1
+        endDate:
+          description: 'Recurring end date. Format: `YYYYMMDD`. Mandatory if paymentType=1'
+          type: string
+          example: '20230901'
+          maxLength: 8
+          minLength: 8
+    Sale_2:
+      title: sale
+      properties:
+        transaction:
+          $ref: '#/components/schemas/SaleTransaction_2'
+        card:
+          $ref: '#/components/schemas/SaleCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/SaleShippingLocation'
+        customer:
+          $ref: '#/components/schemas/SaleCustomer'
+        recurring:
+          $ref: '#/components/schemas/SaleRecurring'
+      type: object
     violationObject:
       title: Validation object
       properties:
@@ -946,6 +909,43 @@ components:
           maxLength: 50
           minLength: 1
           example: Value is not provided
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     responseUnauthorized:
       properties:

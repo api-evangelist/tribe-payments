@@ -73,36 +73,6 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    Process:
-      title: process
-      properties:
-        webhook:
-          $ref: '#/components/schemas/ProcessWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/ProcessTransaction'
-        card:
-          $ref: '#/components/schemas/ProcessCard'
-      type: object
-      required:
-      - requestId
-    ProcessCard:
-      type: object
-      description: Object containing the transaction card details
-      properties:
-        hash:
-          description: Card Number and Customer ID tokenized card identifier
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 50
-          minLength: 1
-      required:
-      - hash
     ProcessTransaction:
       type: object
       description: Object containing data for the transaction
@@ -180,6 +150,36 @@ components:
       - errorDescription
       - status
       - type
+    ProcessCard:
+      type: object
+      description: Object containing the transaction card details
+      properties:
+        hash:
+          description: Card Number and Customer ID tokenized card identifier
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 50
+          minLength: 1
+      required:
+      - hash
+    Process:
+      title: process
+      properties:
+        webhook:
+          $ref: '#/components/schemas/ProcessWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction'
+        card:
+          $ref: '#/components/schemas/ProcessCard'
+      type: object
+      required:
+      - requestId
     ProcessWebhook:
       type: object
       description: Object containing the webhook data
@@ -199,104 +199,22 @@ components:
       required:
       - id
       - type
-    ProcessCustomer:
-      type: object
-      description: Object containing data of the actual transaction customer
+    violationObjectForbidden:
+      title: Validation object
       properties:
-        id:
-          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
           type: string
-          example: user123
-          maxLength: 50
-          minLength: 1
-        phone:
-          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided and `operationType` is `sale` or `authorize`. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
-          type: string
-          example: 0123456789
-          maxLength: 20
+          maxLength: 5
           minLength: 3
-        email:
-          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided and `operationType` is `sale` or `authorize`.'
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
           type: string
-          example: email@email.com
           maxLength: 50
-          minLength: 6
-        dateOfBirth:
-          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
-          type: string
-          example: '2000-01-01'
-          maxLength: 10
-          minLength: 10
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
           minLength: 1
-        city:
-          description: Customer’s billing city. Might be mandatory for some integrations
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address. Might be mandatory for some integrations
-          type: string
-          example: Address
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code. Might be mandatory for some integrations
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-        ip:
-          description: IPv4 or IPv6 address
-          type: string
-          example: 1.1.1.1
-          maxLength: 40
-          minLength: 7
-    ProcessShippingLocation:
+          example: Company is disabled
       type: object
-      description: Object containing the transaction shipping location data
-      properties:
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address
-          type: string
-          example: Address 11
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
     ProcessTransaction_2:
       type: object
       description: Object containing data for the transaction
@@ -607,54 +525,6 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    Process_2:
-      title: process
-      properties:
-        operationType:
-          description: 'Possible operations: sale, authorize, credit'
-          type: string
-          example: sale
-          maxLength: 20
-          minLength: 1
-        transaction:
-          $ref: '#/components/schemas/ProcessTransaction_2'
-        card:
-          $ref: '#/components/schemas/ProcessCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/ProcessShippingLocation'
-        customer:
-          $ref: '#/components/schemas/ProcessCustomer'
-        receiver:
-          $ref: '#/components/schemas/ProcessReceiver'
-      type: object
-      required:
-      - operationType
     ProcessReceiver:
       type: object
       description: Object containing data of the transaction receiver
@@ -670,6 +540,40 @@ components:
           type: string
           example: Lastname
           maxLength: 35
+          minLength: 1
+    ProcessShippingLocation:
+      type: object
+      description: Object containing the transaction shipping location data
+      properties:
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country)
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address
+          type: string
+          example: Address 11
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code
+          type: string
+          example: GU16 7HF
+          maxLength: 20
           minLength: 1
     ProcessCard_2:
       type: object
@@ -689,7 +593,8 @@ components:
           minLength: 32
       required:
       - hash
-    responseForbidden:
+    responseSuccess:
+      title: Success response
       properties:
         requestId:
           description: Request ID
@@ -697,35 +602,71 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
-    responseError:
-      title: Error response
+    ProcessCustomer:
+      type: object
+      description: Object containing data of the actual transaction customer
       properties:
-        requestId:
-          description: Request ID
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
           type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided and `operationType` is `sale` or `authorize`. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
           type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided and `operationType` is `sale` or `authorize`.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        dateOfBirth:
+          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city. Might be mandatory for some integrations
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address. Might be mandatory for some integrations
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code. Might be mandatory for some integrations
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
     violationObject:
       title: Validation object
       properties:
@@ -749,6 +690,65 @@ components:
           maxLength: 50
           minLength: 1
           example: Value is not provided
+      type: object
+    Process_2:
+      title: process
+      properties:
+        operationType:
+          description: 'Possible operations: sale, authorize, credit'
+          type: string
+          example: sale
+          maxLength: 20
+          minLength: 1
+        transaction:
+          $ref: '#/components/schemas/ProcessTransaction_2'
+        card:
+          $ref: '#/components/schemas/ProcessCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/ProcessShippingLocation'
+        customer:
+          $ref: '#/components/schemas/ProcessCustomer'
+        receiver:
+          $ref: '#/components/schemas/ProcessReceiver'
+      type: object
+      required:
+      - operationType
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     responseUnauthorized:
       properties:

@@ -97,6 +97,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Amount:
+      type: object
+      properties:
+        amount:
+          type: string
+          description: The amount value. The decimal separator is a dot.
+        currency:
+          type: string
+          description: The currency in ISO 4217 alpha-3 currency code.
+          maxLength: 3
+      required:
+      - amount
+      - currency
     AccountTransactionsResponse:
       type: object
       properties:
@@ -105,6 +118,17 @@ components:
         page_key:
           type: string
           description: The key for the next page of results.
+    AccountTransaction:
+      type: object
+      properties:
+        booked:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        pending:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
     Balance:
       type: object
       properties:
@@ -119,40 +143,6 @@ components:
           - interimBooked
           - forwardAvailable
           - nonInvoiced
-    AccountRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountBalanceRequest:
-      type: object
-      properties:
-        account_id:
-          type: string
-          description: The account ID.
-      required:
-      - account_id
-    AccountTransaction:
-      type: object
-      properties:
-        booked:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-        pending:
-          type: array
-          items:
-            $ref: '#/components/schemas/Transaction'
-    AccountBalanceResponse:
-      type: object
-      properties:
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/Balance'
     Account:
       type: object
       properties:
@@ -194,19 +184,30 @@ components:
             - BACS
             - CHAPS
             - SWIFT
-    Amount:
+    RemittanceInformationStructured:
       type: object
       properties:
-        amount:
+        reference:
           type: string
-          description: The amount value. The decimal separator is a dot.
-        currency:
+          description: The remittance information.
+          maxLength: 35
+        reference_type:
           type: string
-          description: The currency in ISO 4217 alpha-3 currency code.
-          maxLength: 3
+          description: The type of the remittance information.
+          maxLength: 35
+    AccountBalanceRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
       required:
-      - amount
-      - currency
+      - account_id
+    AccountResponse:
+      type: object
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
     Transaction:
       type: object
       properties:
@@ -247,6 +248,14 @@ components:
               type: string
               description: The date when entry is posted to the account.
               format: date
+    AccountRequest:
+      type: object
+      properties:
+        account_id:
+          type: string
+          description: The account ID.
+      required:
+      - account_id
     AccountTransactionsRequest:
       type: object
       properties:
@@ -276,19 +285,10 @@ components:
       required:
       - account_id
       - booking_status
-    AccountResponse:
+    AccountBalanceResponse:
       type: object
       properties:
-        account:
-          $ref: '#/components/schemas/Account'
-    RemittanceInformationStructured:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: The remittance information.
-          maxLength: 35
-        reference_type:
-          type: string
-          description: The type of the remittance information.
-          maxLength: 35
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'

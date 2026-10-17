@@ -73,6 +73,25 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    CaptureWebhook:
+      type: object
+      description: Object containing the Capture webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
     Capture:
       title: capture
       properties:
@@ -154,25 +173,6 @@ components:
       - errorDescription
       - status
       - type
-    CaptureWebhook:
-      type: object
-      description: Object containing the Capture webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
     violationObjectForbidden:
       title: Validation object
       properties:
@@ -189,32 +189,11 @@ components:
           minLength: 1
           example: Company is disabled
       type: object
-    responseSuccess:
-      title: Success response
+    Capture_2:
+      title: capture
       properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
+        transaction:
+          $ref: '#/components/schemas/CaptureTransaction_2'
       type: object
     CaptureTransaction_2:
       type: object
@@ -235,8 +214,8 @@ components:
       required:
       - id
       - amount
-    responseError:
-      title: Error response
+    responseSuccess:
+      title: Success response
       properties:
         requestId:
           description: Request ID
@@ -244,22 +223,6 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
-    Capture_2:
-      title: capture
-      properties:
-        transaction:
-          $ref: '#/components/schemas/CaptureTransaction_2'
       type: object
     violationObject:
       title: Validation object
@@ -284,6 +247,43 @@ components:
           maxLength: 50
           minLength: 1
           example: Value is not provided
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     responseUnauthorized:
       properties:

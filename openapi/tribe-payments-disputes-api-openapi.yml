@@ -85,6 +85,24 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
+    DisputesRecordsCard:
+      type: object
+      properties:
+        hash:
+          description: ''
+          type: string
+          example: 6899a2bb31fe4fcb619f8cac7f8d300e
+          maxLength: 200
+          minLength: 1
+      required:
+      - hash
+    DisputesRecords:
+      type: object
+      properties:
+        dispute:
+          $ref: '#/components/schemas/DisputesRecordsDispute'
+        card:
+          $ref: '#/components/schemas/DisputesRecordsCard'
     Disputes:
       title: disputes
       properties:
@@ -156,24 +174,6 @@ components:
       - parentId
       - typeName
       - status
-    DisputesRecordsCard:
-      type: object
-      properties:
-        hash:
-          description: ''
-          type: string
-          example: 6899a2bb31fe4fcb619f8cac7f8d300e
-          maxLength: 200
-          minLength: 1
-      required:
-      - hash
-    DisputesRecords:
-      type: object
-      properties:
-        dispute:
-          $ref: '#/components/schemas/DisputesRecordsDispute'
-        card:
-          $ref: '#/components/schemas/DisputesRecordsCard'
     DisputesWebhook:
       type: object
       properties:
@@ -192,22 +192,6 @@ components:
       required:
       - id
       - type
-    unprocessableContent:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4005'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company webhook URL is not set
-      type: object
     violationObjectForbidden:
       title: Validation object
       properties:
@@ -224,6 +208,23 @@ components:
           minLength: 1
           example: Company is disabled
       type: object
+    responseTooManyRequests:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Too many requests
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
+      type: object
     responseSuccess:
       title: Success response
       properties:
@@ -233,98 +234,6 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
-      type: object
-    Disputes_2:
-      title: disputes
-      properties:
-        dateFrom:
-          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
-          type: string
-          example: '2023-02-02'
-          maxLength: 10
-          minLength: 10
-        dateTo:
-          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
-          type: string
-          example: '2023-03-03'
-          maxLength: 10
-          minLength: 10
-      type: object
-      required:
-      - dateFrom
-      - dateTo
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    responseErrorDisputes:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObjectDisputes'
-      type: object
-    responseUnauthorized:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Unauthorized request
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          example: []
-      type: object
-    violationObjectTooManyRequests:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Retry after 30 seconds
       type: object
     violationObjectDisputes:
       title: Validation object disputes
@@ -350,7 +259,62 @@ components:
           minLength: 1
           example: Invalid date format
       type: object
-    responseTooManyRequests:
+    Disputes_2:
+      title: disputes
+      properties:
+        dateFrom:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
+          type: string
+          example: '2023-02-02'
+          maxLength: 10
+          minLength: 10
+        dateTo:
+          description: 'Filter by transaction date and time. ISO 8601 format: YYYY-MM-DD'
+          type: string
+          example: '2023-03-03'
+          maxLength: 10
+          minLength: 10
+      type: object
+      required:
+      - dateFrom
+      - dateTo
+    responseErrorDisputes:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObjectDisputes'
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    responseForbidden:
       properties:
         requestId:
           description: Request ID
@@ -361,11 +325,47 @@ components:
         message:
           description: Request ID
           type: string
-          example: Too many requests
+          example: Error occurred
         violations:
           type: array
           items:
-            $ref: '#/components/schemas/violationObjectTooManyRequests'
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseUnauthorized:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Unauthorized request
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example: []
+      type: object
+    unprocessableContent:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4005'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company webhook URL is not set
       type: object
   securitySchemes:
     apiKey:

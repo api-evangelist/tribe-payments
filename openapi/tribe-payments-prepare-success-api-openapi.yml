@@ -29,6 +29,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PrepareWebhook:
+      type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '5455223499197002'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type] hosted_payment_prepare'
+          type: string
+          example: hosted_payment_prepare
+          maxLength: 50
+          minLength: 1
+      required:
+      - id
+      - type
     Prepare:
       title: prepare
       properties:
@@ -50,24 +68,6 @@ components:
       required:
       - requestId
       - redirectUrl
-    PrepareWebhook:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '5455223499197002'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type] hosted_payment_prepare'
-          type: string
-          example: hosted_payment_prepare
-          maxLength: 50
-          minLength: 1
-      required:
-      - id
-      - type
   securitySchemes:
     accountId:
       type: apiKey

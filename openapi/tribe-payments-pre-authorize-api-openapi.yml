@@ -73,43 +73,6 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    PreAuthorizeWebhook:
-      type: object
-      description: Object containing the Pre Authorize webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    PreAuthorize:
-      title: pre-authorize
-      properties:
-        webhook:
-          $ref: '#/components/schemas/PreAuthorizeWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/PreAuthorizeTransaction'
-        card:
-          $ref: '#/components/schemas/PreAuthorizeCard'
-      type: object
-      required:
-      - requestId
     PreAuthorizeCard:
       type: object
       description: Object containing the Pre Authorize transaction card details
@@ -199,20 +162,109 @@ components:
       - errorDescription
       - status
       - type
-    PreAuthorize_2:
+    PreAuthorize:
       title: pre-authorize
       properties:
+        webhook:
+          $ref: '#/components/schemas/PreAuthorizeWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
+          type: string
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
         transaction:
-          $ref: '#/components/schemas/PreAuthorizeTransaction_2'
+          $ref: '#/components/schemas/PreAuthorizeTransaction'
         card:
-          $ref: '#/components/schemas/PreAuthorizeCard_2'
-        shippingLocation:
-          $ref: '#/components/schemas/PreAuthorizeShippingLocation'
-        customer:
-          $ref: '#/components/schemas/PreAuthorizeCustomer'
-        recurring:
-          $ref: '#/components/schemas/PreAuthorizeRecurring'
+          $ref: '#/components/schemas/PreAuthorizeCard'
       type: object
+      required:
+      - requestId
+    PreAuthorizeWebhook:
+      type: object
+      description: Object containing the Pre Authorize webhook data
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr><tr><td>transaction_cc_3ds</td><td>Credit Card Transaction webhook for the event that requires 3DS confirmation</td></tr></table>'
+          type: string
+          example: transaction_cc
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    PreAuthorizeCustomer:
+      type: object
+      description: Object containing data of the customer to be pre authorized
+      properties:
+        id:
+          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
+          type: string
+          example: user123
+          maxLength: 50
+          minLength: 1
+        phone:
+          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
+          type: string
+          example: 0123456789
+          maxLength: 20
+          minLength: 3
+        email:
+          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
+          type: string
+          example: email@email.com
+          maxLength: 50
+          minLength: 6
+        dateOfBirth:
+          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
+          type: string
+          example: '2000-01-01'
+          maxLength: 10
+          minLength: 10
+        countryCode:
+          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
+          type: string
+          example: GB
+          maxLength: 2
+          minLength: 2
+        state:
+          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
+          type: string
+          example: AL
+          maxLength: 3
+          minLength: 1
+        city:
+          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: City
+          maxLength: 85
+          minLength: 1
+        address:
+          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: Address
+          maxLength: 100
+          minLength: 1
+        zipCode:
+          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is `true`
+          type: string
+          example: GU16 7HF
+          maxLength: 20
+          minLength: 1
+        ip:
+          description: IPv4 or IPv6 address
+          type: string
+          example: 1.1.1.1
+          maxLength: 40
+          minLength: 7
+      required:
+      - ip
     violationObjectForbidden:
       title: Validation object
       properties:
@@ -518,33 +570,6 @@ components:
       - currencyCode
       - orderId
       - redirectUrlFor3ds
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
     PreAuthorizeShippingLocation:
       type: object
       description: Object containing the Pre Authorize transaction shipping location data
@@ -614,15 +639,8 @@ components:
       - expirationMonth
       - expirationYear
       - holderName
-    PreAuthorizeRecurring:
-      type: object
-      properties:
-        paymentType:
-          description: 'Recurring payment type. Possible value: `2` - unscheduled Merchant Initiated Transaction (MIT) payment'
-          type: integer
-          example: 2
-    responseError:
-      title: Error response
+    responseSuccess:
+      title: Success response
       properties:
         requestId:
           description: Request ID
@@ -630,83 +648,7 @@ components:
           example: b44724c9-3844-450d-b36a-986fc9c38d7b
           maxLength: 36
           minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
       type: object
-    PreAuthorizeCustomer:
-      type: object
-      description: Object containing data of the customer to be pre authorized
-      properties:
-        id:
-          description: Unique identifier of the customer in the merchant’s system. Used for applying limits to the customer
-          type: string
-          example: user123
-          maxLength: 50
-          minLength: 1
-        phone:
-          description: '**Conditional parameter:** The customer''s phone number is required if the customer''s email address is not provided. **Format:** The parameter must include a valid country code and a phone number of the correct length. Only numbers and an optional `+` symbol are allowed.'
-          type: string
-          example: 0123456789
-          maxLength: 20
-          minLength: 3
-        email:
-          description: '**Conditional parameter**: The customer’s email address is mandatory if the customer’s phone number is not provided.'
-          type: string
-          example: email@email.com
-          maxLength: 50
-          minLength: 6
-        dateOfBirth:
-          description: 'Customer’s date of birth. ISO 8601 format: `YYYY-MM-DD`. Required by some providers or when MCC is 6012'
-          type: string
-          example: '2000-01-01'
-          maxLength: 10
-          minLength: 10
-        countryCode:
-          description: Customer’s billing country. [`Country list`](#appendix--enum--country). Might be mandatory for some integrations.
-          type: string
-          example: GB
-          maxLength: 2
-          minLength: 2
-        state:
-          description: 'State or province of the customer’s billing address, as defined in ISO 3166-2, e.g. US Alabama: AL'
-          type: string
-          example: AL
-          maxLength: 3
-          minLength: 1
-        city:
-          description: Customer’s billing city. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: City
-          maxLength: 85
-          minLength: 1
-        address:
-          description: Customer’s billing address. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: Address
-          maxLength: 100
-          minLength: 1
-        zipCode:
-          description: Customer’s billing ZIP code. Required by some integrations with 3DS v2. Required if avs_check is `true`
-          type: string
-          example: GU16 7HF
-          maxLength: 20
-          minLength: 1
-        ip:
-          description: IPv4 or IPv6 address
-          type: string
-          example: 1.1.1.1
-          maxLength: 40
-          minLength: 7
-      required:
-      - ip
     violationObject:
       title: Validation object
       properties:
@@ -731,6 +673,50 @@ components:
           minLength: 1
           example: Value is not provided
       type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    PreAuthorizeRecurring:
+      type: object
+      properties:
+        paymentType:
+          description: 'Recurring payment type. Possible value: `2` - unscheduled Merchant Initiated Transaction (MIT) payment'
+          type: integer
+          example: 2
     responseUnauthorized:
       properties:
         requestId:
@@ -750,6 +736,20 @@ components:
           items:
             type: string
           example: []
+      type: object
+    PreAuthorize_2:
+      title: pre-authorize
+      properties:
+        transaction:
+          $ref: '#/components/schemas/PreAuthorizeTransaction_2'
+        card:
+          $ref: '#/components/schemas/PreAuthorizeCard_2'
+        shippingLocation:
+          $ref: '#/components/schemas/PreAuthorizeShippingLocation'
+        customer:
+          $ref: '#/components/schemas/PreAuthorizeCustomer'
+        recurring:
+          $ref: '#/components/schemas/PreAuthorizeRecurring'
       type: object
   securitySchemes:
     accountId:

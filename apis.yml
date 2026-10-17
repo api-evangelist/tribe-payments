@@ -1463,15 +1463,15 @@ apis:
     url: https://doc.tribepayments.com/
   - type: APIReference
     url: https://doc.tribepayments.com/
-- aid: tribe-payments:tribe-payments-p2-p-api
-  name: Tribe Payments P2 P API
-  description: The P2 P API from Tribe Payments — 2 operation(s) for p2 p.
+- aid: tribe-payments:tribe-payments-p2p-api
+  name: Tribe Payments P2P API
+  description: The P2P API from Tribe Payments — 2 operation(s) for p2p.
   humanURL: https://doc.tribepayments.com/docs/issuing--program-manager-api--v1.2
   tags:
-  - P2 P
+  - P2P
   properties:
   - type: OpenAPI
-    url: openapi/tribe-payments-p2-p-api-openapi.yml
+    url: openapi/tribe-payments-p2p-api-openapi.yml
   - type: Documentation
     url: https://doc.tribepayments.com/docs/trb-gateway--credit-card-api--v3
   - type: APIReference

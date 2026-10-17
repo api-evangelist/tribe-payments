@@ -85,24 +85,6 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    OrderStatusWebhook:
-      type: object
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_order_status</td><td>Report webhook for order status request</td></tr></table>'
-          type: string
-          example: report_order_status
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
     OrderStatus:
       title: order-status
       properties:
@@ -185,22 +167,36 @@ components:
           description: ''
           type: integer
           example: 4
-    unprocessableContent:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4005'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company webhook URL is not set
+    OrderStatusWebhook:
       type: object
+      properties:
+        id:
+          description: Unique webhook ID
+          type: string
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>report_order_status</td><td>Report webhook for order status request</td></tr></table>'
+          type: string
+          example: report_order_status
+          maxLength: 255
+          minLength: 3
+      required:
+      - id
+      - type
+    OrderStatus_2:
+      title: order-status
+      properties:
+        orderId:
+          description: Merchant’s order ID
+          type: string
+          example: order_id_1
+          maxLength: 32
+          minLength: 1
+      type: object
+      required:
+      - orderId
     violationObjectForbidden:
       title: Validation object
       properties:
@@ -217,17 +213,7 @@ components:
           minLength: 1
           example: Company is disabled
       type: object
-    responseSuccess:
-      title: Success response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-      type: object
-    responseForbidden:
+    responseTooManyRequests:
       properties:
         requestId:
           description: Request ID
@@ -238,24 +224,12 @@ components:
         message:
           description: Request ID
           type: string
-          example: Error occurred
+          example: Too many requests
         violations:
           type: array
           items:
-            $ref: '#/components/schemas/violationObjectForbidden'
+            $ref: '#/components/schemas/violationObjectTooManyRequests'
       type: object
-    OrderStatus_2:
-      title: order-status
-      properties:
-        orderId:
-          description: Merchant’s order ID
-          type: string
-          example: order_id_1
-          maxLength: 32
-          minLength: 1
-      type: object
-      required:
-      - orderId
     responseErrorReport:
       title: Error response
       properties:
@@ -276,7 +250,49 @@ components:
           items:
             $ref: '#/components/schemas/violationObjectReport'
       type: object
-    responseTooManyRequests:
+    violationObjectReport:
+      title: Validation object disputes
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '1004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Request body contains unknown field "randomName"
+      type: object
+    responseSuccess:
+      title: Success response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+      type: object
+    violationObjectTooManyRequests:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4004'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Retry after 30 seconds
+      type: object
+    responseForbidden:
       properties:
         requestId:
           description: Request ID
@@ -287,11 +303,11 @@ components:
         message:
           description: Request ID
           type: string
-          example: Too many requests
+          example: Error occurred
         violations:
           type: array
           items:
-            $ref: '#/components/schemas/violationObjectTooManyRequests'
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     responseUnauthorized:
       properties:
@@ -313,7 +329,7 @@ components:
             type: string
           example: []
       type: object
-    violationObjectTooManyRequests:
+    unprocessableContent:
       title: Validation object
       properties:
         code:
@@ -321,29 +337,13 @@ components:
           type: string
           maxLength: 5
           minLength: 3
-          example: '4004'
+          example: '4005'
         message:
           description: '[`Response message`](#appendix--enum--response-code)'
           type: string
           maxLength: 50
           minLength: 1
-          example: Retry after 30 seconds
-      type: object
-    violationObjectReport:
-      title: Validation object disputes
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '1004'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Request body contains unknown field "randomName"
+          example: Company webhook URL is not set
       type: object
   securitySchemes:
     apiKey:

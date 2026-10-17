@@ -73,41 +73,6 @@ paths:
     - url: http://127.0.0.1:10010/v3
 components:
   schemas:
-    CreditWebhook:
-      type: object
-      description: Object containing the Credit webhook data
-      properties:
-        id:
-          description: Unique webhook ID
-          type: string
-          example: '545522349919700221'
-          maxLength: 16
-          minLength: 16
-        type:
-          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
-          type: string
-          example: transaction_cc
-          maxLength: 255
-          minLength: 3
-      required:
-      - id
-      - type
-    Credit:
-      title: credit
-      properties:
-        webhook:
-          $ref: '#/components/schemas/CreditWebhook'
-        requestId:
-          description: Unique request ID received after a successful initial request for the appropriate action
-          type: string
-          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
-          maxLength: 36
-          minLength: 36
-        transaction:
-          $ref: '#/components/schemas/CreditTransaction'
-      type: object
-      required:
-      - requestId
     CreditTransaction:
       type: object
       description: Object containing data of the Credit transaction
@@ -179,41 +144,111 @@ components:
       - errorDescription
       - status
       - type
-    CreditCard:
-      type: object
-      description: Object containing details of the card to be credited
+    Credit:
+      title: credit
       properties:
-        number:
-          description: Customer’s card number
+        webhook:
+          $ref: '#/components/schemas/CreditWebhook'
+        requestId:
+          description: Unique request ID received after a successful initial request for the appropriate action
           type: string
-          example: '5099993000018223'
-          maxLength: 22
-          minLength: 13
-        expirationMonth:
-          description: Card expiry month
-          type: integer
-          example: 12
-        expirationYear:
-          description: Card expiry year. Must be within the next 50 years
-          type: integer
-          example: 2028
-        securityCode:
-          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          example: a06a73c9-d1d7-11ec-8b58-2e8a68cda573
+          maxLength: 36
+          minLength: 36
+        transaction:
+          $ref: '#/components/schemas/CreditTransaction'
+      type: object
+      required:
+      - requestId
+    CreditWebhook:
+      type: object
+      description: Object containing the Credit webhook data
+      properties:
+        id:
+          description: Unique webhook ID
           type: string
-          example: '000'
-          maxLength: 4
-          minLength: 3
-        holderName:
-          description: Customer’s full name
+          example: '545522349919700221'
+          maxLength: 16
+          minLength: 16
+        type:
+          description: '[Webhook Type]<table><tr><th>Type</th><th>Description</th></tr><tr><td>transaction_cc</td><td>Credit Card Transaction webhook for transaction change event</td></tr></table>'
           type: string
-          example: John Doe von Soap
-          maxLength: 26
+          example: transaction_cc
+          maxLength: 255
           minLength: 3
       required:
-      - number
-      - expirationMonth
-      - expirationYear
-      - holderName
+      - id
+      - type
+    violationObjectForbidden:
+      title: Validation object
+      properties:
+        code:
+          description: '[`Response code`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 5
+          minLength: 3
+          example: '4001'
+        message:
+          description: '[`Response message`](#appendix--enum--response-code)'
+          type: string
+          maxLength: 50
+          minLength: 1
+          example: Company is disabled
+      type: object
+    CreditReceiver:
+      type: object
+      description: Object containing data of the funds receiver, i.e. the person or institution receiving a Credit
+      properties:
+        firstName:
+          description: '**Conditional parameter**: Receiver’s first name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Firstname
+          maxLength: 35
+          minLength: 1
+        lastName:
+          description: '**Conditional parameter**: Receiver’s last name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
+          type: string
+          example: Lastname
+          maxLength: 35
+          minLength: 1
+    CreditTransaction_2:
+      type: object
+      description: Object containing data of the Credit transaction
+      properties:
+        amount:
+          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
+          type: string
+          example: '123'
+          maxLength: 13
+          minLength: 1
+        currencyCode:
+          description: Currency ISO 4217 code
+          type: string
+          example: EUR
+          maxLength: 3
+          minLength: 3
+        orderId:
+          description: Custom merchant’s reference
+          type: string
+          example: '32131231231241'
+          maxLength: 32
+          minLength: 1
+        descriptor:
+          description: Custom descriptor
+          type: string
+          example: descriptor
+          maxLength: 22
+          minLength: 1
+        paymentTypeIndicator:
+          description: The parameter handles the [`payment transaction type`](#appendix--enum--payment-transaction-type-indicator). Required for Mastercard and Visa money transfers as well as Account Funding transactions
+          type: string
+          example: C07
+          maxLength: 3
+          minLength: 2
+      required:
+      - amount
+      - currencyCode
+      - orderId
     CreditCustomer:
       type: object
       description: Object containing data of the actual credit customer, i.e. the person or institution initiating a Credit transaction
@@ -278,22 +313,41 @@ components:
           example: 1.1.1.1
           maxLength: 40
           minLength: 7
-    violationObjectForbidden:
-      title: Validation object
-      properties:
-        code:
-          description: '[`Response code`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 5
-          minLength: 3
-          example: '4001'
-        message:
-          description: '[`Response message`](#appendix--enum--response-code)'
-          type: string
-          maxLength: 50
-          minLength: 1
-          example: Company is disabled
+    CreditCard:
       type: object
+      description: Object containing details of the card to be credited
+      properties:
+        number:
+          description: Customer’s card number
+          type: string
+          example: '5099993000018223'
+          maxLength: 22
+          minLength: 13
+        expirationMonth:
+          description: Card expiry month
+          type: integer
+          example: 12
+        expirationYear:
+          description: Card expiry year. Must be within the next 50 years
+          type: integer
+          example: 2028
+        securityCode:
+          description: '**Conditional parameter:** The CVV or CVC of the card. Whether this parameter is mandatory or optional depends on your integration.'
+          type: string
+          example: '000'
+          maxLength: 4
+          minLength: 3
+        holderName:
+          description: Customer’s full name
+          type: string
+          example: John Doe von Soap
+          maxLength: 26
+          minLength: 3
+      required:
+      - number
+      - expirationMonth
+      - expirationYear
+      - holderName
     responseSuccess:
       title: Success response
       properties:
@@ -304,109 +358,6 @@ components:
           maxLength: 36
           minLength: 36
       type: object
-    responseForbidden:
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Request ID
-          type: string
-          example: Error occurred
-        violations:
-          type: array
-          items:
-            $ref: '#/components/schemas/violationObjectForbidden'
-      type: object
-    CreditTransaction_2:
-      type: object
-      description: Object containing data of the Credit transaction
-      properties:
-        amount:
-          description: Number in minor units, e.g. cents. To charge €10, provide 1000 (as the EUR minor unit is cents). Meanwhile, for a ¥10 charge, provide 10 (as the JPY minor unit is the whole unit, i.e., it does not have cents).
-          type: string
-          example: '123'
-          maxLength: 13
-          minLength: 1
-        currencyCode:
-          description: Currency ISO 4217 code
-          type: string
-          example: EUR
-          maxLength: 3
-          minLength: 3
-        orderId:
-          description: Custom merchant’s reference
-          type: string
-          example: '32131231231241'
-          maxLength: 32
-          minLength: 1
-        descriptor:
-          description: Custom descriptor
-          type: string
-          example: descriptor
-          maxLength: 22
-          minLength: 1
-        paymentTypeIndicator:
-          description: The parameter handles the [`payment transaction type`](#appendix--enum--payment-transaction-type-indicator). Required for Mastercard and Visa money transfers as well as Account Funding transactions
-          type: string
-          example: C07
-          maxLength: 3
-          minLength: 2
-      required:
-      - amount
-      - currencyCode
-      - orderId
-    responseError:
-      title: Error response
-      properties:
-        requestId:
-          description: Request ID
-          type: string
-          example: b44724c9-3844-450d-b36a-986fc9c38d7b
-          maxLength: 36
-          minLength: 36
-        message:
-          description: Error response
-          type: string
-          example: Error occurred
-        violations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/violationObject'
-      type: object
-    Credit_2:
-      title: credit
-      properties:
-        transaction:
-          $ref: '#/components/schemas/CreditTransaction_2'
-        card:
-          $ref: '#/components/schemas/CreditCard'
-        customer:
-          $ref: '#/components/schemas/CreditCustomer'
-        receiver:
-          $ref: '#/components/schemas/CreditReceiver'
-      type: object
-    CreditReceiver:
-      type: object
-      description: Object containing data of the funds receiver, i.e. the person or institution receiving a Credit
-      properties:
-        firstName:
-          description: '**Conditional parameter**: Receiver’s first name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
-          type: string
-          example: Firstname
-          maxLength: 35
-          minLength: 1
-        lastName:
-          description: '**Conditional parameter**: Receiver’s last name. For institutions, their name must be encoded through the `firstName` and `lastName` parameters. It is required if the MCC is 6536 or 6537 (MoneySend Payment).'
-          type: string
-          example: Lastname
-          maxLength: 35
-          minLength: 1
     violationObject:
       title: Validation object
       properties:
@@ -430,6 +381,55 @@ components:
           maxLength: 50
           minLength: 1
           example: Value is not provided
+      type: object
+    Credit_2:
+      title: credit
+      properties:
+        transaction:
+          $ref: '#/components/schemas/CreditTransaction_2'
+        card:
+          $ref: '#/components/schemas/CreditCard'
+        customer:
+          $ref: '#/components/schemas/CreditCustomer'
+        receiver:
+          $ref: '#/components/schemas/CreditReceiver'
+      type: object
+    responseError:
+      title: Error response
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Error response
+          type: string
+          example: Error occurred
+        violations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/violationObject'
+      type: object
+    responseForbidden:
+      properties:
+        requestId:
+          description: Request ID
+          type: string
+          example: b44724c9-3844-450d-b36a-986fc9c38d7b
+          maxLength: 36
+          minLength: 36
+        message:
+          description: Request ID
+          type: string
+          example: Error occurred
+        violations:
+          type: array
+          items:
+            $ref: '#/components/schemas/violationObjectForbidden'
       type: object
     responseUnauthorized:
       properties:

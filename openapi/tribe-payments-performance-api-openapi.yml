@@ -32,6 +32,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    DailyPerformanceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Confirms the correct response by returning the success status.
     DailyPerformanceRequest:
       type: object
       properties:
@@ -49,9 +55,3 @@ components:
           example: 21215
       required:
       - date
-    DailyPerformanceResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Confirms the correct response by returning the success status.
